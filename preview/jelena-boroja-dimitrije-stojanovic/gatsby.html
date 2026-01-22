@@ -1,0 +1,3581 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - Jelena Boroja и Dimitrije Stojanovic">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Jelena Boroja & Dimitrije Stojanovic - Позивница за венчање</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+
+  <!-- Theme CSS -->
+  <style>
+/**
+ * Art Deco Gatsby Theme - Roaring Twenties Elegance
+ * Trend 2025-2026: Retro glamour revival, geometric luxury
+ * Font: Poiret One + Josefin Sans
+ * Colors: Navy, Gold, Black, Champagne
+ * Layout: Geometric frames, fan patterns, symmetrical design
+ */
+
+/* CSS Custom Properties */
+:root {
+  --color-primary: #0D1B2A;
+  --color-primary-light: #1B263B;
+  --color-accent: #D4AF37;
+  --color-accent-light: #E5C158;
+  --color-accent-dark: #B8960C;
+  --color-text: #FDFCFA;
+  --color-text-muted: #A0A0A0;
+  --color-background: #0D1B2A;
+  --color-background-alt: #1B263B;
+  --color-card: #162032;
+  --color-champagne: #F7E7CE;
+  --color-white: #FFFFFF;
+  --color-black: #050A10;
+
+  --font-display: 'Poiret One', 'Josefin Sans', sans-serif;
+  --font-heading: 'Poiret One', 'Josefin Sans', sans-serif;
+  --font-body: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  --border-radius: 0;
+  --transition: 0.3s ease;
+
+  /* Art Deco patterns */
+  --pattern-fan: conic-gradient(
+    from 180deg at 50% 100%,
+    transparent 0deg,
+    var(--color-accent) 0deg,
+    var(--color-accent) 15deg,
+    transparent 15deg,
+    transparent 30deg,
+    var(--color-accent) 30deg,
+    var(--color-accent) 45deg,
+    transparent 45deg,
+    transparent 60deg,
+    var(--color-accent) 60deg,
+    var(--color-accent) 75deg,
+    transparent 75deg,
+    transparent 90deg,
+    var(--color-accent) 90deg,
+    var(--color-accent) 105deg,
+    transparent 105deg,
+    transparent 120deg,
+    var(--color-accent) 120deg,
+    var(--color-accent) 135deg,
+    transparent 135deg,
+    transparent 150deg,
+    var(--color-accent) 150deg,
+    var(--color-accent) 165deg,
+    transparent 165deg,
+    transparent 180deg
+  );
+
+  /* Geometric line pattern */
+  --pattern-lines: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(212, 175, 55, 0.05) 10px,
+    rgba(212, 175, 55, 0.05) 20px
+  );
+
+  /* Gold gradient */
+  --gradient-gold: linear-gradient(
+    135deg,
+    var(--color-accent-dark) 0%,
+    var(--color-accent) 50%,
+    var(--color-accent-light) 100%
+  );
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  background-image: var(--pattern-lines);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  position: relative;
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+/* Geometric frame around titles */
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 100%;
+  border: 2px solid var(--color-accent);
+  border-left: none;
+  border-right: none;
+}
+
+.section-title::after {
+  content: '◆';
+  display: block;
+  font-size: 0.75rem;
+  margin-top: var(--spacing-xs);
+  letter-spacing: 0.5em;
+}
+
+/* Decorative Elements - Art Deco Style */
+.decorative-divider {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  position: relative;
+  height: 40px;
+}
+
+.decorative-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 2px;
+  background: var(--gradient-gold);
+}
+
+.decorative-divider::after {
+  content: '◆◆◆';
+  position: relative;
+  background: var(--color-background);
+  padding: 0 var(--spacing-md);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+}
+
+/* Header Section - Grand Entrance */
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fan pattern decoration at bottom */
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background: var(--pattern-fan);
+  opacity: 0.1;
+}
+
+/* Geometric corner decorations */
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid var(--color-accent);
+  margin: 30px;
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-xl);
+}
+
+/* Art deco frame around header content */
+.header-content::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.header-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+}
+
+.couple-names {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.couple-names .ampersand {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin: var(--spacing-sm) 0;
+  letter-spacing: 0;
+}
+
+.wedding-date-header {
+  font-size: 1.25rem;
+  color: var(--color-champagne);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: var(--color-accent);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+.scroll-indicator span {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.scroll-indicator::after {
+  content: '▼';
+  display: block;
+  font-size: 1rem;
+}
+
+/* Content Sections */
+section {
+  padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+/* Countdown Section */
+.countdown-section {
+  background: var(--color-background-alt);
+  border-top: 3px solid var(--color-accent);
+  border-bottom: 3px solid var(--color-accent);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  position: relative;
+  min-width: 120px;
+}
+
+/* Geometric hexagon-ish frame */
+.countdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--color-accent);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.countdown-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-sm);
+  display: block;
+}
+
+/* Invitation Section */
+.invitation-section {
+  background: var(--color-background);
+}
+
+.invitation-card {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  position: relative;
+  background: var(--color-card);
+  border: 3px solid var(--color-accent);
+}
+
+/* Corner decorations - art deco style */
+.invitation-card::before,
+.invitation-card::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--color-accent);
+}
+
+.invitation-card::before {
+  top: 15px;
+  left: 15px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.invitation-card::after {
+  bottom: 15px;
+  right: 15px;
+  border-left: none;
+  border-top: none;
+}
+
+.invitation-intro {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: var(--spacing-md);
+}
+
+.invitation-text {
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--color-text);
+}
+
+.invitation-signature {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  margin-top: var(--spacing-lg);
+  letter-spacing: 0.2em;
+}
+
+/* Story Section */
+.story-section {
+  background: var(--color-background-alt);
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-text {
+  font-size: 1.125rem;
+  line-height: 2;
+  text-align: center;
+  padding: var(--spacing-lg);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+}
+
+.story-text::before,
+.story-text::after {
+  content: '「';
+  position: absolute;
+  font-size: 3rem;
+  color: var(--color-accent);
+  opacity: 0.3;
+}
+
+.story-text::before {
+  top: -20px;
+  left: 20px;
+}
+
+.story-text::after {
+  content: '」';
+  bottom: -20px;
+  right: 20px;
+}
+
+.story-photo {
+  text-align: center;
+}
+
+.story-photo img {
+  max-width: 100%;
+  border: 3px solid var(--color-accent);
+}
+
+/* Details Section */
+.details-section {
+  background: var(--color-background);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.detail-card {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: var(--color-card);
+  border: 2px solid var(--color-accent);
+  position: relative;
+  transition: transform var(--transition);
+}
+
+.detail-card:hover {
+  transform: scale(1.02);
+}
+
+/* Diagonal corner cuts */
+.detail-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 30px 30px 0;
+  border-color: transparent var(--color-background) transparent transparent;
+}
+
+.detail-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.detail-time {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-venue {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.detail-address {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--color-accent);
+  transition: opacity var(--transition);
+}
+
+.detail-map-link:hover {
+  opacity: 0.7;
+}
+
+.additional-info {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  padding: var(--spacing-md);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Dress Code Section */
+.dresscode-section {
+  background: var(--color-background-alt);
+}
+
+.dresscode-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dresscode-text {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.dresscode-colors-label {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.color-swatches {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color-accent);
+  transition: transform var(--transition);
+}
+
+.color-swatch:hover {
+  transform: rotate(45deg);
+}
+
+/* RSVP Section */
+.rsvp-section {
+  background: var(--color-background);
+}
+
+.rsvp-counter {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.counter-item {
+  text-align: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--color-accent);
+}
+
+.counter-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.counter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+}
+
+.counter-divider {
+  display: flex;
+  align-items: center;
+  color: var(--color-accent);
+  font-size: 2rem;
+}
+
+.rsvp-deadline {
+  text-align: center;
+  color: var(--color-champagne);
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: var(--color-card);
+  border: 2px solid var(--color-accent);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-accent);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-accent);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-width: 2px;
+  background: var(--color-background-alt);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.radio-group {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.radio-label input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-accent);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.radio-label input[type="radio"]:checked {
+  background: var(--color-accent);
+}
+
+.radio-label input[type="radio"]:checked::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: var(--color-background);
+}
+
+.conditional-field {
+  display: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px 40px;
+  background: var(--gradient-gold);
+  color: var(--color-background);
+  border: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.submit-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  text-align: center;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.form-message.success {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.form-message.error {
+  border: 1px solid #C44536;
+  color: #C44536;
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-background-alt);
+  text-align: center;
+  border-top: 3px solid var(--color-accent);
+  position: relative;
+}
+
+/* Fan decoration */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 100px;
+  background: var(--pattern-fan);
+  opacity: 0.1;
+}
+
+.footer-names {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.footer-date {
+  font-size: 1rem;
+  color: var(--color-champagne);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-hashtag {
+  font-size: 1rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.1em;
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Calendar Buttons */
+.add-to-calendar {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.calendar-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.calendar-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all var(--transition);
+}
+
+.calendar-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .couple-names {
+    font-size: 3rem;
+  }
+
+  .couple-names .ampersand {
+    font-size: 1.75rem;
+  }
+
+  .header::after {
+    margin: 15px;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md);
+  }
+
+  .countdown-item {
+    min-width: 90px;
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .invitation-card {
+    padding: var(--spacing-lg);
+  }
+
+  .invitation-card::before,
+  .invitation-card::after {
+    width: 40px;
+    height: 40px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .rsvp-counter {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .counter-divider {
+    display: none;
+  }
+
+  .section-title::before {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .couple-names {
+    font-size: 2.25rem;
+    letter-spacing: 0.1em;
+  }
+
+  .countdown-timer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .countdown-item::before {
+    display: none;
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.2em;
+  }
+
+  .section-title::before {
+    display: none;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .calendar-buttons {
+    flex-direction: column;
+  }
+
+  .calendar-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+</style>
+
+  <!-- Animations & Components CSS -->
+  <style>
+/**
+ * Wedding Invitation - Modern Animation Effects
+ * Trend 2025-2026: Smooth animations, parallax, floating elements
+ */
+
+/* ============================================
+   SCROLL-TRIGGERED ANIMATIONS
+   ============================================ */
+
+/* Fade in from bottom */
+.animate-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade in from left */
+.animate-fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-fade-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fade in from right */
+.animate-fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-fade-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale up */
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered children animation */
+.animate-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.animate-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.animate-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.animate-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+.animate-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
+.animate-stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
+
+.animate-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   FLOATING DECORATIONS
+   ============================================ */
+
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-element {
+  position: absolute;
+  opacity: 0.15;
+  font-size: 2rem;
+  animation: float-drift 20s infinite ease-in-out;
+}
+
+.floating-element:nth-child(1) { left: 5%; top: 10%; animation-delay: 0s; animation-duration: 22s; }
+.floating-element:nth-child(2) { left: 15%; top: 60%; animation-delay: -3s; animation-duration: 18s; }
+.floating-element:nth-child(3) { left: 25%; top: 30%; animation-delay: -6s; animation-duration: 25s; }
+.floating-element:nth-child(4) { left: 75%; top: 20%; animation-delay: -9s; animation-duration: 20s; }
+.floating-element:nth-child(5) { left: 85%; top: 70%; animation-delay: -12s; animation-duration: 23s; }
+.floating-element:nth-child(6) { left: 90%; top: 40%; animation-delay: -15s; animation-duration: 19s; }
+.floating-element:nth-child(7) { left: 50%; top: 80%; animation-delay: -4s; animation-duration: 21s; }
+.floating-element:nth-child(8) { left: 35%; top: 15%; animation-delay: -8s; animation-duration: 24s; }
+
+@keyframes float-drift {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-15px) translateX(-10px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-40px) translateX(20px) rotate(8deg);
+  }
+}
+
+/* Falling petals effect */
+.falling-petals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.petal {
+  position: absolute;
+  top: -50px;
+  opacity: 0.6;
+  animation: fall linear infinite;
+}
+
+.petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; font-size: 1.2rem; }
+.petal:nth-child(2) { left: 20%; animation-duration: 15s; animation-delay: -2s; font-size: 1rem; }
+.petal:nth-child(3) { left: 30%; animation-duration: 11s; animation-delay: -4s; font-size: 1.4rem; }
+.petal:nth-child(4) { left: 40%; animation-duration: 14s; animation-delay: -1s; font-size: 0.9rem; }
+.petal:nth-child(5) { left: 50%; animation-duration: 13s; animation-delay: -3s; font-size: 1.1rem; }
+.petal:nth-child(6) { left: 60%; animation-duration: 16s; animation-delay: -5s; font-size: 1.3rem; }
+.petal:nth-child(7) { left: 70%; animation-duration: 10s; animation-delay: -2s; font-size: 1rem; }
+.petal:nth-child(8) { left: 80%; animation-duration: 14s; animation-delay: -4s; font-size: 1.2rem; }
+.petal:nth-child(9) { left: 90%; animation-duration: 12s; animation-delay: -1s; font-size: 0.8rem; }
+
+@keyframes fall {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   PARALLAX EFFECTS
+   ============================================ */
+
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+/* ============================================
+   TEXT ANIMATIONS
+   ============================================ */
+
+/* Animated text reveal */
+.text-reveal {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.text-reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+  animation: text-reveal-up 0.8s ease-out forwards;
+}
+
+@keyframes text-reveal-up {
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid currentColor;
+  white-space: nowrap;
+  animation: typewriter 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+  width: 0;
+}
+
+@keyframes typewriter {
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Gradient text animation */
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-primary, #D4AF37), var(--color-accent, #B8960C), var(--color-primary, #D4AF37));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* ============================================
+   BUTTON & INTERACTIVE ANIMATIONS
+   ============================================ */
+
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-animated:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-animated:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Pulse effect for CTA buttons */
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+  }
+}
+
+/* ============================================
+   HEART ANIMATIONS
+   ============================================ */
+
+.heart-beat {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.2); }
+  70% { transform: scale(1); }
+}
+
+/* Floating hearts on click/success */
+.heart-burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.heart-burst span {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: heart-float 2s ease-out forwards;
+}
+
+@keyframes heart-float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-150px) scale(1.2);
+  }
+}
+
+/* ============================================
+   LOADING ANIMATIONS
+   ============================================ */
+
+.loading-rings {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.loading-rings span {
+  position: absolute;
+  border: 3px solid var(--color-primary, #D4AF37);
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading-rings 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.loading-rings span:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes loading-rings {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   COUNTER ANIMATIONS
+   ============================================ */
+
+.counter-animate {
+  display: inline-block;
+  animation: counter-pop 0.5s ease-out;
+}
+
+@keyframes counter-pop {
+  0% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Celebration confetti effect */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall 3s ease-out forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   SMOOTH SECTION TRANSITIONS
+   ============================================ */
+
+section {
+  position: relative;
+}
+
+.section-transition-wave::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath fill='%23ffffff' d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-elements,
+  .falling-petals {
+    display: none;
+  }
+
+  .animate-fade-up,
+  .animate-fade-left,
+  .animate-fade-right {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/**
+ * Wedding Invitation - Component Styles
+ * New Features for 2025 Trends
+ */
+
+/* ============================================
+   MUSIC PLAYER (Trend #3)
+   ============================================ */
+
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.music-player.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.music-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary, #D4AF37);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.music-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.music-toggle.playing {
+  animation: music-pulse 1s ease-in-out infinite;
+}
+
+@keyframes music-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+}
+
+.music-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text, #333);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-artist {
+  font-size: 0.75rem;
+  color: var(--color-text-light, #666);
+}
+
+@media (max-width: 480px) {
+  .music-player {
+    padding: 8px 12px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .music-info {
+    display: none;
+  }
+}
+
+/* ============================================
+   PHOTO GALLERY (Trend #2)
+   ============================================ */
+
+.gallery-section {
+  padding: var(--spacing-xl, 6rem) 0;
+  background: var(--color-background-alt, #F8F8F8);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: var(--border-radius, 8px);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
+}
+
+.gallery-item-caption {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  text-align: center;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.lightbox-caption {
+  color: white;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.lightbox-counter {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 10001;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
+}
+
+.lightbox-prev {
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-next {
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ============================================
+   LOVE STORY TIMELINE (Trend #4)
+   ============================================ */
+
+.timeline-section {
+  padding: var(--spacing-xl, 6rem) 0;
+  background: var(--color-background, #FFF);
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-primary, #D4AF37) 10%,
+    var(--color-primary, #D4AF37) 90%,
+    transparent
+  );
+}
+
+.timeline-item {
+  position: relative;
+  width: 45%;
+  padding: 1.5rem;
+  background: var(--color-white, #FFF);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline-item:nth-child(odd) {
+  margin-left: 5%;
+}
+
+.timeline-item:nth-child(even) {
+  margin-left: 50%;
+  transform: translateX(30px);
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--color-primary, #D4AF37);
+  border: 3px solid var(--color-white, #FFF);
+  border-radius: 50%;
+  top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-item:nth-child(odd)::before {
+  right: -8%;
+}
+
+.timeline-item:nth-child(even)::before {
+  left: -8%;
+}
+
+.timeline-date {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--color-primary, #D4AF37);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text, #333);
+}
+
+.timeline-description {
+  font-size: 0.95rem;
+  color: var(--color-text-light, #666);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.timeline-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+    transform: translateX(30px);
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+}
+
+/* ============================================
+   ENHANCED RSVP COUNTER (Trend #5)
+   ============================================ */
+
+.counter-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.counter-bar-fill {
+  height: 100%;
+  background: var(--color-primary, #D4AF37);
+  border-radius: 2px;
+  width: 0;
+  transition: width 1.5s ease-out;
+}
+
+.counter-heart {
+  font-size: 1.5rem;
+}
+
+.rsvp-counter .counter-item {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Loading animation for submit button */
+.button-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-rings {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.loading-rings span {
+  position: absolute;
+  border: 2px solid currentColor;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading-rings 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.loading-rings span:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes loading-rings {
+  0% {
+    top: 8px;
+    left: 8px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   FLOATING DECORATIONS THEME VARIANTS
+   ============================================ */
+
+/* Classic theme decorations */
+.theme-classic .floating-element { color: #D4AF37; }
+
+/* Modern theme - hide floating elements */
+.theme-modern .floating-elements { display: none; }
+
+/* Romantic theme decorations */
+.theme-romantic .floating-element { color: #FFB6C1; }
+
+/* Minimal theme - hide floating elements */
+.theme-minimal .floating-elements { display: none; }
+
+/* Rustic theme decorations */
+.theme-rustic .floating-element { color: #228B22; }
+
+/* ============================================
+   CONFETTI STYLES
+   ============================================ */
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall 3s ease-out forwards;
+}
+
+.confetti:nth-child(odd) {
+  border-radius: 50%;
+}
+
+.confetti:nth-child(3n) {
+  width: 8px;
+  height: 12px;
+}
+
+.confetti:nth-child(4n) {
+  width: 6px;
+  height: 6px;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   ADD TO CALENDAR BUTTONS
+   ============================================ */
+
+.add-to-calendar {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.calendar-title {
+  font-size: 1.2rem;
+  color: var(--color-text, #333);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.calendar-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-primary, #D4AF37);
+  background: transparent;
+  color: var(--color-primary, #D4AF37);
+}
+
+.calendar-btn:hover {
+  background: var(--color-primary, #D4AF37);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.calendar-icon {
+  font-size: 1.1rem;
+}
+
+.calendar-btn-google:hover {
+  background: #4285f4;
+  border-color: #4285f4;
+}
+
+.calendar-btn-outlook:hover {
+  background: #0078d4;
+  border-color: #0078d4;
+}
+
+.calendar-btn-ics:hover {
+  background: #333;
+  border-color: #333;
+}
+
+@media (max-width: 480px) {
+  .calendar-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calendar-btn {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   SCROLL PROGRESS INDICATOR (Optional)
+   ============================================ */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--color-primary, #D4AF37);
+  z-index: 9999;
+  width: 0;
+  transition: width 0.1s ease;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .music-player {
+    bottom: 70px; /* Above mobile nav if any */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle.playing {
+    animation: none;
+  }
+
+  .timeline-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  .counter-bar-fill {
+    transition: none;
+  }
+
+  .confetti {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.gallery-item:focus,
+.music-toggle:focus,
+.lightbox-close:focus,
+.lightbox-prev:focus,
+.lightbox-next:focus {
+  outline: 3px solid var(--color-primary, #D4AF37);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .lightbox {
+    background: black;
+  }
+
+  .music-player {
+    background: white;
+    border: 2px solid black;
+  }
+}
+
+/**
+ * Wedding Invitation - Modern Backgrounds & Decorative Elements
+ * Trends 2025-2026: Mesh gradients, glassmorphism, textures, botanical elements
+ */
+
+/* ============================================
+   CSS VARIABLES FOR BACKGROUNDS
+   ============================================ */
+
+:root {
+  /* Gradient colors */
+  --gradient-start: #fdfcfb;
+  --gradient-end: #e2d1c3;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-blur: 10px;
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  /* Texture opacity */
+  --texture-opacity: 0.03;
+}
+
+/* ============================================
+   MESH GRADIENT BACKGROUNDS
+   ============================================ */
+
+/* Soft romantic mesh gradient */
+.bg-mesh-romantic {
+  background-color: #fdfcfb;
+  background-image:
+    radial-gradient(at 40% 20%, hsla(28, 100%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(340, 60%, 92%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(22, 70%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(340, 50%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(28, 80%, 94%, 1) 0px, transparent 50%);
+}
+
+/* Elegant cream/gold mesh gradient */
+.bg-mesh-elegant {
+  background-color: #fffef9;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(45, 60%, 97%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(40, 50%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, hsla(45, 40%, 98%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(35, 55%, 94%, 1) 0px, transparent 50%);
+}
+
+/* Modern dark/moody mesh gradient */
+.bg-mesh-moody {
+  background-color: #1a1a2e;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(280, 30%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(340, 40%, 18%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(260, 35%, 15%, 1) 0px, transparent 50%);
+}
+
+/* Earth tones mesh gradient */
+.bg-mesh-earth {
+  background-color: #faf8f5;
+  background-image:
+    radial-gradient(at 20% 30%, hsla(30, 40%, 94%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, hsla(90, 25%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 40% 80%, hsla(25, 35%, 92%, 1) 0px, transparent 50%),
+    radial-gradient(at 90% 90%, hsla(85, 20%, 95%, 1) 0px, transparent 50%);
+}
+
+/* Sage green mesh gradient */
+.bg-mesh-sage {
+  background-color: #f8faf8;
+  background-image:
+    radial-gradient(at 10% 20%, hsla(140, 30%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, hsla(135, 25%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 60%, hsla(145, 20%, 96%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, hsla(130, 30%, 92%, 1) 0px, transparent 50%);
+}
+
+/* Aurora/fluid gradient animation */
+.bg-aurora {
+  background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ffecd2, #a8edea);
+  background-size: 400% 400%;
+  animation: aurora-shift 15s ease infinite;
+}
+
+@keyframes aurora-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   PAPER TEXTURES
+   ============================================ */
+
+/* Subtle paper grain texture overlay */
+.texture-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--texture-opacity, 0.03);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Linen texture */
+.texture-linen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   GLASSMORPHISM EFFECTS
+   ============================================ */
+
+.glass-card {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.25));
+  backdrop-filter: blur(var(--glass-blur, 10px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 10px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card-strong {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   DECORATIVE FRAMES & BORDERS
+   ============================================ */
+
+/* Elegant ornamental frame */
+.frame-ornate {
+  position: relative;
+  padding: 3rem;
+}
+
+.frame-ornate::before,
+.frame-ornate::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--color-primary, #D4AF37);
+  opacity: 0.6;
+}
+
+.frame-ornate::before {
+  top: 1rem;
+  left: 1rem;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame-ornate::after {
+  bottom: 1rem;
+  right: 1rem;
+  border-left: none;
+  border-top: none;
+}
+
+/* Art deco frame corners */
+.frame-deco {
+  position: relative;
+}
+
+.frame-deco::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--color-primary, #D4AF37);
+  margin: 1rem;
+  pointer-events: none;
+}
+
+/* Scalloped border */
+.border-scallop {
+  --scallop-size: 10px;
+  background:
+    radial-gradient(circle at 50% 0, transparent var(--scallop-size), var(--color-background, #fff) var(--scallop-size))
+    repeat-x top / calc(var(--scallop-size) * 2.5) var(--scallop-size);
+  padding-top: calc(var(--scallop-size) + 1rem);
+}
+
+/* ============================================
+   DECORATIVE DIVIDERS
+   ============================================ */
+
+.divider-elegant {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  gap: 1rem;
+}
+
+.divider-elegant::before,
+.divider-elegant::after {
+  content: '';
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary, #D4AF37), transparent);
+}
+
+.divider-flourish {
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.divider-flourish::before {
+  content: '~';
+  font-size: 2rem;
+  color: var(--color-primary, #D4AF37);
+  font-family: serif;
+}
+
+/* ============================================
+   WATERCOLOR & BOTANICAL ACCENTS
+   ============================================ */
+
+/* Watercolor blob decoration */
+.watercolor-accent {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  opacity: 0.15;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: linear-gradient(135deg, var(--color-primary, #D4AF37), var(--color-accent, #B8960C));
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.watercolor-accent.top-left {
+  top: -100px;
+  left: -100px;
+}
+
+.watercolor-accent.top-right {
+  top: -50px;
+  right: -100px;
+}
+
+.watercolor-accent.bottom-left {
+  bottom: -100px;
+  left: -50px;
+}
+
+.watercolor-accent.bottom-right {
+  bottom: -100px;
+  right: -100px;
+}
+
+/* ============================================
+   HERO SECTION STYLES
+   ============================================ */
+
+/* Full-screen hero with overlay */
+.hero-fullscreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Hero with background image */
+.hero-image {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .hero-image {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================
+   MONOGRAM STYLES
+   ============================================ */
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--color-primary, #D4AF37);
+  border-radius: 50%;
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--color-primary, #D4AF37);
+  margin: 1rem auto;
+  position: relative;
+}
+
+.monogram::before,
+.monogram::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-primary, #D4AF37);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.monogram::before {
+  transform: scale(1.15);
+}
+
+.monogram::after {
+  transform: scale(1.3);
+}
+
+/* Crest-style monogram */
+.monogram-crest {
+  width: 140px;
+  height: 160px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border-width: 3px;
+}
+
+/* ============================================
+   CARD ELEVATION STYLES
+   ============================================ */
+
+.card-elevated {
+  background: var(--color-white, #fff);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 1px rgba(0,0,0,0.02),
+    0 2px 2px rgba(0,0,0,0.02),
+    0 4px 4px rgba(0,0,0,0.02),
+    0 8px 8px rgba(0,0,0,0.02),
+    0 16px 16px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 2px rgba(0,0,0,0.02),
+    0 4px 4px rgba(0,0,0,0.02),
+    0 8px 8px rgba(0,0,0,0.02),
+    0 16px 16px rgba(0,0,0,0.02),
+    0 32px 32px rgba(0,0,0,0.02);
+}
+
+/* Neumorphism soft card */
+.card-soft {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 20px;
+  box-shadow:
+    8px 8px 16px #d9d9d9,
+    -8px -8px 16px #ffffff;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .frame-ornate::before,
+  .frame-ornate::after {
+    width: 50px;
+    height: 50px;
+  }
+
+  .monogram {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+
+  .watercolor-accent {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora {
+    animation: none;
+  }
+}
+
+/**
+ * Wedding Invitation - Decorative SVG Elements
+ * Botanical illustrations, flourishes, frames
+ */
+
+/* ============================================
+   BOTANICAL CORNER DECORATIONS
+   ============================================ */
+
+/* Elegant floral corner - top left */
+.corner-floral-tl::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cpath d='M0 0 Q30 50 20 100 Q40 80 60 90 Q50 60 80 50 Q60 30 50 0' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M10 0 Q35 40 30 80 Q45 65 60 75 Q55 50 75 45 Q60 30 55 0' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ccircle cx='25' cy='25' r='3' fill='%23D4AF37' opacity='0.5'/%3E%3Ccircle cx='45' cy='40' r='2' fill='%23D4AF37' opacity='0.4'/%3E%3Ccircle cx='35' cy='55' r='2.5' fill='%23D4AF37' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Elegant floral corner - bottom right */
+.corner-floral-br::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cpath d='M150 150 Q120 100 130 50 Q110 70 90 60 Q100 90 70 100 Q90 120 100 150' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M140 150 Q115 110 120 70 Q105 85 90 75 Q95 100 75 105 Q90 120 95 150' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ccircle cx='125' cy='125' r='3' fill='%23D4AF37' opacity='0.5'/%3E%3Ccircle cx='105' cy='110' r='2' fill='%23D4AF37' opacity='0.4'/%3E%3Ccircle cx='115' cy='95' r='2.5' fill='%23D4AF37' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   BOTANICAL LEAF BORDERS
+   ============================================ */
+
+.border-leaves {
+  position: relative;
+}
+
+.border-leaves::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Cpath d='M100 55 Q90 40 70 45 Q80 35 75 20 Q90 30 100 15 Q110 30 125 20 Q120 35 130 45 Q110 40 100 55' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.3'/%3E%3Cpath d='M40 58 Q35 45 25 48 Q30 40 28 30 Q38 38 45 28 Q48 38 55 30 Q52 40 58 48 Q48 45 40 58' fill='none' stroke='%23228B22' stroke-width='1' opacity='0.25'/%3E%3Cpath d='M160 58 Q155 45 145 48 Q150 40 148 30 Q158 38 165 28 Q168 38 175 30 Q172 40 178 48 Q168 45 160 58' fill='none' stroke='%23228B22' stroke-width='1' opacity='0.25'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* ============================================
+   ROMANTIC FLOURISHES
+   ============================================ */
+
+.flourish-romantic {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.flourish-romantic::before {
+  content: '';
+  width: 200px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 30'%3E%3Cpath d='M0 15 Q25 5 50 15 T100 15 T150 15 T200 15' fill='none' stroke='%23FFB6C1' stroke-width='1' opacity='0.6'/%3E%3Cpath d='M90 15 Q95 10 100 15 Q105 20 110 15' fill='none' stroke='%23FFB6C1' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%23FFB6C1' opacity='0.8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   RING DECORATION
+   ============================================ */
+
+.rings-decoration {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.rings-decoration::before {
+  content: '';
+  width: 80px;
+  height: 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 50'%3E%3Cellipse cx='28' cy='25' rx='18' ry='18' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Cellipse cx='52' cy='25' rx='18' ry='18' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Cellipse cx='28' cy='25' rx='14' ry='14' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3Cellipse cx='52' cy='25' rx='14' ry='14' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   HEART DECORATIONS
+   ============================================ */
+
+.heart-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+.heart-divider::before,
+.heart-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--color-primary, #D4AF37);
+  opacity: 0.4;
+}
+
+.heart-divider span {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' fill='%23D4AF37'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.6;
+}
+
+/* ============================================
+   ELEGANT FRAME DECORATIONS
+   ============================================ */
+
+.frame-elegant {
+  position: relative;
+  padding: 2rem;
+}
+
+.frame-elegant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--color-primary, #D4AF37);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.frame-elegant::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid var(--color-primary, #D4AF37);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Art Deco frame */
+.frame-art-deco {
+  position: relative;
+  padding: 2.5rem;
+}
+
+.frame-art-deco::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L15 0 L0 15 Z M85 0 L100 0 L100 15 Z M0 85 L0 100 L15 100 Z M85 100 L100 100 L100 85 Z' fill='%23D4AF37' opacity='0.3'/%3E%3Crect x='5' y='5' width='90' height='90' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+/* ============================================
+   WATERCOLOR FLOWER DECORATIONS
+   ============================================ */
+
+.watercolor-flowers-top {
+  position: relative;
+}
+
+.watercolor-flowers-top::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 100px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'%3E%3Cdefs%3E%3CradialGradient id='flower1' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23FFB6C1' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23FFB6C1' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='flower2' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23DDA0DD' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%23DDA0DD' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='leaf' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%2398D8AA' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%2398D8AA' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='150' cy='50' rx='35' ry='30' fill='url(%23flower1)'/%3E%3Cellipse cx='100' cy='60' rx='25' ry='22' fill='url(%23flower2)'/%3E%3Cellipse cx='200' cy='55' rx='28' ry='25' fill='url(%23flower1)'/%3E%3Cellipse cx='70' cy='45' rx='20' ry='30' fill='url(%23leaf)' transform='rotate(-30 70 45)'/%3E%3Cellipse cx='230' cy='40' rx='20' ry='30' fill='url(%23leaf)' transform='rotate(30 230 40)'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   RUSTIC DECORATIONS
+   ============================================ */
+
+.branch-decoration {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.branch-decoration::before {
+  content: '';
+  width: 250px;
+  height: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 40'%3E%3Cpath d='M20 20 Q60 15 125 20 Q190 25 230 20' fill='none' stroke='%238B7355' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M50 20 Q45 12 55 8' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M50 20 Q55 28 45 32' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M90 18 Q85 10 95 6' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M90 18 Q95 26 85 30' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M125 20 Q120 10 130 5' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M125 20 Q130 30 120 35' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M160 22 Q155 14 165 10' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M160 22 Q165 30 155 34' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M200 20 Q195 12 205 8' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M200 20 Q205 28 195 32' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   AMPERSAND DECORATIONS
+   ============================================ */
+
+.ampersand-decorated {
+  position: relative;
+  display: inline-block;
+  padding: 0 1rem;
+}
+
+.ampersand-decorated::before,
+.ampersand-decorated::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+.ampersand-decorated::before {
+  right: 100%;
+  margin-right: 0.5rem;
+}
+
+.ampersand-decorated::after {
+  left: 100%;
+  margin-left: 0.5rem;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .corner-floral-tl::before,
+  .corner-floral-br::after {
+    width: 100px;
+    height: 100px;
+  }
+
+  .flourish-romantic::before {
+    width: 150px;
+  }
+
+  .watercolor-flowers-top::before {
+    width: 200px;
+    height: 70px;
+  }
+
+  .branch-decoration::before {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .corner-floral-tl::before,
+  .corner-floral-br::after {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+</style>
+
+  <!-- Theme-specific fonts -->
+  
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+</head>
+<body class="theme-gatsby">
+  <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
+  <div class="floating-elements" aria-hidden="true">
+    <span class="floating-element">◆</span>
+    <span class="floating-element">✦</span>
+    <span class="floating-element">◇</span>
+    <span class="floating-element">★</span>
+    <span class="floating-element">◆</span>
+    <span class="floating-element">✧</span>
+    <span class="floating-element">◇</span>
+    <span class="floating-element">☆</span>
+  </div>
+
+  
+
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-content animate-fade-up">
+      <p class="header-subtitle">Позивница за венчање</p>
+      <h1 class="couple-names">
+        <span class="name-animate">Jelena Boroja</span>
+        <span class="ampersand heart-beat">&</span>
+        <span class="name-animate">Dimitrije Stojanovic</span>
+      </h1>
+      <p class="wedding-date-header">субота, 9. маја 2026.</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>↓</span>
+    </div>
+  </header>
+
+  <!-- Countdown Section -->
+  <section class="countdown-section" id="countdown">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">До нашег венчања</h2>
+      <div class="countdown-timer animate-stagger" data-wedding-date="2026-05-09T00:00:00.000Z">
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-days">--</span>
+          <span class="countdown-label">дана</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-hours">--</span>
+          <span class="countdown-label">сати</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-minutes">--</span>
+          <span class="countdown-label">минута</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-seconds">--</span>
+          <span class="countdown-label">секунди</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Invitation Text Section -->
+  <section class="invitation-section" id="invitation">
+    <div class="container">
+      <div class="invitation-card animate-scale">
+        <p class="invitation-intro">Са великом радошћу вас позивамо</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-text">да присуствујете нашем венчању и прослави љубави.</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-signature">Са љубављу, младенци</p>
+      </div>
+    </div>
+  </section>
+
+  
+
+  
+  <!-- Our Story Section (without timeline) -->
+  <section class="story-section" id="story">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наша прича</h2>
+      <div class="story-content">
+        <div class="story-text animate-fade-left">
+          Na poslu
+        </div>
+        {{#IF_STORY_PHOTO}}
+        <div class="story-photo animate-fade-right">
+          <img src="" alt="Jelena Boroja и Dimitrije Stojanovic" loading="lazy">
+        </div>
+        {{/IF_STORY_PHOTO}}
+      </div>
+    </div>
+  </section>
+  
+
+  
+
+  <!-- Wedding Details Section -->
+  <section class="details-section" id="details">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Детаљи венчања</h2>
+
+      <div class="details-grid animate-stagger">
+        <!-- Ceremony -->
+        <div class="detail-card animate-fade-left">
+          <div class="detail-icon">💒</div>
+          <h3 class="detail-title">Венчање</h3>
+          <p class="detail-time">16:30</p>
+          <p class="detail-venue">Restoran Kesten</p>
+          <p class="detail-address">Cara Lazara br. 190, Futog 21410, Srbija</p>
+          
+          <a href="https://share.google/hHMDLligyrF6LW26c" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          
+        </div>
+
+        <!-- Reception -->
+        <div class="detail-card animate-fade-right">
+          <div class="detail-icon">🎉</div>
+          <h3 class="detail-title">Прослава</h3>
+          <p class="detail-time">15:30</p>
+          <p class="detail-venue">Restoran Kesten</p>
+          <p class="detail-address">Cara Lazara br. 190, Futog 21410, Srbija</p>
+          
+          <a href="https://share.google/hHMDLligyrF6LW26c" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Add to Calendar -->
+      <div class="add-to-calendar animate-fade-up">
+        <h3 class="calendar-title">Додај у календар</h3>
+        
+    <div class="calendar-buttons">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20Jelena%20Boroja%20%26%20Dimitrije%20Stojanovic&dates=20260509T163000Z/20260510T003000Z&location=Restoran%20Kesten%2C%20Cara%20Lazara%20br.%20190%2C%20Futog%2021410%2C%20Srbija&details=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20Restoran%20Kesten%20%D1%83%2016%3A30%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20Restoran%20Kesten%2C%20Cara%20Lazara%20br.%20190%2C%20Futog%2021410%2C%20Srbija%20%D1%83%2015%3A30" target="_blank" rel="noopener" class="calendar-btn calendar-btn-google">
+        <span class="calendar-icon">📅</span>
+        <span>Google Calendar</span>
+      </a>
+      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20Jelena%20Boroja%20%26%20Dimitrije%20Stojanovic&startdt=2026-05-09T16:30:00.000Z&enddt=2026-05-10T00:30:00.000Z&location=Restoran%20Kesten%2C%20Cara%20Lazara%20br.%20190%2C%20Futog%2021410%2C%20Srbija&body=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20Restoran%20Kesten%20%D1%83%2016%3A30%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20Restoran%20Kesten%2C%20Cara%20Lazara%20br.%20190%2C%20Futog%2021410%2C%20Srbija%20%D1%83%2015%3A30" target="_blank" rel="noopener" class="calendar-btn calendar-btn-outlook">
+        <span class="calendar-icon">📆</span>
+        <span>Outlook</span>
+      </a>
+      <a href="data:text/calendar;charset=utf-8,BEGIN%3AVCALENDAR%0AVERSION%3A2.0%0APRODID%3A-%2F%2FWedding%20Invitation%2F%2FSR%0ABEGIN%3AVEVENT%0ADTSTART%3A20260509T163000Z%0ADTEND%3A20260510T003000Z%0ASUMMARY%3A%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20Jelena%20Boroja%20%26%20Dimitrije%20Stojanovic%0ALOCATION%3ARestoran%20Kesten%2C%20Cara%20Lazara%20br.%20190%2C%20Futog%2021410%2C%20Srbija%0ADESCRIPTION%3A%25D0%2592%25D0%25B5%25D0%25BD%25D1%2587%25D0%25B0%25D1%259A%25D0%25B5%253A%2520Restoran%2520Kesten%2520%25D1%2583%252016%253A30%5Cn%25D0%259F%25D1%2580%25D0%25BE%25D1%2581%25D0%25BB%25D0%25B0%25D0%25B2%25D0%25B0%253A%2520Restoran%2520Kesten%252C%2520Cara%2520Lazara%2520br.%2520190%252C%2520Futog%252021410%252C%2520Srbija%2520%25D1%2583%252015%253A30%0AEND%3AVEVENT%0AEND%3AVCALENDAR" download="jelena-boroja-dimitrije-stojanovic.ics" class="calendar-btn calendar-btn-ics">
+        <span class="calendar-icon">🗓️</span>
+        <span>Apple / iCal</span>
+      </a>
+    </div>
+  
+      </div>
+
+      
+      <div class="additional-info animate-fade-up">
+        <p>true</p>
+      </div>
+      
+    </div>
+  </section>
+
+  
+
+  <!-- RSVP Section -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Потврда доласка</h2>
+
+      <p class="rsvp-deadline animate-fade-up">Молимо вас да потврдите долазак до </p>
+
+      <!-- RSVP Form -->
+      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="jelena-boroja-dimitrije-stojanovic">
+        <div class="form-group">
+          <label for="guest-name">Име и презиме *</label>
+          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-email">Е-маил адреса</label>
+          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-phone">Телефон</label>
+          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона">
+        </div>
+
+        <div class="form-group">
+          <label>Да ли долазите? *</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="yes" required>
+              <span>Да, долазим</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="no">
+              <span>Нажалост, не могу да дођем</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group conditional-field" id="guests-count-group">
+          <label for="guests-count">Број гостију (укључујући вас)</label>
+          <select id="guests-count" name="guests_count">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        
+
+        <div class="form-group">
+          <label for="message">Порука за младенце (опционално)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Оставите поруку или напомену..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn">
+          <span class="button-text">Потврди долазак</span>
+          <span class="button-loading" style="display: none;">
+            <span class="loading-rings"><span></span><span></span></span>
+            Шаљем...
+          </span>
+        </button>
+
+        <div class="form-message" id="form-message"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Confetti Container (for celebration effect) -->
+  <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-names">Jelena Boroja & Dimitrije Stojanovic</p>
+      <p class="footer-date">субота, 9. маја 2026.</p>
+      
+      <p class="footer-credit">Направљено са <span class="heart-beat">❤️</span></p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    /**
+ * Wedding Invitation - Client-side JavaScript
+ * Enhanced with 2025 Trends: Animations, Gallery, Music, Timeline
+ */
+
+(function() {
+  'use strict';
+
+  // Configuration - will be replaced during build
+  const CONFIG = {
+    RSVP_SCRIPT_URL: '{{RSVP_SCRIPT_URL}}',
+    WEDDING_SLUG: '{{WEDDING_SLUG}}'
+  };
+
+  // ============================================
+  // Scroll-Triggered Animations (Trend #1)
+  // ============================================
+
+  function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll(
+      '.animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale, .animate-stagger'
+    );
+
+    if (!animatedElements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Unobserve after animation to save resources
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    animatedElements.forEach(el => observer.observe(el));
+  }
+
+  // ============================================
+  // Photo Gallery with Lightbox (Trend #2)
+  // ============================================
+
+  function initGallery() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+
+    if (!galleryItems.length || !lightbox) return;
+
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+
+    let currentIndex = 0;
+    const images = Array.from(galleryItems).map(item => ({
+      src: item.dataset.fullSrc || item.querySelector('img').src,
+      caption: item.dataset.caption || ''
+    }));
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const image = images[currentIndex];
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.caption;
+      lightboxCaption.textContent = image.caption;
+      lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateLightbox();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateLightbox();
+    }
+
+    // Event listeners
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => openLightbox(index));
+      item.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') openLightbox(index);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', prevImage);
+    nextBtn.addEventListener('click', nextImage);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    lightbox.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextImage();
+        else prevImage();
+      }
+    });
+  }
+
+  // ============================================
+  // Background Music Player (Trend #3)
+  // ============================================
+
+  function initMusicPlayer() {
+    const musicToggle = document.getElementById('music-toggle');
+    const audio = document.getElementById('background-music');
+
+    if (!musicToggle || !audio) return;
+
+    const playIcon = musicToggle.querySelector('.music-play');
+    const pauseIcon = musicToggle.querySelector('.music-pause');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        playIcon.style.display = 'inline';
+        pauseIcon.style.display = 'none';
+        musicToggle.classList.remove('playing');
+      } else {
+        audio.play().then(() => {
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'inline';
+          musicToggle.classList.add('playing');
+        }).catch(err => {
+          console.log('Audio playback failed:', err);
+        });
+      }
+      isPlaying = !isPlaying;
+    }
+
+    musicToggle.addEventListener('click', toggleMusic);
+
+    // Show music player with subtle animation after page load
+    setTimeout(() => {
+      document.getElementById('music-player').classList.add('visible');
+    }, 2000);
+  }
+
+  // ============================================
+  // Love Story Timeline Animations (Trend #4)
+  // ============================================
+
+  function initTimeline() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    if (!timelineItems.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    timelineItems.forEach(item => observer.observe(item));
+  }
+
+  // ============================================
+  // Countdown Timer
+  // ============================================
+
+  function initCountdown() {
+    const countdownElement = document.querySelector('.countdown-timer');
+    if (!countdownElement) return;
+
+    const weddingDate = new Date(countdownElement.dataset.weddingDate);
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+
+    function animateNumber(element, newValue) {
+      const currentValue = element.textContent;
+      if (currentValue !== newValue) {
+        element.classList.add('counter-animate');
+        element.textContent = newValue;
+        setTimeout(() => element.classList.remove('counter-animate'), 500);
+      }
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        animateNumber(daysEl, '0');
+        animateNumber(hoursEl, '0');
+        animateNumber(minutesEl, '0');
+        animateNumber(secondsEl, '0');
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      animateNumber(daysEl, String(days));
+      animateNumber(hoursEl, String(hours));
+      animateNumber(minutesEl, String(minutes));
+      animateNumber(secondsEl, String(seconds));
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  // ============================================
+  // Confetti Celebration Effect
+  // ============================================
+
+  function createConfetti() {
+    const container = document.getElementById('confetti-container');
+    if (!container) return;
+
+    const colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+    const confettiCount = 100;
+
+    for (let i = 0; i < confettiCount; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDelay = Math.random() * 3 + 's';
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      container.appendChild(confetti);
+    }
+
+    // Remove confetti after animation
+    setTimeout(() => {
+      container.innerHTML = '';
+    }, 5000);
+  }
+
+  // ============================================
+  // RSVP Form
+  // ============================================
+
+  function initRSVPForm() {
+    const form = document.getElementById('rsvp-form');
+    if (!form) return;
+
+    const guestsCountGroup = document.getElementById('guests-count-group');
+    const mealGroup = document.getElementById('meal-group');
+    const attendingRadios = document.querySelectorAll('input[name="attending"]');
+
+    function toggleConditionalFields() {
+      const isAttending = document.querySelector('input[name="attending"]:checked');
+      const attending = isAttending && isAttending.value === 'yes';
+
+      if (guestsCountGroup) {
+        guestsCountGroup.style.display = attending ? 'block' : 'none';
+      }
+      if (mealGroup) {
+        mealGroup.style.display = attending ? 'block' : 'none';
+      }
+    }
+
+    attendingRadios.forEach(radio => {
+      radio.addEventListener('change', toggleConditionalFields);
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submit-btn');
+      const buttonText = submitBtn.querySelector('.button-text');
+      const buttonLoading = submitBtn.querySelector('.button-loading');
+      const formMessage = document.getElementById('form-message');
+
+      // Show loading state
+      buttonText.style.display = 'none';
+      buttonLoading.style.display = 'inline-flex';
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('pulse');
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+
+      const formData = {
+        slug: CONFIG.WEDDING_SLUG,
+        name: document.getElementById('guest-name').value.trim(),
+        email: document.getElementById('guest-email').value.trim(),
+        phone: document.getElementById('guest-phone').value.trim(),
+        attending: document.querySelector('input[name="attending"]:checked').value,
+        guests_count: document.getElementById('guests-count') ? document.getElementById('guests-count').value : '1',
+        meal_preference: document.getElementById('meal-preference') ? document.getElementById('meal-preference').value : '',
+        message: document.getElementById('message').value.trim(),
+        submitted_at: new Date().toISOString()
+      };
+
+      // Demo mode
+      if (CONFIG.RSVP_SCRIPT_URL.includes('{{') || CONFIG.RSVP_SCRIPT_URL.includes('YOUR_')) {
+        console.log('RSVP submission (demo mode):', formData);
+        setTimeout(() => {
+          buttonText.style.display = 'inline';
+          buttonLoading.style.display = 'none';
+          submitBtn.disabled = false;
+
+          if (formData.attending === 'yes') {
+            formMessage.innerHTML = '🎉 Хвала! Радујемо се вашем присуству!';
+            createConfetti();
+          } else {
+            formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
+          }
+          formMessage.className = 'form-message success';
+          form.reset();
+          toggleConditionalFields();
+        }, 1500);
+        return;
+      }
+
+      fetch(CONFIG.RSVP_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(() => {
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+
+        if (formData.attending === 'yes') {
+          formMessage.innerHTML = '🎉 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!';
+          createConfetti();
+        } else {
+          formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
+        }
+        formMessage.className = 'form-message success';
+        form.reset();
+        toggleConditionalFields();
+      })
+      .catch(error => {
+        console.error('Error submitting RSVP:', error);
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.classList.add('pulse');
+        formMessage.textContent = 'Дошло је до грешке. Молимо покушајте поново.';
+        formMessage.className = 'form-message error';
+      });
+    });
+  }
+
+  // ============================================
+  // Smooth Scrolling & Scroll Indicator
+  // ============================================
+
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  function initScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (!scrollIndicator) return;
+
+    scrollIndicator.addEventListener('click', () => {
+      const firstSection = document.querySelector('section');
+      if (firstSection) {
+        firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    let hasScrolled = false;
+    window.addEventListener('scroll', () => {
+      if (!hasScrolled && window.scrollY > 100) {
+        hasScrolled = true;
+        scrollIndicator.style.opacity = '0';
+        setTimeout(() => scrollIndicator.style.display = 'none', 300);
+      }
+    });
+  }
+
+  // ============================================
+  // Initialize Everything
+  // ============================================
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initScrollAnimations();
+    initCountdown();
+    initRSVPForm();
+    initSmoothScroll();
+    initScrollIndicator();
+    initGallery();
+    initMusicPlayer();
+    initTimeline();
+  });
+
+})();
+
+  </script>
+</body>
+</html>
