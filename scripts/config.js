@@ -12,8 +12,8 @@ module.exports = {
   // Google Apps Script Web App URLs
   // These URLs are obtained after deploying each Apps Script as a web app
   THEME_SELECTION_URL: 'https://script.google.com/macros/s/AKfycby3TKfusf7c36I09L_RZJwuY90GlKsoaKBNU9PUPshUB61pIzEaL-330RVjOhJTJ0ywUg/exec',
-  RSVP_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec'
-  
+  RSVP_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec',
+
   // Domain Configuration
   DOMAIN: 'pozivnice.rs',
 
