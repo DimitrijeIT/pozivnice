@@ -5,7 +5,7 @@
  * and automatically triggers GitHub Actions to generate the preview site.
  *
  * Setup:
- * 1. Create a Google Form with the required fields (see below)
+ * 1. Create a Google Form with the required fields
  * 2. Create a Google Sheet linked to the form
  * 3. Open Script Editor (Extensions > Apps Script)
  * 4. Paste this code
@@ -14,18 +14,8 @@
  *    - GITHUB_TOKEN = your_personal_access_token
  *    - GITHUB_REPO = username/repo-name
  * 6. Set up trigger: Triggers > Add Trigger > onFormSubmit
- *
- * Required Form Fields (exact names in Serbian):
- * - Име младе
- * - Име младожење
- * - Датум венчања
- * - Е-маил за контакт
- * - Место церемоније
- * - Адреса церемоније
- * - Време церемоније
- * - Место прославе
- * - Адреса прославе
- * - Време прославе
+ *    - Event source: From spreadsheet
+ *    - Event type: On form submit
  */
 
 /**
@@ -35,7 +25,7 @@ function getConfig() {
   const props = PropertiesService.getScriptProperties();
   return {
     GITHUB_TOKEN: props.getProperty('GITHUB_TOKEN') || '',
-    GITHUB_REPO: props.getProperty('GITHUB_REPO') || '', // format: username/repo
+    GITHUB_REPO: props.getProperty('GITHUB_REPO') || '',
     MASTER_SHEET_NAME: 'Weddings',
     NOTIFY_EMAIL: props.getProperty('NOTIFY_EMAIL') || ''
   };
@@ -58,7 +48,7 @@ function generateSlug(brideName, groomName) {
     'Џ': 'dz', 'Ш': 's'
   };
 
-  let combined = brideName + '-' + groomName;
+  let combined = (brideName || '') + '-' + (groomName || '');
   let slug = '';
 
   for (let i = 0; i < combined.length; i++) {
@@ -99,49 +89,79 @@ function formatDateForJson(dateValue) {
 }
 
 /**
- * Main form submit handler - Automated version
+ * Main form submit handler - Works with SPREADSHEET trigger
+ * Event source: From spreadsheet
+ * Event type: On form submit
  */
 function onFormSubmit(e) {
   const CONFIG = getConfig();
 
   try {
-    const response = e.response;
-    const itemResponses = response.getItemResponses();
+    Logger.log('Form submit event received');
+    Logger.log('Event object: ' + JSON.stringify(e));
 
-    // Extract form data
-    const formData = {};
-    itemResponses.forEach(function(itemResponse) {
-      const title = itemResponse.getItem().getTitle();
-      formData[title] = itemResponse.getResponse();
-    });
+    // Get form data from namedValues (spreadsheet trigger)
+    let formData = {};
 
-    // Map form fields to data object
+    if (e.namedValues) {
+      // Spreadsheet trigger - e.namedValues contains arrays
+      Logger.log('Using namedValues');
+      for (let key in e.namedValues) {
+        // namedValues returns arrays, get first element
+        formData[key] = e.namedValues[key][0] || '';
+      }
+    } else if (e.values) {
+      // Alternative: use e.values with column headers
+      Logger.log('Using values array');
+      const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+      for (let i = 0; i < headers.length && i < e.values.length; i++) {
+        formData[headers[i]] = e.values[i] || '';
+      }
+    } else {
+      Logger.log('No form data found in event');
+      return;
+    }
+
+    Logger.log('Parsed form data: ' + JSON.stringify(formData));
+
+    // Map form fields to data object (flexible field name matching)
     const weddingData = {
-      bride_name: formData['Име младе'] || '',
-      groom_name: formData['Име младожење'] || '',
-      wedding_date: formatDateForJson(formData['Датум венчања']),
-      ceremony_venue: formData['Место церемоније'] || '',
-      ceremony_address: formData['Адреса церемоније'] || '',
-      ceremony_time: formData['Време церемоније'] || '',
-      ceremony_map_url: formData['Google Maps линк за церемонију'] || '',
-      reception_venue: formData['Место прославе'] || '',
-      reception_address: formData['Адреса прославе'] || '',
-      reception_time: formData['Време прославе'] || '',
-      reception_map_url: formData['Google Maps линк за прославу'] || '',
-      contact_email: formData['Е-маил за контакт'] || '',
-      contact_phone: formData['Телефон за контакт'] || '',
-      story_text: formData['Ваша прича (како сте се упознали)'] || '',
-      dress_code_text: formData['Дрес код'] || '',
-      rsvp_deadline: formatDateForJson(formData['Рок за потврду доласка (RSVP)']),
-      wedding_hashtag: formData['Хаштаг венчања'] || '',
-      additional_info: formData['Додатне напомене'] || '',
+      bride_name: formData['Име младе'] || formData['Bride Name'] || formData['име младе'] || '',
+      groom_name: formData['Име младожење'] || formData['Groom Name'] || formData['име младожење'] || '',
+      wedding_date: formatDateForJson(formData['Датум венчања'] || formData['Wedding Date'] || formData['датум венчања'] || ''),
+      ceremony_venue: formData['Место церемоније'] || formData['Ceremony Venue'] || formData['место церемоније'] || '',
+      ceremony_address: formData['Адреса церемоније'] || formData['Ceremony Address'] || formData['адреса церемоније'] || '',
+      ceremony_time: formData['Време церемоније'] || formData['Ceremony Time'] || formData['време церемоније'] || '',
+      ceremony_map_url: formData['Google Maps линк за церемонију'] || formData['Ceremony Map URL'] || '',
+      reception_venue: formData['Место прославе'] || formData['Reception Venue'] || formData['место прославе'] || '',
+      reception_address: formData['Адреса прославе'] || formData['Reception Address'] || formData['адреса прославе'] || '',
+      reception_time: formData['Време прославе'] || formData['Reception Time'] || formData['време прославе'] || '',
+      reception_map_url: formData['Google Maps линк за прославу'] || formData['Reception Map URL'] || '',
+      contact_email: formData['Е-маил за контакт'] || formData['Contact Email'] || formData['е-маил за контакт'] || formData['Email'] || '',
+      contact_phone: formData['Телефон за контакт'] || formData['Phone'] || formData['телефон за контакт'] || '',
+      story_text: formData['Ваша прича (како сте се упознали)'] || formData['Ваша прича'] || formData['Story'] || '',
+      dress_code_text: formData['Дрес код'] || formData['Dress Code'] || formData['дрес код'] || '',
+      rsvp_deadline: formatDateForJson(formData['Рок за потврду доласка (RSVP)'] || formData['RSVP Deadline'] || ''),
+      wedding_hashtag: formData['Хаштаг венчања'] || formData['Hashtag'] || formData['хаштаг венчања'] || '',
+      additional_info: formData['Додатне напомене'] || formData['Additional Info'] || formData['додатне напомене'] || '',
       invitation_intro: 'Са великом радошћу вас позивамо',
       invitation_text: 'да присуствујете нашем венчању и прослави љубави.',
       invitation_signature: 'Са љубављу, младенци'
     };
 
+    Logger.log('Wedding data: ' + JSON.stringify(weddingData));
+
+    // Validate required fields
+    if (!weddingData.bride_name || !weddingData.groom_name) {
+      Logger.log('Missing required fields: bride_name or groom_name');
+      return;
+    }
+
     // Generate slug
     weddingData.slug = generateSlug(weddingData.bride_name, weddingData.groom_name);
+    Logger.log('Generated slug: ' + weddingData.slug);
 
     // Add metadata
     weddingData.status = 'preview_generating';
@@ -149,22 +169,22 @@ function onFormSubmit(e) {
     weddingData.selected_theme = '';
     weddingData.theme_selected_at = '';
 
-    // Add to master sheet
-    addToMasterSheet(weddingData, CONFIG);
-
     // Trigger GitHub Actions to generate preview
     if (CONFIG.GITHUB_TOKEN && CONFIG.GITHUB_REPO) {
+      Logger.log('Triggering GitHub Action...');
+      Logger.log('Repo: ' + CONFIG.GITHUB_REPO);
+
       const success = triggerGitHubAction(weddingData, CONFIG);
 
       if (success) {
-        updateStatus(weddingData.slug, 'preview_generating', CONFIG);
-        Logger.log('GitHub Action triggered for: ' + weddingData.slug);
+        Logger.log('GitHub Action triggered successfully for: ' + weddingData.slug);
       } else {
-        updateStatus(weddingData.slug, 'generation_failed', CONFIG);
         Logger.log('Failed to trigger GitHub Action for: ' + weddingData.slug);
       }
     } else {
-      Logger.log('GitHub not configured - manual generation required for: ' + weddingData.slug);
+      Logger.log('GitHub not configured - GITHUB_TOKEN or GITHUB_REPO missing');
+      Logger.log('GITHUB_TOKEN exists: ' + (CONFIG.GITHUB_TOKEN ? 'yes' : 'no'));
+      Logger.log('GITHUB_REPO exists: ' + (CONFIG.GITHUB_REPO ? 'yes' : 'no'));
 
       // Send notification email for manual processing
       if (CONFIG.NOTIFY_EMAIL) {
@@ -176,6 +196,7 @@ function onFormSubmit(e) {
 
   } catch (error) {
     Logger.log('Error processing form submission: ' + error.toString());
+    Logger.log('Error stack: ' + error.stack);
     throw error;
   }
 }
@@ -208,108 +229,24 @@ function triggerGitHubAction(weddingData, CONFIG) {
   };
 
   try {
+    Logger.log('Calling GitHub API: ' + url);
     const response = UrlFetchApp.fetch(url, options);
     const responseCode = response.getResponseCode();
+    const responseText = response.getContentText();
+
+    Logger.log('GitHub API response code: ' + responseCode);
+    Logger.log('GitHub API response: ' + responseText);
 
     if (responseCode === 204 || responseCode === 200) {
       Logger.log('GitHub Action triggered successfully');
       return true;
     } else {
-      Logger.log('GitHub API error: ' + responseCode + ' - ' + response.getContentText());
+      Logger.log('GitHub API error: ' + responseCode + ' - ' + responseText);
       return false;
     }
   } catch (error) {
     Logger.log('Error triggering GitHub Action: ' + error.toString());
     return false;
-  }
-}
-
-/**
- * Add wedding data to master sheet
- */
-function addToMasterSheet(data, CONFIG) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName(CONFIG.MASTER_SHEET_NAME);
-
-  // Create sheet if it doesn't exist
-  if (!sheet) {
-    sheet = ss.insertSheet(CONFIG.MASTER_SHEET_NAME);
-
-    const headers = [
-      'Slug',
-      'Bride Name',
-      'Groom Name',
-      'Wedding Date',
-      'Ceremony Venue',
-      'Ceremony Address',
-      'Ceremony Time',
-      'Reception Venue',
-      'Reception Address',
-      'Reception Time',
-      'Contact Email',
-      'Contact Phone',
-      'Story',
-      'Dress Code',
-      'RSVP Deadline',
-      'Hashtag',
-      'Additional Info',
-      'Status',
-      'Submitted At',
-      'Selected Theme',
-      'Theme Selected At',
-      'Preview URL',
-      'Final URL'
-    ];
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-    sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
-    sheet.setFrozenRows(1);
-  }
-
-  const row = [
-    data.slug,
-    data.bride_name,
-    data.groom_name,
-    data.wedding_date,
-    data.ceremony_venue,
-    data.ceremony_address,
-    data.ceremony_time,
-    data.reception_venue,
-    data.reception_address,
-    data.reception_time,
-    data.contact_email,
-    data.contact_phone,
-    data.story_text,
-    data.dress_code_text,
-    data.rsvp_deadline,
-    data.wedding_hashtag,
-    data.additional_info,
-    data.status,
-    data.submitted_at,
-    data.selected_theme,
-    data.theme_selected_at,
-    '', // Preview URL - filled later
-    ''  // Final URL - filled later
-  ];
-
-  sheet.appendRow(row);
-}
-
-/**
- * Update wedding status in sheet
- */
-function updateStatus(slug, newStatus, CONFIG) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(CONFIG.MASTER_SHEET_NAME);
-
-  if (!sheet) return;
-
-  const data = sheet.getDataRange().getValues();
-
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][0] === slug) {
-      sheet.getRange(i + 1, 18).setValue(newStatus); // Status column
-      break;
-    }
   }
 }
 
@@ -336,79 +273,68 @@ node scripts/generate-preview.js ${data.slug}
 }
 
 /**
- * Test function
+ * Test function - run manually to test the GitHub trigger
  */
-function testSubmission() {
+function testGitHubTrigger() {
   const CONFIG = getConfig();
 
+  Logger.log('=== Testing GitHub Configuration ===');
+  Logger.log('GITHUB_TOKEN exists: ' + (CONFIG.GITHUB_TOKEN ? 'YES (length: ' + CONFIG.GITHUB_TOKEN.length + ')' : 'NO'));
+  Logger.log('GITHUB_REPO: ' + (CONFIG.GITHUB_REPO || 'NOT SET'));
+
+  if (!CONFIG.GITHUB_TOKEN || !CONFIG.GITHUB_REPO) {
+    Logger.log('ERROR: Missing configuration. Add GITHUB_TOKEN and GITHUB_REPO to Script Properties.');
+    return;
+  }
+
   const testData = {
-    bride_name: 'Ана',
-    groom_name: 'Марко',
+    bride_name: 'Тест',
+    groom_name: 'Тест',
     wedding_date: '2025-06-15',
-    ceremony_venue: 'Храм Светог Саве',
-    ceremony_address: 'Крушедолска 2а, Београд',
+    ceremony_venue: 'Тест Место',
+    ceremony_address: 'Тест Адреса 123',
     ceremony_time: '14:00',
-    ceremony_map_url: '',
-    reception_venue: 'Ресторан Карабурма',
-    reception_address: 'Мирјане Миочиновић 10, Београд',
+    reception_venue: 'Тест Ресторан',
+    reception_address: 'Тест Адреса 456',
     reception_time: '17:00',
-    reception_map_url: '',
     contact_email: 'test@example.com',
-    contact_phone: '+381641234567',
-    story_text: 'Упознали смо се на факултету...',
-    dress_code_text: 'Елегантна одећа',
-    rsvp_deadline: '2025-06-01',
-    wedding_hashtag: '#АнаИМарко2025',
-    additional_info: '',
+    slug: 'test-' + Date.now(),
     invitation_intro: 'Са великом радошћу вас позивамо',
     invitation_text: 'да присуствујете нашем венчању.',
-    invitation_signature: 'Са љубављу, младенци'
+    invitation_signature: 'Са љубављу'
   };
 
-  testData.slug = generateSlug(testData.bride_name, testData.groom_name);
-  testData.status = 'test';
-  testData.submitted_at = new Date().toISOString();
-  testData.selected_theme = '';
-  testData.theme_selected_at = '';
+  Logger.log('Test data slug: ' + testData.slug);
 
-  // Test GitHub trigger
-  if (CONFIG.GITHUB_TOKEN && CONFIG.GITHUB_REPO) {
-    Logger.log('Testing GitHub Action trigger...');
-    const success = triggerGitHubAction(testData, CONFIG);
-    Logger.log('GitHub trigger result: ' + success);
-  } else {
-    Logger.log('GitHub not configured. Set GITHUB_TOKEN and GITHUB_REPO in Script Properties.');
-  }
+  const success = triggerGitHubAction(testData, CONFIG);
+  Logger.log('Trigger result: ' + (success ? 'SUCCESS' : 'FAILED'));
 }
 
 /**
- * Setup instructions - run this to see configuration steps
+ * Show setup instructions
  */
 function showSetupInstructions() {
   Logger.log(`
 === SETUP INSTRUCTIONS ===
 
-1. Go to Project Settings (gear icon)
-2. Click "Script Properties"
-3. Add these properties:
+1. Go to Project Settings (gear icon on left)
+2. Scroll down to "Script Properties"
+3. Click "Add script property" and add:
 
    GITHUB_TOKEN = your_personal_access_token
    (Create at: https://github.com/settings/tokens with 'repo' scope)
 
    GITHUB_REPO = your-username/invitations
-   (Your GitHub repository)
+   (Your GitHub repository, e.g., 'john/wedding-invitations')
 
-   NOTIFY_EMAIL = your-email@example.com
-   (Optional: for notifications)
-
-4. Set up trigger:
+4. Make sure the trigger is set up:
    - Click Triggers (clock icon)
    - Add Trigger
    - Function: onFormSubmit
    - Event source: From spreadsheet
    - Event type: On form submit
 
-5. Authorize the script when prompted
+5. To test: Run the testGitHubTrigger function
 
 =========================
   `);

@@ -24,6 +24,9 @@ on:
           - editorial
           - whimsical
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest

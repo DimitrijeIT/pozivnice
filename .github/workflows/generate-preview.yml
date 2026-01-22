@@ -12,6 +12,9 @@ on:
         description: 'Wedding data JSON'
         required: true
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
