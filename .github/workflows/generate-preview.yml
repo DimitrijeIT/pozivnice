@@ -60,26 +60,10 @@ jobs:
           destination_dir: ./
           keep_files: true
 
-      - name: Send notification email
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Ваш преглед позивнице је спреман! - ${{ steps.extract.outputs.slug }}"
-          to: ${{ github.event.client_payload.contact_email }}
-          from: Позивнице <${{ secrets.EMAIL_USERNAME }}>
-          body: |
-            Поштовани,
-
-            Ваш преглед позивнице за венчање је спреман!
-
-            Погледајте све теме и изаберите ону која вам се највише свиђа:
-            https://${{ github.repository_owner }}.github.io/invitations/preview/${{ steps.extract.outputs.slug }}/
-
-            Линк важи 24 сата.
-
-            Срдачан поздрав,
-            Позивнице.rs тим
+      - name: Output preview URL
+        run: |
+          echo "## Preview Generated Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Preview URL:** https://${{ github.repository_owner }}.github.io/pozivnice/preview/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Share this link with the couple to select their theme." >> $GITHUB_STEP_SUMMARY
