@@ -82,3 +82,29 @@ jobs:
           echo "**Site URL:** https://${{ github.repository_owner }}.github.io/pozivnice/site/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Theme: ${{ steps.extract.outputs.theme }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Send notification email
+        if: success() && github.event_name == 'repository_dispatch' && secrets.EMAIL_USERNAME != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Ваша позивница је спремна! - ${{ steps.extract.outputs.slug }}"
+          to: ${{ steps.extract.outputs.contact_email }}
+          from: Позивнице <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            Поштовани,
+
+            Ваша позивница за венчање је спремна!
+
+            Можете је погледати на следећој адреси:
+            https://${{ github.repository_owner }}.github.io/pozivnice/site/${{ steps.extract.outputs.slug }}/
+
+            Овај линк можете делити са вашим гостима.
+
+            Срећно венчање!
+
+            Срдачан поздрав,
+            Позивнице.rs тим
