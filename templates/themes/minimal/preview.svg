@@ -1,0 +1,25 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pure white background -->
+  <rect width="400" height="300" fill="#FFFFFF"/>
+
+  <!-- Left-aligned minimal layout -->
+  <text x="40" y="60" font-family="system-ui, sans-serif" font-size="10" fill="#555" letter-spacing="2">ПОЗИВНИЦА ЗА ВЕНЧАЊЕ</text>
+
+  <!-- Names - left aligned, light weight -->
+  <text x="40" y="110" font-family="system-ui, sans-serif" font-size="42" fill="#000" font-weight="300">Име</text>
+  <text x="40" y="155" font-family="system-ui, sans-serif" font-size="42" fill="#000" font-weight="300">&amp; Име</text>
+
+  <!-- Simple line -->
+  <line x1="40" y1="175" x2="140" y2="175" stroke="#000" stroke-width="1"/>
+
+  <!-- Date -->
+  <text x="40" y="200" font-family="system-ui, sans-serif" font-size="12" fill="#000">01.01.2025</text>
+
+  <!-- Content lines - left aligned -->
+  <rect x="40" y="225" width="200" height="4" fill="#DDD"/>
+  <rect x="40" y="240" width="160" height="4" fill="#DDD"/>
+
+  <!-- Theme label - black bar -->
+  <rect x="0" y="270" width="400" height="30" fill="#000"/>
+  <text x="200" y="290" font-family="system-ui, sans-serif" font-size="12" fill="#FFF" text-anchor="middle" letter-spacing="2">МИНИМАЛИСТИЧКИ</text>
+</svg>

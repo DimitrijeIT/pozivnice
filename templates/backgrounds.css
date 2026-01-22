@@ -1,0 +1,446 @@
+/**
+ * Wedding Invitation - Modern Backgrounds & Decorative Elements
+ * Trends 2025-2026: Mesh gradients, glassmorphism, textures, botanical elements
+ */
+
+/* ============================================
+   CSS VARIABLES FOR BACKGROUNDS
+   ============================================ */
+
+:root {
+  /* Gradient colors */
+  --gradient-start: #fdfcfb;
+  --gradient-end: #e2d1c3;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-blur: 10px;
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  /* Texture opacity */
+  --texture-opacity: 0.03;
+}
+
+/* ============================================
+   MESH GRADIENT BACKGROUNDS
+   ============================================ */
+
+/* Soft romantic mesh gradient */
+.bg-mesh-romantic {
+  background-color: #fdfcfb;
+  background-image:
+    radial-gradient(at 40% 20%, hsla(28, 100%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(340, 60%, 92%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(22, 70%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(340, 50%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(28, 80%, 94%, 1) 0px, transparent 50%);
+}
+
+/* Elegant cream/gold mesh gradient */
+.bg-mesh-elegant {
+  background-color: #fffef9;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(45, 60%, 97%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(40, 50%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, hsla(45, 40%, 98%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(35, 55%, 94%, 1) 0px, transparent 50%);
+}
+
+/* Modern dark/moody mesh gradient */
+.bg-mesh-moody {
+  background-color: #1a1a2e;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(280, 30%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(340, 40%, 18%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(260, 35%, 15%, 1) 0px, transparent 50%);
+}
+
+/* Earth tones mesh gradient */
+.bg-mesh-earth {
+  background-color: #faf8f5;
+  background-image:
+    radial-gradient(at 20% 30%, hsla(30, 40%, 94%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, hsla(90, 25%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 40% 80%, hsla(25, 35%, 92%, 1) 0px, transparent 50%),
+    radial-gradient(at 90% 90%, hsla(85, 20%, 95%, 1) 0px, transparent 50%);
+}
+
+/* Sage green mesh gradient */
+.bg-mesh-sage {
+  background-color: #f8faf8;
+  background-image:
+    radial-gradient(at 10% 20%, hsla(140, 30%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, hsla(135, 25%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 60%, hsla(145, 20%, 96%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, hsla(130, 30%, 92%, 1) 0px, transparent 50%);
+}
+
+/* Aurora/fluid gradient animation */
+.bg-aurora {
+  background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ffecd2, #a8edea);
+  background-size: 400% 400%;
+  animation: aurora-shift 15s ease infinite;
+}
+
+@keyframes aurora-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   PAPER TEXTURES
+   ============================================ */
+
+/* Subtle paper grain texture overlay */
+.texture-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--texture-opacity, 0.03);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Linen texture */
+.texture-linen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   GLASSMORPHISM EFFECTS
+   ============================================ */
+
+.glass-card {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.25));
+  backdrop-filter: blur(var(--glass-blur, 10px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 10px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card-strong {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   DECORATIVE FRAMES & BORDERS
+   ============================================ */
+
+/* Elegant ornamental frame */
+.frame-ornate {
+  position: relative;
+  padding: 3rem;
+}
+
+.frame-ornate::before,
+.frame-ornate::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--color-primary, #D4AF37);
+  opacity: 0.6;
+}
+
+.frame-ornate::before {
+  top: 1rem;
+  left: 1rem;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame-ornate::after {
+  bottom: 1rem;
+  right: 1rem;
+  border-left: none;
+  border-top: none;
+}
+
+/* Art deco frame corners */
+.frame-deco {
+  position: relative;
+}
+
+.frame-deco::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--color-primary, #D4AF37);
+  margin: 1rem;
+  pointer-events: none;
+}
+
+/* Scalloped border */
+.border-scallop {
+  --scallop-size: 10px;
+  background:
+    radial-gradient(circle at 50% 0, transparent var(--scallop-size), var(--color-background, #fff) var(--scallop-size))
+    repeat-x top / calc(var(--scallop-size) * 2.5) var(--scallop-size);
+  padding-top: calc(var(--scallop-size) + 1rem);
+}
+
+/* ============================================
+   DECORATIVE DIVIDERS
+   ============================================ */
+
+.divider-elegant {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  gap: 1rem;
+}
+
+.divider-elegant::before,
+.divider-elegant::after {
+  content: '';
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary, #D4AF37), transparent);
+}
+
+.divider-flourish {
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.divider-flourish::before {
+  content: '~';
+  font-size: 2rem;
+  color: var(--color-primary, #D4AF37);
+  font-family: serif;
+}
+
+/* ============================================
+   WATERCOLOR & BOTANICAL ACCENTS
+   ============================================ */
+
+/* Watercolor blob decoration */
+.watercolor-accent {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  opacity: 0.15;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: linear-gradient(135deg, var(--color-primary, #D4AF37), var(--color-accent, #B8960C));
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.watercolor-accent.top-left {
+  top: -100px;
+  left: -100px;
+}
+
+.watercolor-accent.top-right {
+  top: -50px;
+  right: -100px;
+}
+
+.watercolor-accent.bottom-left {
+  bottom: -100px;
+  left: -50px;
+}
+
+.watercolor-accent.bottom-right {
+  bottom: -100px;
+  right: -100px;
+}
+
+/* ============================================
+   HERO SECTION STYLES
+   ============================================ */
+
+/* Full-screen hero with overlay */
+.hero-fullscreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Hero with background image */
+.hero-image {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .hero-image {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================
+   MONOGRAM STYLES
+   ============================================ */
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--color-primary, #D4AF37);
+  border-radius: 50%;
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--color-primary, #D4AF37);
+  margin: 1rem auto;
+  position: relative;
+}
+
+.monogram::before,
+.monogram::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-primary, #D4AF37);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.monogram::before {
+  transform: scale(1.15);
+}
+
+.monogram::after {
+  transform: scale(1.3);
+}
+
+/* Crest-style monogram */
+.monogram-crest {
+  width: 140px;
+  height: 160px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border-width: 3px;
+}
+
+/* ============================================
+   CARD ELEVATION STYLES
+   ============================================ */
+
+.card-elevated {
+  background: var(--color-white, #fff);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 1px rgba(0,0,0,0.02),
+    0 2px 2px rgba(0,0,0,0.02),
+    0 4px 4px rgba(0,0,0,0.02),
+    0 8px 8px rgba(0,0,0,0.02),
+    0 16px 16px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 2px rgba(0,0,0,0.02),
+    0 4px 4px rgba(0,0,0,0.02),
+    0 8px 8px rgba(0,0,0,0.02),
+    0 16px 16px rgba(0,0,0,0.02),
+    0 32px 32px rgba(0,0,0,0.02);
+}
+
+/* Neumorphism soft card */
+.card-soft {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 20px;
+  box-shadow:
+    8px 8px 16px #d9d9d9,
+    -8px -8px 16px #ffffff;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .frame-ornate::before,
+  .frame-ornate::after {
+    width: 50px;
+    height: 50px;
+  }
+
+  .monogram {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+
+  .watercolor-accent {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora {
+    animation: none;
+  }
+}

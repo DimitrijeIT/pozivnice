@@ -1,0 +1,36 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Kraft paper background -->
+  <rect width="400" height="300" fill="#FDF5E6"/>
+
+  <!-- Subtle pattern -->
+  <pattern id="kraftPattern" patternUnits="userSpaceOnUse" width="20" height="20">
+    <rect width="20" height="20" fill="#FDF5E6"/>
+    <circle cx="10" cy="10" r="1" fill="#C4A77D" opacity="0.2"/>
+  </pattern>
+  <rect width="400" height="300" fill="url(#kraftPattern)"/>
+
+  <!-- Card with shadow effect -->
+  <rect x="55" y="45" width="290" height="185" fill="#C4A77D" rx="6"/>
+  <rect x="50" y="40" width="290" height="185" fill="#FFFEF7" rx="6" stroke="#8B7355" stroke-width="2"/>
+
+  <!-- Nature decorations -->
+  <text x="70" y="70" font-size="20" fill="#228B22" opacity="0.6">🌿</text>
+  <text x="310" y="75" font-size="18" fill="#228B22" opacity="0.6">🍃</text>
+
+  <!-- Header -->
+  <text x="195" y="85" font-family="cursive" font-size="12" fill="#228B22" text-anchor="middle" letter-spacing="2">ПОЗИВНИЦА ЗА ВЕНЧАЊЕ</text>
+
+  <!-- Names - handwritten style -->
+  <text x="195" y="135" font-family="cursive" font-size="40" fill="#4A3728" text-anchor="middle">Име &amp; Име</text>
+
+  <!-- Leaf divider -->
+  <text x="195" y="170" font-size="14" fill="#228B22" text-anchor="middle">— 🍃 —</text>
+
+  <!-- Content lines -->
+  <rect x="100" y="185" width="190" height="6" fill="#E8DED0" rx="3"/>
+  <rect x="120" y="200" width="150" height="6" fill="#E8DED0" rx="3"/>
+
+  <!-- Theme label -->
+  <rect x="0" y="270" width="400" height="30" fill="#8B7355"/>
+  <text x="200" y="290" font-family="cursive" font-size="16" fill="#FDF5E6" text-anchor="middle">РУСТИКАЛНИ</text>
+</svg>

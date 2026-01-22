@@ -1,0 +1,99 @@
+name: Generate Final Wedding Site
+
+on:
+  repository_dispatch:
+    types: [theme-selected]
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Wedding slug (e.g., ana-marko)'
+        required: true
+      theme:
+        description: 'Selected theme'
+        required: true
+        type: choice
+        options:
+          - classic
+          - modern
+          - romantic
+          - minimal
+          - rustic
+          - botanical
+          - moody
+          - gatsby
+          - editorial
+          - whimsical
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract parameters
+        id: extract
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
+            echo "theme=${{ github.event.client_payload.theme }}" >> $GITHUB_OUTPUT
+            echo "contact_email=${{ github.event.client_payload.contact_email }}" >> $GITHUB_OUTPUT
+          else
+            echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
+            echo "theme=${{ github.event.inputs.theme }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download existing data
+        run: |
+          # Try to get data from gh-pages branch
+          git fetch origin gh-pages:gh-pages || true
+          git checkout gh-pages -- "preview/${{ steps.extract.outputs.slug }}/metadata.json" 2>/dev/null || true
+          git checkout gh-pages -- "data/${{ steps.extract.outputs.slug }}.json" 2>/dev/null || true
+
+      - name: Generate final site
+        run: |
+          node scripts/generate-final.js ${{ steps.extract.outputs.slug }} ${{ steps.extract.outputs.theme }} --cleanup
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: ./
+          keep_files: true
+
+      - name: Send final notification
+        if: success() && github.event_name == 'repository_dispatch'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Ваша позивница је спремна! - ${{ steps.extract.outputs.slug }}"
+          to: ${{ steps.extract.outputs.contact_email }}
+          from: Позивнице <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            Поштовани,
+
+            Ваша позивница за венчање је спремна!
+
+            Можете је погледати на следећој адреси:
+            https://pozivnice.rs/${{ steps.extract.outputs.slug }}/
+
+            Овај линк можете делити са вашим гостима.
+
+            Срећно венчање!
+
+            Срдачан поздрав,
+            Позивнице.rs тим

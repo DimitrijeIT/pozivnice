@@ -1,0 +1,24 @@
+{
+  "name": "wedding-invitations",
+  "version": "1.0.0",
+  "description": "Wedding invitation website system with multiple themes, preview generation, and RSVP management",
+  "main": "scripts/generate-preview.js",
+  "scripts": {
+    "preview": "node scripts/generate-preview.js",
+    "generate": "node scripts/generate-final.js",
+    "cleanup": "node scripts/cleanup-expired.js",
+    "serve": "node scripts/serve.js"
+  },
+  "keywords": [
+    "wedding",
+    "invitation",
+    "rsvp",
+    "static-site"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {}
+}

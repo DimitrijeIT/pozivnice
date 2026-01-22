@@ -1,0 +1,82 @@
+name: Generate Wedding Preview
+
+on:
+  repository_dispatch:
+    types: [new-wedding]
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Wedding slug (e.g., ana-marko)'
+        required: true
+      wedding_data:
+        description: 'Wedding data JSON'
+        required: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract wedding data
+        id: extract
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
+            echo '${{ toJson(github.event.client_payload.wedding_data) }}' > data/temp-wedding.json
+          else
+            echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
+            echo '${{ github.event.inputs.wedding_data }}' > data/temp-wedding.json
+          fi
+
+      - name: Save wedding data file
+        run: |
+          SLUG="${{ steps.extract.outputs.slug }}"
+          mv data/temp-wedding.json "data/${SLUG}.json"
+          cat "data/${SLUG}.json"
+
+      - name: Generate preview
+        run: node scripts/generate-preview.js ${{ steps.extract.outputs.slug }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: ./
+          keep_files: true
+
+      - name: Send notification email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Ваш преглед позивнице је спреман! - ${{ steps.extract.outputs.slug }}"
+          to: ${{ github.event.client_payload.contact_email }}
+          from: Позивнице <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            Поштовани,
+
+            Ваш преглед позивнице за венчање је спреман!
+
+            Погледајте све теме и изаберите ону која вам се највише свиђа:
+            https://${{ github.repository_owner }}.github.io/invitations/preview/${{ steps.extract.outputs.slug }}/
+
+            Линк важи 24 сата.
+
+            Срдачан поздрав,
+            Позивнице.rs тим

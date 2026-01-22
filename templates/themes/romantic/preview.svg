@@ -1,0 +1,37 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="romantBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF5F5"/>
+      <stop offset="100%" style="stop-color:#FFEEF0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#romantBg)"/>
+
+  <!-- Decorative flowers -->
+  <text x="50" y="50" font-size="30" fill="#E8B4B8" opacity="0.3">❀</text>
+  <text x="340" y="80" font-size="25" fill="#E8B4B8" opacity="0.3">❁</text>
+  <text x="30" y="250" font-size="35" fill="#E8B4B8" opacity="0.3">✿</text>
+  <text x="360" y="230" font-size="28" fill="#E8B4B8" opacity="0.3">❀</text>
+
+  <!-- Card background -->
+  <rect x="60" y="50" width="280" height="180" fill="#FFF" rx="15" stroke="#E8C4C4" stroke-width="1"/>
+  <rect x="70" y="60" width="260" height="160" fill="none" rx="12" stroke="#B76E79" stroke-width="1" opacity="0.5"/>
+
+  <!-- Header text -->
+  <text x="200" y="90" font-family="cursive" font-size="12" fill="#B76E79" text-anchor="middle">Позивница за венчање</text>
+
+  <!-- Names in script -->
+  <text x="200" y="135" font-family="cursive" font-size="32" fill="#B76E79" text-anchor="middle">Име &amp; Име</text>
+
+  <!-- Flower divider -->
+  <text x="200" y="165" font-size="14" fill="#E8B4B8" text-anchor="middle">❀ ❁ ❀</text>
+
+  <!-- Content lines -->
+  <rect x="120" y="180" width="160" height="6" fill="#F5E0E2" rx="3"/>
+  <rect x="140" y="195" width="120" height="6" fill="#F5E0E2" rx="3"/>
+
+  <!-- Theme label -->
+  <rect x="0" y="270" width="400" height="30" fill="#B76E79"/>
+  <text x="200" y="290" font-family="sans-serif" font-size="14" fill="#FFF" text-anchor="middle">РОМАНТИЧАН</text>
+</svg>

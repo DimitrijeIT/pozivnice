@@ -1,0 +1,993 @@
+/**
+ * Art Deco Gatsby Theme - Roaring Twenties Elegance
+ * Trend 2025-2026: Retro glamour revival, geometric luxury
+ * Font: Poiret One + Josefin Sans
+ * Colors: Navy, Gold, Black, Champagne
+ * Layout: Geometric frames, fan patterns, symmetrical design
+ */
+
+/* CSS Custom Properties */
+:root {
+  --color-primary: #0D1B2A;
+  --color-primary-light: #1B263B;
+  --color-accent: #D4AF37;
+  --color-accent-light: #E5C158;
+  --color-accent-dark: #B8960C;
+  --color-text: #FDFCFA;
+  --color-text-muted: #A0A0A0;
+  --color-background: #0D1B2A;
+  --color-background-alt: #1B263B;
+  --color-card: #162032;
+  --color-champagne: #F7E7CE;
+  --color-white: #FFFFFF;
+  --color-black: #050A10;
+
+  --font-display: 'Poiret One', 'Josefin Sans', sans-serif;
+  --font-heading: 'Poiret One', 'Josefin Sans', sans-serif;
+  --font-body: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  --border-radius: 0;
+  --transition: 0.3s ease;
+
+  /* Art Deco patterns */
+  --pattern-fan: conic-gradient(
+    from 180deg at 50% 100%,
+    transparent 0deg,
+    var(--color-accent) 0deg,
+    var(--color-accent) 15deg,
+    transparent 15deg,
+    transparent 30deg,
+    var(--color-accent) 30deg,
+    var(--color-accent) 45deg,
+    transparent 45deg,
+    transparent 60deg,
+    var(--color-accent) 60deg,
+    var(--color-accent) 75deg,
+    transparent 75deg,
+    transparent 90deg,
+    var(--color-accent) 90deg,
+    var(--color-accent) 105deg,
+    transparent 105deg,
+    transparent 120deg,
+    var(--color-accent) 120deg,
+    var(--color-accent) 135deg,
+    transparent 135deg,
+    transparent 150deg,
+    var(--color-accent) 150deg,
+    var(--color-accent) 165deg,
+    transparent 165deg,
+    transparent 180deg
+  );
+
+  /* Geometric line pattern */
+  --pattern-lines: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(212, 175, 55, 0.05) 10px,
+    rgba(212, 175, 55, 0.05) 20px
+  );
+
+  /* Gold gradient */
+  --gradient-gold: linear-gradient(
+    135deg,
+    var(--color-accent-dark) 0%,
+    var(--color-accent) 50%,
+    var(--color-accent-light) 100%
+  );
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  background-image: var(--pattern-lines);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  position: relative;
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+/* Geometric frame around titles */
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 100%;
+  border: 2px solid var(--color-accent);
+  border-left: none;
+  border-right: none;
+}
+
+.section-title::after {
+  content: '◆';
+  display: block;
+  font-size: 0.75rem;
+  margin-top: var(--spacing-xs);
+  letter-spacing: 0.5em;
+}
+
+/* Decorative Elements - Art Deco Style */
+.decorative-divider {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  position: relative;
+  height: 40px;
+}
+
+.decorative-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 2px;
+  background: var(--gradient-gold);
+}
+
+.decorative-divider::after {
+  content: '◆◆◆';
+  position: relative;
+  background: var(--color-background);
+  padding: 0 var(--spacing-md);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+}
+
+/* Header Section - Grand Entrance */
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fan pattern decoration at bottom */
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background: var(--pattern-fan);
+  opacity: 0.1;
+}
+
+/* Geometric corner decorations */
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid var(--color-accent);
+  margin: 30px;
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-xl);
+}
+
+/* Art deco frame around header content */
+.header-content::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.header-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+}
+
+.couple-names {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.couple-names .ampersand {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin: var(--spacing-sm) 0;
+  letter-spacing: 0;
+}
+
+.wedding-date-header {
+  font-size: 1.25rem;
+  color: var(--color-champagne);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: var(--color-accent);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+.scroll-indicator span {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.scroll-indicator::after {
+  content: '▼';
+  display: block;
+  font-size: 1rem;
+}
+
+/* Content Sections */
+section {
+  padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+/* Countdown Section */
+.countdown-section {
+  background: var(--color-background-alt);
+  border-top: 3px solid var(--color-accent);
+  border-bottom: 3px solid var(--color-accent);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  position: relative;
+  min-width: 120px;
+}
+
+/* Geometric hexagon-ish frame */
+.countdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--color-accent);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.countdown-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-sm);
+  display: block;
+}
+
+/* Invitation Section */
+.invitation-section {
+  background: var(--color-background);
+}
+
+.invitation-card {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  position: relative;
+  background: var(--color-card);
+  border: 3px solid var(--color-accent);
+}
+
+/* Corner decorations - art deco style */
+.invitation-card::before,
+.invitation-card::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--color-accent);
+}
+
+.invitation-card::before {
+  top: 15px;
+  left: 15px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.invitation-card::after {
+  bottom: 15px;
+  right: 15px;
+  border-left: none;
+  border-top: none;
+}
+
+.invitation-intro {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: var(--spacing-md);
+}
+
+.invitation-text {
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--color-text);
+}
+
+.invitation-signature {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  margin-top: var(--spacing-lg);
+  letter-spacing: 0.2em;
+}
+
+/* Story Section */
+.story-section {
+  background: var(--color-background-alt);
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-text {
+  font-size: 1.125rem;
+  line-height: 2;
+  text-align: center;
+  padding: var(--spacing-lg);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+}
+
+.story-text::before,
+.story-text::after {
+  content: '「';
+  position: absolute;
+  font-size: 3rem;
+  color: var(--color-accent);
+  opacity: 0.3;
+}
+
+.story-text::before {
+  top: -20px;
+  left: 20px;
+}
+
+.story-text::after {
+  content: '」';
+  bottom: -20px;
+  right: 20px;
+}
+
+.story-photo {
+  text-align: center;
+}
+
+.story-photo img {
+  max-width: 100%;
+  border: 3px solid var(--color-accent);
+}
+
+/* Details Section */
+.details-section {
+  background: var(--color-background);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.detail-card {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: var(--color-card);
+  border: 2px solid var(--color-accent);
+  position: relative;
+  transition: transform var(--transition);
+}
+
+.detail-card:hover {
+  transform: scale(1.02);
+}
+
+/* Diagonal corner cuts */
+.detail-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 30px 30px 0;
+  border-color: transparent var(--color-background) transparent transparent;
+}
+
+.detail-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.detail-time {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-venue {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.detail-address {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--color-accent);
+  transition: opacity var(--transition);
+}
+
+.detail-map-link:hover {
+  opacity: 0.7;
+}
+
+.additional-info {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  padding: var(--spacing-md);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Dress Code Section */
+.dresscode-section {
+  background: var(--color-background-alt);
+}
+
+.dresscode-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dresscode-text {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.dresscode-colors-label {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.color-swatches {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color-accent);
+  transition: transform var(--transition);
+}
+
+.color-swatch:hover {
+  transform: rotate(45deg);
+}
+
+/* RSVP Section */
+.rsvp-section {
+  background: var(--color-background);
+}
+
+.rsvp-counter {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.counter-item {
+  text-align: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--color-accent);
+}
+
+.counter-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.counter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+}
+
+.counter-divider {
+  display: flex;
+  align-items: center;
+  color: var(--color-accent);
+  font-size: 2rem;
+}
+
+.rsvp-deadline {
+  text-align: center;
+  color: var(--color-champagne);
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: var(--color-card);
+  border: 2px solid var(--color-accent);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-accent);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-accent);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-width: 2px;
+  background: var(--color-background-alt);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.radio-group {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.radio-label input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-accent);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.radio-label input[type="radio"]:checked {
+  background: var(--color-accent);
+}
+
+.radio-label input[type="radio"]:checked::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: var(--color-background);
+}
+
+.conditional-field {
+  display: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px 40px;
+  background: var(--gradient-gold);
+  color: var(--color-background);
+  border: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.submit-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  text-align: center;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.form-message.success {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.form-message.error {
+  border: 1px solid #C44536;
+  color: #C44536;
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-background-alt);
+  text-align: center;
+  border-top: 3px solid var(--color-accent);
+  position: relative;
+}
+
+/* Fan decoration */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 100px;
+  background: var(--pattern-fan);
+  opacity: 0.1;
+}
+
+.footer-names {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.footer-date {
+  font-size: 1rem;
+  color: var(--color-champagne);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-hashtag {
+  font-size: 1rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.1em;
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Calendar Buttons */
+.add-to-calendar {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.calendar-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.calendar-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all var(--transition);
+}
+
+.calendar-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .couple-names {
+    font-size: 3rem;
+  }
+
+  .couple-names .ampersand {
+    font-size: 1.75rem;
+  }
+
+  .header::after {
+    margin: 15px;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md);
+  }
+
+  .countdown-item {
+    min-width: 90px;
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .invitation-card {
+    padding: var(--spacing-lg);
+  }
+
+  .invitation-card::before,
+  .invitation-card::after {
+    width: 40px;
+    height: 40px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .rsvp-counter {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .counter-divider {
+    display: none;
+  }
+
+  .section-title::before {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .couple-names {
+    font-size: 2.25rem;
+    letter-spacing: 0.1em;
+  }
+
+  .countdown-timer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .countdown-item::before {
+    display: none;
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.2em;
+  }
+
+  .section-title::before {
+    display: none;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .calendar-buttons {
+    flex-direction: column;
+  }
+
+  .calendar-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

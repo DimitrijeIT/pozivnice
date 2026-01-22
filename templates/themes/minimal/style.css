@@ -1,0 +1,600 @@
+/**
+ * Minimal Theme - Refined Elegance
+ * Trend 2025-2026: Old Money aesthetic, quiet luxury, intentional restraint
+ * Font: System UI (no external fonts)
+ * Colors: Warm whites, Deep navy, Subtle gold accents
+ */
+
+/* CSS Custom Properties */
+:root {
+  --color-primary: #1C2833;
+  --color-primary-light: #2C3E50;
+  --color-accent: #B8860B;
+  --color-text: #1C2833;
+  --color-text-light: #4A5568;
+  --color-background: #FDFCFA;
+  --color-background-alt: #F7F6F3;
+  --color-white: #FFFFFF;
+  --color-border: #1C2833;
+  --color-border-light: #E2E0DC;
+  --color-cream: #FAF9F6;
+
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  --border-radius: 0;
+  --transition: 0.2s ease;
+
+  /* Subtle warm gradient */
+  --gradient-subtle: linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 100%);
+
+  /* Refined glassmorphism */
+  --glass-bg: rgba(253, 252, 250, 0.95);
+  --glass-blur: 8px;
+  --glass-border: rgba(28, 40, 51, 0.08);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.section-title {
+  font-size: 1rem;
+  text-align: left;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-sm);
+}
+
+.section-title::after {
+  display: none;
+}
+
+/* Decorative Elements - Hidden for Minimal */
+.decorative-divider {
+  display: none;
+}
+
+/* Header Section */
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--color-background);
+  position: relative;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.couple-names {
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.1;
+}
+
+.couple-names .ampersand {
+  display: inline;
+  margin: 0 0.3em;
+}
+
+.wedding-date-header {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: var(--spacing-md);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  transition: opacity var(--transition);
+}
+
+.scroll-indicator span {
+  display: inline;
+}
+
+/* Countdown Section */
+.countdown-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: left;
+}
+
+.countdown-number {
+  display: block;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+/* Invitation Section */
+.invitation-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.invitation-card {
+  text-align: left;
+  max-width: 600px;
+}
+
+.invitation-intro {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.invitation-text {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.9;
+}
+
+.invitation-signature {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-md);
+}
+
+/* Story Section */
+.story-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+.story-text {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.story-photo img {
+  width: 100%;
+}
+
+/* Details Section */
+.details-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.detail-card {
+  text-align: left;
+}
+
+.detail-icon {
+  display: none;
+}
+
+.detail-title {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 400;
+}
+
+.detail-time {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-venue {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-address {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-text);
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+.detail-map-link:hover {
+  text-decoration: none;
+}
+
+.additional-info {
+  margin-top: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--spacing-md);
+}
+
+/* Dress Code Section */
+.dresscode-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.dresscode-content {
+  text-align: left;
+  max-width: 600px;
+}
+
+.dresscode-text {
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.dresscode-colors-label {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.color-swatches {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-border);
+}
+
+/* RSVP Section */
+.rsvp-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.rsvp-counter {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.counter-item {
+  text-align: left;
+}
+
+.counter-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-text);
+}
+
+.counter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+}
+
+.counter-divider {
+  display: none;
+}
+
+.rsvp-deadline {
+  text-align: left;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.rsvp-form {
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-light);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-bottom-width: 2px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.radio-group {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.radio-label input[type="radio"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-label input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--color-text);
+  border-radius: 50%;
+}
+
+.conditional-field {
+  display: none;
+}
+
+.submit-button {
+  padding: 14px 40px;
+  background: var(--color-primary);
+  color: var(--color-background);
+  border: 1px solid var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.submit-button:hover {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  font-size: 0.95rem;
+}
+
+.form-message.success {
+  border-left: 2px solid #000;
+  padding-left: var(--spacing-sm);
+}
+
+.form-message.error {
+  border-left: 2px solid #000;
+  padding-left: var(--spacing-sm);
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.footer-names {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.footer-date {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.footer-hashtag {
+  font-size: 0.875rem;
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .couple-names {
+    font-size: 2.5rem;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md);
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+
+  .story-photo {
+    order: -1;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .footer .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .couple-names {
+    font-size: 2rem;
+  }
+
+  .countdown-timer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .rsvp-counter {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

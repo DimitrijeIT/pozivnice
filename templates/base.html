@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - {{BRIDE_NAME}} и {{GROOM_NAME}}">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Позивница за венчање</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+
+  <!-- Theme CSS -->
+  {{THEME_CSS}}
+
+  <!-- Animations & Components CSS -->
+  {{ANIMATIONS_CSS}}
+
+  <!-- Theme-specific fonts -->
+  {{THEME_FONTS}}
+</head>
+<body>
+  <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
+  <div class="floating-elements" aria-hidden="true">
+    <span class="floating-element">{{FLOATING_ICON_1}}</span>
+    <span class="floating-element">{{FLOATING_ICON_2}}</span>
+    <span class="floating-element">{{FLOATING_ICON_3}}</span>
+    <span class="floating-element">{{FLOATING_ICON_4}}</span>
+    <span class="floating-element">{{FLOATING_ICON_5}}</span>
+    <span class="floating-element">{{FLOATING_ICON_6}}</span>
+    <span class="floating-element">{{FLOATING_ICON_7}}</span>
+    <span class="floating-element">{{FLOATING_ICON_8}}</span>
+  </div>
+
+  {{#IF_MUSIC}}
+  <!-- Background Music Player (Trend #3: Music Player) -->
+  <div class="music-player" id="music-player">
+    <button class="music-toggle" id="music-toggle" aria-label="Пусти музику">
+      <span class="music-icon music-play">▶</span>
+      <span class="music-icon music-pause" style="display:none;">❚❚</span>
+    </button>
+    <div class="music-info">
+      <span class="music-title">{{MUSIC_TITLE}}</span>
+      <span class="music-artist">{{MUSIC_ARTIST}}</span>
+    </div>
+    <audio id="background-music" loop preload="auto">
+      <source src="{{MUSIC_URL}}" type="audio/mpeg">
+    </audio>
+  </div>
+  {{/IF_MUSIC}}
+
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-content animate-fade-up">
+      <p class="header-subtitle">Позивница за венчање</p>
+      <h1 class="couple-names">
+        <span class="name-animate">{{BRIDE_NAME}}</span>
+        <span class="ampersand heart-beat">&</span>
+        <span class="name-animate">{{GROOM_NAME}}</span>
+      </h1>
+      <p class="wedding-date-header">{{WEDDING_DATE_FORMATTED}}</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>↓</span>
+    </div>
+  </header>
+
+  <!-- Countdown Section -->
+  <section class="countdown-section" id="countdown">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">До нашег венчања</h2>
+      <div class="countdown-timer animate-stagger" data-wedding-date="{{WEDDING_DATE_ISO}}">
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-days">--</span>
+          <span class="countdown-label">дана</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-hours">--</span>
+          <span class="countdown-label">сати</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-minutes">--</span>
+          <span class="countdown-label">минута</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-seconds">--</span>
+          <span class="countdown-label">секунди</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Invitation Text Section -->
+  <section class="invitation-section" id="invitation">
+    <div class="container">
+      <div class="invitation-card animate-scale">
+        <p class="invitation-intro">{{INVITATION_INTRO}}</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-text">{{INVITATION_TEXT}}</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-signature">{{INVITATION_SIGNATURE}}</p>
+      </div>
+    </div>
+  </section>
+
+  {{#IF_TIMELINE}}
+  <!-- Love Story Timeline (Trend #4: Animated Timeline) -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наша прича</h2>
+      <div class="timeline">
+        {{TIMELINE_ITEMS}}
+      </div>
+    </div>
+  </section>
+  {{/IF_TIMELINE}}
+
+  {{#IF_STORY}}
+  <!-- Our Story Section (without timeline) -->
+  <section class="story-section" id="story">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наша прича</h2>
+      <div class="story-content">
+        <div class="story-text animate-fade-left">
+          {{STORY_TEXT}}
+        </div>
+        {{#IF_STORY_PHOTO}}
+        <div class="story-photo animate-fade-right">
+          <img src="{{STORY_PHOTO_URL}}" alt="{{BRIDE_NAME}} и {{GROOM_NAME}}" loading="lazy">
+        </div>
+        {{/IF_STORY_PHOTO}}
+      </div>
+    </div>
+  </section>
+  {{/IF_STORY}}
+
+  {{#IF_GALLERY}}
+  <!-- Photo Gallery with Lightbox (Trend #2: Interactive Gallery) -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наше фотографије</h2>
+      <div class="gallery-grid animate-stagger">
+        {{GALLERY_ITEMS}}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Преглед фотографије">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Затвори">&times;</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Претходна">&#10094;</button>
+    <button class="lightbox-next" id="lightbox-next" aria-label="Следећа">&#10095;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-image">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <p class="lightbox-counter" id="lightbox-counter"></p>
+    </div>
+  </div>
+  {{/IF_GALLERY}}
+
+  <!-- Wedding Details Section -->
+  <section class="details-section" id="details">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Детаљи венчања</h2>
+
+      <div class="details-grid animate-stagger">
+        <!-- Ceremony -->
+        <div class="detail-card animate-fade-left">
+          <div class="detail-icon">💒</div>
+          <h3 class="detail-title">Венчање</h3>
+          <p class="detail-time">{{CEREMONY_TIME}}</p>
+          <p class="detail-venue">{{CEREMONY_VENUE}}</p>
+          <p class="detail-address">{{CEREMONY_ADDRESS}}</p>
+          {{#IF_CEREMONY_MAP}}
+          <a href="{{CEREMONY_MAP_URL}}" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          {{/IF_CEREMONY_MAP}}
+        </div>
+
+        <!-- Reception -->
+        <div class="detail-card animate-fade-right">
+          <div class="detail-icon">🎉</div>
+          <h3 class="detail-title">Прослава</h3>
+          <p class="detail-time">{{RECEPTION_TIME}}</p>
+          <p class="detail-venue">{{RECEPTION_VENUE}}</p>
+          <p class="detail-address">{{RECEPTION_ADDRESS}}</p>
+          {{#IF_RECEPTION_MAP}}
+          <a href="{{RECEPTION_MAP_URL}}" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          {{/IF_RECEPTION_MAP}}
+        </div>
+      </div>
+
+      <!-- Add to Calendar -->
+      <div class="add-to-calendar animate-fade-up">
+        <h3 class="calendar-title">Додај у календар</h3>
+        {{CALENDAR_BUTTONS}}
+      </div>
+
+      {{#IF_ADDITIONAL_INFO}}
+      <div class="additional-info animate-fade-up">
+        <p>{{ADDITIONAL_INFO}}</p>
+      </div>
+      {{/IF_ADDITIONAL_INFO}}
+    </div>
+  </section>
+
+  {{#IF_DRESS_CODE}}
+  <!-- Dress Code Section -->
+  <section class="dresscode-section" id="dresscode">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Дрес код</h2>
+      <div class="dresscode-content animate-scale">
+        <p class="dresscode-text">{{DRESS_CODE_TEXT}}</p>
+        {{#IF_DRESS_CODE_COLORS}}
+        <div class="dresscode-colors">
+          <p class="dresscode-colors-label">Препоручене боје:</p>
+          <div class="color-swatches animate-stagger">
+            {{DRESS_CODE_COLOR_SWATCHES}}
+          </div>
+        </div>
+        {{/IF_DRESS_CODE_COLORS}}
+      </div>
+    </div>
+  </section>
+  {{/IF_DRESS_CODE}}
+
+  <!-- RSVP Section -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Потврда доласка</h2>
+
+      <p class="rsvp-deadline animate-fade-up">Молимо вас да потврдите долазак до {{RSVP_DEADLINE}}</p>
+
+      <!-- RSVP Form -->
+      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+        <div class="form-group">
+          <label for="guest-name">Име и презиме *</label>
+          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-email">Е-маил адреса</label>
+          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-phone">Телефон</label>
+          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона">
+        </div>
+
+        <div class="form-group">
+          <label>Да ли долазите? *</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="yes" required>
+              <span>Да, долазим</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="no">
+              <span>Нажалост, не могу да дођем</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group conditional-field" id="guests-count-group">
+          <label for="guests-count">Број гостију (укључујући вас)</label>
+          <select id="guests-count" name="guests_count">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        {{#IF_MEAL_OPTIONS}}
+        <div class="form-group conditional-field" id="meal-group">
+          <label for="meal-preference">Преференција оброка</label>
+          <select id="meal-preference" name="meal_preference">
+            <option value="">Изаберите...</option>
+            {{MEAL_OPTIONS}}
+          </select>
+        </div>
+        {{/IF_MEAL_OPTIONS}}
+
+        <div class="form-group">
+          <label for="message">Порука за младенце (опционално)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Оставите поруку или напомену..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn">
+          <span class="button-text">Потврди долазак</span>
+          <span class="button-loading" style="display: none;">
+            <span class="loading-rings"><span></span><span></span></span>
+            Шаљем...
+          </span>
+        </button>
+
+        <div class="form-message" id="form-message"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Confetti Container (for celebration effect) -->
+  <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-names">{{BRIDE_NAME}} & {{GROOM_NAME}}</p>
+      <p class="footer-date">{{WEDDING_DATE_FORMATTED}}</p>
+      {{#IF_HASHTAG}}
+      <p class="footer-hashtag">{{WEDDING_HASHTAG}}</p>
+      {{/IF_HASHTAG}}
+      <p class="footer-credit">Направљено са <span class="heart-beat">❤️</span></p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    {{INLINE_SCRIPT}}
+  </script>
+</body>
+</html>

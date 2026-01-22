@@ -1,0 +1,283 @@
+/**
+ * Wedding Invitation - Decorative SVG Elements
+ * Botanical illustrations, flourishes, frames
+ */
+
+/* ============================================
+   BOTANICAL CORNER DECORATIONS
+   ============================================ */
+
+/* Elegant floral corner - top left */
+.corner-floral-tl::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cpath d='M0 0 Q30 50 20 100 Q40 80 60 90 Q50 60 80 50 Q60 30 50 0' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M10 0 Q35 40 30 80 Q45 65 60 75 Q55 50 75 45 Q60 30 55 0' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ccircle cx='25' cy='25' r='3' fill='%23D4AF37' opacity='0.5'/%3E%3Ccircle cx='45' cy='40' r='2' fill='%23D4AF37' opacity='0.4'/%3E%3Ccircle cx='35' cy='55' r='2.5' fill='%23D4AF37' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Elegant floral corner - bottom right */
+.corner-floral-br::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cpath d='M150 150 Q120 100 130 50 Q110 70 90 60 Q100 90 70 100 Q90 120 100 150' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M140 150 Q115 110 120 70 Q105 85 90 75 Q95 100 75 105 Q90 120 95 150' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ccircle cx='125' cy='125' r='3' fill='%23D4AF37' opacity='0.5'/%3E%3Ccircle cx='105' cy='110' r='2' fill='%23D4AF37' opacity='0.4'/%3E%3Ccircle cx='115' cy='95' r='2.5' fill='%23D4AF37' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   BOTANICAL LEAF BORDERS
+   ============================================ */
+
+.border-leaves {
+  position: relative;
+}
+
+.border-leaves::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Cpath d='M100 55 Q90 40 70 45 Q80 35 75 20 Q90 30 100 15 Q110 30 125 20 Q120 35 130 45 Q110 40 100 55' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.3'/%3E%3Cpath d='M40 58 Q35 45 25 48 Q30 40 28 30 Q38 38 45 28 Q48 38 55 30 Q52 40 58 48 Q48 45 40 58' fill='none' stroke='%23228B22' stroke-width='1' opacity='0.25'/%3E%3Cpath d='M160 58 Q155 45 145 48 Q150 40 148 30 Q158 38 165 28 Q168 38 175 30 Q172 40 178 48 Q168 45 160 58' fill='none' stroke='%23228B22' stroke-width='1' opacity='0.25'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* ============================================
+   ROMANTIC FLOURISHES
+   ============================================ */
+
+.flourish-romantic {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.flourish-romantic::before {
+  content: '';
+  width: 200px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 30'%3E%3Cpath d='M0 15 Q25 5 50 15 T100 15 T150 15 T200 15' fill='none' stroke='%23FFB6C1' stroke-width='1' opacity='0.6'/%3E%3Cpath d='M90 15 Q95 10 100 15 Q105 20 110 15' fill='none' stroke='%23FFB6C1' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%23FFB6C1' opacity='0.8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   RING DECORATION
+   ============================================ */
+
+.rings-decoration {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.rings-decoration::before {
+  content: '';
+  width: 80px;
+  height: 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 50'%3E%3Cellipse cx='28' cy='25' rx='18' ry='18' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Cellipse cx='52' cy='25' rx='18' ry='18' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Cellipse cx='28' cy='25' rx='14' ry='14' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3Cellipse cx='52' cy='25' rx='14' ry='14' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   HEART DECORATIONS
+   ============================================ */
+
+.heart-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+.heart-divider::before,
+.heart-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--color-primary, #D4AF37);
+  opacity: 0.4;
+}
+
+.heart-divider span {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' fill='%23D4AF37'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.6;
+}
+
+/* ============================================
+   ELEGANT FRAME DECORATIONS
+   ============================================ */
+
+.frame-elegant {
+  position: relative;
+  padding: 2rem;
+}
+
+.frame-elegant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--color-primary, #D4AF37);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.frame-elegant::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid var(--color-primary, #D4AF37);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Art Deco frame */
+.frame-art-deco {
+  position: relative;
+  padding: 2.5rem;
+}
+
+.frame-art-deco::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L15 0 L0 15 Z M85 0 L100 0 L100 15 Z M0 85 L0 100 L15 100 Z M85 100 L100 100 L100 85 Z' fill='%23D4AF37' opacity='0.3'/%3E%3Crect x='5' y='5' width='90' height='90' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+/* ============================================
+   WATERCOLOR FLOWER DECORATIONS
+   ============================================ */
+
+.watercolor-flowers-top {
+  position: relative;
+}
+
+.watercolor-flowers-top::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 100px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'%3E%3Cdefs%3E%3CradialGradient id='flower1' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23FFB6C1' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23FFB6C1' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='flower2' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23DDA0DD' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%23DDA0DD' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='leaf' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%2398D8AA' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%2398D8AA' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='150' cy='50' rx='35' ry='30' fill='url(%23flower1)'/%3E%3Cellipse cx='100' cy='60' rx='25' ry='22' fill='url(%23flower2)'/%3E%3Cellipse cx='200' cy='55' rx='28' ry='25' fill='url(%23flower1)'/%3E%3Cellipse cx='70' cy='45' rx='20' ry='30' fill='url(%23leaf)' transform='rotate(-30 70 45)'/%3E%3Cellipse cx='230' cy='40' rx='20' ry='30' fill='url(%23leaf)' transform='rotate(30 230 40)'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   RUSTIC DECORATIONS
+   ============================================ */
+
+.branch-decoration {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.branch-decoration::before {
+  content: '';
+  width: 250px;
+  height: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 40'%3E%3Cpath d='M20 20 Q60 15 125 20 Q190 25 230 20' fill='none' stroke='%238B7355' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M50 20 Q45 12 55 8' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M50 20 Q55 28 45 32' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M90 18 Q85 10 95 6' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M90 18 Q95 26 85 30' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M125 20 Q120 10 130 5' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M125 20 Q130 30 120 35' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M160 22 Q155 14 165 10' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M160 22 Q165 30 155 34' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M200 20 Q195 12 205 8' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3Cpath d='M200 20 Q205 28 195 32' fill='none' stroke='%23228B22' stroke-width='1.5' opacity='0.7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================
+   AMPERSAND DECORATIONS
+   ============================================ */
+
+.ampersand-decorated {
+  position: relative;
+  display: inline-block;
+  padding: 0 1rem;
+}
+
+.ampersand-decorated::before,
+.ampersand-decorated::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+.ampersand-decorated::before {
+  right: 100%;
+  margin-right: 0.5rem;
+}
+
+.ampersand-decorated::after {
+  left: 100%;
+  margin-left: 0.5rem;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .corner-floral-tl::before,
+  .corner-floral-br::after {
+    width: 100px;
+    height: 100px;
+  }
+
+  .flourish-romantic::before {
+    width: 150px;
+  }
+
+  .watercolor-flowers-top::before {
+    width: 200px;
+    height: 70px;
+  }
+
+  .branch-decoration::before {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .corner-floral-tl::before,
+  .corner-floral-br::after {
+    width: 70px;
+    height: 70px;
+  }
+}

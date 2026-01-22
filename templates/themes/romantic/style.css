@@ -1,0 +1,703 @@
+/**
+ * Romantic Theme - Soft Watercolor Dreams
+ * Trend 2025-2026: Mesh gradients, watercolor effects, delicate florals
+ * Font: Great Vibes (script) + Raleway
+ * Colors: Dusty Rose, Blush Pink, Soft Lavender
+ */
+
+/* CSS Custom Properties */
+:root {
+  --color-primary: #C9A0A0;
+  --color-primary-dark: #A67B7B;
+  --color-primary-light: #E8D0D0;
+  --color-secondary: #FDF8F8;
+  --color-accent: #B8A9C9;
+  --color-accent-warm: #D4A373;
+  --color-text: #5C4A4A;
+  --color-text-light: #8B7878;
+  --color-background: #FFFBFB;
+  --color-background-alt: #FDF6F6;
+  --color-white: #FFFFFF;
+  --color-border: #E8D0D0;
+
+  --font-display: 'Great Vibes', cursive;
+  --font-heading: 'Great Vibes', cursive;
+  --font-body: 'Raleway', 'Helvetica Neue', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  --border-radius: 24px;
+  --transition: 0.4s ease;
+
+  /* Romantic mesh gradient colors */
+  --gradient-blush: radial-gradient(at 40% 20%, hsla(350, 60%, 95%, 1) 0px, transparent 50%);
+  --gradient-lavender: radial-gradient(at 80% 0%, hsla(280, 40%, 93%, 1) 0px, transparent 50%);
+  --gradient-peach: radial-gradient(at 0% 50%, hsla(30, 60%, 95%, 1) 0px, transparent 50%);
+
+  /* Glassmorphism - soft */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-blur: 16px;
+  --glass-border: rgba(255, 220, 220, 0.3);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary);
+}
+
+.section-title::after {
+  content: '✿';
+  display: block;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  color: var(--color-primary-light);
+  margin-top: var(--spacing-sm);
+}
+
+/* Decorative Elements */
+.decorative-divider {
+  width: 150px;
+  height: 30px;
+  margin: var(--spacing-md) auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.decorative-divider::before {
+  content: '❀ ❁ ❀';
+  font-size: 1rem;
+  color: var(--color-primary-light);
+  letter-spacing: 0.5em;
+}
+
+/* Header Section */
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #FFF5F5 0%, #FFEEF0 50%, #FFF9F9 100%);
+  position: relative;
+  padding: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.header::before,
+.header::after {
+  content: '❀';
+  position: absolute;
+  font-size: 8rem;
+  color: rgba(183, 110, 121, 0.05);
+  pointer-events: none;
+}
+
+.header::before {
+  top: 10%;
+  left: -5%;
+  transform: rotate(-15deg);
+}
+
+.header::after {
+  bottom: 10%;
+  right: -5%;
+  transform: rotate(15deg);
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.header-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.couple-names {
+  font-size: 5rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 2px 2px 4px rgba(183, 110, 121, 0.2);
+}
+
+.couple-names .ampersand {
+  display: inline-block;
+  font-size: 3rem;
+  margin: 0 var(--spacing-sm);
+  color: var(--color-primary-light);
+}
+
+.wedding-date-header {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.2em;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  animation: float 3s ease-in-out infinite;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--color-primary-light);
+  transition: opacity var(--transition);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+/* Countdown Section */
+.countdown-section {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-white);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: center;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFEEF0 100%);
+  padding: var(--spacing-md);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(183, 110, 121, 0.15);
+}
+
+.countdown-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+/* Invitation Section */
+.invitation-section {
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #FFF9F9 0%, #FFF5F5 100%);
+}
+
+.invitation-card {
+  background: var(--color-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 10px 40px rgba(183, 110, 121, 0.1);
+  position: relative;
+}
+
+.invitation-card::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 1px solid var(--color-primary-light);
+  border-radius: calc(var(--border-radius) - 5px);
+  pointer-events: none;
+}
+
+.invitation-intro {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.invitation-text {
+  font-size: 1.2rem;
+  line-height: 2.2;
+  color: var(--color-text);
+}
+
+.invitation-signature {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--color-primary);
+}
+
+/* Story Section */
+.story-section {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-white);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.story-text {
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.story-photo img {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 40px rgba(183, 110, 121, 0.2);
+}
+
+/* Details Section */
+.details-section {
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #FFF5F5 0%, #FFEEF0 50%, #FFF9F9 100%);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.detail-card {
+  background: var(--color-white);
+  padding: var(--spacing-lg);
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 25px rgba(183, 110, 121, 0.1);
+}
+
+.detail-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-time {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+}
+
+.detail-venue {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-address {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  border: 1px solid var(--color-primary-light);
+  border-radius: 25px;
+  transition: all var(--transition);
+}
+
+.detail-map-link:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.additional-info {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text-light);
+  background: var(--color-white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+
+/* Dress Code Section */
+.dresscode-section {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-white);
+}
+
+.dresscode-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dresscode-text {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.dresscode-colors-label {
+  font-style: italic;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.color-swatches {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* RSVP Section */
+.rsvp-section {
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #FFF9F9 0%, #FFF5F5 100%);
+}
+
+.rsvp-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-white);
+  border-radius: 50px;
+  box-shadow: 0 5px 25px rgba(183, 110, 121, 0.1);
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.counter-item {
+  text-align: center;
+}
+
+.counter-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary);
+}
+
+.counter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+}
+
+.counter-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+}
+
+.rsvp-deadline {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--color-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 40px rgba(183, 110, 121, 0.1);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: #FEFEFE;
+  transition: all var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  transition: all var(--transition);
+}
+
+.radio-label:hover {
+  border-color: var(--color-primary-light);
+}
+
+.radio-label input[type="radio"] {
+  accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+}
+
+.conditional-field {
+  display: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: var(--color-white);
+  border: none;
+  border-radius: 25px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(183, 110, 121, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  text-align: center;
+  border-radius: 10px;
+}
+
+.form-message.success {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.form-message.error {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-lg) 0;
+  background: var(--color-primary);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.footer-names {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.footer-date {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-hashtag {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-credit {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .couple-names {
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md);
+  }
+
+  .countdown-item {
+    width: 100px;
+    height: 100px;
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+
+  .story-photo {
+    order: -1;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .couple-names {
+    font-size: 2.5rem;
+  }
+
+  .couple-names .ampersand {
+    display: block;
+    margin: var(--spacing-xs) 0;
+    font-size: 2rem;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-sm);
+  }
+
+  .countdown-item {
+    width: 80px;
+    height: 80px;
+    padding: var(--spacing-sm);
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .rsvp-counter {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    border-radius: var(--border-radius);
+  }
+
+  .counter-divider {
+    width: 40px;
+    height: 1px;
+  }
+}
