@@ -273,6 +273,71 @@ node scripts/generate-preview.js ${data.slug}
 }
 
 /**
+ * Process a specific row from the sheet manually
+ * Change the ROW_NUMBER to the row you want to process
+ */
+function processRowManually() {
+  const ROW_NUMBER = 2; // Change this to the row you want to process (2 = first data row after headers)
+
+  const CONFIG = getConfig();
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const rowData = sheet.getRange(ROW_NUMBER, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  // Build formData object from row
+  let formData = {};
+  for (let i = 0; i < headers.length; i++) {
+    formData[headers[i]] = rowData[i] || '';
+  }
+
+  Logger.log('Processing row ' + ROW_NUMBER);
+  Logger.log('Form data: ' + JSON.stringify(formData));
+
+  // Build wedding data (same logic as onFormSubmit)
+  const weddingData = {
+    bride_name: formData['Име младе'] || formData['Bride Name'] || '',
+    groom_name: formData['Име младожење'] || formData['Groom Name'] || '',
+    wedding_date: formatDateForJson(formData['Датум венчања'] || formData['Wedding Date'] || ''),
+    ceremony_venue: formData['Место церемоније'] || formData['Ceremony Venue'] || '',
+    ceremony_address: formData['Адреса церемоније'] || formData['Ceremony Address'] || '',
+    ceremony_time: formData['Време церемоније'] || formData['Ceremony Time'] || '',
+    ceremony_map_url: formData['Google Maps линк за церемонију'] || formData['Ceremony Map URL'] || '',
+    reception_venue: formData['Место прославе'] || formData['Reception Venue'] || '',
+    reception_address: formData['Адреса прославе'] || formData['Reception Address'] || '',
+    reception_time: formData['Време прославе'] || formData['Reception Time'] || '',
+    reception_map_url: formData['Google Maps линк за прославу'] || formData['Reception Map URL'] || '',
+    contact_email: formData['Е-маил за контакт'] || formData['Contact Email'] || formData['Email'] || '',
+    contact_phone: formData['Телефон за контакт'] || formData['Phone'] || '',
+    story_text: formData['Ваша прича (како сте се упознали)'] || formData['Ваша прича'] || formData['Story'] || '',
+    dress_code_text: formData['Дрес код'] || formData['Dress Code'] || '',
+    rsvp_deadline: formatDateForJson(formData['Рок за потврду доласка (RSVP)'] || formData['RSVP Deadline'] || ''),
+    wedding_hashtag: formData['Хаштаг венчања'] || formData['Hashtag'] || '',
+    additional_info: formData['Додатне напомене'] || formData['Additional Info'] || '',
+    invitation_intro: 'Са великом радошћу вас позивамо',
+    invitation_text: 'да присуствујете нашем венчању и прослави љубави.',
+    invitation_signature: 'Са љубављу, младенци'
+  };
+
+  if (!weddingData.bride_name || !weddingData.groom_name) {
+    Logger.log('ERROR: Missing bride_name or groom_name');
+    return;
+  }
+
+  weddingData.slug = generateSlug(weddingData.bride_name, weddingData.groom_name);
+  weddingData.status = 'preview_generating';
+  weddingData.submitted_at = new Date().toISOString();
+
+  Logger.log('Wedding slug: ' + weddingData.slug);
+
+  if (CONFIG.GITHUB_TOKEN && CONFIG.GITHUB_REPO) {
+    const success = triggerGitHubAction(weddingData, CONFIG);
+    Logger.log('GitHub trigger result: ' + (success ? 'SUCCESS' : 'FAILED'));
+  } else {
+    Logger.log('ERROR: GitHub not configured');
+  }
+}
+
+/**
  * Test function - run manually to test the GitHub trigger
  */
 function testGitHubTrigger() {
