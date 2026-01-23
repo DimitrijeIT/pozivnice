@@ -3,6 +3,7 @@ node_modules/
 
 # Generated preview and site files (keep public/index.html)
 public/preview/
+!public/preview/demo/
 public/site/
 
 # Downloaded files
