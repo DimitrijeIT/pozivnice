@@ -1,30 +1,33 @@
 /**
- * Moody Romance Theme - Dark Elegance
- * Trend 2025-2026: Dramatic burgundy, velvet textures, theatrical lighting
- * Font: Playfair Display + Raleway
- * Colors: Deep burgundy, wine, antique gold, near-black
- * Layout: Centered dramatic cards with theatrical spacing
+ * Moody Romance Theme - Velvet Noir
+ * Trend 2025-2026: Dramatic burgundy, velvet depth, candlelit atmosphere
+ * Font: Bodoni Moda (high contrast serif) + Raleway
+ * Colors: Deep wine, velvet black, burnished copper, candlelight gold
+ * Layout: Theatrical cards with dramatic shadows
+ * Updated: January 2026 - Enhanced velvet textures and theatrical lighting
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #722F37;
-  --color-primary-light: #8B3A42;
-  --color-primary-dark: #4A1C23;
-  --color-accent: #C9A962;
-  --color-accent-light: #D4B86A;
-  --color-text: #F5F0EB;
-  --color-text-muted: #B8A99A;
-  --color-background: #1A1215;
-  --color-background-alt: #251A1D;
-  --color-card: #2D1F23;
-  --color-card-border: rgba(201, 169, 98, 0.3);
+  --color-primary: #6B2D35;
+  --color-primary-light: #8A3D47;
+  --color-primary-dark: #401A20;
+  --color-accent: #C4956A;
+  --color-accent-light: #D4AB82;
+  --color-copper: #B87333;
+  --color-text: #F8F4F0;
+  --color-text-muted: #C4B8AD;
+  --color-background: #140E10;
+  --color-background-alt: #1E1518;
+  --color-card: #251A1D;
+  --color-card-border: rgba(196, 149, 106, 0.25);
   --color-white: #FFFFFF;
-  --color-wine: #5C2028;
-  --color-plum: #3D1F2D;
+  --color-wine: #4A1820;
+  --color-plum: #2D151D;
+  --color-velvet: #1A1012;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-display: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --font-heading: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   --font-body: 'Raleway', 'Helvetica Neue', sans-serif;
 
   --spacing-xs: 0.5rem;
@@ -33,29 +36,44 @@
   --spacing-lg: 4rem;
   --spacing-xl: 6rem;
 
-  --border-radius: 8px;
-  --border-radius-lg: 16px;
-  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --border-radius: 4px;
+  --border-radius-lg: 8px;
+  --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* Dramatic gradient */
-  --gradient-dramatic: linear-gradient(
+  /* Velvet depth gradient */
+  --gradient-velvet: linear-gradient(
     180deg,
-    var(--color-background) 0%,
-    var(--color-plum) 50%,
-    var(--color-background) 100%
+    var(--color-velvet) 0%,
+    var(--color-plum) 30%,
+    var(--color-wine) 50%,
+    var(--color-plum) 70%,
+    var(--color-velvet) 100%
   );
 
-  /* Vignette overlay */
+  /* Candlelight gradient */
+  --gradient-candlelight: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(196, 149, 106, 0.15) 0%,
+    transparent 50%
+  );
+
+  /* Deep vignette overlay */
   --vignette: radial-gradient(
     ellipse at center,
     transparent 0%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.4) 100%
+    transparent 40%,
+    rgba(0, 0, 0, 0.5) 100%
   );
 
-  /* Gold glow */
-  --glow-gold: 0 0 40px rgba(201, 169, 98, 0.3);
-  --glow-gold-strong: 0 0 60px rgba(201, 169, 98, 0.5);
+  /* Velvet texture overlay */
+  --velvet-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+
+  /* Warm candlelight glow */
+  --glow-candle: 0 0 40px rgba(196, 149, 106, 0.25), 0 0 80px rgba(184, 115, 51, 0.15);
+  --glow-candle-strong: 0 0 60px rgba(196, 149, 106, 0.4), 0 0 100px rgba(184, 115, 51, 0.2);
+
+  /* Theatrical shadow */
+  --shadow-dramatic: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Reset & Base */

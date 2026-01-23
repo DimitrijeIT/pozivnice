@@ -1,28 +1,31 @@
 /**
- * Romantic Theme - Soft Watercolor Dreams
- * Trend 2025-2026: Mesh gradients, watercolor effects, delicate florals
- * Font: Great Vibes (script) + Raleway
- * Colors: Dusty Rose, Blush Pink, Soft Lavender
+ * Romantic Theme - Rococo Revival
+ * Trend 2025-2026: Ornate flourishes, scrollwork, scalloped edges, romantic drama
+ * Font: Pinyon Script (elegant calligraphy) + Cormorant Garamond
+ * Colors: Soft Rose, Champagne, Antique Blush, Sage accents
+ * Updated: January 2026 - Enhanced with Rococo flourishes and shell motifs
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #C9A0A0;
-  --color-primary-dark: #A67B7B;
-  --color-primary-light: #E8D0D0;
-  --color-secondary: #FDF8F8;
-  --color-accent: #B8A9C9;
-  --color-accent-warm: #D4A373;
-  --color-text: #5C4A4A;
-  --color-text-light: #8B7878;
-  --color-background: #FFFBFB;
-  --color-background-alt: #FDF6F6;
+  --color-primary: #C4A4A4;
+  --color-primary-dark: #9E7B7B;
+  --color-primary-light: #E8D5D5;
+  --color-secondary: #FDF9F7;
+  --color-accent: #A8B5A0;
+  --color-accent-warm: #D4B896;
+  --color-gold: #C9B896;
+  --color-text: #4A3F3F;
+  --color-text-light: #7A6B6B;
+  --color-background: #FFFCFA;
+  --color-background-alt: #FDF8F5;
   --color-white: #FFFFFF;
-  --color-border: #E8D0D0;
+  --color-border: #E5D5D0;
+  --color-champagne: #F5EDE5;
 
-  --font-display: 'Great Vibes', cursive;
-  --font-heading: 'Great Vibes', cursive;
-  --font-body: 'Raleway', 'Helvetica Neue', sans-serif;
+  --font-display: 'Pinyon Script', 'Great Vibes', cursive;
+  --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Cormorant Garamond', 'Raleway', sans-serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -30,18 +33,25 @@
   --spacing-lg: 4rem;
   --spacing-xl: 6rem;
 
-  --border-radius: 24px;
-  --transition: 0.4s ease;
+  --border-radius: 0;
+  --border-radius-scallop: 50% 50% 0 0 / 20% 20% 0 0;
+  --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Rococo ornate flourish SVG */
+  --flourish-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 35 Q50 0 100 20 T200 35' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M80 20 Q100 5 120 20' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.6'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%23C4A4A4' opacity='0.5'/%3E%3C/svg%3E");
+
+  /* Scalloped edge pattern */
+  --scallop-border: radial-gradient(circle at 50% 0%, transparent 12px, var(--color-primary-light) 12px, var(--color-primary-light) 14px, transparent 14px);
 
   /* Romantic mesh gradient colors */
-  --gradient-blush: radial-gradient(at 40% 20%, hsla(350, 60%, 95%, 1) 0px, transparent 50%);
-  --gradient-lavender: radial-gradient(at 80% 0%, hsla(280, 40%, 93%, 1) 0px, transparent 50%);
-  --gradient-peach: radial-gradient(at 0% 50%, hsla(30, 60%, 95%, 1) 0px, transparent 50%);
+  --gradient-blush: radial-gradient(ellipse at 30% 20%, hsla(350, 45%, 94%, 0.8) 0%, transparent 50%);
+  --gradient-champagne: radial-gradient(ellipse at 70% 30%, hsla(35, 50%, 92%, 0.7) 0%, transparent 50%);
+  --gradient-sage: radial-gradient(ellipse at 50% 80%, hsla(100, 20%, 88%, 0.5) 0%, transparent 50%);
 
-  /* Glassmorphism - soft */
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-blur: 16px;
-  --glass-border: rgba(255, 220, 220, 0.3);
+  /* Glassmorphism - soft romantic */
+  --glass-bg: rgba(255, 252, 250, 0.85);
+  --glass-blur: 20px;
+  --glass-border: rgba(196, 164, 164, 0.2);
 }
 
 /* Reset & Base */
@@ -70,33 +80,50 @@ body {
   padding: 0 var(--spacing-md);
 }
 
-/* Typography */
+/* Typography - Romantic Calligraphy */
 h1, h2, h3 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
 .section-title {
-  font-size: 3rem;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
   text-align: center;
   margin-bottom: var(--spacing-lg);
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
+  position: relative;
+  font-weight: 400;
+}
+
+/* Ornate flourish above titles */
+.section-title::before {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 30px;
+  margin: 0 auto var(--spacing-sm);
+  background: var(--flourish-top);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .section-title::after {
-  content: '✿';
+  content: '❧';
   display: block;
-  font-family: sans-serif;
-  font-size: 1.2rem;
-  color: var(--color-primary-light);
+  font-family: serif;
+  font-size: 1rem;
+  color: var(--color-primary);
   margin-top: var(--spacing-sm);
+  opacity: 0.6;
 }
 
-/* Decorative Elements */
+/* Decorative Elements - Rococo Flourishes */
 .decorative-divider {
-  width: 150px;
-  height: 30px;
+  width: 200px;
+  height: 40px;
   margin: var(--spacing-md) auto;
   position: relative;
   display: flex;
@@ -105,13 +132,24 @@ h1, h2, h3 {
 }
 
 .decorative-divider::before {
-  content: '❀ ❁ ❀';
-  font-size: 1rem;
-  color: var(--color-primary-light);
-  letter-spacing: 0.5em;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent 100%);
 }
 
-/* Header Section */
+.decorative-divider::after {
+  content: '✧ ❦ ✧';
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  letter-spacing: 0.3em;
+  background: var(--color-background);
+  padding: 0 var(--spacing-sm);
+  position: relative;
+}
+
+/* Header Section - Rococo Elegance */
 .header {
   min-height: 100vh;
   display: flex;
@@ -119,66 +157,98 @@ h1, h2, h3 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(180deg, #FFF5F5 0%, #FFEEF0 50%, #FFF9F9 100%);
+  background:
+    var(--gradient-blush),
+    var(--gradient-champagne),
+    var(--gradient-sage),
+    linear-gradient(180deg, var(--color-champagne) 0%, var(--color-background) 50%, var(--color-background-alt) 100%);
   position: relative;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   overflow: hidden;
 }
 
-.header::before,
-.header::after {
-  content: '❀';
-  position: absolute;
-  font-size: 8rem;
-  color: rgba(183, 110, 121, 0.05);
-  pointer-events: none;
-}
-
+/* Decorative scrollwork frame */
 .header::before {
-  top: 10%;
-  left: -5%;
-  transform: rotate(-15deg);
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  border: 1px solid var(--color-primary-light);
+  pointer-events: none;
+  opacity: 0.5;
 }
 
+/* Corner shell/scroll motifs */
 .header::after {
-  bottom: 10%;
-  right: -5%;
-  transform: rotate(15deg);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 80px 60px at 60px 60px, var(--color-primary-light) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 60px at calc(100% - 60px) 60px, var(--color-primary-light) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 60px at 60px calc(100% - 60px), var(--color-primary-light) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 60px at calc(100% - 60px) calc(100% - 60px), var(--color-primary-light) 0%, transparent 70%);
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 .header-content {
   position: relative;
   z-index: 1;
+  max-width: 600px;
+  padding: var(--spacing-lg);
+}
+
+/* Flourish above content */
+.header-content::before {
+  content: '❧';
+  display: block;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
 }
 
 .header-subtitle {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-sm);
-  letter-spacing: 0.3em;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .couple-names {
-  font-size: 5rem;
-  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  color: var(--color-primary-dark);
   margin-bottom: var(--spacing-md);
-  text-shadow: 2px 2px 4px rgba(183, 110, 121, 0.2);
+  line-height: 0.9;
+  font-weight: 400;
 }
 
 .couple-names .ampersand {
-  display: inline-block;
-  font-size: 3rem;
-  margin: 0 var(--spacing-sm);
-  color: var(--color-primary-light);
+  display: block;
+  font-size: 2rem;
+  margin: var(--spacing-xs) 0;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-style: italic;
 }
 
 .wedding-date-header {
-  font-size: 1.2rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
   color: var(--color-text-light);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .scroll-indicator {

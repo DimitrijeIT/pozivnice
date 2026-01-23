@@ -1,27 +1,30 @@
 /**
- * Classic Theme - "Old Money" Luxury Elegance
- * Trend 2025-2026: Timeless sophistication, heritage aesthetics
- * Font: Playfair Display
- * Colors: Ivory, Antique Gold, Deep Charcoal
+ * Classic Theme - "Old Money" Quiet Luxury
+ * Trend 2025-2026: Heritage aesthetics, gilded frames, embossed textures
+ * Font: Cormorant Garamond (refined serif) + Lato
+ * Colors: Ivory, Burnished Gold, Forest Green accents, Deep Charcoal
+ * Updated: January 2026 - Enhanced old money aesthetic with tactile textures
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #C9A962;
-  --color-primary-dark: #A68B4B;
-  --color-primary-light: #E5D5A8;
+  --color-primary: #B8956B;
+  --color-primary-dark: #8B6914;
+  --color-primary-light: #D4C4A8;
   --color-secondary: #FAF9F6;
-  --color-accent: #8B7355;
-  --color-text: #2C2C2C;
-  --color-text-light: #5A5A5A;
-  --color-background: #FAF9F6;
-  --color-background-alt: #F5F3EE;
+  --color-accent: #2D4739;
+  --color-accent-light: #4A6B5A;
+  --color-text: #1C1C1C;
+  --color-text-light: #4A4A4A;
+  --color-background: #FFFEF9;
+  --color-background-alt: #F8F6F0;
   --color-white: #FFFFFF;
-  --color-border: #C9A962;
-  --color-cream: #FFFEF7;
+  --color-border: #B8956B;
+  --color-cream: #FFFDF5;
+  --color-champagne: #F5EFE0;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --font-body: 'Lato', 'Helvetica Neue', sans-serif;
 
   --spacing-xs: 0.5rem;
@@ -31,12 +34,22 @@
   --spacing-xl: 6rem;
 
   --border-radius: 0;
-  --transition: 0.3s ease;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Gold foil gradient */
+  --gold-foil: linear-gradient(135deg, #D4AF37 0%, #B8956B 25%, #E5C77B 50%, #B8956B 75%, #D4AF37 100%);
+  --gold-shimmer: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+
+  /* Embossed texture */
+  --emboss-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.08);
+
+  /* Paper texture overlay */
+  --paper-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
 
   /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 253, 0.85);
-  --glass-blur: 12px;
-  --glass-border: rgba(201, 169, 98, 0.2);
+  --glass-bg: rgba(255, 255, 253, 0.92);
+  --glass-blur: 16px;
+  --glass-border: rgba(184, 149, 107, 0.25);
 }
 
 /* Reset & Base */
@@ -65,50 +78,80 @@ body {
   padding: 0 var(--spacing-md);
 }
 
-/* Typography */
+/* Typography - Refined Heritage */
 h1, h2, h3 {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.3;
+  letter-spacing: 0.02em;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 1.1rem;
   text-align: center;
   margin-bottom: var(--spacing-lg);
   color: var(--color-text);
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  font-family: var(--font-body);
+}
+
+/* Gilded frame around section titles */
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 50px;
+  border: 1px solid var(--color-primary);
+  border-left: none;
+  border-right: none;
+  pointer-events: none;
 }
 
 .section-title::after {
-  content: '❧';
+  content: '✦';
   display: block;
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   color: var(--color-primary);
   margin-top: var(--spacing-sm);
+  letter-spacing: 0.5em;
 }
 
-/* Decorative Elements */
+/* Decorative Elements - Gilded Flourishes */
 .decorative-divider {
-  width: 200px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  width: 240px;
+  height: 24px;
   margin: var(--spacing-md) auto;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .decorative-divider::before {
-  content: '✦';
+  content: '';
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--color-secondary);
-  padding: 0 var(--spacing-xs);
-  color: var(--color-primary);
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-primary) 20%, var(--color-primary) 80%, transparent 100%);
 }
 
-/* Header Section - Old Money Luxury */
+.decorative-divider::after {
+  content: '◆';
+  position: relative;
+  background: var(--color-background);
+  padding: 0 var(--spacing-md);
+  color: var(--color-primary);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+}
+
+/* Header Section - Gilded Heritage */
 .header {
   min-height: 100vh;
   display: flex;
@@ -117,60 +160,82 @@ h1, h2, h3 {
   align-items: center;
   text-align: center;
   background:
-    radial-gradient(ellipse at top, rgba(201, 169, 98, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom, rgba(201, 169, 98, 0.05) 0%, transparent 50%),
-    linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 50%, var(--color-background-alt) 100%);
+    var(--paper-texture),
+    radial-gradient(ellipse at 30% 20%, rgba(184, 149, 107, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(45, 71, 57, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 40%, var(--color-champagne) 100%);
   position: relative;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   overflow: hidden;
 }
 
-/* Elegant double frame */
+/* Outer gilded frame */
 .header::before {
   content: '';
   position: absolute;
-  top: 30px;
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
-  border: 1px solid var(--color-primary);
-  opacity: 0.5;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  border: 2px solid var(--color-primary);
+  opacity: 0.4;
   pointer-events: none;
 }
 
+/* Inner gilded frame with corner flourishes */
 .header::after {
   content: '';
   position: absolute;
-  top: 40px;
-  left: 40px;
-  right: 40px;
-  bottom: 40px;
+  top: 36px;
+  left: 36px;
+  right: 36px;
+  bottom: 36px;
   border: 1px solid var(--color-primary);
-  opacity: 0.3;
+  opacity: 0.25;
   pointer-events: none;
+  background:
+    linear-gradient(135deg, var(--color-primary) 0%, transparent 3%) top left,
+    linear-gradient(-135deg, var(--color-primary) 0%, transparent 3%) top right,
+    linear-gradient(45deg, var(--color-primary) 0%, transparent 3%) bottom left,
+    linear-gradient(-45deg, var(--color-primary) 0%, transparent 3%) bottom right;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
 }
 
 .header-content {
   position: relative;
   z-index: 1;
+  max-width: 700px;
+  padding: var(--spacing-lg);
+}
+
+/* Monogram/crest placeholder above names */
+.header-content::before {
+  content: '❧';
+  display: block;
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
 }
 
 .header-subtitle {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 1.2rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   color: var(--color-text-light);
-  margin-bottom: var(--spacing-sm);
-  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.4em;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 .couple-names {
-  font-size: 4rem;
-  font-weight: 400;
+  font-size: 4.5rem;
+  font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--spacing-md);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
 }
 
 .couple-names .name-animate {
@@ -178,19 +243,27 @@ h1, h2, h3 {
 }
 
 .couple-names .ampersand {
-  display: inline-block;
+  display: block;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-primary);
-  margin: 0 var(--spacing-sm);
-  font-size: 0.9em;
+  margin: var(--spacing-xs) 0;
+  font-size: 0.5em;
+  letter-spacing: 0;
 }
 
 .wedding-date-header {
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  font-family: var(--font-heading);
-  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
+  display: inline-block;
+  margin-top: var(--spacing-sm);
 }
 
 .scroll-indicator {
@@ -250,69 +323,88 @@ h1, h2, h3 {
 .invitation-section {
   padding: var(--spacing-xl) 0;
   background:
-    radial-gradient(ellipse at 30% 0%, rgba(201, 169, 98, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 100%, rgba(201, 169, 98, 0.04) 0%, transparent 50%),
+    var(--paper-texture),
+    radial-gradient(ellipse at 20% 30%, rgba(45, 71, 57, 0.03) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 70%, rgba(184, 149, 107, 0.05) 0%, transparent 40%),
     var(--color-background);
   position: relative;
 }
 
 .invitation-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  padding: var(--spacing-lg) calc(var(--spacing-lg) * 1.5);
-  border: 1px solid var(--glass-border);
+  background: var(--color-white);
+  padding: var(--spacing-xl) calc(var(--spacing-lg) * 1.5);
+  border: 2px solid var(--color-primary);
   text-align: center;
-  max-width: 700px;
+  max-width: 680px;
   margin: 0 auto;
   position: relative;
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.04),
-    0 1px 2px rgba(0, 0, 0, 0.02);
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    var(--emboss-shadow);
 }
 
-/* Corner ornaments */
+/* Gilded corner ornaments */
 .invitation-card::before,
 .invitation-card::after {
   content: '';
   position: absolute;
-  width: 60px;
-  height: 60px;
-  border: 1px solid var(--color-primary);
-  opacity: 0.4;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color-primary);
+  opacity: 0.5;
 }
 
 .invitation-card::before {
-  top: 15px;
-  left: 15px;
+  top: 12px;
+  left: 12px;
   border-right: none;
   border-bottom: none;
 }
 
 .invitation-card::after {
-  bottom: 15px;
-  right: 15px;
+  bottom: 12px;
+  right: 12px;
   border-left: none;
   border-top: none;
 }
 
+/* Inner decorative line */
+.invitation-card > *:first-child::before {
+  content: '— ✦ —';
+  display: block;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
+}
+
 .invitation-intro {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: var(--color-text-light);
-  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 400;
 }
 
 .invitation-text {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  line-height: 2;
+  font-size: 1.35rem;
+  line-height: 2.2;
+  font-weight: 400;
+  color: var(--color-text);
 }
 
 .invitation-signature {
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--color-text-light);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-primary);
+  display: inline-block;
 }
 
 /* Story Section */
@@ -344,9 +436,10 @@ h1, h2, h3 {
 .details-section {
   padding: var(--spacing-xl) 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(201, 169, 98, 0.05) 0%, transparent 40%),
-    radial-gradient(ellipse at 80% 50%, rgba(201, 169, 98, 0.05) 0%, transparent 40%),
-    linear-gradient(180deg, var(--color-background-alt) 0%, var(--color-background) 100%);
+    var(--paper-texture),
+    radial-gradient(ellipse at 30% 30%, rgba(45, 71, 57, 0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 70%, rgba(184, 149, 107, 0.05) 0%, transparent 40%),
+    linear-gradient(180deg, var(--color-champagne) 0%, var(--color-background) 100%);
 }
 
 .details-grid {
@@ -360,70 +453,86 @@ h1, h2, h3 {
   padding: var(--spacing-lg);
   text-align: center;
   position: relative;
+  border: 1px solid var(--color-primary);
   box-shadow:
-    0 2px 20px rgba(0, 0, 0, 0.04),
-    0 1px 3px rgba(0, 0, 0, 0.02);
+    0 4px 24px rgba(0, 0, 0, 0.05),
+    var(--emboss-shadow);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .detail-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.08),
-    0 2px 4px rgba(0, 0, 0, 0.02);
+    0 12px 36px rgba(0, 0, 0, 0.08),
+    var(--emboss-shadow);
 }
 
+/* Inner gilded frame */
 .detail-card::before {
   content: '';
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
   border: 1px solid var(--color-primary);
-  opacity: 0.3;
+  opacity: 0.25;
   pointer-events: none;
 }
 
 .detail-icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: var(--spacing-sm);
+  opacity: 0.8;
 }
 
 .detail-title {
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-sm);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-family: var(--font-body);
+  font-weight: 400;
 }
 
 .detail-time {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 2rem;
   color: var(--color-text);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
 }
 
 .detail-venue {
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
+  font-size: 1.1rem;
+  color: var(--color-text);
 }
 
 .detail-address {
   color: var(--color-text-light);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .detail-map-link {
   display: inline-block;
-  margin-top: var(--spacing-sm);
-  color: var(--color-primary);
+  margin-top: var(--spacing-md);
+  color: var(--color-accent);
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color var(--transition);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-accent);
+  transition: all var(--transition);
 }
 
 .detail-map-link:hover {
-  color: var(--color-primary-dark);
+  background: var(--color-accent);
+  color: var(--color-white);
 }
 
 .additional-info {
@@ -431,6 +540,11 @@ h1, h2, h3 {
   text-align: center;
   font-style: italic;
   color: var(--color-text-light);
+  font-size: 0.95rem;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-primary);
+  border-left: none;
+  border-right: none;
 }
 
 /* Dress Code Section */

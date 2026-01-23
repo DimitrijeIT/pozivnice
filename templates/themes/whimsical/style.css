@@ -1,31 +1,35 @@
 /**
- * Whimsical Illustrated Theme - Hand-Drawn Charm
- * Trend 2025-2026: Custom illustrations, watercolor touches, playful personalization
- * Font: Caveat (handwritten) + Quicksand
- * Colors: Soft pastels, lavender, peach, mint
- * Layout: Organic shapes, hand-drawn borders, illustration-first design
+ * Whimsical Illustrated Theme - Watercolor Storybook
+ * Trend 2025-2026: Hand-drawn illustrations, watercolor crests, playful romance
+ * Font: Kalam (natural handwriting) + Nunito
+ * Colors: Soft pastels with cobalt blue & marigold accents (2026 trend)
+ * Layout: Organic shapes, illustrated borders, scrapbook aesthetic
+ * Updated: January 2026 - Enhanced watercolor effects and doodle charm
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #7C6A9E;
-  --color-primary-light: #9A8AB8;
+  --color-primary: #6B5B95;
+  --color-primary-light: #8E7CB8;
   --color-accent: #FFB5A7;
-  --color-accent-alt: #B8E0D4;
-  --color-text: #4A4458;
-  --color-text-light: #7D7589;
-  --color-background: #FFF9F5;
-  --color-background-alt: #F5F0FF;
+  --color-accent-cobalt: #4A6FA5;
+  --color-accent-marigold: #F4A942;
+  --color-accent-alt: #9DD9D2;
+  --color-text: #3D3552;
+  --color-text-light: #6B6080;
+  --color-background: #FFFBF7;
+  --color-background-alt: #F8F3FF;
   --color-white: #FFFFFF;
-  --color-cream: #FFF5EB;
-  --color-lavender: #E6E0F3;
-  --color-mint: #D5F0E3;
-  --color-peach: #FFE5DC;
-  --color-yellow: #FFF3C4;
+  --color-cream: #FFF8F0;
+  --color-lavender: #E8E2F5;
+  --color-mint: #D8F2E8;
+  --color-peach: #FFE8E0;
+  --color-yellow: #FFF5C8;
+  --color-sky: #E0F0FF;
 
-  --font-display: 'Caveat', cursive;
-  --font-heading: 'Caveat', cursive;
-  --font-body: 'Quicksand', 'Nunito', sans-serif;
+  --font-display: 'Kalam', 'Caveat', cursive;
+  --font-heading: 'Kalam', 'Caveat', cursive;
+  --font-body: 'Nunito', 'Quicksand', sans-serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -33,29 +37,32 @@
   --spacing-lg: 3rem;
   --spacing-xl: 5rem;
 
-  --border-radius: 20px;
-  --border-radius-lg: 40px;
-  --border-radius-organic: 60% 40% 70% 30% / 40% 50% 50% 60%;
-  --transition: 0.3s ease;
+  --border-radius: 16px;
+  --border-radius-lg: 32px;
+  --border-radius-organic: 65% 35% 70% 30% / 35% 55% 45% 65%;
+  --transition: 0.35s ease;
 
-  /* Hand-drawn wavy border */
-  --wave-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath fill='none' stroke='%237C6A9E' stroke-width='2' d='M0 10 Q25 0 50 10 T100 10' opacity='0.3'/%3E%3C/svg%3E");
+  /* Hand-drawn squiggly line */
+  --squiggle-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20'%3E%3Cpath fill='none' stroke='%236B5B95' stroke-width='2' stroke-linecap='round' d='M0 10 Q15 5 30 10 T60 10 T90 10 T120 10' opacity='0.25'/%3E%3C/svg%3E");
 
-  /* Watercolor texture */
-  --watercolor-bg: radial-gradient(
-    ellipse at 30% 20%,
-    rgba(184, 224, 212, 0.3) 0%,
-    transparent 50%
-  ),
-  radial-gradient(
-    ellipse at 70% 60%,
-    rgba(255, 181, 167, 0.3) 0%,
-    transparent 50%
-  ),
-  radial-gradient(
-    ellipse at 40% 80%,
-    rgba(230, 224, 243, 0.3) 0%,
-    transparent 50%
+  /* Doodle heart pattern */
+  --heart-doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23FFB5A7' stroke-width='1.5' stroke-linecap='round' d='M12 21C12 21 4 14 4 8.5C4 5.5 6.5 3 9.5 3C11 3 12 4 12 4C12 4 13 3 14.5 3C17.5 3 20 5.5 20 8.5C20 14 12 21 12 21Z' opacity='0.4'/%3E%3C/svg%3E");
+
+  /* Enhanced watercolor splashes */
+  --watercolor-bg:
+    radial-gradient(ellipse 60% 50% at 25% 20%, rgba(157, 217, 210, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 75% 25%, rgba(255, 181, 167, 0.3) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 20% 70%, rgba(232, 226, 245, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 75%, rgba(255, 245, 200, 0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 50% 50%, rgba(224, 240, 255, 0.25) 0%, transparent 55%);
+
+  /* Watercolor crest effect */
+  --watercolor-crest: radial-gradient(
+    ellipse at center,
+    rgba(107, 91, 149, 0.08) 0%,
+    rgba(255, 181, 167, 0.06) 30%,
+    rgba(157, 217, 210, 0.04) 60%,
+    transparent 80%
   );
 }
 

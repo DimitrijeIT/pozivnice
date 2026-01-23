@@ -1,29 +1,31 @@
 /**
- * Art Deco Gatsby Theme - Roaring Twenties Elegance
- * Trend 2025-2026: Retro glamour revival, geometric luxury
- * Font: Poiret One + Josefin Sans
- * Colors: Navy, Gold, Black, Champagne
- * Layout: Geometric frames, fan patterns, symmetrical design
+ * Art Deco Gatsby Theme - Gilded Age Glamour
+ * Trend 2025-2026: Retro glamour revival, metallic finishes, liquid gold
+ * Font: Cinzel Decorative (display) + Josefin Sans
+ * Colors: Midnight Navy, Mirror Gold, Chrome Silver accents
+ * Layout: Geometric frames, sunburst patterns, symmetrical luxury
+ * Updated: January 2026 - Enhanced metallic effects and shimmer
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #0D1B2A;
-  --color-primary-light: #1B263B;
-  --color-accent: #D4AF37;
-  --color-accent-light: #E5C158;
-  --color-accent-dark: #B8960C;
-  --color-text: #FDFCFA;
-  --color-text-muted: #A0A0A0;
-  --color-background: #0D1B2A;
-  --color-background-alt: #1B263B;
-  --color-card: #162032;
-  --color-champagne: #F7E7CE;
+  --color-primary: #0A1628;
+  --color-primary-light: #152238;
+  --color-accent: #C9A227;
+  --color-accent-light: #DDB94D;
+  --color-accent-dark: #9A7B1A;
+  --color-silver: #B8C0C8;
+  --color-text: #F8F6F2;
+  --color-text-muted: #8A9299;
+  --color-background: #0A1628;
+  --color-background-alt: #152238;
+  --color-card: #0F1D30;
+  --color-champagne: #F5ECD8;
   --color-white: #FFFFFF;
-  --color-black: #050A10;
+  --color-black: #040810;
 
-  --font-display: 'Poiret One', 'Josefin Sans', sans-serif;
-  --font-heading: 'Poiret One', 'Josefin Sans', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Poiret One', serif;
+  --font-heading: 'Cinzel', 'Poiret One', serif;
   --font-body: 'Josefin Sans', 'Helvetica Neue', sans-serif;
 
   --spacing-xs: 0.5rem;
@@ -33,54 +35,82 @@
   --spacing-xl: 6rem;
 
   --border-radius: 0;
-  --transition: 0.3s ease;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* Art Deco patterns */
-  --pattern-fan: conic-gradient(
+  /* Art Deco sunburst pattern */
+  --pattern-sunburst: conic-gradient(
     from 180deg at 50% 100%,
     transparent 0deg,
     var(--color-accent) 0deg,
-    var(--color-accent) 15deg,
-    transparent 15deg,
-    transparent 30deg,
-    var(--color-accent) 30deg,
-    var(--color-accent) 45deg,
-    transparent 45deg,
-    transparent 60deg,
+    var(--color-accent) 12deg,
+    transparent 12deg,
+    transparent 24deg,
+    var(--color-accent) 24deg,
+    var(--color-accent) 36deg,
+    transparent 36deg,
+    transparent 48deg,
+    var(--color-accent) 48deg,
     var(--color-accent) 60deg,
-    var(--color-accent) 75deg,
-    transparent 75deg,
-    transparent 90deg,
-    var(--color-accent) 90deg,
-    var(--color-accent) 105deg,
-    transparent 105deg,
+    transparent 60deg,
+    transparent 72deg,
+    var(--color-accent) 72deg,
+    var(--color-accent) 84deg,
+    transparent 84deg,
+    transparent 96deg,
+    var(--color-accent) 96deg,
+    var(--color-accent) 108deg,
+    transparent 108deg,
     transparent 120deg,
     var(--color-accent) 120deg,
-    var(--color-accent) 135deg,
-    transparent 135deg,
-    transparent 150deg,
-    var(--color-accent) 150deg,
-    var(--color-accent) 165deg,
-    transparent 165deg,
-    transparent 180deg
+    var(--color-accent) 132deg,
+    transparent 132deg,
+    transparent 144deg,
+    var(--color-accent) 144deg,
+    var(--color-accent) 156deg,
+    transparent 156deg,
+    transparent 168deg,
+    var(--color-accent) 168deg,
+    var(--color-accent) 180deg
   );
 
-  /* Geometric line pattern */
-  --pattern-lines: repeating-linear-gradient(
+  /* Geometric chevron pattern */
+  --pattern-chevron: repeating-linear-gradient(
     45deg,
     transparent,
-    transparent 10px,
-    rgba(212, 175, 55, 0.05) 10px,
-    rgba(212, 175, 55, 0.05) 20px
+    transparent 8px,
+    rgba(201, 162, 39, 0.06) 8px,
+    rgba(201, 162, 39, 0.06) 16px
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(201, 162, 39, 0.04) 8px,
+    rgba(201, 162, 39, 0.04) 16px
   );
 
-  /* Gold gradient */
+  /* Liquid gold gradient with shimmer */
   --gradient-gold: linear-gradient(
     135deg,
     var(--color-accent-dark) 0%,
-    var(--color-accent) 50%,
-    var(--color-accent-light) 100%
+    var(--color-accent) 30%,
+    var(--color-accent-light) 50%,
+    var(--color-accent) 70%,
+    var(--color-accent-dark) 100%
   );
+
+  /* Chrome silver gradient */
+  --gradient-silver: linear-gradient(
+    135deg,
+    #8A9299 0%,
+    #B8C0C8 30%,
+    #D8DDE2 50%,
+    #B8C0C8 70%,
+    #8A9299 100%
+  );
+
+  /* Gold glow effect */
+  --glow-gold: 0 0 30px rgba(201, 162, 39, 0.4), 0 0 60px rgba(201, 162, 39, 0.2);
 }
 
 /* Reset & Base */

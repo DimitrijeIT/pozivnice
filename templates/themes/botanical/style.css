@@ -1,28 +1,32 @@
 /**
- * Botanical Garden Theme - Fresh Greenery & Eucalyptus
- * Trend 2025-2026: Organic shapes, eucalyptus frames, sage & gold
- * Layout: Arch-shaped sections, botanical borders, airy spacing
+ * Botanical Garden Theme - Eucalyptus & Wild Olive
+ * Trend 2025-2026: Organic arches, hand-illustrated botanicals, olive & sage
+ * Font: Libre Baskerville (elegant serif) + Nunito Sans
+ * Layout: Cathedral arch shapes, botanical frames, generous breathing room
+ * Updated: January 2026 - Enhanced botanical illustrations and olive palette
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #7D9D74;
-  --color-primary-dark: #5C7A54;
-  --color-primary-light: #A8C4A0;
-  --color-secondary: #E8DCC4;
-  --color-accent: #C5A572;
-  --color-gold: #B8995E;
-  --color-text: #3D4A38;
-  --color-text-light: #5E6B58;
-  --color-background: #FDFCF9;
-  --color-background-alt: #F7F5F0;
+  --color-primary: #6A8A5D;
+  --color-primary-dark: #4A6940;
+  --color-primary-light: #8FB07E;
+  --color-secondary: #E8E0D0;
+  --color-accent: #C4A86A;
+  --color-gold: #B89B52;
+  --color-olive: #5C7048;
+  --color-eucalyptus: #7A9A70;
+  --color-text: #2E3B28;
+  --color-text-light: #546650;
+  --color-background: #FDFCF8;
+  --color-background-alt: #F5F2EB;
   --color-white: #FFFFFF;
-  --color-cream: #FAF8F3;
-  --color-border: #D4DFD0;
+  --color-cream: #FAF7F0;
+  --color-border: #C8D4C2;
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-heading: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Montserrat', -apple-system, sans-serif;
+  --font-display: 'Libre Baskerville', 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Libre Baskerville', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Nunito Sans', 'Montserrat', -apple-system, sans-serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -31,8 +35,12 @@
   --spacing-xl: 6rem;
 
   --border-radius: 0;
-  --border-radius-arch: 50% 50% 0 0 / 20% 20% 0 0;
-  --transition: 0.4s ease;
+  --border-radius-arch: 50% 50% 0 0 / 25% 25% 0 0;
+  --border-radius-cathedral: 50% 50% 0 0 / 40% 40% 0 0;
+  --transition: 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Hand-drawn botanical leaf SVG */
+  --leaf-illustration: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Cpath d='M10 20 Q25 10 40 20 Q55 30 70 20 Q85 10 90 20' fill='none' stroke='%236A8A5D' stroke-width='1' opacity='0.4'/%3E%3Cellipse cx='30' cy='18' rx='12' ry='5' fill='%236A8A5D' opacity='0.15' transform='rotate(-15 30 18)'/%3E%3Cellipse cx='70' cy='22' rx='12' ry='5' fill='%236A8A5D' opacity='0.15' transform='rotate(15 70 22)'/%3E%3C/svg%3E");
 }
 
 /* Reset & Base */

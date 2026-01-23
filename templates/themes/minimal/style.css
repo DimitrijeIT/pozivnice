@@ -1,23 +1,26 @@
 /**
- * Minimal Theme - Refined Elegance
- * Trend 2025-2026: Old Money aesthetic, quiet luxury, intentional restraint
- * Font: System UI (no external fonts)
- * Colors: Warm whites, Deep navy, Subtle gold accents
+ * Minimal Theme - Quiet Luxury
+ * Trend 2025-2026: Old Money restraint, whispered elegance, precision typography
+ * Font: System UI with refined weight hierarchy
+ * Colors: Warm off-white, Ink black, Antique brass accents
+ * Updated: January 2026 - Enhanced restraint with micro-details
  */
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #1C2833;
-  --color-primary-light: #2C3E50;
-  --color-accent: #B8860B;
-  --color-text: #1C2833;
-  --color-text-light: #4A5568;
-  --color-background: #FDFCFA;
-  --color-background-alt: #F7F6F3;
+  --color-primary: #1A1A1A;
+  --color-primary-light: #2D2D2D;
+  --color-accent: #A69060;
+  --color-accent-light: #C4B080;
+  --color-text: #1A1A1A;
+  --color-text-light: #5A5A5A;
+  --color-background: #FEFDFB;
+  --color-background-alt: #F8F7F4;
   --color-white: #FFFFFF;
-  --color-border: #1C2833;
-  --color-border-light: #E2E0DC;
-  --color-cream: #FAF9F6;
+  --color-border: #1A1A1A;
+  --color-border-light: #E8E6E2;
+  --color-cream: #FAF9F5;
+  --color-warm: #F5F3EE;
 
   --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -26,19 +29,22 @@
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 10rem;
 
   --border-radius: 0;
-  --transition: 0.2s ease;
+  --transition: 0.25s ease;
 
-  /* Subtle warm gradient */
-  --gradient-subtle: linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 100%);
+  /* Ultra-subtle warm gradient */
+  --gradient-subtle: linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 50%, var(--color-warm) 100%);
+
+  /* Micro-texture for depth */
+  --micro-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
 
   /* Refined glassmorphism */
-  --glass-bg: rgba(253, 252, 250, 0.95);
-  --glass-blur: 8px;
-  --glass-border: rgba(28, 40, 51, 0.08);
+  --glass-bg: rgba(254, 253, 251, 0.97);
+  --glass-blur: 12px;
+  --glass-border: rgba(26, 26, 26, 0.06);
 }
 
 /* Reset & Base */
