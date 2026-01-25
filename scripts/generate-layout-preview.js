@@ -343,6 +343,42 @@ function getLayoutStyles(layout) {
     wabisabi: {
       emoji: '🍵',
       cssVars: `:root{--primary:#5C4033;--bg:#F5F2ED;--surface:#FDFBF7;--text:#3A3530;--border:#D4CEC5;--muted:#7A756D;--timer-bg:rgba(92,64,51,0.1);--btn-text:#F5F2ED;--badge-text:#F5F2ED}`
+    },
+    cinema: {
+      emoji: '🎥',
+      cssVars: `:root{--primary:#D4AF37;--bg:#0A0A0A;--surface:#1A1A1A;--text:#F5F5F5;--border:rgba(212,175,55,0.3);--muted:#888;--timer-bg:rgba(212,175,55,0.2);--btn-text:#0A0A0A;--badge-text:#0A0A0A}`
+    },
+    concert: {
+      emoji: '🎸',
+      cssVars: `:root{--primary:#FF6B6B;--bg:#1A1A2E;--surface:#16213E;--text:#EAEAEA;--border:rgba(255,107,107,0.3);--muted:#888;--timer-bg:rgba(255,107,107,0.2);--btn-text:#1A1A2E;--badge-text:#1A1A2E}`
+    },
+    envelope: {
+      emoji: '✉️',
+      cssVars: `:root{--primary:#8B4557;--bg:#FDF8F5;--surface:#FFFFFF;--text:#3D2C2E;--border:#E8D5D5;--muted:#7A6365;--timer-bg:rgba(139,69,87,0.1);--btn-text:#FDF8F5;--badge-text:#FDF8F5}`
+    },
+    gazette: {
+      emoji: '📰',
+      cssVars: `:root{--primary:#1A1A1A;--bg:#F5F1EB;--surface:#FFFEF9;--text:#1A1A1A;--border:#D4D0C8;--muted:#666;--timer-bg:rgba(26,26,26,0.1);--btn-text:#F5F1EB;--badge-text:#F5F1EB}`
+    },
+    letter: {
+      emoji: '💌',
+      cssVars: `:root{--primary:#C9A07A;--bg:#FBF7F4;--surface:#FFFFFF;--text:#4A3F35;--border:#E8DDD4;--muted:#8B7D6B;--timer-bg:rgba(201,160,122,0.1);--btn-text:#FBF7F4;--badge-text:#FBF7F4}`
+    },
+    magazine: {
+      emoji: '📖',
+      cssVars: `:root{--primary:#1A1A1A;--bg:#FFFFFF;--surface:#F8F8F8;--text:#1A1A1A;--border:#E5E5E5;--muted:#666;--timer-bg:rgba(26,26,26,0.1);--btn-text:#FFFFFF;--badge-text:#FFFFFF}`
+    },
+    passport: {
+      emoji: '🛂',
+      cssVars: `:root{--primary:#1B3A5F;--bg:#F5F5F0;--surface:#FFFFFF;--text:#1B3A5F;--border:#C9D4DC;--muted:#5A7A94;--timer-bg:rgba(27,58,95,0.1);--btn-text:#F5F5F0;--badge-text:#F5F5F0}`
+    },
+    storybook: {
+      emoji: '📚',
+      cssVars: `:root{--primary:#8B6F47;--bg:#FAF6F1;--surface:#FFFDF8;--text:#3D3428;--border:#DDD4C6;--muted:#7A6F5D;--timer-bg:rgba(139,111,71,0.1);--btn-text:#FAF6F1;--badge-text:#FAF6F1}`
+    },
+    telegram: {
+      emoji: '📨',
+      cssVars: `:root{--primary:#8B7355;--bg:#F5EFE6;--surface:#FFFEF7;--text:#3D3428;--border:#D4C5B0;--muted:#7A6F5D;--timer-bg:rgba(139,115,85,0.1);--btn-text:#F5EFE6;--badge-text:#F5EFE6}`
     }
   };
 

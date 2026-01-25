@@ -195,6 +195,133 @@ const config = {
         ink: 'Тамни мастило тонови са калиграфским акцентима'
       },
       fonts: '<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">'
+    },
+    // Additional creative layouts
+    cinema: {
+      name: 'Биоскоп',
+      description: 'Филмска премијера са драматичним постер дизајном',
+      themes: ['noir', 'golden'],
+      themeNames: {
+        noir: 'Филм ноар',
+        golden: 'Златно доба'
+      },
+      themeDescriptions: {
+        noir: 'Драматичан црно-бели стил класичног филм ноара',
+        golden: 'Раскошан златни холивудски гламур'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">'
+    },
+    concert: {
+      name: 'Концерт',
+      description: 'Фестивалски постер стил са карта RSVP',
+      themes: ['rock', 'indie'],
+      themeNames: {
+        rock: 'Рок концерт',
+        indie: 'Инди фестивал'
+      },
+      themeDescriptions: {
+        rock: 'Неон боје и драматичан контраст за велику забаву',
+        indie: 'Приугушене винтаж боје за интимнији догађај'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+    },
+    envelope: {
+      name: 'Коверта',
+      description: 'Интерактивна анимација отварања коверте',
+      themes: ['velvet', 'frost'],
+      themeNames: {
+        velvet: 'Плиш',
+        frost: 'Модерни'
+      },
+      themeDescriptions: {
+        velvet: 'Луксузни дизајн са дубоким бордо тоновима и златним акцентима',
+        frost: 'Модерни минималистички дизајн са хладним плавим тоновима'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">'
+    },
+    gazette: {
+      name: 'Газета',
+      description: 'Новински стил са вестима о венчању',
+      themes: ['broadsheet', 'tabloid'],
+      themeNames: {
+        broadsheet: 'Класичне новине',
+        tabloid: 'Модерни таблоид'
+      },
+      themeDescriptions: {
+        broadsheet: 'Традиционални новински стил са елегантном serif типографијом',
+        tabloid: 'Смео модеран стил са јарким бојама и великим насловима'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">'
+    },
+    letter: {
+      name: 'Писмо',
+      description: 'Рукописно љубавно писмо са печатом',
+      themes: ['romantic', 'vintage'],
+      themeNames: {
+        romantic: 'Романтично',
+        vintage: 'Винтаж елеганција'
+      },
+      themeDescriptions: {
+        romantic: 'Нежне румене боје са калиграфијом',
+        vintage: 'Класична крем и бордо комбинација'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">'
+    },
+    magazine: {
+      name: 'Магазин',
+      description: 'Модни часопис са насловном страном',
+      themes: ['vogue', 'glossy'],
+      themeNames: {
+        vogue: 'Vogue стил',
+        glossy: 'Модерни сјај'
+      },
+      themeDescriptions: {
+        vogue: 'Елегантан црно-бели модни едиторијал',
+        glossy: 'Живописан и модеран lifestyle магазин'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">'
+    },
+    passport: {
+      name: 'Пасош',
+      description: 'Путнички пасош са визама и печатима',
+      themes: ['classic', 'tropical'],
+      themeNames: {
+        classic: 'Класични пасош',
+        tropical: 'Тропска дестинација'
+      },
+      themeDescriptions: {
+        classic: 'Традиционални тамно плави стил са златним акцентима',
+        tropical: 'Свеже тиркизне и корал боје за летње венчање'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">'
+    },
+    storybook: {
+      name: 'Бајка',
+      description: 'Књига прича са илустрацијама',
+      themes: ['novel', 'ink'],
+      themeNames: {
+        novel: 'Роман',
+        ink: 'Мастило'
+      },
+      themeDescriptions: {
+        novel: 'Топли, романтични дизајн попут књиге са елегантном типографијом',
+        ink: 'Модеран, контрастан едиторијални стил са смелом типографијом'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">'
+    },
+    telegram: {
+      name: 'Телеграм',
+      description: 'Винтаж телеграфска депеша',
+      themes: ['western', 'express'],
+      themeNames: {
+        western: 'Вестерн Унион',
+        express: 'Експрес пошта'
+      },
+      themeDescriptions: {
+        western: 'Класични сепија стил са старинским папиром',
+        express: 'Чиста поштанска естетика у плавим тоновима'
+      },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">'
     }
   },
 
