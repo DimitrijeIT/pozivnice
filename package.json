@@ -4,10 +4,14 @@
   "description": "Wedding invitation website system with multiple themes, preview generation, and RSVP management",
   "main": "scripts/generate-preview.js",
   "scripts": {
+    "serve": "node scripts/serve.js",
     "preview": "node scripts/generate-preview.js",
+    "layout": "node scripts/generate-layout-preview.js",
+    "layout:all": "node scripts/generate-layout-preview.js --all",
+    "layout:list": "node scripts/generate-layout-preview.js --list",
     "generate": "node scripts/generate-final.js",
     "cleanup": "node scripts/cleanup-expired.js",
-    "serve": "node scripts/serve.js"
+    "validate": "node -e \"const c = require('./scripts/config'); console.log(c.validateConfig())\""
   },
   "keywords": [
     "wedding",
