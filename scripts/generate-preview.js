@@ -79,47 +79,55 @@ function loadWeddingData(slug, cliData) {
  * Generate a single themed invitation page
  */
 function generateThemedPage(rawData, theme) {
-  // Load base template
-  const baseTemplate = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'base.html'),
-    'utf8'
-  );
+  // Load base template with error handling
+  let baseTemplate, themeCss, animationsCss, componentsCss, backgroundsCss, decorationsCss, clientScript;
 
-  // Load theme CSS
-  const themeCss = fs.readFileSync(
-    path.join(THEMES_DIR, theme, 'style.css'),
-    'utf8'
-  );
+  try {
+    baseTemplate = fs.readFileSync(path.join(TEMPLATES_DIR, 'base.html'), 'utf8');
+  } catch (error) {
+    throw new Error(`Failed to load base template: ${error.message}`);
+  }
 
-  // Load animations CSS
-  const animationsCss = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'animations.css'),
-    'utf8'
-  );
+  try {
+    themeCss = fs.readFileSync(path.join(THEMES_DIR, theme, 'style.css'), 'utf8');
+  } catch (error) {
+    throw new Error(`Failed to load theme CSS for "${theme}": ${error.message}`);
+  }
 
-  // Load components CSS
-  const componentsCss = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'components.css'),
-    'utf8'
-  );
+  try {
+    animationsCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'animations.css'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  animations.css not found, skipping`);
+    animationsCss = '';
+  }
 
-  // Load backgrounds CSS (modern gradients, textures, glassmorphism)
-  const backgroundsCss = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'backgrounds.css'),
-    'utf8'
-  );
+  try {
+    componentsCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'components.css'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  components.css not found, skipping`);
+    componentsCss = '';
+  }
 
-  // Load decorations CSS (SVG decorative elements)
-  const decorationsCss = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'decorations.css'),
-    'utf8'
-  );
+  try {
+    backgroundsCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'backgrounds.css'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  backgrounds.css not found, skipping`);
+    backgroundsCss = '';
+  }
 
-  // Load client-side script
-  const clientScript = fs.readFileSync(
-    path.join(TEMPLATES_DIR, 'script.js'),
-    'utf8'
-  );
+  try {
+    decorationsCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'decorations.css'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  decorations.css not found, skipping`);
+    decorationsCss = '';
+  }
+
+  try {
+    clientScript = fs.readFileSync(path.join(TEMPLATES_DIR, 'script.js'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  script.js not found, skipping`);
+    clientScript = '';
+  }
 
   // Prepare template data with theme-specific settings
   const templateData = utils.prepareWeddingData(rawData, theme);
@@ -181,20 +189,35 @@ async function generatePreview(slug, cliData) {
   console.log(`\n🎊 Generating preview for: ${slug}\n`);
 
   // Load wedding data
-  const rawData = loadWeddingData(slug, cliData);
-  rawData.slug = slug;
+  let rawData;
+  try {
+    rawData = loadWeddingData(slug, cliData);
+    rawData.slug = slug;
+  } catch (error) {
+    throw new Error(`Failed to load wedding data: ${error.message}`);
+  }
 
   // Validate data
   const validation = utils.validateWeddingData(rawData);
   if (!validation.valid) {
     console.error('Validation errors:');
     validation.errors.forEach(err => console.error(`  - ${err}`));
-    process.exit(1);
+    throw new Error('Wedding data validation failed');
+  }
+
+  // Show warnings if any
+  if (validation.warnings && validation.warnings.length > 0) {
+    console.warn('Validation warnings:');
+    validation.warnings.forEach(warn => console.warn(`  ⚠️  ${warn}`));
   }
 
   // Create output directory
   const outputDir = path.join(PREVIEW_DIR, slug);
-  await fs.ensureDir(outputDir);
+  try {
+    await fs.ensureDir(outputDir);
+  } catch (error) {
+    throw new Error(`Failed to create output directory: ${error.message}`);
+  }
 
   console.log(`📁 Output directory: ${outputDir}\n`);
 
@@ -202,10 +225,14 @@ async function generatePreview(slug, cliData) {
   for (const theme of config.THEMES) {
     console.log(`  🎨 Generating ${theme} theme...`);
 
-    const html = generateThemedPage(rawData, theme);
-    const outputFile = path.join(outputDir, `${theme}.html`);
-
-    await fs.writeFile(outputFile, html, 'utf8');
+    try {
+      const html = generateThemedPage(rawData, theme);
+      const outputFile = path.join(outputDir, `${theme}.html`);
+      await fs.writeFile(outputFile, html, 'utf8');
+    } catch (error) {
+      console.error(`  ❌ Failed to generate ${theme}: ${error.message}`);
+      // Continue with other themes
+    }
   }
 
   // Prepare template data for index page (using default theme)

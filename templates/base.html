@@ -235,25 +235,27 @@
       <p class="rsvp-deadline animate-fade-up">Молимо вас да потврдите долазак до {{RSVP_DEADLINE}}</p>
 
       <!-- RSVP Form -->
-      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}" aria-labelledby="rsvp-form-title">
+        <h3 id="rsvp-form-title" class="visually-hidden">Формулар за потврду доласка</h3>
+
         <div class="form-group">
-          <label for="guest-name">Име и презиме *</label>
-          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме">
+          <label for="guest-name">Име и презиме <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></label>
+          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме" autocomplete="name" aria-required="true">
         </div>
 
         <div class="form-group">
           <label for="guest-email">Е-маил адреса</label>
-          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу">
+          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу" autocomplete="email" inputmode="email">
         </div>
 
         <div class="form-group">
           <label for="guest-phone">Телефон</label>
-          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона">
+          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона" autocomplete="tel" inputmode="tel">
         </div>
 
-        <div class="form-group">
-          <label>Да ли долазите? *</label>
-          <div class="radio-group">
+        <fieldset class="form-group">
+          <legend>Да ли долазите? <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></legend>
+          <div class="radio-group" role="radiogroup" aria-required="true">
             <label class="radio-label">
               <input type="radio" name="attending" value="yes" required>
               <span>Да, долазим</span>
@@ -263,7 +265,7 @@
               <span>Нажалост, не могу да дођем</span>
             </label>
           </div>
-        </div>
+        </fieldset>
 
         <div class="form-group conditional-field" id="guests-count-group">
           <label for="guests-count">Број гостију (укључујући вас)</label>
@@ -291,15 +293,15 @@
           <textarea id="message" name="message" rows="3" placeholder="Оставите поруку или напомену..."></textarea>
         </div>
 
-        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn">
+        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn" aria-describedby="form-message">
           <span class="button-text">Потврди долазак</span>
-          <span class="button-loading" style="display: none;">
+          <span class="button-loading" style="display: none;" aria-hidden="true">
             <span class="loading-rings"><span></span><span></span></span>
-            Шаљем...
+            <span aria-live="polite">Шаљем...</span>
           </span>
         </button>
 
-        <div class="form-message" id="form-message"></div>
+        <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
   </section>

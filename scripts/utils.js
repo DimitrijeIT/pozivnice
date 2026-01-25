@@ -5,6 +5,34 @@
 const config = require('./config');
 
 /**
+ * Escape HTML special characters to prevent XSS attacks
+ * @param {string} str - String to escape
+ * @returns {string} HTML-escaped string
+ */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  const stringValue = String(str);
+  const htmlEscapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return stringValue.replace(/[&<>"']/g, char => htmlEscapeMap[char]);
+}
+
+/**
+ * Escape string for use in HTML attributes
+ * @param {string} str - String to escape
+ * @returns {string} Attribute-safe string
+ */
+function escapeAttribute(str) {
+  if (str === null || str === undefined) return '';
+  return escapeHtml(String(str)).replace(/\n/g, '&#10;').replace(/\r/g, '&#13;');
+}
+
+/**
  * Generate URL-safe slug from bride and groom names
  * @param {string} brideName - Bride's name
  * @param {string} groomName - Groom's name
@@ -48,15 +76,43 @@ function slugify(brideName, groomName) {
  * Replace placeholders in template with data
  * @param {string} template - Template string with {{PLACEHOLDER}} syntax
  * @param {object} data - Data object with values
+ * @param {object} options - Options for replacement
+ * @param {string[]} options.rawFields - Fields that should not be HTML-escaped (contain trusted HTML)
  * @returns {string} Processed template
  */
-function replacePlaceholders(template, data) {
+function replacePlaceholders(template, data, options = {}) {
   let result = template;
+
+  // Fields that contain trusted HTML and should not be escaped
+  const rawFields = new Set(options.rawFields || [
+    'THEME_CSS',
+    'THEME_FONTS',
+    'ANIMATIONS_CSS',
+    'CALENDAR_BUTTONS',
+    'TIMELINE_ITEMS',
+    'GALLERY_ITEMS',
+    'MEAL_OPTIONS',
+    'MEAL_OPTIONS_HTML',
+    'DRESS_CODE_COLOR_SWATCHES',
+    '_themeCss',
+    '_themeFonts'
+  ]);
 
   // Replace simple placeholders {{VARIABLE}}
   for (const [key, value] of Object.entries(data)) {
     const placeholder = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
-    result = result.replace(placeholder, value !== undefined && value !== null ? String(value) : '');
+    let safeValue = '';
+
+    if (value !== undefined && value !== null) {
+      // Skip escaping for raw HTML fields and URL fields
+      if (rawFields.has(key) || key.endsWith('_URL') || key.endsWith('_ISO')) {
+        safeValue = String(value);
+      } else {
+        safeValue = escapeHtml(String(value));
+      }
+    }
+
+    result = result.replace(placeholder, safeValue);
   }
 
   return result;
@@ -198,9 +254,14 @@ function generateColorSwatches(colors) {
     return '';
   }
 
-  return colors.map(color =>
-    `<div class="color-swatch" style="background-color: ${color};" title="${color}"></div>`
-  ).join('\n');
+  // Validate color format (only allow valid CSS color values)
+  const validColorRegex = /^#[0-9A-Fa-f]{3,8}$|^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$|^[a-zA-Z]+$/;
+
+  return colors
+    .filter(color => validColorRegex.test(color))
+    .map(color =>
+      `<div class="color-swatch" style="background-color: ${escapeAttribute(color)};" title="${escapeAttribute(color)}"></div>`
+    ).join('\n');
 }
 
 /**
@@ -214,7 +275,7 @@ function generateMealOptions(options) {
   }
 
   return options.map(opt =>
-    `<option value="${opt.value}">${opt.label}</option>`
+    `<option value="${escapeAttribute(opt.value)}">${escapeHtml(opt.label)}</option>`
   ).join('\n');
 }
 
@@ -230,10 +291,10 @@ function generateTimelineItems(events) {
 
   return events.map(event => `
     <div class="timeline-item">
-      ${event.icon ? `<div class="timeline-icon">${event.icon}</div>` : ''}
-      <div class="timeline-date">${event.date}</div>
-      <h3 class="timeline-title">${event.title}</h3>
-      <p class="timeline-description">${event.description}</p>
+      ${event.icon ? `<div class="timeline-icon">${escapeHtml(event.icon)}</div>` : ''}
+      <div class="timeline-date">${escapeHtml(event.date)}</div>
+      <h3 class="timeline-title">${escapeHtml(event.title)}</h3>
+      <p class="timeline-description">${escapeHtml(event.description)}</p>
     </div>
   `).join('\n');
 }
@@ -248,14 +309,20 @@ function generateGalleryItems(photos) {
     return '';
   }
 
-  return photos.map((photo, index) => `
-    <div class="gallery-item" tabindex="0" data-full-src="${photo.url}" data-caption="${photo.caption || ''}">
-      <img src="${photo.thumbnail || photo.url}" alt="${photo.caption || `Фотографија ${index + 1}`}" loading="lazy">
+  return photos.map((photo, index) => {
+    const safeUrl = escapeAttribute(photo.url);
+    const safeThumbnail = escapeAttribute(photo.thumbnail || photo.url);
+    const safeCaption = escapeHtml(photo.caption || '');
+    const safeAlt = escapeAttribute(photo.caption || `Фотографија ${index + 1}`);
+
+    return `
+    <button type="button" class="gallery-item" data-full-src="${safeUrl}" data-caption="${escapeAttribute(photo.caption || '')}" aria-label="Отвори фотографију ${index + 1}">
+      <img src="${safeThumbnail}" alt="${safeAlt}" loading="lazy">
       <div class="gallery-item-overlay">
-        <p class="gallery-item-caption">${photo.caption || ''}</p>
+        <p class="gallery-item-caption">${safeCaption}</p>
       </div>
-    </div>
-  `).join('\n');
+    </button>`;
+  }).join('\n');
 }
 
 /**
@@ -437,11 +504,76 @@ function createPreviewMetadata(weddingData) {
 }
 
 /**
+ * Validate email format
+ * @param {string} email - Email to validate
+ * @returns {boolean} True if valid
+ */
+function isValidEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  // Simple but effective email regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.trim());
+}
+
+/**
+ * Validate phone number format (Serbian format support)
+ * @param {string} phone - Phone number to validate
+ * @returns {boolean} True if valid
+ */
+function isValidPhone(phone) {
+  if (!phone || typeof phone !== 'string') return false;
+  // Allow common phone formats: +381..., 06..., with optional spaces/dashes
+  const phoneRegex = /^[\+]?[(]?[0-9]{2,4}[)]?[-\s\.]?[0-9]{2,4}[-\s\.]?[0-9]{2,8}$/;
+  return phoneRegex.test(phone.trim().replace(/\s/g, ''));
+}
+
+/**
+ * Validate date string format
+ * @param {string} dateStr - Date string to validate
+ * @returns {boolean} True if valid date
+ */
+function isValidDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return false;
+  const date = new Date(dateStr);
+  return !isNaN(date.getTime());
+}
+
+/**
+ * Validate time format (HH:MM)
+ * @param {string} timeStr - Time string to validate
+ * @returns {boolean} True if valid
+ */
+function isValidTime(timeStr) {
+  if (!timeStr || typeof timeStr !== 'string') return false;
+  const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+  return timeRegex.test(timeStr.trim());
+}
+
+/**
+ * Validate URL format
+ * @param {string} url - URL to validate
+ * @returns {boolean} True if valid
+ */
+function isValidUrl(url) {
+  if (!url || typeof url !== 'string') return true; // URLs are optional
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Validate wedding data has required fields
  * @param {object} data - Wedding data object
- * @returns {object} { valid: boolean, errors: string[] }
+ * @param {object} options - Validation options
+ * @param {boolean} options.strict - Enable strict validation (default: false)
+ * @returns {object} { valid: boolean, errors: string[], warnings: string[] }
  */
-function validateWeddingData(data) {
+function validateWeddingData(data, options = {}) {
+  const { strict = false } = options;
+
   const required = [
     'bride_name',
     'groom_name',
@@ -455,24 +587,89 @@ function validateWeddingData(data) {
   ];
 
   const errors = [];
+  const warnings = [];
 
+  // Check required fields
   for (const field of required) {
-    if (!data[field] || data[field].trim() === '') {
+    const value = data[field];
+    if (!value || (typeof value === 'string' && value.trim() === '')) {
       errors.push(`Missing required field: ${field}`);
     }
   }
 
   // Validate date format
-  if (data.wedding_date) {
-    const date = new Date(data.wedding_date);
-    if (isNaN(date.getTime())) {
-      errors.push('Invalid wedding_date format. Use ISO 8601 format (YYYY-MM-DD)');
+  if (data.wedding_date && !isValidDate(data.wedding_date)) {
+    errors.push('Invalid wedding_date format. Use ISO 8601 format (YYYY-MM-DD)');
+  }
+
+  // Validate RSVP deadline if provided
+  if (data.rsvp_deadline && !isValidDate(data.rsvp_deadline)) {
+    errors.push('Invalid rsvp_deadline format. Use ISO 8601 format (YYYY-MM-DD)');
+  }
+
+  // Validate time formats
+  if (data.ceremony_time && !isValidTime(data.ceremony_time)) {
+    errors.push('Invalid ceremony_time format. Use HH:MM format (e.g., 14:00)');
+  }
+  if (data.reception_time && !isValidTime(data.reception_time)) {
+    errors.push('Invalid reception_time format. Use HH:MM format (e.g., 18:00)');
+  }
+
+  // Validate URLs
+  const urlFields = ['ceremony_map_url', 'reception_map_url', 'music_url', 'story_photo_url'];
+  for (const field of urlFields) {
+    if (data[field] && !isValidUrl(data[field])) {
+      if (strict) {
+        errors.push(`Invalid URL format for ${field}`);
+      } else {
+        warnings.push(`Invalid URL format for ${field}`);
+      }
+    }
+  }
+
+  // Validate meal options structure
+  if (data.meal_options) {
+    if (!Array.isArray(data.meal_options)) {
+      errors.push('meal_options must be an array');
+    } else {
+      data.meal_options.forEach((opt, i) => {
+        if (!opt.value || !opt.label) {
+          errors.push(`meal_options[${i}] must have value and label properties`);
+        }
+      });
+    }
+  }
+
+  // Validate gallery structure
+  if (data.gallery) {
+    if (!Array.isArray(data.gallery)) {
+      errors.push('gallery must be an array');
+    } else {
+      data.gallery.forEach((photo, i) => {
+        if (!photo.url) {
+          errors.push(`gallery[${i}] must have url property`);
+        }
+      });
+    }
+  }
+
+  // Validate timeline structure
+  if (data.timeline) {
+    if (!Array.isArray(data.timeline)) {
+      errors.push('timeline must be an array');
+    } else {
+      data.timeline.forEach((event, i) => {
+        if (!event.title || !event.date) {
+          warnings.push(`timeline[${i}] should have title and date properties`);
+        }
+      });
     }
   }
 
   return {
     valid: errors.length === 0,
-    errors
+    errors,
+    warnings
   };
 }
 
@@ -591,6 +788,19 @@ function prepareWeddingData(rawData, theme = 'classic') {
 }
 
 module.exports = {
+  // Security utilities
+  escapeHtml,
+  escapeAttribute,
+
+  // Validation utilities
+  isValidEmail,
+  isValidPhone,
+  isValidDate,
+  isValidTime,
+  isValidUrl,
+  validateWeddingData,
+
+  // Core utilities
   slugify,
   replacePlaceholders,
   processConditionals,
@@ -606,6 +816,5 @@ module.exports = {
   calculateExpiryDate,
   generateThemeCards,
   createPreviewMetadata,
-  validateWeddingData,
   prepareWeddingData
 };

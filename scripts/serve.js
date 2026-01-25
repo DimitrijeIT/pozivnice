@@ -100,21 +100,60 @@ function generateDirectoryListing(dirPath, urlPath) {
 }
 
 /**
+ * Validate that a path is within the allowed directory
+ * @param {string} requestedPath - The path to validate
+ * @param {string} baseDir - The base directory that must contain the path
+ * @returns {boolean} True if path is valid and within baseDir
+ */
+function isPathWithinBase(requestedPath, baseDir) {
+  // Resolve both paths to absolute paths
+  const resolvedBase = path.resolve(baseDir);
+  const resolvedPath = path.resolve(requestedPath);
+
+  // Check that the resolved path starts with the base directory
+  // Adding path.sep ensures we don't match partial directory names
+  // e.g., /public shouldn't match /publicdata
+  return resolvedPath === resolvedBase ||
+         resolvedPath.startsWith(resolvedBase + path.sep);
+}
+
+/**
  * Handle HTTP requests
  */
 function handleRequest(req, res) {
-  // Parse URL
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
+  // Parse URL - handle malformed URLs gracefully
+  let urlPath;
+  try {
+    urlPath = decodeURIComponent(req.url.split('?')[0]);
+  } catch (e) {
+    res.writeHead(400);
+    res.end('Bad Request: Invalid URL encoding');
+    console.log(`  400 ${req.method} ${req.url} (invalid encoding)`);
+    return;
+  }
 
-  // Security: prevent directory traversal
-  if (urlPath.includes('..')) {
-    res.writeHead(403);
-    res.end('Forbidden');
+  // Normalize path to prevent various traversal attacks
+  // This handles //, /./, /../, and other path manipulation attempts
+  urlPath = path.normalize(urlPath);
+
+  // Security: reject any path containing null bytes (poison null byte attack)
+  if (urlPath.includes('\0')) {
+    res.writeHead(400);
+    res.end('Bad Request');
+    console.log(`  400 ${req.method} ${req.url} (null byte)`);
     return;
   }
 
   // Map URL to file path
   let filePath = path.join(PUBLIC_DIR, urlPath);
+
+  // Security: verify the resolved path is within PUBLIC_DIR
+  if (!isPathWithinBase(filePath, PUBLIC_DIR)) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    console.log(`  403 ${req.method} ${urlPath} (path traversal attempt)`);
+    return;
+  }
 
   // Check if path exists, try adding .html extension if not
   if (!fs.existsSync(filePath)) {
