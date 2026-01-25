@@ -1,0 +1,26 @@
+/* Midnight Velvet - Burgundy Theme
+   Deep wine tones with gold accents */
+
+:root {
+  --color-bg: #1A0A0F;
+  --color-surface: #2D1620;
+  --color-text: #F5E6E8;
+  --color-text-muted: #B39EA3;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F4E4BC;
+  --color-accent: #722F37;
+}
+
+body::before {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(114, 47, 55, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+}
+
+.hero-section {
+  background: radial-gradient(ellipse at center, #2D1620 0%, #1A0A0F 70%);
+}
+
+.venue-card {
+  background: rgba(45, 22, 32, 0.85);
+}

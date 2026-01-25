@@ -1,0 +1,59 @@
+/* Botanical Press - Forest Theme
+   Deep forest greens with aged paper */
+
+:root {
+  --color-bg: #F5F0E8;
+  --color-surface: #FAF7F2;
+  --color-text: #2D4A3E;
+  --color-text-muted: #5A7A6E;
+  --color-accent: #2D4A3E;
+  --color-highlight: #A8C5A8;
+  --color-border: #C9B8A6;
+}
+
+.cover-label {
+  color: var(--color-accent);
+}
+
+.cover-title .ampersand {
+  color: var(--color-accent);
+}
+
+.specimen-label {
+  color: var(--color-accent);
+}
+
+.specimen-link {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.field-header {
+  background: var(--color-accent);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.radio-label input {
+  border-color: var(--color-accent);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-text);
+}
+
+.submit-btn:hover {
+  background: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

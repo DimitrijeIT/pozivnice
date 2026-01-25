@@ -1,0 +1,59 @@
+/* Kinetic Poetry - Editorial Theme
+   Classic black on warm cream, high contrast typography */
+
+:root {
+  --color-bg: #FFFEF7;
+  --color-text: #1A1A1A;
+  --color-text-muted: #666;
+  --color-accent: #1A1A1A;
+  --color-accent-light: rgba(26, 26, 26, 0.05);
+}
+
+.hero-names .ampersand {
+  color: #C41E3A;
+}
+
+.date-display .day {
+  color: #C41E3A;
+}
+
+.venue-type {
+  color: #C41E3A;
+}
+
+.story-quote::before {
+  color: #C41E3A;
+}
+
+.footer-hashtag {
+  color: #1A1A1A;
+}
+
+.submit-btn:hover {
+  background: #C41E3A;
+}
+
+.radio-label input:checked {
+  border-color: #C41E3A;
+}
+
+.radio-label input:checked::before {
+  background: #C41E3A;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #C41E3A;
+}
+
+.venue-link {
+  color: #1A1A1A;
+}
+
+.scroll-line {
+  background: linear-gradient(to bottom, #C41E3A, transparent);
+}
+
+.venue-divider {
+  background: #C41E3A;
+}

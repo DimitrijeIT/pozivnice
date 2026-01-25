@@ -1,0 +1,34 @@
+/* Midnight Velvet - Navy Theme
+   Deep midnight blue with gold accents */
+
+:root {
+  --color-bg: #0A0F1A;
+  --color-surface: #162030;
+  --color-text: #E6EAF5;
+  --color-text-muted: #9EA8B3;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F4E4BC;
+  --color-accent: #2F4772;
+}
+
+body::before {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(47, 71, 114, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+}
+
+.hero-section {
+  background: radial-gradient(ellipse at center, #162030 0%, #0A0F1A 70%);
+}
+
+.venue-card {
+  background: rgba(22, 32, 48, 0.85);
+}
+
+.story-section {
+  background: var(--color-surface);
+}
+
+.velvet-footer {
+  background: #050810;
+}

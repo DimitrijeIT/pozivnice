@@ -1,0 +1,71 @@
+/* Wabi-Sabi - Ink Theme
+   Deep charcoal with sumi-e ink feeling */
+
+:root {
+  --color-bg: #F0EDE6;
+  --color-surface: #FAF8F5;
+  --color-text: #2A2A2A;
+  --color-text-muted: #5A5A5A;
+  --color-accent: #3D3D3D;
+  --color-highlight: #9A9A9A;
+  --color-border: #D0D0D0;
+}
+
+.brush-stroke {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(60, 60, 60, 0.1) 20%,
+    rgba(60, 60, 60, 0.1) 80%,
+    transparent 100%
+  );
+}
+
+.hero-names .ampersand {
+  color: #666;
+}
+
+.organic-line {
+  background: var(--color-accent);
+}
+
+.section-title {
+  color: var(--color-accent);
+}
+
+.venue-label {
+  color: #666;
+}
+
+.leaf-card {
+  border-radius: 2px 16px 2px 16px;
+}
+
+.leaf-card::before {
+  border-radius: 2px 16px 2px 16px;
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: #1A1A1A;
+}
+
+.radio-label input {
+  border-color: var(--color-accent);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-accent);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

@@ -1,0 +1,17 @@
+/**
+ * Classic Theme - Passport Layout
+ * Traditional navy blue passport style
+ */
+
+:root {
+  --color-bg: #E8E4DC;
+  --color-cover: #1B3A5F;
+  --color-gold: #C9A962;
+  --color-paper: #FFFEF7;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666;
+  --color-stamp: #B22234;
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}

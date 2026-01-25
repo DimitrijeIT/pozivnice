@@ -1,0 +1,55 @@
+/* Glass Gallery - Aurora Theme
+   Warm sunset tones with romantic glass effect */
+
+:root {
+  --color-bg: linear-gradient(135deg, #F5E6D8 0%, #F8EDE3 50%, #F0D9C8 100%);
+  --color-glass: rgba(255, 255, 255, 0.28);
+  --color-glass-border: rgba(255, 255, 255, 0.4);
+  --color-text: #3D3D3D;
+  --color-accent: #B76E79;
+  --blur-amount: 20px;
+}
+
+.particle {
+  background: rgba(183, 110, 121, 0.2);
+}
+
+.entrance-label,
+.section-header,
+.venue-type {
+  color: var(--color-accent);
+}
+
+.entrance-names .ampersand {
+  color: var(--color-accent);
+}
+
+.venue-link {
+  color: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: #A05D67;
+  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+}
+
+.radio-label input:checked {
+  border-color: var(--color-accent);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-accent);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

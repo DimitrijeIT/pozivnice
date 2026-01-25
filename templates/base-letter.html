@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Љубавно писмо</title>
+  <meta name="description" content="Позивница за венчање - {{BRIDE_NAME}} & {{GROOM_NAME}}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+  {{THEME_FONTS}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #F8E8E0;
+      --color-paper: #FFFEF7;
+      --color-text: #4A3728;
+      --color-text-muted: #8B7355;
+      --color-accent: #B76E79;
+      --color-accent-dark: #8B4D57;
+      --color-seal: #8B0000;
+      --font-display: 'Great Vibes', cursive;
+      --font-body: 'Cormorant Garamond', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    /* === ENVELOPE === */
+    .envelope {
+      width: 100%;
+      max-width: 550px;
+      position: relative;
+    }
+
+    .envelope-outer {
+      background: linear-gradient(135deg, #D4A574 0%, #C49464 100%);
+      padding: 3rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .envelope-outer:hover {
+      transform: scale(1.02);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(180deg, #E4B584 0%, #D4A574 100%);
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+    .envelope-address {
+      margin-top: 60px;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--color-text);
+    }
+
+    .envelope-to {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Wax seal */
+    .wax-seal {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #C41E3A 0%, var(--color-seal) 50%, #5C0000 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    .seal-monogram {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: #FFD700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .open-hint {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* === LETTER === */
+    .letter {
+      display: none;
+      background: var(--color-paper);
+      padding: 3rem;
+      border-radius: 2px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .letter.open {
+      display: block;
+      animation: unfold 0.6s ease;
+    }
+
+    @keyframes unfold {
+      from { opacity: 0; transform: rotateX(-30deg) translateY(-20px); }
+      to { opacity: 1; transform: rotateX(0) translateY(0); }
+    }
+
+    /* Paper texture */
+    .letter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fff' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+    }
+
+    /* Decorative corner */
+    .letter-corner {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      opacity: 0.1;
+    }
+
+    .letter-corner.top-left {
+      top: 1rem;
+      left: 1rem;
+      border-top: 2px solid var(--color-accent);
+      border-left: 2px solid var(--color-accent);
+    }
+
+    .letter-corner.bottom-right {
+      bottom: 1rem;
+      right: 1rem;
+      border-bottom: 2px solid var(--color-accent);
+      border-right: 2px solid var(--color-accent);
+    }
+
+    /* Letter header */
+    .letter-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .letter-date {
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .letter-names {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .letter-occasion {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    }
+
+    .divider-icon {
+      color: var(--color-accent);
+      font-size: 1.25rem;
+    }
+
+    /* Letter body */
+    .letter-body {
+      text-align: center;
+    }
+
+    .letter-greeting {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-text {
+      font-size: 1.1rem;
+      line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-closing {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--color-accent);
+      margin: 2rem 0;
+    }
+
+    /* Details section */
+    .letter-details {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: rgba(183, 110, 121, 0.05);
+      border-radius: 4px;
+    }
+
+    .details-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .detail-card {
+      text-align: center;
+    }
+
+    .detail-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+    }
+
+    .detail-link {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--color-accent);
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .detail-link:hover { text-decoration: underline; }
+
+    /* Story */
+    .letter-story {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      font-style: italic;
+      border-left: 3px solid var(--color-accent);
+      text-align: left;
+    }
+
+    /* Countdown */
+    .letter-countdown {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--color-accent);
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+    }
+
+    /* RSVP */
+    .letter-rsvp {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(183, 110, 121, 0.2);
+    }
+
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-subtitle {
+      text-align: center;
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 0.875rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--color-accent);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text);
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-bottom-width: 2px;
+    }
+
+    .form-input::placeholder {
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-style: italic;
+    }
+
+    .radio-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-accent);
+    }
+
+    .submit-btn {
+      padding: 1rem 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-accent-dark);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .rsvp-deadline {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-accent); }
+    .success-text { font-style: italic; color: var(--color-text-muted); margin-top: 0.5rem; }
+
+    .hidden { display: none !important; }
+
+    /* Footer */
+    .letter-footer {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-accent);
+    }
+
+    /* Close button */
+    .close-letter {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(183, 110, 121, 0.2);
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .close-letter:hover { color: var(--color-accent); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .letter { padding: 2rem 1.5rem; }
+      .letter-names { font-size: 2rem; }
+      .countdown-display { gap: 1rem; }
+      .countdown-value { font-size: 2rem; }
+    }
+  </style>
+  {{THEME_CSS}}
+</head>
+<body>
+  <div class="envelope">
+    <!-- Closed Envelope -->
+    <div class="envelope-outer" id="envelope-outer">
+      <div class="envelope-flap"></div>
+      <p class="envelope-to">За наше драге госте</p>
+      <p class="envelope-address">{{BRIDE_NAME}} & {{GROOM_NAME}}</p>
+      <div class="wax-seal">
+        <span class="seal-monogram">♥</span>
+      </div>
+      <p class="open-hint">Додирни да отвориш писмо...</p>
+    </div>
+
+    <!-- Letter -->
+    <div class="letter" id="letter">
+      <div class="letter-corner top-left"></div>
+      <div class="letter-corner bottom-right"></div>
+
+      <!-- Header -->
+      <header class="letter-header">
+        <p class="letter-date">{{WEDDING_DATE_FORMATTED}}</p>
+        <h1 class="letter-names">{{BRIDE_NAME}} & {{GROOM_NAME}}</h1>
+        <p class="letter-occasion">позивају вас на своје венчање</p>
+      </header>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">💕</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Body -->
+      <div class="letter-body">
+        <p class="letter-greeting">{{INVITATION_INTRO}}</p>
+        <p class="letter-text">{{INVITATION_TEXT}}</p>
+        <p class="letter-closing">Са љубављу,<br>{{INVITATION_SIGNATURE}}</p>
+      </div>
+
+      <!-- Details -->
+      <div class="letter-details">
+        <h2 class="details-title">Детаљи догађаја</h2>
+        <div class="detail-cards">
+          <div class="detail-card">
+            <div class="detail-icon">💒</div>
+            <p class="detail-label">Церемонија</p>
+            <p class="detail-value">{{CEREMONY_VENUE}}</p>
+            <p class="detail-value">{{CEREMONY_TIME}}</p>
+            <p class="detail-value" style="font-size:0.85rem;color:var(--color-text-muted)">{{CEREMONY_ADDRESS}}</p>
+            {{#IF_CEREMONY_MAP}}
+            <a href="{{CEREMONY_MAP_URL}}" target="_blank" class="detail-link">Види на мапи →</a>
+            {{/IF_CEREMONY_MAP}}
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">🎉</div>
+            <p class="detail-label">Прослава</p>
+            <p class="detail-value">{{RECEPTION_VENUE}}</p>
+            <p class="detail-value">{{RECEPTION_TIME}}</p>
+            <p class="detail-value" style="font-size:0.85rem;color:var(--color-text-muted)">{{RECEPTION_ADDRESS}}</p>
+            {{#IF_RECEPTION_MAP}}
+            <a href="{{RECEPTION_MAP_URL}}" target="_blank" class="detail-link">Види на мапи →</a>
+            {{/IF_RECEPTION_MAP}}
+          </div>
+        </div>
+      </div>
+
+      <!-- Story -->
+      {{#IF_STORY}}
+      <div class="letter-story">
+        <p>{{STORY_TEXT}}</p>
+      </div>
+      {{/IF_STORY}}
+
+      <!-- Countdown -->
+      <div class="letter-countdown">
+        <p class="countdown-label">До нашег великог дана...</p>
+        <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+          <div class="countdown-item">
+            <div class="countdown-value" id="days">--</div>
+            <div class="countdown-unit">дана</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="hours">--</div>
+            <div class="countdown-unit">сати</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="minutes">--</div>
+            <div class="countdown-unit">минута</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">✉</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- RSVP -->
+      <div class="letter-rsvp">
+        <h2 class="rsvp-title">Молимо одговорите</h2>
+        <p class="rsvp-subtitle">Волели бисмо да знамо да ли можете доћи</p>
+
+        <form class="rsvp-form" id="rsvp-form">
+          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+
+          <div class="form-group">
+            <label for="guest-name">Ваше име</label>
+            <input type="text" id="guest-name" name="name" class="form-input" placeholder="Име и презиме" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guest-email">Емаил адреса</label>
+            <input type="email" id="guest-email" name="email" class="form-input" placeholder="email@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Да ли долазите?</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>Са радошћу долазим</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="attending" value="no">
+                <span>Нажалост, не могу</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="guests-group">
+            <label for="guests-count">Број гостију</label>
+            <select id="guests-count" name="guests" class="form-select">
+              <option value="1">1 особа</option>
+              <option value="2">2 особе</option>
+              <option value="3">3 особе</option>
+              <option value="4">4 особе</option>
+            </select>
+          </div>
+
+          {{#IF_MEAL_OPTIONS}}
+          <div class="form-group" id="meal-group">
+            <label for="meal-choice">Избор јела</label>
+            <select id="meal-choice" name="meal" class="form-select">
+              <option value="">Изаберите...</option>
+              {{MEAL_OPTIONS}}
+            </select>
+          </div>
+          {{/IF_MEAL_OPTIONS}}
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Пошаљи одговор
+          </button>
+        </form>
+
+        <div class="form-success hidden" id="form-success">
+          <div class="success-icon">💌</div>
+          <h3 class="success-title">Хвала вам!</h3>
+          <p class="success-text">Примили смо ваш одговор са захвалношћу.</p>
+        </div>
+
+        <p class="rsvp-deadline">Молимо одговорите до {{RSVP_DEADLINE}}</p>
+      </div>
+
+      <!-- Footer -->
+      {{#IF_HASHTAG}}
+      <footer class="letter-footer">
+        <p class="footer-hashtag">#{{WEDDING_HASHTAG}}</p>
+      </footer>
+      {{/IF_HASHTAG}}
+
+      <a href="#" class="close-letter" id="close-letter">← Затвори писмо</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const envelope = document.getElementById('envelope-outer');
+      const letter = document.getElementById('letter');
+      const closeBtn = document.getElementById('close-letter');
+
+      envelope.addEventListener('click', () => {
+        envelope.style.display = 'none';
+        letter.classList.add('open');
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        letter.classList.remove('open');
+        envelope.style.display = 'block';
+      });
+
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      const weddingDate = new Date(countdownEl.dataset.date);
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+        if (diff <= 0) return;
+
+        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'block' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'block' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Шаљем...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'Пошаљи одговор';
+          alert('Дошло је до грешке. Молимо покушајте поново.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

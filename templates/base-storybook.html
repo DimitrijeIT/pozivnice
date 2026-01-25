@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - {{BRIDE_NAME}} и {{GROOM_NAME}}">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Наша прича</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+
+  <!-- Theme CSS -->
+  {{THEME_CSS}}
+
+  <!-- Storybook Layout CSS -->
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: var(--font-body, 'Georgia', serif);
+      background: var(--color-bg, #F5F0E8);
+      color: var(--color-text, #2D2926);
+      line-height: 1.7;
+    }
+
+    /* ===== STORYBOOK CONTAINER ===== */
+    .storybook {
+      display: flex;
+      height: 100vh;
+      height: 100dvh;
+      position: relative;
+    }
+
+    /* ===== CHAPTER NAVIGATION (Left Sidebar) ===== */
+    .chapter-nav {
+      width: 60px;
+      background: var(--nav-bg, #2D2926);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0;
+      z-index: 100;
+    }
+
+    .chapter-dots {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .chapter-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--nav-dot, rgba(255,255,255,0.3));
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .chapter-dot::before {
+      content: attr(data-chapter);
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 0.75rem;
+      color: white;
+      background: var(--nav-bg);
+      padding: 4px 12px;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .chapter-dot:hover::before {
+      opacity: 1;
+    }
+
+    .chapter-dot.active {
+      background: var(--color-accent, #C9A962);
+      transform: scale(1.3);
+    }
+
+    .chapter-dot:hover {
+      background: var(--color-accent);
+    }
+
+    .nav-arrows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid var(--nav-dot);
+      color: var(--nav-dot);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--nav-bg);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* ===== BOOK SPREAD ===== */
+    .book-spread {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== PAGES CONTAINER ===== */
+    .pages-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .page.prev {
+      transform: translateX(-100%);
+    }
+
+    .page.next {
+      transform: translateX(100%);
+    }
+
+    /* ===== SPLIT LAYOUT ===== */
+    .page-visual {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--visual-bg, linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-bg-alt) 100%));
+      overflow: hidden;
+    }
+
+    .page-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      background: var(--content-bg, white);
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .page-content-inner {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ===== CHAPTER HEADER ===== */
+    .chapter-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .chapter-title {
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      color: var(--color-text);
+    }
+
+    .chapter-text {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--color-text-muted, #5A5550);
+    }
+
+    .chapter-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* ===== VISUAL ELEMENTS ===== */
+    .visual-illustration {
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .visual-icon {
+      font-size: 8rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1));
+    }
+
+    .visual-date {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .visual-names {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--color-text);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .visual-names .ampersand {
+      display: block;
+      font-size: 0.5em;
+      color: var(--color-accent);
+      margin: 0.5rem 0;
+    }
+
+    /* ===== COUNTDOWN PAGE ===== */
+    .countdown-visual {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      width: 80%;
+      max-width: 350px;
+    }
+
+    .countdown-box {
+      background: var(--content-bg, white);
+      border-radius: var(--radius, 12px);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .countdown-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== VENUE PAGE ===== */
+    .venue-visual {
+      width: 90%;
+      max-width: 450px;
+    }
+
+    .venue-card {
+      background: var(--content-bg, white);
+      border-radius: var(--radius, 12px);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+      margin-bottom: 1.5rem;
+    }
+
+    .venue-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .venue-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .venue-type {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .venue-time {
+      font-size: 1.25rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .venue-address {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .venue-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .venue-link:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===== TIMELINE PAGE ===== */
+    .timeline-visual {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .timeline-track {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 30px;
+      bottom: 30px;
+      width: 2px;
+      background: var(--color-accent);
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    .timeline-marker {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--content-bg, white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-info {
+      background: var(--content-bg, white);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius, 8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      flex: 1;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--color-text);
+    }
+
+    /* ===== RSVP PAGE ===== */
+    .rsvp-visual {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .rsvp-icon {
+      font-size: 6rem;
+      margin-bottom: 1rem;
+    }
+
+    .rsvp-prompt {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .rsvp-form {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--color-border, #E8E4DF);
+      border-radius: var(--radius-sm, 8px);
+      font-family: inherit;
+      font-size: 1rem;
+      background: transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .attendance-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .attendance-btn {
+      padding: 1.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius, 12px);
+      background: transparent;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .attendance-btn:hover {
+      border-color: var(--color-accent);
+    }
+
+    .attendance-btn.selected {
+      border-color: var(--color-accent);
+      background: var(--color-accent-light);
+    }
+
+    .attendance-emoji {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .attendance-text {
+      font-size: 0.9rem;
+      color: var(--color-text);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.25rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius, 12px);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .conditional-field {
+      display: none;
+    }
+
+    .conditional-field.visible {
+      display: block;
+    }
+
+    /* ===== FINAL PAGE ===== */
+    .final-visual {
+      text-align: center;
+    }
+
+    .final-icon {
+      font-size: 6rem;
+      margin-bottom: 1rem;
+    }
+
+    .final-names {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .final-date {
+      color: var(--color-accent);
+      font-size: 1.1rem;
+    }
+
+    .final-hashtag {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.5rem 1.5rem;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+
+    /* ===== PAGE INDICATOR ===== */
+    .page-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== KEYBOARD HINT ===== */
+    .keyboard-hint {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      opacity: 0.6;
+    }
+
+    .keyboard-hint kbd {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: var(--color-bg-alt);
+      border-radius: 4px;
+      font-family: inherit;
+      margin: 0 0.25rem;
+    }
+
+    /* ===== MOBILE LAYOUT ===== */
+    @media (max-width: 900px) {
+      .storybook {
+        flex-direction: column;
+      }
+
+      .chapter-nav {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        padding: 0 1rem;
+        order: 2;
+      }
+
+      .chapter-dots {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .chapter-dot::before {
+        display: none;
+      }
+
+      .nav-arrows {
+        flex-direction: row;
+      }
+
+      .page {
+        flex-direction: column;
+      }
+
+      .page-visual {
+        height: 40%;
+        flex: none;
+      }
+
+      .page-content {
+        height: 60%;
+        flex: none;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .countdown-visual {
+        max-width: 280px;
+      }
+
+      .countdown-box {
+        padding: 1rem;
+      }
+
+      .countdown-number {
+        font-size: 2rem;
+      }
+
+      .keyboard-hint {
+        display: none;
+      }
+
+      .timeline-visual {
+        padding: 1rem;
+      }
+
+      .timeline-item {
+        gap: 1rem;
+      }
+
+      .timeline-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+
+      .timeline-track::before {
+        left: 19px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-content {
+        padding: 1.5rem;
+      }
+
+      .chapter-title {
+        font-size: 1.75rem;
+      }
+
+      .visual-names {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page.active .chapter-label,
+    .page.active .chapter-title,
+    .page.active .chapter-text,
+    .page.active .visual-illustration,
+    .page.active .countdown-box,
+    .page.active .venue-card,
+    .page.active .timeline-item {
+      animation: fade-in-up 0.6s ease forwards;
+    }
+
+    .page.active .chapter-label { animation-delay: 0.1s; }
+    .page.active .chapter-title { animation-delay: 0.2s; }
+    .page.active .chapter-text { animation-delay: 0.3s; }
+
+    .page.active .countdown-box:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .countdown-box:nth-child(2) { animation-delay: 0.2s; }
+    .page.active .countdown-box:nth-child(3) { animation-delay: 0.3s; }
+    .page.active .countdown-box:nth-child(4) { animation-delay: 0.4s; }
+
+    .page.active .venue-card:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .venue-card:nth-child(2) { animation-delay: 0.3s; }
+
+    .page.active .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .page.active .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+    .page.active .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    .page.active .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% { opacity: 1; transform: translateY(-50px) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+  </style>
+
+  <!-- Theme-specific fonts -->
+  {{THEME_FONTS}}
+</head>
+<body>
+  <div class="storybook">
+    <!-- Chapter Navigation -->
+    <nav class="chapter-nav" aria-label="Поглавља">
+      <div class="chapter-dots">
+        <button class="chapter-dot active" data-page="0" data-chapter="Насловна" aria-label="Насловна"></button>
+        <button class="chapter-dot" data-page="1" data-chapter="Одбројавање" aria-label="Одбројавање"></button>
+        <button class="chapter-dot" data-page="2" data-chapter="Позив" aria-label="Позив"></button>
+        {{#IF_TIMELINE}}
+        <button class="chapter-dot" data-page="3" data-chapter="Наша прича" aria-label="Наша прича"></button>
+        {{/IF_TIMELINE}}
+        <button class="chapter-dot" data-page="{{VENUE_PAGE}}" data-chapter="Локације" aria-label="Локације"></button>
+        <button class="chapter-dot" data-page="{{RSVP_PAGE}}" data-chapter="RSVP" aria-label="RSVP"></button>
+      </div>
+      <div class="nav-arrows">
+        <button class="nav-arrow" id="prev-btn" aria-label="Претходна страница">↑</button>
+        <button class="nav-arrow" id="next-btn" aria-label="Следећа страница">↓</button>
+      </div>
+    </nav>
+
+    <!-- Book Spread -->
+    <div class="book-spread">
+      <div class="pages-container" id="pages-container">
+
+        <!-- Page 1: Title -->
+        <div class="page active" data-page="0">
+          <div class="page-visual">
+            <div class="visual-illustration">
+              <div class="visual-names">
+                {{BRIDE_NAME}}
+                <span class="ampersand">&</span>
+                {{GROOM_NAME}}
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 1</p>
+              <h1 class="chapter-title">Наша прича почиње</h1>
+              <div class="chapter-text">
+                <p>Са великом радошћу вас позивамо да будете део најважнијег дана у нашим животима.</p>
+                <p><strong>{{WEDDING_DATE_FORMATTED}}</strong></p>
+              </div>
+            </div>
+            <p class="page-indicator">1 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 2: Countdown -->
+        <div class="page" data-page="1">
+          <div class="page-visual">
+            <div class="countdown-visual" data-wedding-date="{{WEDDING_DATE_ISO}}">
+              <div class="countdown-box">
+                <div class="countdown-number" id="days">--</div>
+                <div class="countdown-unit">дана</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="hours">--</div>
+                <div class="countdown-unit">сати</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="minutes">--</div>
+                <div class="countdown-unit">минута</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="seconds">--</div>
+                <div class="countdown-unit">секунди</div>
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 2</p>
+              <h2 class="chapter-title">Одбројавање је почело</h2>
+              <div class="chapter-text">
+                <p>Сваки дан нас приближава тренутку када ћемо рећи „да" пред нашим најдражима.</p>
+                <p>Означите датум у календару и припремите се за незаборавну прославу.</p>
+              </div>
+            </div>
+            <p class="page-indicator">2 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 3: Invitation Message -->
+        <div class="page" data-page="2">
+          <div class="page-visual">
+            <div class="visual-illustration">
+              <div class="visual-icon">💌</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 3</p>
+              <h2 class="chapter-title">{{INVITATION_INTRO}}</h2>
+              <div class="chapter-text">
+                <p>{{INVITATION_TEXT}}</p>
+                <p><em>{{INVITATION_SIGNATURE}}</em></p>
+              </div>
+            </div>
+            <p class="page-indicator">3 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        {{#IF_TIMELINE}}
+        <!-- Page 4: Our Story Timeline -->
+        <div class="page" data-page="3">
+          <div class="page-visual">
+            <div class="timeline-visual">
+              <div class="timeline-track">
+                {{TIMELINE_ITEMS}}
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 4</p>
+              <h2 class="chapter-title">Наша прича</h2>
+              <div class="chapter-text">
+                <p>{{STORY_TEXT}}</p>
+              </div>
+            </div>
+            <p class="page-indicator">4 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+        {{/IF_TIMELINE}}
+
+        <!-- Page 5: Venues -->
+        <div class="page" data-page="{{VENUE_PAGE}}">
+          <div class="page-visual">
+            <div class="venue-visual">
+              <div class="venue-card">
+                <div class="venue-icon">💒</div>
+                <p class="venue-type">Венчање</p>
+                <h3 class="venue-name">{{CEREMONY_VENUE}}</h3>
+                <p class="venue-time">{{CEREMONY_TIME}}</p>
+                <p class="venue-address">{{CEREMONY_ADDRESS}}</p>
+                {{#IF_CEREMONY_MAP}}
+                <a href="{{CEREMONY_MAP_URL}}" target="_blank" rel="noopener" class="venue-link">
+                  📍 Мапа
+                </a>
+                {{/IF_CEREMONY_MAP}}
+              </div>
+              <div class="venue-card">
+                <div class="venue-icon">🎉</div>
+                <p class="venue-type">Прослава</p>
+                <h3 class="venue-name">{{RECEPTION_VENUE}}</h3>
+                <p class="venue-time">{{RECEPTION_TIME}}</p>
+                <p class="venue-address">{{RECEPTION_ADDRESS}}</p>
+                {{#IF_RECEPTION_MAP}}
+                <a href="{{RECEPTION_MAP_URL}}" target="_blank" rel="noopener" class="venue-link">
+                  📍 Мапа
+                </a>
+                {{/IF_RECEPTION_MAP}}
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље {{VENUE_CHAPTER}}</p>
+              <h2 class="chapter-title">Где се видимо</h2>
+              <div class="chapter-text">
+                <p>Венчање ће се одржати у <strong>{{CEREMONY_VENUE}}</strong> са почетком у {{CEREMONY_TIME}}.</p>
+                <p>Након церемоније, прослава нас чека у <strong>{{RECEPTION_VENUE}}</strong> од {{RECEPTION_TIME}}.</p>
+                {{#IF_ADDITIONAL_INFO}}
+                <p>{{ADDITIONAL_INFO}}</p>
+                {{/IF_ADDITIONAL_INFO}}
+              </div>
+            </div>
+            <p class="page-indicator">{{VENUE_PAGE_NUM}} / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 6: RSVP -->
+        <div class="page" data-page="{{RSVP_PAGE}}">
+          <div class="page-visual">
+            <div class="rsvp-visual">
+              <div class="rsvp-icon">✉️</div>
+              <p class="rsvp-prompt">Потврдите до<br>{{RSVP_DEADLINE}}</p>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Последње поглавље</p>
+              <h2 class="chapter-title">Потврда доласка</h2>
+
+              <form class="rsvp-form" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+                <div class="form-group">
+                  <label>Име и презиме</label>
+                  <input type="text" name="name" required placeholder="Ваше име">
+                </div>
+
+                <div class="form-group">
+                  <label>Да ли долазите?</label>
+                  <div class="attendance-buttons">
+                    <button type="button" class="attendance-btn" data-value="yes">
+                      <span class="attendance-emoji">🎉</span>
+                      <span class="attendance-text">Долазим!</span>
+                    </button>
+                    <button type="button" class="attendance-btn" data-value="no">
+                      <span class="attendance-emoji">😢</span>
+                      <span class="attendance-text">Не могу</span>
+                    </button>
+                  </div>
+                  <input type="hidden" name="attending" id="attending-input">
+                </div>
+
+                <div class="form-group conditional-field" id="guests-group">
+                  <label>Број гостију</label>
+                  <select name="guests_count">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4+</option>
+                  </select>
+                </div>
+
+                {{#IF_MEAL_OPTIONS}}
+                <div class="form-group conditional-field" id="meal-group">
+                  <label>Преференција оброка</label>
+                  <select name="meal_preference">
+                    <option value="">Изаберите...</option>
+                    {{MEAL_OPTIONS}}
+                  </select>
+                </div>
+                {{/IF_MEAL_OPTIONS}}
+
+                <div class="form-group">
+                  <label>Порука (опционално)</label>
+                  <textarea name="message" rows="2" placeholder="Ваша порука..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Пошаљи</button>
+                <div class="form-message" id="form-message"></div>
+              </form>
+            </div>
+            <p class="page-indicator">{{RSVP_PAGE_NUM}} / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="keyboard-hint">
+        Користи <kbd>←</kbd> <kbd>→</kbd> или <kbd>↑</kbd> <kbd>↓</kbd> за навигацију
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti -->
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ===== PAGE NAVIGATION =====
+      const pages = document.querySelectorAll('.page');
+      const dots = document.querySelectorAll('.chapter-dot');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      let currentPage = 0;
+      const totalPages = pages.length;
+
+      function goToPage(index) {
+        if (index < 0 || index >= totalPages) return;
+
+        pages[currentPage].classList.remove('active');
+        pages[currentPage].classList.add(index > currentPage ? 'prev' : 'next');
+
+        currentPage = index;
+
+        pages.forEach((page, i) => {
+          page.classList.remove('active', 'prev', 'next');
+          if (i < currentPage) page.classList.add('prev');
+          if (i > currentPage) page.classList.add('next');
+        });
+        pages[currentPage].classList.add('active');
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentPage);
+        });
+
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage === totalPages - 1;
+      }
+
+      // Dot navigation
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goToPage(i));
+      });
+
+      // Arrow buttons
+      prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+      nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          goToPage(currentPage + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          goToPage(currentPage - 1);
+        }
+      });
+
+      // Touch swipe
+      let touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      });
+      document.addEventListener('touchend', (e) => {
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goToPage(currentPage + 1);
+          else goToPage(currentPage - 1);
+        }
+      });
+
+      // ===== COUNTDOWN =====
+      const countdownEl = document.querySelector('[data-wedding-date]');
+      if (countdownEl) {
+        const weddingDate = new Date(countdownEl.dataset.weddingDate);
+        function updateCountdown() {
+          const now = new Date();
+          const diff = weddingDate - now;
+          if (diff <= 0) return;
+
+          document.getElementById('days').textContent = Math.floor(diff / 86400000);
+          document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000);
+          document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000);
+          document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000);
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // ===== RSVP FORM =====
+      const form = document.getElementById('rsvp-form');
+      const attendBtns = document.querySelectorAll('.attendance-btn');
+      const attendInput = document.getElementById('attending-input');
+      const conditionalFields = document.querySelectorAll('.conditional-field');
+
+      attendBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          attendBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          attendInput.value = btn.dataset.value;
+
+          conditionalFields.forEach(f => {
+            f.classList.toggle('visible', btn.dataset.value === 'yes');
+          });
+        });
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submit-btn');
+          const formMessage = document.getElementById('form-message');
+
+          if (!attendInput.value) {
+            alert('Молимо изаберите да ли долазите');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Шаљем...';
+
+          const formData = new FormData(form);
+          const data = {
+            slug: form.dataset.weddingSlug,
+            name: formData.get('name'),
+            attending: formData.get('attending'),
+            guests_count: formData.get('guests_count'),
+            meal_preference: formData.get('meal_preference'),
+            message: formData.get('message'),
+            submitted_at: new Date().toISOString()
+          };
+
+          const isDemo = data.slug === 'demo' || data.slug.startsWith('test');
+
+          if (isDemo) {
+            await new Promise(r => setTimeout(r, 1000));
+            formMessage.textContent = 'Хвала! (демо режим)';
+            formMessage.className = 'form-message success';
+            if (data.attending === 'yes') createConfetti();
+          } else {
+            try {
+              await fetch('{{RSVP_SCRIPT_URL}}', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(data)
+              });
+              formMessage.textContent = 'Хвала на потврди!';
+              formMessage.className = 'form-message success';
+              if (data.attending === 'yes') createConfetti();
+            } catch (err) {
+              formMessage.textContent = 'Грешка. Покушајте поново.';
+              formMessage.className = 'form-message error';
+            }
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Пошаљи';
+        });
+      }
+
+      // ===== CONFETTI =====
+      function createConfetti() {
+        const container = document.getElementById('confetti-container');
+        const colors = ['#C9A962', '#8B2942', '#2563EB', '#10B981', '#F59E0B'];
+        for (let i = 0; i < 80; i++) {
+          const c = document.createElement('div');
+          c.className = 'confetti';
+          c.style.left = Math.random() * 100 + 'vw';
+          c.style.background = colors[Math.floor(Math.random() * colors.length)];
+          c.style.width = (Math.random() * 10 + 5) + 'px';
+          c.style.height = c.style.width;
+          c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          c.style.animation = `confetti-fall ${Math.random() * 2 + 2}s linear forwards`;
+          c.style.animationDelay = Math.random() * 0.5 + 's';
+          container.appendChild(c);
+        }
+        setTimeout(() => container.innerHTML = '', 5000);
+      }
+
+    })();
+  </script>
+</body>
+</html>

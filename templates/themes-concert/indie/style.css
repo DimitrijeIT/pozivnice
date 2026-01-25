@@ -1,0 +1,81 @@
+/**
+ * Indie Theme - Concert Layout
+ * Muted vintage indie band poster
+ */
+
+:root {
+  --color-bg: #1A1814;
+  --color-surface: #2A2620;
+  --color-text: #F5E6D3;
+  --color-text-muted: #A89888;
+  --color-primary: #D4A574;
+  --color-secondary: #8FBC8F;
+  --color-accent: #E8D4B8;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+.poster-section {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(143, 188, 143, 0.2) 0%, transparent 50%),
+    var(--color-bg);
+}
+
+.festival-badge {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.poster-title .name {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.countdown-value {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lineup-header {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+.ticket {
+  border-color: var(--color-primary);
+}
+
+.ticket::before {
+  border-right-color: var(--color-primary);
+}
+
+.ticket::after {
+  border-left-color: var(--color-primary);
+}
+
+.ticket-header {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+.submit-btn {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+.radio-label input {
+  border-color: var(--color-primary);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-primary);
+}
+
+.footer-hashtag {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

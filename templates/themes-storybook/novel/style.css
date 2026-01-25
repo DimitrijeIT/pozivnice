@@ -1,0 +1,232 @@
+/**
+ * Novel Theme - Storybook Layout
+ *
+ * Warm, romantic, book-like aesthetic
+ * - Cream and sepia tones
+ * - Elegant serif typography
+ * - Paper texture feel
+ * - Gold accents
+ */
+
+:root {
+  /* Colors */
+  --color-bg: #F5EFE6;
+  --color-bg-alt: #EDE4D8;
+  --color-text: #3D3229;
+  --color-text-muted: #7A6F63;
+  --color-accent: #B8860B;
+  --color-accent-dark: #8B6914;
+  --color-accent-light: rgba(184, 134, 11, 0.1);
+  --color-border: #D9CFC2;
+
+  /* Navigation */
+  --nav-bg: #3D3229;
+  --nav-dot: rgba(255, 255, 255, 0.4);
+
+  /* Layout */
+  --visual-bg: linear-gradient(135deg, #EDE4D8 0%, #E5D9CA 50%, #DDD0BF 100%);
+  --content-bg: #FFFDF9;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Crimson Text', 'EB Garamond', Georgia, serif;
+
+  /* Borders */
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+/* Typography */
+body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.visual-names {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* Navigation */
+.chapter-nav {
+  background: var(--nav-bg);
+  box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+}
+
+.chapter-dot.active {
+  background: var(--color-accent);
+}
+
+.nav-arrow {
+  border-color: var(--nav-dot);
+  color: var(--nav-dot);
+}
+
+.nav-arrow:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Page Visual */
+.page-visual {
+  background: var(--visual-bg);
+  position: relative;
+}
+
+.page-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Page Content */
+.page-content {
+  background: var(--content-bg);
+  border-left: 1px solid var(--color-border);
+  position: relative;
+}
+
+.page-content::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: var(--color-border);
+  opacity: 0.5;
+}
+
+/* Visual Elements */
+.visual-names .ampersand {
+  color: var(--color-accent);
+  font-style: normal;
+}
+
+.visual-icon {
+  filter: drop-shadow(0 10px 25px rgba(184, 134, 11, 0.2));
+}
+
+/* Countdown */
+.countdown-box {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 30px rgba(61, 50, 41, 0.08);
+}
+
+.countdown-number {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+
+/* Venue Cards */
+.venue-card {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+}
+
+.venue-type {
+  color: var(--color-accent);
+}
+
+.venue-link {
+  background: var(--color-accent);
+}
+
+.venue-link:hover {
+  background: var(--color-accent-dark);
+}
+
+/* Timeline */
+.timeline-track::before {
+  background: var(--color-accent);
+}
+
+.timeline-marker {
+  background: var(--content-bg);
+  border: 2px solid var(--color-accent);
+}
+
+.timeline-info {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+}
+
+.timeline-date {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+}
+
+/* RSVP */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.attendance-btn.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+.submit-btn:hover {
+  background: var(--color-accent-dark);
+}
+
+/* Chapter Label */
+.chapter-label {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+
+/* Decorative Elements */
+.chapter-title::after {
+  content: '❧';
+  display: block;
+  margin-top: 1rem;
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+/* Page indicator */
+.page-indicator {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* Keyboard hint */
+.keyboard-hint {
+  font-family: var(--font-body);
+}
+
+.keyboard-hint kbd {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .page-content::before {
+    display: none;
+  }
+}

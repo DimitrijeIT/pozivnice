@@ -1,0 +1,66 @@
+/**
+ * Vintage Theme - Love Letter Layout
+ * Classic cream and burgundy
+ */
+
+:root {
+  --color-bg: #E8E4DC;
+  --color-paper: #FFFEF7;
+  --color-text: #2C2416;
+  --color-text-muted: #5C4A2A;
+  --color-accent: #722F37;
+  --color-accent-dark: #4A1F24;
+  --color-seal: #722F37;
+  --font-display: 'Great Vibes', cursive;
+  --font-body: 'Cormorant Garamond', serif;
+}
+
+.envelope-outer {
+  background: linear-gradient(135deg, #C4A77D 0%, #B8956E 100%);
+}
+
+.envelope-flap {
+  background: linear-gradient(180deg, #D4B78D 0%, #C4A77D 100%);
+}
+
+.wax-seal {
+  background: radial-gradient(circle at 30% 30%, #8B3A3A 0%, var(--color-seal) 50%, #4A1F24 100%);
+}
+
+.letter-corner.top-left,
+.letter-corner.bottom-right {
+  border-color: var(--color-accent);
+}
+
+.divider-line {
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
+.divider-icon {
+  color: var(--color-accent);
+}
+
+.letter-details {
+  background: rgba(114, 47, 55, 0.05);
+}
+
+.letter-story {
+  border-left-color: var(--color-accent);
+}
+
+.form-input,
+.form-select {
+  border-bottom-color: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: var(--color-accent-dark);
+}
+
+.radio-label input {
+  accent-color: var(--color-accent);
+}

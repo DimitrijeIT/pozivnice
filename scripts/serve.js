@@ -116,12 +116,17 @@ function handleRequest(req, res) {
   // Map URL to file path
   let filePath = path.join(PUBLIC_DIR, urlPath);
 
-  // Check if path exists
+  // Check if path exists, try adding .html extension if not
   if (!fs.existsSync(filePath)) {
-    res.writeHead(404);
-    res.end('Not Found');
-    console.log(`  404 ${req.method} ${urlPath}`);
-    return;
+    const htmlPath = filePath + '.html';
+    if (fs.existsSync(htmlPath)) {
+      filePath = htmlPath;
+    } else {
+      res.writeHead(404);
+      res.end('Not Found');
+      console.log(`  404 ${req.method} ${urlPath}`);
+      return;
+    }
   }
 
   // Get file stats

@@ -1,0 +1,66 @@
+/* Scribble Love - Pencil Theme
+   Sketchy pencil lines with kraft paper warmth */
+
+:root {
+  --color-bg: #F5E6C8;
+  --color-surface: #FFF8E7;
+  --color-text: #333;
+  --color-text-muted: #666;
+  --color-accent: #98D8C8;
+  --color-line: #444;
+  --color-highlight: #D4EDDA;
+}
+
+.cover-title .heart {
+  color: #98D8C8;
+}
+
+.cover-date {
+  border-color: var(--color-accent);
+}
+
+.sticky-note {
+  background: #FFF8DC;
+}
+
+.sticky-note:nth-child(even) {
+  background: #E8F5E9;
+}
+
+.banner-text {
+  background: var(--color-highlight);
+}
+
+.invitation-card {
+  box-shadow: 4px 4px 0 var(--color-line);
+}
+
+.story-panel {
+  box-shadow: 3px 3px 0 var(--color-line);
+}
+
+.rsvp-page {
+  box-shadow: 4px 4px 0 var(--color-line);
+}
+
+.rsvp-page::before {
+  background: #A8D8A8;
+}
+
+.submit-btn {
+  background: var(--color-accent);
+  color: var(--color-text);
+  box-shadow: 3px 3px 0 var(--color-line);
+}
+
+.submit-btn:hover {
+  box-shadow: 5px 5px 0 var(--color-line);
+}
+
+.checkbox-label input:checked::before {
+  color: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

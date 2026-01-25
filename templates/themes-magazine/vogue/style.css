@@ -1,0 +1,16 @@
+/**
+ * Vogue Theme - Magazine Layout
+ * High fashion black & white editorial
+ */
+
+:root {
+  --color-bg: #F5F5F5;
+  --color-surface: #FFFFFF;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666;
+  --color-accent: #C41E3A;
+  --color-gold: #B8860B;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-accent: 'Cormorant Garamond', serif;
+}

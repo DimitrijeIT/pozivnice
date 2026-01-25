@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Путовање</title>
+  <meta name="description" content="Позивница за венчање - {{BRIDE_NAME}} & {{GROOM_NAME}}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+  {{THEME_FONTS}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #E8E4DC;
+      --color-cover: #1B3A5F;
+      --color-gold: #C9A962;
+      --color-paper: #FFFEF7;
+      --color-text: #1a1a1a;
+      --color-text-muted: #666;
+      --color-stamp: #B22234;
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    /* === PASSPORT BOOKLET === */
+    .passport {
+      width: 100%;
+      max-width: 400px;
+      perspective: 2000px;
+    }
+
+    .passport-book {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    /* Cover */
+    .passport-cover {
+      background: var(--color-cover);
+      color: var(--color-gold);
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passport-cover::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 2px solid var(--color-gold);
+      border-radius: 4px;
+      opacity: 0.5;
+    }
+
+    .passport-cover:hover {
+      transform: scale(1.02);
+    }
+
+    .passport-emblem {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .passport-type {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .passport-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .passport-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .passport-names {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+    }
+
+    .tap-hint {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+
+    /* Pages Container */
+    .passport-pages {
+      display: none;
+      background: var(--color-paper);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .passport-pages.open {
+      display: block;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Page Navigation */
+    .page-nav {
+      display: flex;
+      background: var(--color-cover);
+      padding: 0.5rem;
+      gap: 0.25rem;
+    }
+
+    .page-tab {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      border: none;
+      background: transparent;
+      color: var(--color-gold);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.3s;
+    }
+
+    .page-tab.active {
+      background: rgba(201, 169, 98, 0.2);
+      opacity: 1;
+      border-radius: 4px;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      padding: 2rem;
+      min-height: 500px;
+      position: relative;
+    }
+
+    .page.active { display: block; }
+
+    .page-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* ID Page */
+    .id-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .id-photo {
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #ddd, #eee);
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .id-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .id-field {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+
+    .id-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .id-value {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .id-signature {
+      margin-top: auto;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--color-cover);
+    }
+
+    /* Visa Stamp */
+    .visa-stamp {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--color-stamp);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-stamp);
+      transform: rotate(15deg);
+      opacity: 0.8;
+    }
+
+    .visa-stamp span {
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .visa-stamp strong {
+      font-size: 0.7rem;
+    }
+
+    /* Itinerary Page */
+    .itinerary-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-cover);
+    }
+
+    .flight-card {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .flight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .flight-type {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .flight-time {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .flight-route {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .flight-point {
+      text-align: center;
+      flex: 1;
+    }
+
+    .flight-code {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-cover);
+    }
+
+    .flight-city {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .flight-plane {
+      font-size: 1.5rem;
+    }
+
+    .flight-details {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Story Page */
+    .story-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .story-stamps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .story-stamp {
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--color-cover);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      transform: rotate(-5deg);
+    }
+
+    .story-stamp:nth-child(2) { transform: rotate(8deg); }
+    .story-stamp:nth-child(3) { transform: rotate(-3deg); }
+
+    /* Boarding Pass Page */
+    .boarding-pass {
+      background: var(--color-paper);
+      border: 2px dashed var(--color-cover);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .boarding-header {
+      background: var(--color-cover);
+      color: var(--color-gold);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .boarding-airline {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+    }
+
+    .boarding-title {
+      font-size: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .boarding-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+    }
+
+    .boarding-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .boarding-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .boarding-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .boarding-value {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+    }
+
+    .boarding-stub {
+      border-left: 2px dashed #ddd;
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .boarding-seat {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-cover);
+    }
+
+    .boarding-barcode {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .barcode-lines {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .barcode-lines span {
+      width: 2px;
+      height: 30px;
+      background: var(--color-text);
+    }
+
+    .barcode-lines span:nth-child(odd) { height: 25px; }
+    .barcode-lines span:nth-child(3n) { width: 3px; }
+
+    /* RSVP Page */
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-subtitle {
+      text-align: center;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-cover);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .radio-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-cover);
+    }
+
+    .submit-btn {
+      padding: 1rem;
+      background: var(--color-cover);
+      color: var(--color-gold);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .rsvp-deadline {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .success-text { color: var(--color-text-muted); }
+
+    .hidden { display: none !important; }
+
+    /* Back to Cover */
+    .back-to-cover {
+      display: block;
+      text-align: center;
+      padding: 1rem;
+      color: var(--color-cover);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+    }
+
+    .back-to-cover:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body { padding: 1rem; }
+      .passport { max-width: 100%; }
+      .id-page { grid-template-columns: 1fr; }
+      .boarding-body { grid-template-columns: 1fr; }
+      .boarding-stub { border-left: none; border-top: 2px dashed #ddd; padding: 1rem 0 0; margin-top: 1rem; }
+    }
+  </style>
+  {{THEME_CSS}}
+</head>
+<body>
+  <div class="passport">
+    <!-- Cover -->
+    <div class="passport-cover" id="passport-cover">
+      <div class="passport-emblem">💒</div>
+      <p class="passport-type">Путна исправа</p>
+      <h1 class="passport-title">ПАСОШ</h1>
+      <p class="passport-subtitle">За путовање у брачне воде</p>
+      <p class="passport-names">{{BRIDE_NAME}} & {{GROOM_NAME}}</p>
+      <p class="tap-hint">Додирни за отварање →</p>
+    </div>
+
+    <!-- Pages -->
+    <div class="passport-pages" id="passport-pages">
+      <nav class="page-nav">
+        <button class="page-tab active" data-page="id">ID</button>
+        <button class="page-tab" data-page="itinerary">План</button>
+        {{#IF_STORY}}<button class="page-tab" data-page="story">Прича</button>{{/IF_STORY}}
+        <button class="page-tab" data-page="boarding">Карта</button>
+        <button class="page-tab" data-page="rsvp">РСВП</button>
+      </nav>
+
+      <!-- ID Page -->
+      <div class="page active" id="page-id">
+        <div class="page-watermark">✈</div>
+        <div class="visa-stamp">
+          <span>Одобрено</span>
+          <strong>{{WEDDING_DATE_FORMATTED}}</strong>
+          <span>Љубав</span>
+        </div>
+        <div class="id-page">
+          <div class="id-photo">💑</div>
+          <div class="id-details">
+            <div class="id-field">
+              <p class="id-label">Име / Name</p>
+              <p class="id-value">{{BRIDE_NAME}}</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Презиме / Surname</p>
+              <p class="id-value">{{GROOM_NAME}}</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Датум / Date</p>
+              <p class="id-value">{{WEDDING_DATE_FORMATTED}}</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Статус / Status</p>
+              <p class="id-value">ЗАЉУБЉЕНИ</p>
+            </div>
+            <p class="id-signature">{{BRIDE_NAME}} ♥ {{GROOM_NAME}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itinerary Page -->
+      <div class="page" id="page-itinerary">
+        <div class="page-watermark">🗺</div>
+        <h2 class="itinerary-title">План путовања</h2>
+
+        <div class="flight-card">
+          <div class="flight-header">
+            <span class="flight-type">Церемонија</span>
+            <span class="flight-time">{{CEREMONY_TIME}}</span>
+          </div>
+          <div class="flight-route">
+            <div class="flight-point">
+              <p class="flight-code">ЦЕР</p>
+              <p class="flight-city">Полазак</p>
+            </div>
+            <span class="flight-plane">✈️</span>
+            <div class="flight-point">
+              <p class="flight-code">ДА!</p>
+              <p class="flight-city">Долазак</p>
+            </div>
+          </div>
+          <p class="flight-details">
+            📍 {{CEREMONY_VENUE}}<br>
+            {{CEREMONY_ADDRESS}}
+          </p>
+          {{#IF_CEREMONY_MAP}}
+          <a href="{{CEREMONY_MAP_URL}}" target="_blank" style="color:var(--color-cover);font-size:0.85rem;">Прикажи на мапи →</a>
+          {{/IF_CEREMONY_MAP}}
+        </div>
+
+        <div class="flight-card">
+          <div class="flight-header">
+            <span class="flight-type">Прослава</span>
+            <span class="flight-time">{{RECEPTION_TIME}}</span>
+          </div>
+          <div class="flight-route">
+            <div class="flight-point">
+              <p class="flight-code">ВЕН</p>
+              <p class="flight-city">Полазак</p>
+            </div>
+            <span class="flight-plane">🎉</span>
+            <div class="flight-point">
+              <p class="flight-code">ЗАБ</p>
+              <p class="flight-city">Забава</p>
+            </div>
+          </div>
+          <p class="flight-details">
+            📍 {{RECEPTION_VENUE}}<br>
+            {{RECEPTION_ADDRESS}}
+          </p>
+          {{#IF_RECEPTION_MAP}}
+          <a href="{{RECEPTION_MAP_URL}}" target="_blank" style="color:var(--color-cover);font-size:0.85rem;">Прикажи на мапи →</a>
+          {{/IF_RECEPTION_MAP}}
+        </div>
+      </div>
+
+      <!-- Story Page -->
+      {{#IF_STORY}}
+      <div class="page" id="page-story">
+        <div class="page-watermark">❤</div>
+        <h2 class="story-title">Наша прича</h2>
+        <p class="story-text">{{STORY_TEXT}}</p>
+        <div class="story-stamps">
+          <div class="story-stamp">💕</div>
+          <div class="story-stamp">💍</div>
+          <div class="story-stamp">✨</div>
+        </div>
+      </div>
+      {{/IF_STORY}}
+
+      <!-- Boarding Pass Page -->
+      <div class="page" id="page-boarding">
+        <div class="page-watermark">🎫</div>
+        <div class="boarding-pass">
+          <div class="boarding-header">
+            <p class="boarding-airline">ЉУБАВ АИРЛИНЕС</p>
+            <p class="boarding-title">УКРЦАЈНА КАРТА</p>
+          </div>
+          <div class="boarding-body">
+            <div class="boarding-main">
+              <div class="boarding-field">
+                <span class="boarding-label">Путник / Passenger</span>
+                <span class="boarding-value">ВАШ ГОСТ</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">Од / From</span>
+                <span class="boarding-value">ТРЕНУТНИ ЖИВОТ</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">До / To</span>
+                <span class="boarding-value">{{CEREMONY_VENUE}}</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">Датум / Date</span>
+                <span class="boarding-value">{{WEDDING_DATE_FORMATTED}}</span>
+              </div>
+            </div>
+            <div class="boarding-stub">
+              <span class="boarding-label">Седиште</span>
+              <span class="boarding-seat">VIP</span>
+              <span class="boarding-label" style="margin-top:1rem;">Лет</span>
+              <span class="boarding-value">LV{{WEDDING_YEAR}}</span>
+            </div>
+          </div>
+          <div class="boarding-barcode">
+            <div class="barcode-lines">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <small style="color:var(--color-text-muted);">{{WEDDING_SLUG}}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSVP Page -->
+      <div class="page" id="page-rsvp">
+        <div class="page-watermark">📝</div>
+        <h2 class="rsvp-title">Потврда доласка</h2>
+        <p class="rsvp-subtitle">Резервишите своје место на лету</p>
+
+        <form class="rsvp-form" id="rsvp-form">
+          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+
+          <div class="form-group">
+            <label for="guest-name">Име путника</label>
+            <input type="text" id="guest-name" name="name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guest-email">Емаил</label>
+            <input type="email" id="guest-email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label>Статус резервације</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>Потврђујем лет</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="attending" value="no">
+                <span>Отказујем</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="guests-group">
+            <label for="guests-count">Број путника</label>
+            <select id="guests-count" name="guests" class="form-select">
+              <option value="1">1 путник</option>
+              <option value="2">2 путника</option>
+              <option value="3">3 путника</option>
+              <option value="4">4 путника</option>
+            </select>
+          </div>
+
+          {{#IF_MEAL_OPTIONS}}
+          <div class="form-group" id="meal-group">
+            <label for="meal-choice">Оброк у лету</label>
+            <select id="meal-choice" name="meal" class="form-select">
+              <option value="">Изаберите...</option>
+              {{MEAL_OPTIONS}}
+            </select>
+          </div>
+          {{/IF_MEAL_OPTIONS}}
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            ПОТВРДИ РЕЗЕРВАЦИЈУ
+          </button>
+        </form>
+
+        <div class="form-success hidden" id="form-success">
+          <div class="success-icon">✈️</div>
+          <h3 class="success-title">Резервација потврђена!</h3>
+          <p class="success-text">Видимо се на укрцавању!</p>
+        </div>
+
+        <p class="rsvp-deadline">Крајњи рок: {{RSVP_DEADLINE}}</p>
+      </div>
+
+      <a href="#" class="back-to-cover" id="close-passport">← Затвори пасош</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const cover = document.getElementById('passport-cover');
+      const pages = document.getElementById('passport-pages');
+      const closeBtn = document.getElementById('close-passport');
+      const tabs = document.querySelectorAll('.page-tab');
+      const pageElements = document.querySelectorAll('.page');
+
+      cover.addEventListener('click', () => {
+        cover.style.display = 'none';
+        pages.classList.add('open');
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        pages.classList.remove('open');
+        cover.style.display = 'block';
+      });
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const pageId = tab.dataset.page;
+          pageElements.forEach(p => {
+            p.classList.toggle('active', p.id === `page-${pageId}`);
+          });
+        });
+      });
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'block' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'block' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'ШАЉЕМ...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'ПОТВРДИ РЕЗЕРВАЦИЈУ';
+          alert('Дошло је до грешке. Молимо покушајте поново.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+/**
+ * Express Theme - Telegram Layout
+ * Clean vintage postal style
+ */
+
+:root {
+  --color-bg: #1B2838;
+  --color-paper: #FFFFF0;
+  --color-paper-dark: #F5F5DC;
+  --color-text: #1B2838;
+  --color-text-muted: #4A5568;
+  --color-accent: #2B6CB0;
+  --color-gold: #4A5568;
+  --font-display: 'Special Elite', monospace;
+  --font-body: 'Courier Prime', monospace;
+}
+
+.telegram-header {
+  background: linear-gradient(90deg, var(--color-accent), #3182CE, var(--color-accent));
+}
+
+.telegram-stamp {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.telegram-details {
+  border-color: var(--color-accent);
+}
+
+.telegram-story {
+  background: var(--color-paper-dark);
+}
+
+.countdown-value {
+  color: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: #1D4ED8;
+}
+
+.detail-value a {
+  color: var(--color-accent);
+}

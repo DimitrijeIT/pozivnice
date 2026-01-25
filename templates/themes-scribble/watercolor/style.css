@@ -1,0 +1,41 @@
+/* Scribble Love - Watercolor Theme
+   Soft watercolor washes with playful energy */
+
+:root {
+  --color-bg: #FFFEF7;
+  --color-surface: #FFF;
+  --color-text: #1A1A1A;
+  --color-text-muted: #666;
+  --color-accent: #E8B4B8;
+  --color-line: #333;
+  --color-highlight: #FFE4E6;
+}
+
+.cover-title .heart {
+  color: #E8B4B8;
+}
+
+.sticky-note {
+  background: #FFFACD;
+}
+
+.sticky-note:nth-child(even) {
+  background: #FFE4E6;
+}
+
+.banner-text {
+  background: var(--color-highlight);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.checkbox-label input:checked::before {
+  color: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

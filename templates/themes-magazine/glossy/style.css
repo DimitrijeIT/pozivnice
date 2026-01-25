@@ -1,0 +1,68 @@
+/**
+ * Glossy Theme - Magazine Layout
+ * Modern colorful lifestyle magazine
+ */
+
+:root {
+  --color-bg: #FFF5F5;
+  --color-surface: #FFFFFF;
+  --color-text: #2D2D2D;
+  --color-text-muted: #777;
+  --color-accent: #FF6B6B;
+  --color-gold: #FFA07A;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-accent: 'Cormorant Garamond', serif;
+}
+
+.magazine-logo {
+  background: linear-gradient(135deg, var(--color-accent), #FF8E8E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-names .ampersand {
+  color: var(--color-accent);
+}
+
+.cover-date {
+  color: var(--color-accent);
+}
+
+.article-category,
+.feature-category,
+.countdown-category,
+.rsvp-category {
+  color: var(--color-accent);
+}
+
+.article-body p:first-of-type::first-letter {
+  color: var(--color-accent);
+}
+
+.pull-quote p {
+  color: var(--color-accent);
+}
+
+.venue-type {
+  color: var(--color-accent);
+}
+
+.countdown-value {
+  color: var(--color-accent);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--color-accent), #FF8E8E);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #E85555, var(--color-accent));
+}
+
+.nav-dot.active,
+.nav-dot:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}

@@ -1,0 +1,153 @@
+/**
+ * Noir Theme - Cinema Layout
+ * Classic film noir with dramatic black & white
+ */
+
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-text: #f5f5f5;
+  --color-text-muted: #888;
+  --color-gold: #ffffff;
+  --color-gold-light: #e0e0e0;
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+}
+
+/* Noir dramatic styling */
+.poster-section {
+  background: linear-gradient(180deg, #000 0%, #0a0a0a 50%, #000 100%);
+}
+
+.studio-logo {
+  color: var(--color-text-muted);
+}
+
+.poster-title .ampersand {
+  color: var(--color-text);
+}
+
+.starring-text {
+  color: var(--color-text-muted);
+}
+
+.premiere-date {
+  border-top-color: var(--color-text-muted);
+}
+
+.premiere-label {
+  color: var(--color-text-muted);
+}
+
+/* Film strip in noir */
+.film-strip-top, .film-strip-bottom {
+  background: repeating-linear-gradient(
+    90deg,
+    #1a1a1a 0px,
+    #1a1a1a 20px,
+    #000 20px,
+    #000 30px
+  );
+}
+
+/* Countdown */
+.countdown-section {
+  background: #0f0f0f;
+}
+
+.countdown-value {
+  color: var(--color-text);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+/* Credits */
+.credits-section {
+  background: linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+}
+
+.story-text::first-letter {
+  color: var(--color-text);
+}
+
+.credits-block {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Venue cards */
+.venue-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #111;
+}
+
+.venue-card::before {
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+}
+
+.venue-type {
+  color: var(--color-text-muted);
+}
+
+.venue-link {
+  color: var(--color-text);
+}
+
+/* Ticket frame */
+.ticket-frame {
+  border-color: var(--color-text-muted);
+  background: #111;
+}
+
+.ticket-header {
+  color: var(--color-text-muted);
+}
+
+.form-input,
+.form-select {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-text);
+}
+
+.radio-label input {
+  border-color: var(--color-text-muted);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-text);
+}
+
+.submit-btn {
+  background: var(--color-text);
+  color: #000;
+}
+
+.submit-btn:hover {
+  background: #ccc;
+}
+
+/* Navigation */
+.nav-dot {
+  border-color: var(--color-text-muted);
+}
+
+.nav-dot.active,
+.nav-dot:hover {
+  background: var(--color-text);
+}
+
+/* Footer */
+.cinema-footer {
+  background: #000;
+}
+
+.footer-hashtag {
+  color: var(--color-text);
+}
+
+/* Scroll indicator */
+.scroll-indicator svg {
+  stroke: var(--color-text-muted);
+}

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Фестивал љубави</title>
+  <meta name="description" content="Позивница за венчање - {{BRIDE_NAME}} & {{GROOM_NAME}}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>">
+  {{THEME_FONTS}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #0D0D0D;
+      --color-surface: #1A1A1A;
+      --color-text: #FFFFFF;
+      --color-text-muted: #888;
+      --color-primary: #FF006E;
+      --color-secondary: #00F5D4;
+      --color-accent: #FFD166;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === POSTER SECTION === */
+    .poster-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255, 0, 110, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 245, 212, 0.3) 0%, transparent 50%),
+        var(--color-bg);
+    }
+
+    .poster-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    .festival-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 2rem;
+    }
+
+    .poster-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 15vw, 12rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .poster-title .name {
+      display: block;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .poster-title .ampersand {
+      display: block;
+      font-size: 0.3em;
+      color: var(--color-accent);
+      -webkit-text-fill-color: var(--color-accent);
+      margin: 0.5rem 0;
+    }
+
+    .poster-date {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin: 2rem 0;
+    }
+
+    .poster-venue {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      max-width: 400px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* === LINEUP SECTION === */
+    .lineup-section {
+      padding: 4rem 2rem;
+      background: var(--color-surface);
+    }
+
+    .section-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .lineup-card {
+      background: var(--color-bg);
+      border: 1px solid #333;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .lineup-header {
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lineup-stage {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--color-bg);
+    }
+
+    .lineup-time {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-bg);
+    }
+
+    .lineup-body {
+      padding: 1.5rem;
+    }
+
+    .lineup-act {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .lineup-details {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .lineup-details a {
+      color: var(--color-secondary);
+      text-decoration: none;
+    }
+
+    /* === COUNTDOWN SECTION === */
+    .countdown-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
+        var(--color-bg);
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 6rem);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* === STORY SECTION === */
+    .story-section {
+      padding: 4rem 2rem;
+      background: var(--color-surface);
+    }
+
+    .story-text {
+      font-size: 1.1rem;
+      line-height: 2;
+      text-align: center;
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* === TICKET SECTION (RSVP) === */
+    .ticket-section {
+      padding: 4rem 2rem;
+      background: var(--color-bg);
+    }
+
+    .ticket {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--color-surface);
+      border: 2px solid var(--color-primary);
+      position: relative;
+    }
+
+    .ticket::before,
+    .ticket::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--color-bg);
+      border-radius: 50%;
+    }
+
+    .ticket::before {
+      top: 50%;
+      left: -17px;
+      transform: translateY(-50%);
+      border-right: 2px solid var(--color-primary);
+    }
+
+    .ticket::after {
+      top: 50%;
+      right: -17px;
+      transform: translateY(-50%);
+      border-left: 2px solid var(--color-primary);
+    }
+
+    .ticket-header {
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .ticket-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-bg);
+      letter-spacing: 0.1em;
+    }
+
+    .ticket-subtitle {
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.6);
+      margin-top: 0.25rem;
+    }
+
+    .ticket-body {
+      padding: 2rem;
+    }
+
+    .ticket-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px dashed #333;
+    }
+
+    .ticket-field {
+      text-align: center;
+    }
+
+    .ticket-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .ticket-value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-bg);
+      border: 1px solid #333;
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .radio-label input {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-primary);
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .radio-label input:checked::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    .submit-btn {
+      padding: 1.25rem;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      color: var(--color-bg);
+      border: none;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .ticket-barcode {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed #333;
+      text-align: center;
+    }
+
+    .barcode {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .barcode span {
+      width: 3px;
+      height: 40px;
+      background: var(--color-text);
+    }
+
+    .barcode span:nth-child(odd) { height: 35px; }
+    .barcode span:nth-child(3n) { width: 4px; }
+
+    .rsvp-deadline {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .success-text { color: var(--color-text-muted); }
+
+    .hidden { display: none !important; }
+
+    /* === FOOTER === */
+    .concert-footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--color-surface);
+      border-top: 1px solid #333;
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-credits {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .countdown-display { gap: 1rem; }
+      .ticket-info { grid-template-columns: 1fr; }
+      .ticket::before, .ticket::after { display: none; }
+    }
+  </style>
+  {{THEME_CSS}}
+</head>
+<body>
+  <!-- POSTER -->
+  <section class="poster-section">
+    <div class="poster-noise"></div>
+    <div class="festival-badge">ФЕСТИВАЛ ЉУБАВИ {{WEDDING_YEAR}}</div>
+    <h1 class="poster-title">
+      <span class="name">{{BRIDE_NAME}}</span>
+      <span class="ampersand">&</span>
+      <span class="name">{{GROOM_NAME}}</span>
+    </h1>
+    <p class="poster-date">{{WEDDING_DATE_FORMATTED}}</p>
+    <p class="poster-venue">{{CEREMONY_VENUE}} • {{CEREMONY_ADDRESS}}</p>
+    <div class="scroll-hint">
+      <span>Скролуј за програм</span>
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- LINEUP -->
+  <section class="lineup-section">
+    <div class="section-container">
+      <h2 class="section-title">Програм фестивала</h2>
+
+      <div class="lineup-card">
+        <div class="lineup-header">
+          <span class="lineup-stage">ГЛАВНА БИНА</span>
+          <span class="lineup-time">{{CEREMONY_TIME}}</span>
+        </div>
+        <div class="lineup-body">
+          <h3 class="lineup-act">Церемонија венчања</h3>
+          <p class="lineup-details">
+            📍 {{CEREMONY_VENUE}}<br>
+            {{CEREMONY_ADDRESS}}
+            {{#IF_CEREMONY_MAP}}<br><a href="{{CEREMONY_MAP_URL}}" target="_blank">Прикажи на мапи →</a>{{/IF_CEREMONY_MAP}}
+          </p>
+        </div>
+      </div>
+
+      <div class="lineup-card">
+        <div class="lineup-header">
+          <span class="lineup-stage">AFTER PARTY</span>
+          <span class="lineup-time">{{RECEPTION_TIME}}</span>
+        </div>
+        <div class="lineup-body">
+          <h3 class="lineup-act">Прослава до зоре</h3>
+          <p class="lineup-details">
+            📍 {{RECEPTION_VENUE}}<br>
+            {{RECEPTION_ADDRESS}}
+            {{#IF_RECEPTION_MAP}}<br><a href="{{RECEPTION_MAP_URL}}" target="_blank">Прикажи на мапи →</a>{{/IF_RECEPTION_MAP}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <div class="section-container">
+      <h2 class="section-title">До фестивала</h2>
+      <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+        <div class="countdown-item">
+          <div class="countdown-value" id="days">--</div>
+          <div class="countdown-label">Дана</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="hours">--</div>
+          <div class="countdown-label">Сати</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="minutes">--</div>
+          <div class="countdown-label">Минута</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="seconds">--</div>
+          <div class="countdown-label">Секунди</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  {{#IF_STORY}}
+  <section class="story-section">
+    <div class="section-container">
+      <h2 class="section-title">Наша прича</h2>
+      <p class="story-text">{{STORY_TEXT}}</p>
+    </div>
+  </section>
+  {{/IF_STORY}}
+
+  <!-- TICKET / RSVP -->
+  <section class="ticket-section">
+    <div class="section-container">
+      <h2 class="section-title">Узми своју карту</h2>
+
+      <div class="ticket">
+        <div class="ticket-header">
+          <h3 class="ticket-title">VIP УЛАЗНИЦА</h3>
+          <p class="ticket-subtitle">{{BRIDE_NAME}} & {{GROOM_NAME}} FEST</p>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-info">
+            <div class="ticket-field">
+              <p class="ticket-label">Датум</p>
+              <p class="ticket-value">{{WEDDING_DATE_FORMATTED}}</p>
+            </div>
+            <div class="ticket-field">
+              <p class="ticket-label">Локација</p>
+              <p class="ticket-value">{{CEREMONY_VENUE}}</p>
+            </div>
+          </div>
+
+          <form class="rsvp-form" id="rsvp-form">
+            <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+
+            <div class="form-group">
+              <label for="guest-name">Име на карти</label>
+              <input type="text" id="guest-name" name="name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="guest-email">Емаил</label>
+              <input type="email" id="guest-email" name="email" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label>Долазак</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="attending" value="yes" required>
+                  <span>Долазим!</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="attending" value="no">
+                  <span>Пропуштам</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" id="guests-group">
+              <label for="guests-count">Број карата</label>
+              <select id="guests-count" name="guests" class="form-select">
+                <option value="1">1 карта</option>
+                <option value="2">2 карте</option>
+                <option value="3">3 карте</option>
+                <option value="4">4 карте</option>
+              </select>
+            </div>
+
+            {{#IF_MEAL_OPTIONS}}
+            <div class="form-group" id="meal-group">
+              <label for="meal-choice">Избор менија</label>
+              <select id="meal-choice" name="meal" class="form-select">
+                <option value="">Изаберите...</option>
+                {{MEAL_OPTIONS}}
+              </select>
+            </div>
+            {{/IF_MEAL_OPTIONS}}
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+              РЕЗЕРВИШИ КАРТУ
+            </button>
+          </form>
+
+          <div class="form-success hidden" id="form-success">
+            <div class="success-icon">🎫</div>
+            <h3 class="success-title">Карта резервисана!</h3>
+            <p class="success-text">Видимо се на фестивалу!</p>
+          </div>
+
+          <div class="ticket-barcode">
+            <div class="barcode">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <small style="color:var(--color-text-muted)">{{WEDDING_SLUG}}</small>
+          </div>
+
+          <p class="rsvp-deadline">Резервације до: {{RSVP_DEADLINE}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  {{#IF_HASHTAG}}
+  <footer class="concert-footer">
+    <p class="footer-hashtag">#{{WEDDING_HASHTAG}}</p>
+    <p class="footer-credits">{{BRIDE_NAME}} & {{GROOM_NAME}} FEST © {{WEDDING_YEAR}}</p>
+  </footer>
+  {{/IF_HASHTAG}}
+
+  <script>
+    (function() {
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      const weddingDate = new Date(countdownEl.dataset.date);
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) {
+          document.getElementById('days').textContent = '0';
+          document.getElementById('hours').textContent = '0';
+          document.getElementById('minutes').textContent = '0';
+          document.getElementById('seconds').textContent = '0';
+          return;
+        }
+
+        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'block' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'block' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'ШАЉЕМ...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'РЕЗЕРВИШИ КАРТУ';
+          alert('Дошло је до грешке. Молимо покушајте поново.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

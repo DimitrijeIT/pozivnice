@@ -1,0 +1,16 @@
+/**
+ * Western Theme - Telegram Layout
+ * Aged sepia Western Union style
+ */
+
+:root {
+  --color-bg: #2C2416;
+  --color-paper: #F5E6C8;
+  --color-paper-dark: #E8D4A8;
+  --color-text: #2C2416;
+  --color-text-muted: #5C4A2A;
+  --color-accent: #8B0000;
+  --color-gold: #8B7355;
+  --font-display: 'Special Elite', monospace;
+  --font-body: 'Courier Prime', monospace;
+}

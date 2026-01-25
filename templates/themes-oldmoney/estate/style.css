@@ -1,0 +1,57 @@
+/* Old Money Estate - Estate Theme
+   Classic navy and ivory with gold accents */
+
+:root {
+  --color-bg: #FFFFF0;
+  --color-surface: #FAFAF5;
+  --color-text: #1C1C1C;
+  --color-text-muted: #666;
+  --color-navy: #0A2239;
+  --color-gold: #B8860B;
+  --color-border: #D4D0C8;
+}
+
+.monogram {
+  border-color: var(--color-navy);
+}
+
+.monogram::before {
+  border-color: var(--color-navy);
+}
+
+.monogram-text {
+  color: var(--color-navy);
+}
+
+.invitation-names {
+  color: var(--color-navy);
+}
+
+.venue-label {
+  color: var(--color-gold);
+}
+
+.submit-btn {
+  background: var(--color-navy);
+}
+
+.submit-btn:hover {
+  background: #0D2A45;
+}
+
+.radio-label input {
+  border-color: var(--color-navy);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-navy);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-navy);
+}
+
+.footer-hashtag {
+  color: var(--color-navy);
+}

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Венчање</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+  {{THEME_FONTS}}
+  {{THEME_CSS}}
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #FFFEF7;
+      --color-surface: #FFF;
+      --color-text: #1A1A1A;
+      --color-text-muted: #666;
+      --color-accent: #E8B4B8;
+      --color-line: #333;
+      --color-highlight: #FFE4E6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Patrick Hand', cursive;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Paper texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(
+          transparent 0px,
+          transparent 27px,
+          rgba(200,200,200,0.15) 28px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Notebook cover */
+    .notebook-cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .cover-doodles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .doodle {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.6;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .doodle:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+    .doodle:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
+    .doodle:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 1s; }
+    .doodle:nth-child(4) { bottom: 15%; right: 10%; animation-delay: 1.5s; }
+    .doodle:nth-child(5) { top: 40%; left: 5%; animation-delay: 2s; }
+    .doodle:nth-child(6) { top: 35%; right: 5%; animation-delay: 2.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .cover-title {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(3rem, 12vw, 5rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cover-title .heart {
+      color: var(--color-accent);
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .cover-subtitle {
+      font-size: 1.5rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .cover-date {
+      font-size: 1.2rem;
+      padding: 0.5rem 1.5rem;
+      border: 2px dashed var(--color-accent);
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Sections */
+    .section {
+      padding: 4rem 0;
+      position: relative;
+    }
+
+    .section-banner {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .banner-text {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      background: var(--color-highlight);
+      padding: 0.5rem 2rem;
+      display: inline-block;
+      transform: rotate(-2deg);
+      border-radius: 4px;
+    }
+
+    /* Story comic panels */
+    .story-panels {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .story-panel {
+      background: var(--color-surface);
+      border: 3px solid var(--color-line);
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+      transform: rotate(-0.5deg);
+      box-shadow: 4px 4px 0 var(--color-line);
+    }
+
+    .story-panel:nth-child(even) {
+      transform: rotate(0.5deg);
+    }
+
+    .panel-number {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--color-accent);
+      color: var(--color-surface);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .panel-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    /* Invitation card */
+    .invitation-card {
+      background: var(--color-surface);
+      border: 3px solid var(--color-line);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 6px 6px 0 var(--color-line);
+    }
+
+    .invitation-card::before {
+      content: '💌';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+    }
+
+    .invitation-intro {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .invitation-text {
+      font-size: 1.3rem;
+      line-height: 2;
+    }
+
+    /* Sticky note style details */
+    .sticky-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .sticky-note {
+      background: #FFFACD;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+      transform: rotate(-2deg);
+    }
+
+    .sticky-note:nth-child(even) {
+      background: #FFE4E6;
+      transform: rotate(1deg);
+    }
+
+    .sticky-note::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 40px;
+      height: 15px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 2px;
+    }
+
+    .sticky-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+    }
+
+    .sticky-venue {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sticky-address {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .sticky-time {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .sticky-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      color: var(--color-line);
+      font-size: 0.9rem;
+    }
+
+    /* Story section */
+    {{#IF_STORY}}
+    .story-bubble {
+      background: var(--color-surface);
+      border: 2px solid var(--color-line);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .story-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      border: 10px solid transparent;
+      border-top-color: var(--color-line);
+    }
+
+    .story-text {
+      font-size: 1.1rem;
+      line-height: 2;
+      font-style: italic;
+    }
+    {{/IF_STORY}}
+
+    /* RSVP - Notebook page */
+    .rsvp-page {
+      background: var(--color-surface);
+      border: 3px solid var(--color-line);
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 4px 4px 0 var(--color-line);
+    }
+
+    .rsvp-page::before {
+      content: '';
+      position: absolute;
+      left: 60px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #FFB4B4;
+    }
+
+    .rsvp-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-subtitle {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .rsvp-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding-left: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-bottom: 2px dashed var(--color-line);
+      background: transparent;
+      font-family: inherit;
+      font-size: 1.1rem;
+      color: var(--color-text);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-bottom-style: solid;
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+      border: 2px dashed var(--color-line);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    /* Checkbox doodles */
+    .attendance-options {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .checkbox-label input {
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--color-line);
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .checkbox-label input:checked::before {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      color: var(--color-accent);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--color-accent);
+      color: var(--color-text);
+      border: 3px solid var(--color-line);
+      border-radius: 8px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 3px 3px 0 var(--color-line);
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--color-line);
+    }
+
+    .submit-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--color-line);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    {{#IF_HASHTAG}}
+    .footer-hashtag {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+    {{/IF_HASHTAG}}
+
+    .footer-hearts {
+      font-size: 2rem;
+      letter-spacing: 0.5rem;
+    }
+
+    /* Confetti animation */
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .cover-title {
+        font-size: 2.5rem;
+      }
+
+      .sticky-notes {
+        grid-template-columns: 1fr;
+      }
+
+      .rsvp-page::before {
+        left: 30px;
+      }
+
+      .rsvp-form {
+        padding-left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Notebook Cover -->
+  <section class="notebook-cover">
+    <div class="cover-doodles">
+      <span class="doodle">💕</span>
+      <span class="doodle">✨</span>
+      <span class="doodle">🥂</span>
+      <span class="doodle">💐</span>
+      <span class="doodle">🎊</span>
+      <span class="doodle">💍</span>
+    </div>
+
+    <h1 class="cover-title">
+      {{BRIDE_NAME}}<br>
+      <span class="heart">&</span><br>
+      {{GROOM_NAME}}
+    </h1>
+    <p class="cover-subtitle">се венчавају!</p>
+    <div class="cover-date">{{WEDDING_DATE_FORMATTED}}</div>
+
+    <div class="scroll-hint">↓ листај ↓</div>
+  </section>
+
+  <div class="container">
+
+    <!-- Invitation -->
+    <section class="section">
+      <div class="invitation-card">
+        <p class="invitation-intro">{{INVITATION_INTRO}}</p>
+        <p class="invitation-text">{{INVITATION_TEXT}}</p>
+      </div>
+    </section>
+
+    <!-- Story -->
+    {{#IF_STORY}}
+    <section class="section">
+      <div class="section-banner">
+        <span class="banner-text">Наша прича 📖</span>
+      </div>
+      <div class="story-bubble">
+        <p class="story-text">{{STORY_TEXT}}</p>
+      </div>
+    </section>
+    {{/IF_STORY}}
+
+    <!-- Details -->
+    <section class="section">
+      <div class="section-banner">
+        <span class="banner-text">Где & Када 📍</span>
+      </div>
+
+      <div class="sticky-notes">
+        <div class="sticky-note">
+          <div class="sticky-label">венчање 💒</div>
+          <div class="sticky-venue">{{CEREMONY_VENUE}}</div>
+          <div class="sticky-address">{{CEREMONY_ADDRESS}}</div>
+          <div class="sticky-time">{{CEREMONY_TIME}}</div>
+          {{#IF_CEREMONY_MAP}}
+          <a href="{{CEREMONY_MAP_URL}}" target="_blank" class="sticky-link">📍 види на мапи</a>
+          {{/IF_CEREMONY_MAP}}
+        </div>
+
+        <div class="sticky-note">
+          <div class="sticky-label">журка 🎉</div>
+          <div class="sticky-venue">{{RECEPTION_VENUE}}</div>
+          <div class="sticky-address">{{RECEPTION_ADDRESS}}</div>
+          <div class="sticky-time">{{RECEPTION_TIME}}</div>
+          {{#IF_RECEPTION_MAP}}
+          <a href="{{RECEPTION_MAP_URL}}" target="_blank" class="sticky-link">📍 види на мапи</a>
+          {{/IF_RECEPTION_MAP}}
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section">
+      <div class="section-banner">
+        <span class="banner-text">Долазиш? 🎈</span>
+      </div>
+
+      <div class="rsvp-page">
+        <h2 class="rsvp-title">Јави нам!</h2>
+        <p class="rsvp-subtitle">до {{RSVP_DEADLINE}} 🙏</p>
+
+        <form class="rsvp-form" id="rsvp-form">
+          <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
+
+          <div class="form-group">
+            <label class="form-label">Твоје име:</label>
+            <input type="text" name="guest_name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Долазиш?</label>
+            <div class="attendance-options">
+              <label class="checkbox-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>Да! 🎉</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="attending" value="no">
+                <span>Не могу 😢</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Колико вас долази?</label>
+            <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+          </div>
+
+          {{#IF_MEAL_OPTIONS}}
+          <div class="form-group">
+            <label class="form-label">Шта једеш? 🍽️</label>
+            <select name="meal_preference" class="form-select">
+              {{MEAL_OPTIONS}}
+            </select>
+          </div>
+          {{/IF_MEAL_OPTIONS}}
+
+          <div class="form-group">
+            <label class="form-label">Хоћеш нешто да нам кажеш? 💬</label>
+            <textarea name="message" class="form-textarea" placeholder="Напиши нам..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Пошаљи! 💌</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      {{#IF_HASHTAG}}
+      <div class="footer-hashtag">#{{WEDDING_HASHTAG}}</div>
+      {{/IF_HASHTAG}}
+      <div class="footer-hearts">💕 💕 💕</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Form submission with confetti
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          // Create confetti
+          for (let i = 0; i < 50; i++) {
+            createConfetti();
+          }
+
+          e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-family:Caveat,cursive;font-size:2rem;margin-bottom:1rem;">Ура! 🎉</h3><p>Хвала ти!</p></div>';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+
+    function createConfetti() {
+      const colors = ['#E8B4B8', '#FFE4E6', '#FFFACD', '#98D8C8', '#F7DC6F'];
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        top: -20px;
+        width: ${Math.random() * 10 + 5}px;
+        height: ${Math.random() * 10 + 5}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+        transform: rotate(${Math.random() * 360}deg);
+      `;
+      document.body.appendChild(confetti);
+
+      const animation = confetti.animate([
+        { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+        { transform: `translateY(100vh) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+      ], {
+        duration: Math.random() * 2000 + 2000,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      });
+
+      animation.onfinish = () => confetti.remove();
+    }
+  </script>
+</body>
+</html>

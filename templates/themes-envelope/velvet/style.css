@@ -1,0 +1,441 @@
+/**
+ * Velvet Theme - Envelope Layout
+ *
+ * A luxurious theme with deep jewel tones, gold accents,
+ * and sophisticated typography. Inspired by 2025-2026 trends:
+ * - Rich burgundy/wine colors
+ * - Gold metallic accents
+ * - Elegant serif typography
+ * - Subtle textures
+ */
+
+:root {
+  /* Color Palette - Deep Jewel Tones */
+  --color-bg: #FFFBF5;
+  --color-bg-alt: #FDF6ED;
+  --color-text: #2D2926;
+  --color-muted: #6B5E5A;
+  --color-accent: #8B2942;
+  --color-accent-dark: #6B1F32;
+  --color-accent-light: rgba(139, 41, 66, 0.1);
+  --color-gold: #C9A962;
+  --color-gold-light: #DFC88A;
+  --color-border: #E8DFD6;
+
+  /* Card & Shadow */
+  --card-bg: #FFFFFF;
+  --shadow-card: 0 20px 60px rgba(45, 41, 38, 0.08), 0 4px 20px rgba(139, 41, 66, 0.04);
+
+  /* Envelope Colors */
+  --envelope-bg: linear-gradient(135deg, #F5EDE3 0%, #E8DFD3 100%);
+  --envelope-flap: linear-gradient(180deg, #DDD4C7 0%, #CFC5B8 100%);
+  --envelope-body: #EDE5DA;
+  --seal-color: var(--color-accent);
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Crimson Text', 'Georgia', serif;
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+
+  /* Hero */
+  --hero-bg: linear-gradient(180deg, var(--color-bg) 0%, #FDF8F0 50%, var(--color-bg-alt) 100%);
+  --hero-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%238B2942' stroke-width='0.5' fill='none' opacity='0.1'/%3E%3C/svg%3E");
+
+  /* Footer */
+  --footer-bg: linear-gradient(180deg, var(--color-bg-alt) 0%, #F5EDE3 100%);
+
+  /* Status Colors */
+  --color-success: #2E7D32;
+  --color-success-bg: #E8F5E9;
+  --color-error: #C62828;
+  --color-error-bg: #FFEBEE;
+}
+
+/* ===== TYPOGRAPHY ===== */
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display text - large headings */
+.hero-names,
+.story-title,
+.venue-title,
+.rsvp-title,
+.message-signature,
+.footer-names,
+.story-card-title,
+.venue-card-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* ===== ENVELOPE CUSTOMIZATION ===== */
+.envelope-seal {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  border: 3px solid var(--color-gold);
+}
+
+.envelope-hint {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* ===== HERO SECTION ===== */
+.hero-date {
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.hero-names {
+  color: var(--color-text);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.hero-ampersand {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.hero-venue-preview {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.scroll-cue svg {
+  stroke: var(--color-gold);
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown-section {
+  background: var(--color-bg-alt);
+  position: relative;
+}
+
+.countdown-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.countdown-number {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: 300;
+}
+
+.countdown-label {
+  color: var(--color-muted);
+  font-family: var(--font-body);
+}
+
+/* ===== MESSAGE CARD ===== */
+.message-card {
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+.message-card::before {
+  color: var(--color-gold);
+  opacity: 0.3;
+}
+
+.message-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--color-accent-light) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.message-intro {
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.message-text {
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+
+.message-signature {
+  color: var(--color-accent);
+}
+
+/* ===== STORY CARDS ===== */
+.story-section {
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+}
+
+.story-title {
+  color: var(--color-text);
+}
+
+.story-card {
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(45, 41, 38, 0.12);
+}
+
+.story-card-date {
+  color: var(--color-gold);
+}
+
+.story-card-title {
+  color: var(--color-accent);
+}
+
+.story-card-icon {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  border: 2px solid var(--color-gold);
+}
+
+/* ===== VENUE CARDS ===== */
+.venue-title {
+  color: var(--color-text);
+}
+
+.venue-card-front {
+  border: 1px solid var(--color-border);
+}
+
+.venue-card-icon {
+  background: var(--color-bg-alt);
+  padding: 2rem;
+  font-size: 3rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.venue-card-front .venue-card-type {
+  color: var(--color-gold);
+}
+
+.venue-card-front .venue-card-name {
+  color: var(--color-text);
+}
+
+.venue-card-front .venue-card-time {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+}
+
+.venue-card-back {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+}
+
+.venue-card-back .venue-card-type {
+  color: var(--color-gold-light);
+}
+
+.venue-map-btn {
+  border-color: var(--color-gold);
+  color: white;
+}
+
+.venue-map-btn:hover {
+  background: var(--color-gold);
+  color: var(--color-accent-dark);
+}
+
+.venue-flip-hint {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* ===== RSVP FORM ===== */
+.rsvp-section {
+  background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+}
+
+.rsvp-title {
+  color: var(--color-text);
+}
+
+.rsvp-deadline {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.rsvp-form {
+  border: 1px solid var(--color-border);
+}
+
+.form-group label {
+  color: var(--color-muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border-color: var(--color-border);
+  font-family: var(--font-body);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.attendance-option label {
+  font-family: var(--font-body);
+  border-color: var(--color-border);
+}
+
+.attendance-option input:checked + label {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  font-family: var(--font-body);
+  border: 2px solid var(--color-gold);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+}
+
+/* ===== FOOTER ===== */
+.footer-names {
+  color: var(--color-text);
+}
+
+.footer-date {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.footer-hashtag {
+  background: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+.footer-credit {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* ===== DOT NAVIGATION ===== */
+.dot-nav a {
+  background: var(--color-border);
+}
+
+.dot-nav a.active,
+.dot-nav a:hover {
+  background: var(--color-accent);
+}
+
+.dot-nav a::after {
+  font-family: var(--font-display);
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+}
+
+/* ===== FLOATING ACTION BUTTONS ===== */
+.fab {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  border: 2px solid var(--color-gold);
+}
+
+.fab.secondary {
+  background: var(--card-bg);
+  border-color: var(--color-border);
+  color: var(--color-accent);
+}
+
+.fab.secondary:hover {
+  border-color: var(--color-accent);
+}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+
+/* Gold line decorations */
+.message-section::before,
+.story-section::before,
+.venue-section::before,
+.rsvp-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* Corner ornaments for cards */
+.message-card::before,
+.message-card::after {
+  font-family: var(--font-display);
+}
+
+/* Subtle texture overlay */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .message-card {
+    padding: 2rem;
+  }
+
+  .story-card {
+    padding: 1.5rem;
+  }
+
+  .rsvp-form {
+    padding: 1.5rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gold-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.submit-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: gold-shimmer 3s infinite;
+  pointer-events: none;
+}
+
+/* Confetti colors matching theme */
+.confetti {
+  box-shadow: 0 0 10px rgba(139, 41, 66, 0.3);
+}

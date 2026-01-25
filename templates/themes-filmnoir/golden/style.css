@@ -1,0 +1,121 @@
+/* Film Noir - Golden Age Theme
+   Sepia tones with vintage Hollywood glamour */
+
+:root {
+  --color-bg: #0A0806;
+  --color-surface: #1A1510;
+  --color-text: #F5E6D3;
+  --color-text-muted: #A99A87;
+  --color-accent: #D4AF37;
+  --color-gold: #C9A227;
+}
+
+.spotlight {
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    transparent 0%,
+    rgba(10, 8, 6, 0.4) 50%,
+    rgba(10, 8, 6, 0.8) 100%
+  );
+}
+
+.marquee-frame {
+  border-color: var(--color-gold);
+  background: var(--color-surface);
+}
+
+.marquee-light {
+  background: var(--color-gold);
+}
+
+.marquee-now {
+  color: var(--color-gold);
+}
+
+.marquee-ampersand {
+  color: var(--color-gold);
+}
+
+.marquee-date {
+  border-color: var(--color-gold);
+}
+
+.section-title::after {
+  background: var(--color-gold);
+}
+
+.credits-text {
+  color: var(--color-text);
+}
+
+.poster-card {
+  border-color: var(--color-gold);
+}
+
+.playbill {
+  border-color: var(--color-gold);
+}
+
+.playbill-header {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.playbill-row {
+  border-color: rgba(201, 162, 39, 0.3);
+}
+
+.playbill-link {
+  color: var(--color-gold);
+}
+
+.story-screen {
+  border-color: var(--color-gold);
+}
+
+.story-screen::before {
+  color: var(--color-gold);
+}
+
+.ticket-booth {
+  border-color: var(--color-gold);
+}
+
+.ticket-header {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border-color: var(--color-gold);
+  color: var(--color-text);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.radio-label input {
+  border-color: var(--color-gold);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-gold);
+}
+
+.submit-btn {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.submit-btn:hover {
+  background: var(--color-text);
+}
+
+.footer-hashtag {
+  color: var(--color-gold);
+}

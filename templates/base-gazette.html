@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Венчање</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+
+  {{THEME_CSS}}
+  {{THEME_FONTS}}
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body, 'Times New Roman', Georgia, serif);
+      background: var(--color-bg, #F5F1E8);
+      color: var(--color-text, #1a1a1a);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    /* ===== NEWSPAPER CONTAINER ===== */
+    .gazette {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper-bg, #FFFEF9);
+      box-shadow: 0 0 0 1px var(--border-color, #d4c9b5), 0 20px 60px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    /* ===== MASTHEAD ===== */
+    .masthead {
+      text-align: center;
+      padding: 1.5rem 2rem 1rem;
+      border-bottom: 3px double var(--border-color, #1a1a1a);
+    }
+
+    .edition-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--color-muted, #666);
+      margin-bottom: 0.5rem;
+    }
+
+    .paper-title {
+      font-family: var(--font-display, 'Old English Text MT', 'Times New Roman', serif);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .paper-subtitle {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5em;
+      color: var(--color-muted);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.35rem 0;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .gazette-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0;
+    }
+
+    /* ===== MAIN COLUMN ===== */
+    .main-column {
+      padding: 1.5rem 2rem;
+      border-right: 1px solid var(--border-color);
+    }
+
+    /* ===== HEADLINE ===== */
+    .headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .subheadline {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* ===== ARTICLE ===== */
+    .article-meta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+
+    .article-body {
+      column-count: 2;
+      column-gap: 2rem;
+      column-rule: 1px solid var(--border-light, #e5e0d5);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .article-body p {
+      margin-bottom: 1rem;
+      text-indent: 1.5rem;
+    }
+
+    .article-body p:first-of-type {
+      text-indent: 0;
+    }
+
+    .article-body p:first-of-type::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      line-height: 1;
+      padding-right: 0.5rem;
+      font-family: var(--font-display);
+      color: var(--color-accent, #8B0000);
+    }
+
+    .pull-quote {
+      font-size: 1.3rem;
+      font-style: italic;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin: 1.5rem 0;
+      border-top: 3px double var(--border-color);
+      border-bottom: 3px double var(--border-color);
+      break-inside: avoid;
+      column-span: all;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      padding: 1.5rem;
+      background: var(--sidebar-bg, #faf8f3);
+    }
+
+    /* ===== INFO BOX ===== */
+    .info-box {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-box:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-box-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-accent, #8B0000);
+    }
+
+    .event-item {
+      margin-bottom: 1rem;
+    }
+
+    .event-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .event-type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    .event-venue {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0.25rem 0;
+    }
+
+    .event-details {
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+
+    .event-link {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      margin-top: 0.25rem;
+    }
+
+    .event-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== COUNTDOWN BOX ===== */
+    .countdown-box {
+      text-align: center;
+      background: var(--color-accent);
+      color: white;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.8;
+    }
+
+    .countdown-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .countdown-unit {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== RSVP BOX ===== */
+    .rsvp-box {
+      background: var(--paper-bg);
+      border: 2px solid var(--color-accent);
+      padding: 1rem;
+    }
+
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      color: var(--color-accent);
+    }
+
+    .rsvp-deadline {
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+
+    .form-row {
+      margin-bottom: 0.75rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
+      color: var(--color-muted);
+    }
+
+    .form-row input,
+    .form-row select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--paper-bg);
+    }
+
+    .form-row input:focus,
+    .form-row select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .attendance-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .attendance-btn {
+      flex: 1;
+      padding: 0.6rem 0.5rem;
+      border: 1px solid var(--border-color);
+      background: var(--paper-bg);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .attendance-btn.selected {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: white;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-accent-dark, #6B0000);
+    }
+
+    .form-message {
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      text-align: center;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .conditional-field {
+      display: none;
+    }
+
+    .conditional-field.visible {
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    .gazette-footer {
+      text-align: center;
+      padding: 1rem 2rem;
+      border-top: 3px double var(--border-color);
+      font-size: 0.75rem;
+      color: var(--color-muted);
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== DECORATIVE ELEMENTS ===== */
+    .ornament {
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--border-color);
+      margin: 1rem 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .gazette-content {
+        grid-template-columns: 1fr;
+      }
+
+      .main-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem;
+      }
+
+      .sidebar {
+        padding: 1rem;
+      }
+
+      .article-body {
+        column-count: 1;
+      }
+
+      .headline {
+        font-size: 1.75rem;
+      }
+
+      .paper-title {
+        font-size: 2rem;
+      }
+
+      .masthead {
+        padding: 1rem;
+      }
+    }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .gazette {
+        box-shadow: none;
+      }
+
+      .rsvp-box {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="gazette">
+    <!-- Masthead -->
+    <header class="masthead">
+      <p class="edition-date">{{WEDDING_DATE_FORMATTED}} · Посебно издање</p>
+      <h1 class="paper-title">Љубавне Вести</h1>
+      <p class="paper-subtitle">Званичне новине венчања {{BRIDE_NAME}} и {{GROOM_NAME}}</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="gazette-content">
+      <!-- Main Column -->
+      <main class="main-column">
+        <h2 class="headline">{{BRIDE_NAME}} и {{GROOM_NAME}} се венчавају!</h2>
+        <p class="subheadline">{{INVITATION_INTRO}}</p>
+
+        <p class="article-meta">Извештава: Породица и пријатељи</p>
+
+        <div class="article-body">
+          <p>{{INVITATION_TEXT}}</p>
+
+          <p>Венчање ће се одржати у {{CEREMONY_VENUE}}, са почетком церемоније у {{CEREMONY_TIME}} часова. Након тога, сви званици су позвани на свечану прославу у {{RECEPTION_VENUE}}, која почиње у {{RECEPTION_TIME}} часова.</p>
+
+          {{#IF_STORY}}
+          <div class="pull-quote">
+            „{{PULL_QUOTE}}"
+          </div>
+
+          <p>{{STORY_TEXT}}</p>
+          {{/IF_STORY}}
+
+          {{#IF_ADDITIONAL_INFO}}
+          <p>{{ADDITIONAL_INFO}}</p>
+          {{/IF_ADDITIONAL_INFO}}
+
+          <p>{{INVITATION_SIGNATURE}}</p>
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Countdown -->
+        <div class="countdown-box" data-wedding-date="{{WEDDING_DATE_ISO}}">
+          <p class="countdown-label">До венчања</p>
+          <p class="countdown-number" id="countdown-days">--</p>
+          <p class="countdown-unit">дана</p>
+        </div>
+
+        <!-- Events -->
+        <div class="info-box">
+          <h3 class="info-box-title">Догађаји</h3>
+
+          <div class="event-item">
+            <p class="event-type">Церемонија венчања</p>
+            <p class="event-venue">{{CEREMONY_VENUE}}</p>
+            <p class="event-details">{{CEREMONY_TIME}} · {{CEREMONY_ADDRESS}}</p>
+            {{#IF_CEREMONY_MAP}}
+            <a href="{{CEREMONY_MAP_URL}}" target="_blank" class="event-link">→ Прикажи на мапи</a>
+            {{/IF_CEREMONY_MAP}}
+          </div>
+
+          <div class="event-item">
+            <p class="event-type">Свечана прослава</p>
+            <p class="event-venue">{{RECEPTION_VENUE}}</p>
+            <p class="event-details">{{RECEPTION_TIME}} · {{RECEPTION_ADDRESS}}</p>
+            {{#IF_RECEPTION_MAP}}
+            <a href="{{RECEPTION_MAP_URL}}" target="_blank" class="event-link">→ Прикажи на мапи</a>
+            {{/IF_RECEPTION_MAP}}
+          </div>
+        </div>
+
+        {{#IF_DRESS_CODE}}
+        <!-- Dress Code -->
+        <div class="info-box">
+          <h3 class="info-box-title">Дрес код</h3>
+          <p style="font-size: 0.9rem;">{{DRESS_CODE_TEXT}}</p>
+        </div>
+        {{/IF_DRESS_CODE}}
+
+        <!-- RSVP -->
+        <div class="rsvp-box">
+          <h3 class="rsvp-title">RSVP</h3>
+          <p class="rsvp-deadline">Молимо потврдите до {{RSVP_DEADLINE}}</p>
+
+          <form id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+            <div class="form-row">
+              <label>Име и презиме</label>
+              <input type="text" name="name" required>
+            </div>
+
+            <div class="attendance-row">
+              <button type="button" class="attendance-btn" data-value="yes">✓ Долазим</button>
+              <button type="button" class="attendance-btn" data-value="no">✗ Не могу</button>
+            </div>
+            <input type="hidden" name="attending" id="attending-input">
+
+            <div class="form-row conditional-field" id="guests-group">
+              <label>Број гостију</label>
+              <select name="guests_count">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+
+            {{#IF_MEAL_OPTIONS}}
+            <div class="form-row conditional-field" id="meal-group">
+              <label>Оброк</label>
+              <select name="meal_preference">
+                <option value="">Изаберите...</option>
+                {{MEAL_OPTIONS}}
+              </select>
+            </div>
+            {{/IF_MEAL_OPTIONS}}
+
+            <button type="submit" class="submit-btn">Пошаљи</button>
+            <div class="form-message" id="form-message"></div>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gazette-footer">
+      {{#IF_HASHTAG}}
+      <p class="footer-hashtag">{{WEDDING_HASHTAG}}</p>
+      {{/IF_HASHTAG}}
+      <p>© {{WEDDING_YEAR}} · Сва права задржана за љубав</p>
+    </footer>
+  </article>
+
+  <script>
+    (function() {
+      // Countdown
+      const box = document.querySelector('[data-wedding-date]');
+      if (box) {
+        const date = new Date(box.dataset.weddingDate);
+        function update() {
+          const diff = date - new Date();
+          document.getElementById('countdown-days').textContent = Math.max(0, Math.floor(diff / 86400000));
+        }
+        update();
+        setInterval(update, 60000);
+      }
+
+      // RSVP
+      const btns = document.querySelectorAll('.attendance-btn');
+      const input = document.getElementById('attending-input');
+      const conditionalFields = document.querySelectorAll('.conditional-field');
+
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          input.value = btn.dataset.value;
+          conditionalFields.forEach(f => f.classList.toggle('visible', btn.dataset.value === 'yes'));
+        });
+      });
+
+      const form = document.getElementById('rsvp-form');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const msg = document.getElementById('form-message');
+          const data = Object.fromEntries(new FormData(form));
+          data.slug = form.dataset.weddingSlug;
+          data.submitted_at = new Date().toISOString();
+
+          if (!data.attending) {
+            alert('Молимо изаберите да ли долазите');
+            return;
+          }
+
+          const isDemo = data.slug === 'demo' || data.slug.startsWith('test');
+          if (isDemo) {
+            await new Promise(r => setTimeout(r, 500));
+            msg.textContent = 'Хвала! (демо)';
+            msg.className = 'form-message success';
+          } else {
+            try {
+              await fetch('{{RSVP_SCRIPT_URL}}', { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+              msg.textContent = 'Хвала!';
+              msg.className = 'form-message success';
+            } catch {
+              msg.textContent = 'Грешка';
+              msg.className = 'form-message error';
+            }
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* Glass Gallery - Frost Theme
+   Cool tones with icy glass effect */
+
+:root {
+  --color-bg: linear-gradient(135deg, #E8EFF5 0%, #F5F8FA 50%, #DCE8F0 100%);
+  --color-glass: rgba(255, 255, 255, 0.3);
+  --color-glass-border: rgba(255, 255, 255, 0.5);
+  --color-text: #2C3E50;
+  --color-accent: #5B8BA0;
+  --blur-amount: 25px;
+}
+
+.particle {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.entrance-label,
+.section-header,
+.venue-type {
+  color: var(--color-accent);
+}
+
+.entrance-names .ampersand {
+  color: var(--color-accent);
+}
+
+.venue-link {
+  color: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: #4A7A8F;
+  box-shadow: 0 4px 15px rgba(91, 139, 160, 0.3);
+}
+
+.radio-label input:checked {
+  border-color: var(--color-accent);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-accent);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-accent);
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}

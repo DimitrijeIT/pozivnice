@@ -1,0 +1,74 @@
+/**
+ * Tabloid Theme - Gazette Layout
+ * Bold modern tabloid style with color
+ */
+
+:root {
+  --color-bg: #F0F0F0;
+  --paper-bg: #FFFFFF;
+  --sidebar-bg: #FFF5F5;
+  --color-text: #1a1a1a;
+  --color-muted: #666;
+  --color-accent: #E63946;
+  --color-accent-dark: #B82D3A;
+  --border-color: #E63946;
+  --border-light: #eee;
+  --font-display: 'Anton', 'Impact', sans-serif;
+  --font-body: 'Source Sans 3', 'Helvetica', sans-serif;
+}
+
+/* Override styles for tabloid look */
+.paper-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--color-accent);
+}
+
+.masthead {
+  background: var(--color-accent);
+  color: white;
+  border-bottom: none;
+}
+
+.edition-date, .paper-subtitle {
+  color: rgba(255,255,255,0.8);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.paper-title {
+  color: white;
+}
+
+.article-body p:first-of-type::first-letter {
+  color: var(--color-accent);
+}
+
+.countdown-box {
+  background: var(--color-text);
+}
+
+.info-box-title {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.pull-quote {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.gazette-footer {
+  background: var(--color-accent);
+  color: white;
+  border-top: none;
+}
+
+.footer-hashtag {
+  color: white;
+}

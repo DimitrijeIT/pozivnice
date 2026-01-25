@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Телеграм</title>
+  <meta name="description" content="Позивница за венчање - {{BRIDE_NAME}} & {{GROOM_NAME}}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+  {{THEME_FONTS}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #2C2416;
+      --color-paper: #F5E6C8;
+      --color-paper-dark: #E8D4A8;
+      --color-text: #2C2416;
+      --color-text-muted: #5C4A2A;
+      --color-accent: #8B0000;
+      --color-gold: #8B7355;
+      --font-display: 'Special Elite', monospace;
+      --font-body: 'Courier Prime', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    /* === TELEGRAM DOCUMENT === */
+    .telegram {
+      width: 100%;
+      max-width: 600px;
+      background: var(--color-paper);
+      position: relative;
+      box-shadow:
+        0 0 0 3px var(--color-paper-dark),
+        0 0 0 6px var(--color-gold),
+        0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Aged paper texture */
+    .telegram::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* Header strip */
+    .telegram-header {
+      background: linear-gradient(90deg, var(--color-gold), #6B5344, var(--color-gold));
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px double var(--color-text);
+    }
+
+    .telegram-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--color-paper);
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+
+    .telegram-type {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--color-paper);
+      text-transform: uppercase;
+    }
+
+    /* Body */
+    .telegram-body {
+      padding: 2rem;
+    }
+
+    /* Meta info */
+    .telegram-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1rem;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--color-gold);
+    }
+
+    .meta-label {
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .meta-value {
+      font-family: var(--font-display);
+    }
+
+    /* Stamp */
+    .telegram-stamp {
+      position: absolute;
+      top: 80px;
+      right: 30px;
+      width: 100px;
+      height: 100px;
+      border: 4px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      transform: rotate(15deg);
+      opacity: 0.7;
+    }
+
+    .stamp-text {
+      font-family: var(--font-display);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .stamp-icon {
+      font-size: 1.5rem;
+      margin: 0.25rem 0;
+    }
+
+    /* Message */
+    .telegram-message {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      line-height: 2;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .message-stop {
+      color: var(--color-accent);
+      font-weight: bold;
+    }
+
+    /* Details boxes */
+    .telegram-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      padding: 1.5rem 0;
+      border-top: 1px dashed var(--color-gold);
+      border-bottom: 1px dashed var(--color-gold);
+    }
+
+    .detail-box {
+      text-align: center;
+    }
+
+    .detail-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+    }
+
+    .detail-value a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    /* Story */
+    .telegram-story {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--color-paper-dark);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Countdown */
+    .telegram-countdown {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-accent);
+    }
+
+    .countdown-unit {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* RSVP Section */
+    .telegram-rsvp {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 3px double var(--color-gold);
+    }
+
+    .rsvp-title {
+      font-family: var(--font-display);
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .form-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .form-input,
+    .form-select {
+      padding: 0.75rem;
+      background: var(--color-paper-dark);
+      border: 1px solid var(--color-gold);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--color-text);
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .radio-row {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+    }
+
+    .radio-label input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--color-accent);
+    }
+
+    .submit-btn {
+      padding: 1rem;
+      background: var(--color-gold);
+      color: var(--color-paper);
+      border: none;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-text);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .rsvp-deadline {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .success-text { color: var(--color-text-muted); margin-top: 0.5rem; }
+
+    .hidden { display: none !important; }
+
+    /* Footer */
+    .telegram-footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-gold);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .telegram-details { grid-template-columns: 1fr; }
+      .telegram-stamp { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+  {{THEME_CSS}}
+</head>
+<body>
+  <div class="telegram">
+    <!-- Header -->
+    <header class="telegram-header">
+      <span class="telegram-logo">📜 ТЕЛЕГРАМ</span>
+      <span class="telegram-type">Хитно</span>
+    </header>
+
+    <!-- Stamp -->
+    <div class="telegram-stamp">
+      <span class="stamp-text">Одобрено</span>
+      <span class="stamp-icon">💕</span>
+      <span class="stamp-text">{{WEDDING_YEAR}}</span>
+    </div>
+
+    <div class="telegram-body">
+      <!-- Meta -->
+      <div class="telegram-meta">
+        <span class="meta-label">Датум:</span>
+        <span class="meta-value">{{WEDDING_DATE_FORMATTED}}</span>
+        <span class="meta-label">Од:</span>
+        <span class="meta-value">{{BRIDE_NAME}} & {{GROOM_NAME}}</span>
+        <span class="meta-label">За:</span>
+        <span class="meta-value">Драги гости</span>
+      </div>
+
+      <!-- Message -->
+      <div class="telegram-message">
+        {{INVITATION_INTRO}} <span class="message-stop">СТОП</span><br><br>
+        Са великом радошћу вас обавештавамо да се венчавамо <span class="message-stop">СТОП</span><br><br>
+        {{INVITATION_TEXT}} <span class="message-stop">СТОП</span><br><br>
+        Молимо вас да нам се придружите на нашој церемонији <span class="message-stop">СТОП</span><br><br>
+        Очекујемо ваш одговор <span class="message-stop">КРАЈ</span>
+      </div>
+
+      <!-- Details -->
+      <div class="telegram-details">
+        <div class="detail-box">
+          <p class="detail-label">Церемонија</p>
+          <p class="detail-value">{{CEREMONY_VENUE}}</p>
+          <p class="detail-value">{{CEREMONY_TIME}}</p>
+          <p class="detail-value" style="font-size:0.8rem;color:var(--color-text-muted)">{{CEREMONY_ADDRESS}}</p>
+          {{#IF_CEREMONY_MAP}}
+          <p class="detail-value"><a href="{{CEREMONY_MAP_URL}}" target="_blank">→ МАПА</a></p>
+          {{/IF_CEREMONY_MAP}}
+        </div>
+        <div class="detail-box">
+          <p class="detail-label">Прослава</p>
+          <p class="detail-value">{{RECEPTION_VENUE}}</p>
+          <p class="detail-value">{{RECEPTION_TIME}}</p>
+          <p class="detail-value" style="font-size:0.8rem;color:var(--color-text-muted)">{{RECEPTION_ADDRESS}}</p>
+          {{#IF_RECEPTION_MAP}}
+          <p class="detail-value"><a href="{{RECEPTION_MAP_URL}}" target="_blank">→ МАПА</a></p>
+          {{/IF_RECEPTION_MAP}}
+        </div>
+      </div>
+
+      <!-- Story -->
+      {{#IF_STORY}}
+      <div class="telegram-story">
+        "{{STORY_TEXT}}"
+      </div>
+      {{/IF_STORY}}
+
+      <!-- Countdown -->
+      <div class="telegram-countdown">
+        <p class="countdown-label">До великог дана</p>
+        <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+          <div class="countdown-item">
+            <div class="countdown-value" id="days">--</div>
+            <div class="countdown-unit">дана</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="hours">--</div>
+            <div class="countdown-unit">сати</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="minutes">--</div>
+            <div class="countdown-unit">мин</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSVP -->
+      <div class="telegram-rsvp">
+        <h3 class="rsvp-title">📨 Одговор</h3>
+
+        <form class="rsvp-form" id="rsvp-form">
+          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+
+          <div class="form-row">
+            <label class="form-label">Име:</label>
+            <input type="text" name="name" class="form-input" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Емаил:</label>
+            <input type="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="radio-row">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="yes" required>
+              <span>ДОЛАЗИМ</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="no">
+              <span>НЕ МОГУ</span>
+            </label>
+          </div>
+
+          <div class="form-row" id="guests-group">
+            <label class="form-label">Гости:</label>
+            <select name="guests" class="form-select">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
+          {{#IF_MEAL_OPTIONS}}
+          <div class="form-row" id="meal-group">
+            <label class="form-label">Јело:</label>
+            <select name="meal" class="form-select">
+              <option value="">Изаберите</option>
+              {{MEAL_OPTIONS}}
+            </select>
+          </div>
+          {{/IF_MEAL_OPTIONS}}
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Пошаљи одговор
+          </button>
+        </form>
+
+        <div class="form-success hidden" id="form-success">
+          <div class="success-icon">📬</div>
+          <h3 class="success-title">Порука примљена!</h3>
+          <p class="success-text">Хвала на одговору.</p>
+        </div>
+
+        <p class="rsvp-deadline">Рок: {{RSVP_DEADLINE}}</p>
+      </div>
+
+      <!-- Footer -->
+      {{#IF_HASHTAG}}
+      <footer class="telegram-footer">
+        <p class="footer-hashtag">#{{WEDDING_HASHTAG}}</p>
+        <p>{{BRIDE_NAME}} & {{GROOM_NAME}} • {{WEDDING_YEAR}}</p>
+      </footer>
+      {{/IF_HASHTAG}}
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      const weddingDate = new Date(countdownEl.dataset.date);
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+        if (diff <= 0) return;
+
+        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'grid' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'grid' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'ШАЉЕМ...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'ПОШАЉИ ОДГОВОР';
+          alert('Грешка. Покушајте поново.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

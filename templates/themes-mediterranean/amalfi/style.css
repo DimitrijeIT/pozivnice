@@ -1,0 +1,120 @@
+/* Mediterranean Tiles - Amalfi Theme
+   Cobalt blue with lemon yellow accents */
+
+:root {
+  --color-bg: #FFFEF7;
+  --color-surface: #FFF;
+  --color-text: #1C3D5C;
+  --color-text-muted: #5A7A94;
+  --color-cobalt: #0047AB;
+  --color-terracotta: #C2452D;
+  --color-gold: #FFD700;
+  --color-olive: #556B2F;
+  --color-sand: #F5E6D3;
+}
+
+.tile-frame {
+  border-color: var(--color-cobalt);
+}
+
+.tile-frame::before,
+.tile-frame::after {
+  border-color: var(--color-terracotta);
+}
+
+.hero-names {
+  color: var(--color-cobalt);
+}
+
+.hero-names .ampersand {
+  color: var(--color-terracotta);
+}
+
+.hero-date {
+  border-color: var(--color-gold);
+  color: var(--color-cobalt);
+}
+
+.section-title {
+  color: var(--color-cobalt);
+}
+
+.section-title::after {
+  background: var(--color-terracotta);
+}
+
+.postcard {
+  border-color: var(--color-cobalt);
+}
+
+.postcard-postmark {
+  color: var(--color-terracotta);
+}
+
+.arch-card {
+  border-color: var(--color-cobalt);
+}
+
+.arch-card::before {
+  border-color: var(--color-gold);
+}
+
+.arch-label {
+  color: var(--color-terracotta);
+}
+
+.arch-venue {
+  color: var(--color-cobalt);
+}
+
+.arch-link {
+  color: var(--color-cobalt);
+  border-color: var(--color-cobalt);
+}
+
+.story-card {
+  border-color: var(--color-olive);
+}
+
+.rsvp-container {
+  border-color: var(--color-cobalt);
+}
+
+.rsvp-container::before {
+  border-color: var(--color-gold);
+}
+
+.rsvp-title {
+  color: var(--color-cobalt);
+}
+
+.form-input,
+.form-select {
+  border-color: var(--color-cobalt);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-terracotta);
+}
+
+.radio-label input {
+  border-color: var(--color-cobalt);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-terracotta);
+}
+
+.submit-btn {
+  background: var(--color-cobalt);
+}
+
+.submit-btn:hover {
+  background: var(--color-terracotta);
+}
+
+.footer-hashtag {
+  color: var(--color-cobalt);
+}

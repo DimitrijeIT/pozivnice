@@ -1,0 +1,72 @@
+/* Kinetic Poetry - Moody Theme
+   Deep burgundy tones on warm paper */
+
+:root {
+  --color-bg: #FAF6F1;
+  --color-text: #2D2424;
+  --color-text-muted: #6B5B5B;
+  --color-accent: #722F37;
+  --color-accent-light: rgba(114, 47, 55, 0.08);
+}
+
+.bg-text {
+  color: rgba(114, 47, 55, 0.06);
+}
+
+.hero-names .ampersand {
+  color: var(--color-accent);
+}
+
+.date-display .day {
+  color: var(--color-accent);
+}
+
+.venue-type {
+  color: var(--color-accent);
+}
+
+.story-quote::before {
+  color: var(--color-accent);
+  opacity: 0.4;
+}
+
+.footer-hashtag {
+  color: var(--color-accent);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+}
+
+.submit-btn:hover {
+  background: #8B3A44;
+}
+
+.radio-label input:checked {
+  border-color: var(--color-accent);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-accent);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-accent);
+}
+
+.venue-link {
+  color: var(--color-accent);
+}
+
+.scroll-line {
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+}
+
+.venue-divider {
+  background: var(--color-accent);
+}
+
+.kinetic-footer {
+  border-top-color: rgba(114, 47, 55, 0.15);
+}

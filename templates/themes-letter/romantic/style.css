@@ -1,0 +1,16 @@
+/**
+ * Romantic Theme - Love Letter Layout
+ * Soft blush pink romantic style
+ */
+
+:root {
+  --color-bg: #F8E8E0;
+  --color-paper: #FFFEF7;
+  --color-text: #4A3728;
+  --color-text-muted: #8B7355;
+  --color-accent: #B76E79;
+  --color-accent-dark: #8B4D57;
+  --color-seal: #8B0000;
+  --font-display: 'Great Vibes', cursive;
+  --font-body: 'Cormorant Garamond', serif;
+}

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Венчање</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>">
+  {{THEME_FONTS}}
+  {{THEME_CSS}}
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #FFFEF7;
+      --color-surface: #FFF;
+      --color-text: #1C3D5C;
+      --color-text-muted: #5A7A94;
+      --color-cobalt: #0047AB;
+      --color-terracotta: #C2452D;
+      --color-gold: #D4A574;
+      --color-olive: #556B2F;
+      --color-sand: #F5E6D3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Libre Franklin', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Tile pattern background */
+    .tile-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230047AB'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0zm0 10L10 30l20 20 20-20L30 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero - Tile mosaic entrance */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .tile-frame {
+      padding: 3rem;
+      background: var(--color-surface);
+      border: 8px solid var(--color-cobalt);
+      position: relative;
+    }
+
+    .tile-frame::before,
+    .tile-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 4px solid var(--color-terracotta);
+    }
+
+    .tile-frame::before {
+      top: -4px;
+      left: -4px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .tile-frame::after {
+      bottom: -4px;
+      right: -4px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .hero-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 400;
+      color: var(--color-cobalt);
+      margin-bottom: 1rem;
+    }
+
+    .hero-names .ampersand {
+      display: block;
+      font-size: 0.5em;
+      color: var(--color-terracotta);
+      margin: 0.5rem 0;
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .hero-date {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      color: var(--color-cobalt);
+      padding: 0.5rem 1.5rem;
+      border-top: 2px solid var(--color-gold);
+      border-bottom: 2px solid var(--color-gold);
+    }
+
+    /* Decorative lemons */
+    .lemon-decor {
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.8;
+    }
+
+    .lemon-1 { top: 10%; left: 10%; transform: rotate(-15deg); }
+    .lemon-2 { top: 15%; right: 10%; transform: rotate(20deg); }
+    .lemon-3 { bottom: 15%; left: 15%; transform: rotate(-10deg); }
+    .lemon-4 { bottom: 10%; right: 15%; transform: rotate(15deg); }
+
+    /* Section styling */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      text-align: center;
+      color: var(--color-cobalt);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--color-terracotta);
+      margin: 1rem auto 0;
+    }
+
+    /* Postcard style invitation */
+    .postcard {
+      background: var(--color-surface);
+      border: 2px solid var(--color-cobalt);
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .postcard-header {
+      background: var(--color-sand);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--color-cobalt);
+    }
+
+    .postcard-stamp {
+      width: 60px;
+      height: 70px;
+      background: var(--color-surface);
+      border: 2px dashed var(--color-cobalt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .postcard-postmark {
+      font-size: 0.75rem;
+      color: var(--color-terracotta);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: right;
+    }
+
+    .postcard-body {
+      padding: 2rem;
+    }
+
+    .postcard-intro {
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .postcard-text {
+      font-size: 1.1rem;
+      line-height: 2;
+    }
+
+    /* Arch frame for venue */
+    .arch-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .arch-card {
+      background: var(--color-surface);
+      padding: 2rem;
+      border: 3px solid var(--color-cobalt);
+      border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .arch-card::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid var(--color-gold);
+      border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+      pointer-events: none;
+    }
+
+    .arch-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .arch-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .arch-venue {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--color-cobalt);
+      margin-bottom: 0.5rem;
+    }
+
+    .arch-address {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .arch-time {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .arch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--color-cobalt);
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-cobalt);
+    }
+
+    /* Story section */
+    {{#IF_STORY}}
+    .story-card {
+      background: var(--color-sand);
+      padding: 2.5rem;
+      border-left: 4px solid var(--color-olive);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .story-text {
+      font-style: italic;
+      line-height: 2;
+      color: var(--color-text);
+    }
+    {{/IF_STORY}}
+
+    /* RSVP - Ceramic tablet */
+    .rsvp-section {
+      background: var(--color-sand);
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+    }
+
+    .rsvp-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--color-surface);
+      padding: 2.5rem;
+      border: 3px solid var(--color-cobalt);
+      position: relative;
+    }
+
+    .rsvp-container::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid var(--color-gold);
+    }
+
+    .rsvp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      text-align: center;
+      color: var(--color-cobalt);
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-subtitle {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--color-cobalt);
+      background: var(--color-bg);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-terracotta);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .attendance-options {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .radio-label input {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-cobalt);
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .radio-label input:checked::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--color-terracotta);
+      border-radius: 50%;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--color-cobalt);
+      color: var(--color-bg);
+      border: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-terracotta);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    {{#IF_HASHTAG}}
+    .footer-hashtag {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--color-cobalt);
+      margin-bottom: 1rem;
+    }
+    {{/IF_HASHTAG}}
+
+    .footer-decoration {
+      font-size: 1.5rem;
+      letter-spacing: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .tile-frame {
+        padding: 2rem 1.5rem;
+      }
+
+      .lemon-decor {
+        font-size: 2rem;
+      }
+
+      .arch-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="tile-bg"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="lemon-decor lemon-1">🍋</span>
+    <span class="lemon-decor lemon-2">🌿</span>
+    <span class="lemon-decor lemon-3">🌿</span>
+    <span class="lemon-decor lemon-4">🍋</span>
+
+    <div class="tile-frame">
+      <h1 class="hero-names">
+        {{BRIDE_NAME}}
+        <span class="ampersand">&</span>
+        {{GROOM_NAME}}
+      </h1>
+      <p class="hero-tagline">Позивају вас на своје венчање</p>
+      <div class="hero-date">{{WEDDING_DATE_FORMATTED}}</div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- Invitation Postcard -->
+    <section class="section">
+      <div class="postcard">
+        <div class="postcard-header">
+          <div class="postcard-postmark">
+            Венчање<br>
+            {{WEDDING_YEAR}}
+          </div>
+          <div class="postcard-stamp">🌅</div>
+        </div>
+        <div class="postcard-body">
+          <p class="postcard-intro">{{INVITATION_INTRO}}</p>
+          <p class="postcard-text">{{INVITATION_TEXT}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    {{#IF_STORY}}
+    <section class="section">
+      <h2 class="section-title">Наша прича</h2>
+      <div class="story-card">
+        <p class="story-text">{{STORY_TEXT}}</p>
+      </div>
+    </section>
+    {{/IF_STORY}}
+
+    <!-- Venue Details -->
+    <section class="section">
+      <h2 class="section-title">Детаљи</h2>
+
+      <div class="arch-container">
+        <div class="arch-card">
+          <div class="arch-icon">⛪</div>
+          <div class="arch-label">Венчање</div>
+          <div class="arch-venue">{{CEREMONY_VENUE}}</div>
+          <div class="arch-address">{{CEREMONY_ADDRESS}}</div>
+          <div class="arch-time">{{CEREMONY_TIME}}</div>
+          {{#IF_CEREMONY_MAP}}
+          <a href="{{CEREMONY_MAP_URL}}" target="_blank" class="arch-link">Погледај на мапи →</a>
+          {{/IF_CEREMONY_MAP}}
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-icon">🎉</div>
+          <div class="arch-label">Прослава</div>
+          <div class="arch-venue">{{RECEPTION_VENUE}}</div>
+          <div class="arch-address">{{RECEPTION_ADDRESS}}</div>
+          <div class="arch-time">{{RECEPTION_TIME}}</div>
+          {{#IF_RECEPTION_MAP}}
+          <a href="{{RECEPTION_MAP_URL}}" target="_blank" class="arch-link">Погледај на мапи →</a>
+          {{/IF_RECEPTION_MAP}}
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="rsvp-section">
+      <div class="rsvp-container">
+        <h2 class="rsvp-title">Потврда доласка</h2>
+        <p class="rsvp-subtitle">Молимо вас да потврдите до {{RSVP_DEADLINE}}</p>
+
+        <form id="rsvp-form">
+          <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
+
+          <div class="form-group">
+            <label class="form-label">Име и презиме</label>
+            <input type="text" name="guest_name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Долазак</label>
+            <div class="attendance-options">
+              <label class="radio-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>Долазим</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="attending" value="no">
+                <span>Не долазим</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Број гостију</label>
+            <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+          </div>
+
+          {{#IF_MEAL_OPTIONS}}
+          <div class="form-group">
+            <label class="form-label">Исхрана</label>
+            <select name="meal_preference" class="form-select">
+              {{MEAL_OPTIONS}}
+            </select>
+          </div>
+          {{/IF_MEAL_OPTIONS}}
+
+          <div class="form-group">
+            <label class="form-label">Порука (опционо)</label>
+            <textarea name="message" class="form-textarea"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Потврди долазак</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      {{#IF_HASHTAG}}
+      <div class="footer-hashtag">#{{WEDDING_HASHTAG}}</div>
+      {{/IF_HASHTAG}}
+      <div class="footer-decoration">🍋 🌊 🌿</div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-family:Playfair Display,serif;font-size:1.5rem;color:var(--color-cobalt);margin-bottom:1rem;">Хвала! 🍋</h3><p style="color:var(--color-text-muted);">Ваша потврда је забележена.</p></div>';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>

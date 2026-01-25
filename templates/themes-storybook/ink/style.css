@@ -1,0 +1,356 @@
+/**
+ * Ink Theme - Storybook Layout
+ *
+ * Modern, high-contrast, editorial style
+ * - Black and white with accent color
+ * - Bold sans-serif typography
+ * - Clean geometric shapes
+ * - Minimal decoration
+ */
+
+:root {
+  /* Colors */
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F5F5F5;
+  --color-text: #0A0A0A;
+  --color-text-muted: #666666;
+  --color-accent: #0A0A0A;
+  --color-accent-dark: #000000;
+  --color-accent-light: rgba(10, 10, 10, 0.05);
+  --color-border: #E0E0E0;
+  --color-highlight: #FF3366;
+
+  /* Navigation */
+  --nav-bg: #0A0A0A;
+  --nav-dot: rgba(255, 255, 255, 0.4);
+
+  /* Layout */
+  --visual-bg: #0A0A0A;
+  --content-bg: #FFFFFF;
+
+  /* Typography */
+  --font-display: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, sans-serif;
+
+  /* Borders */
+  --radius: 0;
+  --radius-sm: 0;
+}
+
+/* Typography */
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-style: normal;
+}
+
+.chapter-label {
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--color-highlight);
+}
+
+.visual-names {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: white;
+  text-transform: uppercase;
+}
+
+.visual-names .ampersand {
+  color: var(--color-highlight);
+  font-weight: 300;
+}
+
+/* Navigation */
+.chapter-nav {
+  background: var(--nav-bg);
+}
+
+.chapter-dot {
+  border-radius: 0;
+  width: 16px;
+  height: 3px;
+}
+
+.chapter-dot.active {
+  background: var(--color-highlight);
+  width: 24px;
+}
+
+.chapter-dot:hover {
+  background: var(--color-highlight);
+}
+
+.nav-arrow {
+  border-radius: 0;
+  border-color: var(--nav-dot);
+}
+
+.nav-arrow:hover {
+  background: var(--color-highlight);
+  border-color: var(--color-highlight);
+}
+
+/* Page Visual - Dark */
+.page-visual {
+  background: var(--visual-bg);
+  color: white;
+}
+
+.visual-illustration {
+  color: white;
+}
+
+.visual-icon {
+  filter: grayscale(1) brightness(10);
+  font-size: 6rem;
+}
+
+.visual-date {
+  color: var(--color-highlight);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+
+/* Page Content */
+.page-content {
+  background: var(--content-bg);
+}
+
+.chapter-text {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Countdown */
+.countdown-visual {
+  background: transparent;
+}
+
+.countdown-box {
+  background: white;
+  border: 2px solid white;
+  box-shadow: none;
+}
+
+.countdown-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.countdown-unit {
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+
+/* Venue Cards */
+.venue-card {
+  background: white;
+  border: 2px solid white;
+  border-radius: 0;
+  text-align: left;
+  padding: 1.5rem;
+}
+
+.venue-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.venue-type {
+  color: var(--color-highlight);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.venue-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.venue-time {
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.venue-link {
+  background: var(--color-text);
+  border-radius: 0;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.venue-link:hover {
+  background: var(--color-highlight);
+}
+
+/* Timeline */
+.timeline-track::before {
+  background: var(--color-highlight);
+  width: 3px;
+  left: 23px;
+}
+
+.timeline-marker {
+  background: var(--color-text);
+  color: white;
+  border: none;
+  border-radius: 0;
+}
+
+.timeline-info {
+  background: white;
+  border: 2px solid white;
+  border-radius: 0;
+}
+
+.timeline-date {
+  color: var(--color-highlight);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* RSVP */
+.rsvp-visual {
+  color: white;
+}
+
+.rsvp-icon {
+  filter: grayscale(1) brightness(10);
+}
+
+.rsvp-prompt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.form-group label {
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-text);
+  box-shadow: none;
+}
+
+.attendance-btn {
+  border-radius: 0;
+  border: 2px solid var(--color-border);
+}
+
+.attendance-btn.selected {
+  border-color: var(--color-text);
+  background: var(--color-accent-light);
+}
+
+.attendance-emoji {
+  filter: none;
+}
+
+.attendance-text {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+.submit-btn {
+  background: var(--color-text);
+  border-radius: 0;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.submit-btn:hover {
+  background: var(--color-highlight);
+}
+
+/* Hide decorative elements */
+.chapter-title::after {
+  display: none;
+}
+
+/* Page indicator */
+.page-indicator {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+}
+
+/* Keyboard hint */
+.keyboard-hint kbd {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font-weight: 600;
+}
+
+/* Animations - more snappy */
+.page {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .chapter-nav {
+    background: var(--nav-bg);
+  }
+
+  .chapter-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 0;
+  }
+
+  .chapter-dot.active {
+    width: 12px;
+  }
+}

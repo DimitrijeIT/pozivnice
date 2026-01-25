@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Магазин</title>
+  <meta name="description" content="Позивница за венчање - {{BRIDE_NAME}} & {{GROOM_NAME}}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  {{THEME_FONTS}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #F5F5F5;
+      --color-surface: #FFFFFF;
+      --color-text: #1a1a1a;
+      --color-text-muted: #666;
+      --color-accent: #C41E3A;
+      --color-gold: #B8860B;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-accent: 'Cormorant Garamond', serif;
+    }
+
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    /* === MAGAZINE PAGE === */
+    .magazine-page {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === COVER PAGE === */
+    .cover-page {
+      background: var(--color-surface);
+      position: relative;
+      padding: 0;
+    }
+
+    .cover-content {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .magazine-masthead {
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .masthead-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .masthead-issue {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .magazine-logo {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 12vw, 8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .cover-headline {
+      font-family: var(--font-accent);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .cover-names {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .cover-names .ampersand {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .cover-date {
+      font-family: var(--font-accent);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .cover-teasers {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .cover-teaser {
+      max-width: 150px;
+      text-align: center;
+    }
+
+    /* === ARTICLE PAGE === */
+    .article-page {
+      background: var(--color-surface);
+      padding: 4rem 2rem;
+    }
+
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .article-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .article-subtitle {
+      font-family: var(--font-accent);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    .article-byline {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .article-body {
+      column-count: 2;
+      column-gap: 3rem;
+      font-family: var(--font-accent);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .article-body p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    .article-body p:first-of-type::first-letter {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      float: left;
+      line-height: 1;
+      padding-right: 0.5rem;
+      color: var(--color-accent);
+    }
+
+    .pull-quote {
+      column-span: all;
+      text-align: center;
+      padding: 2rem 0;
+      margin: 2rem 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .pull-quote p {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    /* === FEATURE PAGE (Venues) === */
+    .feature-page {
+      background: var(--color-bg);
+      padding: 4rem 2rem;
+    }
+
+    .feature-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .feature-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+    }
+
+    .venue-spread {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .venue-card {
+      background: var(--color-surface);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .venue-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .venue-type {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-time {
+      font-family: var(--font-accent);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .venue-address {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .venue-link {
+      display: inline-block;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .venue-link:hover { text-decoration: underline; }
+
+    /* === COUNTDOWN PAGE === */
+    .countdown-page {
+      background: var(--color-surface);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .countdown-header {
+      margin-bottom: 3rem;
+    }
+
+    .countdown-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .countdown-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 5rem);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-family: var(--font-accent);
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* === RSVP PAGE === */
+    .rsvp-page {
+      background: var(--color-bg);
+      padding: 4rem 2rem;
+    }
+
+    .rsvp-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--color-surface);
+      padding: 3rem;
+    }
+
+    .rsvp-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .rsvp-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+    }
+
+    .rsvp-subtitle {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-family: var(--font-accent);
+    }
+
+    .radio-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-accent);
+    }
+
+    .submit-btn {
+      padding: 1rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .rsvp-deadline {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .success-text { font-family: var(--font-accent); font-style: italic; color: var(--color-text-muted); }
+
+    .hidden { display: none !important; }
+
+    /* === BACK COVER === */
+    .back-cover {
+      background: var(--color-text);
+      color: var(--color-surface);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .back-hashtag {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-credits {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* === NAV DOTS === */
+    .nav-dots {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 100;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--color-text);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s;
+    }
+
+    .nav-dot.active,
+    .nav-dot:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-body { column-count: 1; }
+      .magazine-masthead { position: static; margin-bottom: 2rem; }
+      .cover-teasers { display: none; }
+      .nav-dots { right: 0.75rem; }
+      .countdown-display { gap: 1.5rem; }
+    }
+  </style>
+  {{THEME_CSS}}
+</head>
+<body>
+  <!-- Nav Dots -->
+  <nav class="nav-dots">
+    <button class="nav-dot active" data-page="0"></button>
+    <button class="nav-dot" data-page="1"></button>
+    <button class="nav-dot" data-page="2"></button>
+    <button class="nav-dot" data-page="3"></button>
+    <button class="nav-dot" data-page="4"></button>
+  </nav>
+
+  <!-- COVER -->
+  <section class="magazine-page cover-page">
+    <div class="cover-content">
+      <div class="magazine-masthead">
+        <span class="masthead-date">{{WEDDING_DATE_FORMATTED}}</span>
+        <span class="masthead-issue">Посебно издање</span>
+      </div>
+
+      <h1 class="magazine-logo">ЉУБАВ</h1>
+      <p class="cover-headline">{{INVITATION_INTRO}}</p>
+
+      <p class="cover-names">
+        {{BRIDE_NAME}} <span class="ampersand">&</span> {{GROOM_NAME}}
+      </p>
+      <p class="cover-date">{{WEDDING_DATE_FORMATTED}}</p>
+
+      <div class="cover-teasers">
+        <div class="cover-teaser">Ексклузивна прича о љубави</div>
+        <div class="cover-teaser">Све о великом дану</div>
+        <div class="cover-teaser">Водич за госте</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE (Story) -->
+  {{#IF_STORY}}
+  <section class="magazine-page article-page">
+    <div class="article-container">
+      <header class="article-header">
+        <p class="article-category">Насловна прича</p>
+        <h2 class="article-title">Како је почела наша љубав</h2>
+        <p class="article-subtitle">Прича о два срца која су се нашла</p>
+        <p class="article-byline">Текст: {{BRIDE_NAME}} & {{GROOM_NAME}}</p>
+      </header>
+
+      <div class="article-body">
+        <p>{{STORY_TEXT}}</p>
+
+        <div class="pull-quote">
+          <p>"{{PULL_QUOTE}}"</p>
+        </div>
+
+        <p>{{INVITATION_TEXT}}</p>
+      </div>
+    </div>
+  </section>
+  {{/IF_STORY}}
+
+  <!-- FEATURE (Venues) -->
+  <section class="magazine-page feature-page">
+    <header class="feature-header">
+      <p class="feature-category">Водич</p>
+      <h2 class="feature-title">Локације догађаја</h2>
+    </header>
+
+    <div class="venue-spread">
+      <div class="venue-card">
+        <div class="venue-icon">💒</div>
+        <p class="venue-type">Церемонија</p>
+        <h3 class="venue-name">{{CEREMONY_VENUE}}</h3>
+        <p class="venue-time">{{CEREMONY_TIME}}</p>
+        <p class="venue-address">{{CEREMONY_ADDRESS}}</p>
+        {{#IF_CEREMONY_MAP}}
+        <a href="{{CEREMONY_MAP_URL}}" target="_blank" class="venue-link">Види на мапи →</a>
+        {{/IF_CEREMONY_MAP}}
+      </div>
+
+      <div class="venue-card">
+        <div class="venue-icon">🎉</div>
+        <p class="venue-type">Прослава</p>
+        <h3 class="venue-name">{{RECEPTION_VENUE}}</h3>
+        <p class="venue-time">{{RECEPTION_TIME}}</p>
+        <p class="venue-address">{{RECEPTION_ADDRESS}}</p>
+        {{#IF_RECEPTION_MAP}}
+        <a href="{{RECEPTION_MAP_URL}}" target="_blank" class="venue-link">Види на мапи →</a>
+        {{/IF_RECEPTION_MAP}}
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="magazine-page countdown-page">
+    <header class="countdown-header">
+      <p class="countdown-category">Одбројавање</p>
+      <h2 class="countdown-title">До великог дана</h2>
+    </header>
+
+    <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">--</div>
+        <div class="countdown-label">дана</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">--</div>
+        <div class="countdown-label">сати</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">--</div>
+        <div class="countdown-label">минута</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">--</div>
+        <div class="countdown-label">секунди</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="magazine-page rsvp-page">
+    <div class="rsvp-container">
+      <header class="rsvp-header">
+        <p class="rsvp-category">Одговор</p>
+        <h2 class="rsvp-title">Потврдите долазак</h2>
+        <p class="rsvp-subtitle">Молимо вас да нас обавестите</p>
+      </header>
+
+      <form class="rsvp-form" id="rsvp-form">
+        <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+
+        <div class="form-group">
+          <label for="guest-name">Име и презиме</label>
+          <input type="text" id="guest-name" name="name" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label for="guest-email">Емаил адреса</label>
+          <input type="email" id="guest-email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label>Да ли долазите?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="yes" required>
+              <span>Да, долазим</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="no">
+              <span>Нажалост, не</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="guests-group">
+          <label for="guests-count">Број гостију</label>
+          <select id="guests-count" name="guests" class="form-select">
+            <option value="1">1 особа</option>
+            <option value="2">2 особе</option>
+            <option value="3">3 особе</option>
+            <option value="4">4 особе</option>
+          </select>
+        </div>
+
+        {{#IF_MEAL_OPTIONS}}
+        <div class="form-group" id="meal-group">
+          <label for="meal-choice">Избор менија</label>
+          <select id="meal-choice" name="meal" class="form-select">
+            <option value="">Изаберите...</option>
+            {{MEAL_OPTIONS}}
+          </select>
+        </div>
+        {{/IF_MEAL_OPTIONS}}
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          ПОШАЉИ ОДГОВОР
+        </button>
+      </form>
+
+      <div class="form-success hidden" id="form-success">
+        <div class="success-icon">📖</div>
+        <h3 class="success-title">Хвала!</h3>
+        <p class="success-text">Ваш одговор је забележен.</p>
+      </div>
+
+      <p class="rsvp-deadline">Молимо одговорите до {{RSVP_DEADLINE}}</p>
+    </div>
+  </section>
+
+  <!-- BACK COVER -->
+  {{#IF_HASHTAG}}
+  <footer class="back-cover">
+    <p class="back-hashtag">#{{WEDDING_HASHTAG}}</p>
+    <p class="back-credits">{{BRIDE_NAME}} & {{GROOM_NAME}} © {{WEDDING_YEAR}}</p>
+  </footer>
+  {{/IF_HASHTAG}}
+
+  <script>
+    (function() {
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      const weddingDate = new Date(countdownEl.dataset.date);
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) return;
+
+        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // Nav dots
+      const pages = document.querySelectorAll('.magazine-page');
+      const dots = document.querySelectorAll('.nav-dot');
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.page);
+          pages[index]?.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = Array.from(pages).indexOf(entry.target);
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+          }
+        });
+      }, { threshold: 0.5 });
+
+      pages.forEach(page => observer.observe(page));
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'block' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'block' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'ШАЉЕМ...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'ПОШАЉИ ОДГОВОР';
+          alert('Дошло је до грешке.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

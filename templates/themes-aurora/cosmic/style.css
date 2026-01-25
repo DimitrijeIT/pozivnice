@@ -1,0 +1,129 @@
+/* Aurora - Cosmic Theme
+   Pink and purple cosmic aurora */
+
+:root {
+  --color-bg: #0A0510;
+  --color-surface: rgba(30, 15, 35, 0.8);
+  --color-text: #F0E6F5;
+  --color-text-muted: #AA88BB;
+  --color-aurora-1: #FF69B4;
+  --color-aurora-2: #9B4DCA;
+  --color-aurora-3: #4169E1;
+  --color-star: #FFFFFF;
+}
+
+.night-sky {
+  background: linear-gradient(180deg, var(--color-bg) 0%, #150820 50%, var(--color-bg) 100%);
+}
+
+.aurora {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 105, 180, 0.12) 20%,
+    rgba(155, 77, 202, 0.15) 40%,
+    rgba(65, 105, 225, 0.08) 60%,
+    transparent 100%
+  );
+}
+
+.aurora-2 {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(155, 77, 202, 0.1) 30%,
+    rgba(255, 105, 180, 0.12) 50%,
+    transparent 100%
+  );
+}
+
+.hero-names {
+  background: linear-gradient(
+    135deg,
+    var(--color-aurora-1) 0%,
+    var(--color-aurora-2) 50%,
+    var(--color-aurora-3) 100%
+  );
+}
+
+.hero-glow {
+  background: radial-gradient(
+    circle,
+    rgba(155, 77, 202, 0.3) 0%,
+    rgba(255, 105, 180, 0.15) 50%,
+    transparent 70%
+  );
+}
+
+.section-title {
+  color: var(--color-aurora-1);
+}
+
+.constellation-card {
+  border-color: rgba(155, 77, 202, 0.3);
+}
+
+.constellation-card::before {
+  background: linear-gradient(90deg, var(--color-aurora-1), var(--color-aurora-2), var(--color-aurora-3));
+}
+
+.venue-label {
+  color: var(--color-aurora-1);
+}
+
+.venue-time {
+  color: var(--color-aurora-2);
+}
+
+.venue-link {
+  border-color: var(--color-aurora-3);
+}
+
+.venue-link:hover {
+  color: var(--color-aurora-1);
+}
+
+.rsvp-title {
+  background: linear-gradient(135deg, var(--color-aurora-1), var(--color-aurora-2));
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border-color: rgba(155, 77, 202, 0.3);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-aurora-1);
+}
+
+.radio-label input {
+  border-color: var(--color-aurora-2);
+}
+
+.radio-label input:checked {
+  border-color: var(--color-aurora-1);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-aurora-1);
+  box-shadow: 0 0 10px var(--color-aurora-1);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--color-aurora-2), var(--color-aurora-1));
+}
+
+.submit-btn:hover {
+  box-shadow: 0 10px 30px rgba(155, 77, 202, 0.4);
+}
+
+.footer-hashtag {
+  background: linear-gradient(135deg, var(--color-aurora-1), var(--color-aurora-2));
+}
+
+.shooting-star {
+  background: linear-gradient(90deg, var(--color-aurora-1), transparent);
+}

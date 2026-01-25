@@ -1,0 +1,135 @@
+/* Mediterranean Tiles - Santorini Theme
+   White and blue with sunset accents */
+
+:root {
+  --color-bg: #F8FBFF;
+  --color-surface: #FFF;
+  --color-text: #1E3A5F;
+  --color-text-muted: #6B8EB0;
+  --color-cobalt: #1E5AAF;
+  --color-terracotta: #E07B5C;
+  --color-gold: #D4A574;
+  --color-olive: #8BA888;
+  --color-sand: #FFF5EB;
+}
+
+.tile-bg {
+  opacity: 0.02;
+}
+
+.tile-frame {
+  border-color: var(--color-cobalt);
+  background: var(--color-surface);
+}
+
+.tile-frame::before,
+.tile-frame::after {
+  border-color: var(--color-terracotta);
+}
+
+.hero-names {
+  color: var(--color-cobalt);
+}
+
+.hero-names .ampersand {
+  color: var(--color-terracotta);
+}
+
+.hero-date {
+  border-color: var(--color-gold);
+  color: var(--color-cobalt);
+}
+
+.section-title {
+  color: var(--color-cobalt);
+}
+
+.section-title::after {
+  background: var(--color-terracotta);
+}
+
+.postcard {
+  border-color: var(--color-cobalt);
+}
+
+.postcard-header {
+  background: var(--color-sand);
+}
+
+.postcard-postmark {
+  color: var(--color-terracotta);
+}
+
+.arch-card {
+  border-color: var(--color-cobalt);
+}
+
+.arch-card::before {
+  border-color: rgba(212, 165, 116, 0.5);
+}
+
+.arch-label {
+  color: var(--color-terracotta);
+}
+
+.arch-venue {
+  color: var(--color-cobalt);
+}
+
+.arch-link {
+  color: var(--color-cobalt);
+  border-color: var(--color-cobalt);
+}
+
+.story-card {
+  background: var(--color-sand);
+  border-color: var(--color-olive);
+}
+
+.rsvp-section {
+  background: var(--color-sand);
+}
+
+.rsvp-container {
+  border-color: var(--color-cobalt);
+}
+
+.rsvp-container::before {
+  border-color: rgba(212, 165, 116, 0.5);
+}
+
+.rsvp-title {
+  color: var(--color-cobalt);
+}
+
+.form-input,
+.form-select {
+  border-color: var(--color-cobalt);
+  background: var(--color-bg);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-terracotta);
+}
+
+.radio-label input {
+  border-color: var(--color-cobalt);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-terracotta);
+}
+
+.submit-btn {
+  background: var(--color-cobalt);
+}
+
+.submit-btn:hover {
+  background: var(--color-terracotta);
+}
+
+.footer-hashtag {
+  color: var(--color-cobalt);
+}

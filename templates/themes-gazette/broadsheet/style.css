@@ -1,0 +1,18 @@
+/**
+ * Broadsheet Theme - Gazette Layout
+ * Classic traditional newspaper style
+ */
+
+:root {
+  --color-bg: #E8E4DC;
+  --paper-bg: #FFFEF7;
+  --sidebar-bg: #FAF8F2;
+  --color-text: #1a1a1a;
+  --color-muted: #555;
+  --color-accent: #8B0000;
+  --color-accent-dark: #5C0000;
+  --border-color: #1a1a1a;
+  --border-light: #d4c9b5;
+  --font-display: 'Playfair Display', 'Times New Roman', Georgia, serif;
+  --font-body: 'Libre Baskerville', 'Times New Roman', Georgia, serif;
+}
