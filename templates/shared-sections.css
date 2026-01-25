@@ -1,0 +1,538 @@
+/**
+ * Wedding Invitation - Shared Section & Card Components
+ *
+ * Reusable layout patterns for sections, cards, countdown, etc.
+ * Uses design tokens from tokens.css and can be customized
+ * with theme-specific CSS custom properties.
+ *
+ * Required theme variables:
+ * - --color-primary: Primary accent color
+ * - --color-text: Main text color
+ * - --color-text-light: Secondary text color
+ * - --color-background: Section background
+ * - --color-white: Card background
+ */
+
+/* ============================================
+   BASE SECTION
+   ============================================ */
+
+.section {
+  padding: var(--spacing-3xl, 6rem) 0;
+  position: relative;
+}
+
+.section-alt {
+  background: var(--color-background-alt, #f8f8f8);
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.container {
+  max-width: var(--container-xl, 1000px);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md, 1.5rem);
+}
+
+.container-sm {
+  max-width: var(--container-md, 640px);
+}
+
+.container-lg {
+  max-width: var(--container-2xl, 1200px);
+}
+
+/* ============================================
+   SECTION TITLE
+   ============================================ */
+
+.section-title {
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-size: var(--text-2xl, 2rem);
+  font-weight: var(--weight-medium, 500);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl, 4rem);
+  color: var(--color-text, #333);
+  line-height: var(--leading-tight, 1.2);
+  letter-spacing: var(--tracking-wide, 0.025em);
+}
+
+.section-title--decorated::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--color-primary, #D4AF37);
+  margin: var(--spacing-md, 1.5rem) auto 0;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-light, #666);
+  max-width: var(--container-md, 600px);
+  margin: calc(var(--spacing-lg, 2rem) * -1) auto var(--spacing-2xl, 4rem);
+  font-size: var(--text-md, 1.125rem);
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+/* ============================================
+   HEADER SECTION
+   Full-height hero/header
+   ============================================ */
+
+.header,
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-3xl, 6rem) var(--spacing-md, 1.5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-lg, 800px);
+}
+
+.header-subtitle,
+.header-intro {
+  font-size: var(--text-sm, 0.875rem);
+  letter-spacing: var(--tracking-super-caps, 0.35em);
+  text-transform: uppercase;
+  color: var(--color-text-light, #666);
+  margin-bottom: var(--spacing-md, 1.5rem);
+}
+
+/* ============================================
+   COUPLE NAMES
+   ============================================ */
+
+.couple-names {
+  font-family: var(--font-display, var(--font-serif, serif));
+  font-size: clamp(var(--text-3xl, 2.5rem), 8vw, var(--text-6xl, 5rem));
+  font-weight: var(--weight-normal, 400);
+  line-height: var(--leading-tight, 1.2);
+  color: var(--color-text, #333);
+  margin-bottom: var(--spacing-lg, 2rem);
+}
+
+.couple-names .name-animate {
+  display: inline-block;
+}
+
+.couple-names .ampersand {
+  display: block;
+  font-size: 0.4em;
+  color: var(--color-primary, #D4AF37);
+  margin: var(--spacing-xs, 0.5rem) 0;
+  font-family: var(--font-body, sans-serif);
+  font-style: italic;
+}
+
+/* ============================================
+   WEDDING DATE (Header)
+   ============================================ */
+
+.wedding-date-header {
+  font-size: var(--text-base, 1rem);
+  letter-spacing: var(--tracking-caps, 0.2em);
+  text-transform: uppercase;
+  color: var(--color-text-light, #666);
+  padding: var(--spacing-sm, 1rem) var(--spacing-md, 1.5rem);
+  border-top: 1px solid var(--color-primary, #D4AF37);
+  border-bottom: 1px solid var(--color-primary, #D4AF37);
+  display: inline-block;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-xl, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: var(--color-primary, #D4AF37);
+  font-size: var(--text-xl, 1.5rem);
+  animation: bounce 2s infinite;
+  transition: opacity var(--transition-normal, 0.3s ease);
+}
+
+.scroll-indicator:hover {
+  opacity: 0.7;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* ============================================
+   COUNTDOWN TIMER
+   ============================================ */
+
+.countdown-section {
+  padding: var(--spacing-3xl, 6rem) 0;
+  background: var(--color-white, #fff);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl, 3rem);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: center;
+  min-width: 100px;
+}
+
+.countdown-number {
+  display: block;
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-size: var(--text-5xl, 4rem);
+  font-weight: var(--weight-normal, 400);
+  color: var(--color-primary, #D4AF37);
+  line-height: var(--leading-none, 1);
+}
+
+.countdown-label {
+  display: block;
+  font-size: var(--text-sm, 0.875rem);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps, 0.2em);
+  color: var(--color-text-light, #666);
+  margin-top: var(--spacing-xs, 0.5rem);
+}
+
+/* ============================================
+   INVITATION CARD
+   ============================================ */
+
+.invitation-section {
+  padding: var(--spacing-3xl, 6rem) 0;
+  background: var(--color-background, #fafafa);
+}
+
+.invitation-card {
+  background: var(--color-white, #fff);
+  padding: var(--spacing-2xl, 4rem) var(--spacing-xl, 3rem);
+  text-align: center;
+  max-width: var(--container-md, 680px);
+  margin: 0 auto;
+  border-radius: var(--radius-lg, 8px);
+  box-shadow: var(--shadow-lg, 0 8px 32px rgba(0, 0, 0, 0.08));
+}
+
+.invitation-intro {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-light, #666);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps, 0.2em);
+}
+
+.invitation-text {
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-size: var(--text-lg, 1.25rem);
+  line-height: var(--leading-loose, 2);
+  color: var(--color-text, #333);
+}
+
+.invitation-signature {
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-style: italic;
+  font-size: var(--text-md, 1.125rem);
+  color: var(--color-text-light, #666);
+}
+
+/* ============================================
+   DECORATIVE DIVIDER
+   ============================================ */
+
+.decorative-divider {
+  width: 200px;
+  height: 24px;
+  margin: var(--spacing-md, 1.5rem) auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.decorative-divider::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-primary, #D4AF37) 20%, var(--color-primary, #D4AF37) 80%, transparent 100%);
+}
+
+.decorative-divider::after {
+  content: '\\2666'; /* Diamond symbol */
+  position: relative;
+  background: var(--color-white, #fff);
+  padding: 0 var(--spacing-sm, 1rem);
+  color: var(--color-primary, #D4AF37);
+  font-size: var(--text-xs, 0.75rem);
+}
+
+/* ============================================
+   DETAIL CARDS (Venue, etc.)
+   ============================================ */
+
+.details-section {
+  padding: var(--spacing-3xl, 6rem) 0;
+  background: var(--color-background-alt, #f8f8f8);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg, 2rem);
+}
+
+.detail-card {
+  background: var(--color-white, #fff);
+  padding: var(--spacing-lg, 2rem);
+  text-align: center;
+  border-radius: var(--radius-lg, 8px);
+  box-shadow: var(--shadow-md, 0 4px 16px rgba(0, 0, 0, 0.06));
+  transition: transform var(--transition-normal, 0.3s ease),
+              box-shadow var(--transition-normal, 0.3s ease);
+}
+
+.detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl, 0 12px 32px rgba(0, 0, 0, 0.1));
+}
+
+.detail-icon {
+  font-size: var(--text-2xl, 2rem);
+  margin-bottom: var(--spacing-sm, 1rem);
+}
+
+.detail-title {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-light, #666);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps, 0.2em);
+  margin-bottom: var(--spacing-md, 1.5rem);
+  font-weight: var(--weight-normal, 400);
+}
+
+.detail-time {
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-size: var(--text-2xl, 2rem);
+  color: var(--color-text, #333);
+  margin-bottom: var(--spacing-sm, 1rem);
+}
+
+.detail-venue {
+  font-weight: var(--weight-semibold, 600);
+  font-size: var(--text-md, 1.125rem);
+  color: var(--color-text, #333);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.detail-address {
+  color: var(--color-text-light, #666);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-md, 1.5rem);
+  color: var(--color-primary, #D4AF37);
+  text-decoration: none;
+  font-size: var(--text-xs, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide, 0.1em);
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 1rem);
+  border: 1px solid var(--color-primary, #D4AF37);
+  border-radius: var(--radius-full, 50px);
+  transition: all var(--transition-fast, 0.15s ease);
+}
+
+.detail-map-link:hover {
+  background: var(--color-primary, #D4AF37);
+  color: var(--color-white, #fff);
+}
+
+/* ============================================
+   DRESS CODE SECTION
+   ============================================ */
+
+.dresscode-section {
+  padding: var(--spacing-3xl, 6rem) 0;
+  background: var(--color-white, #fff);
+}
+
+.dresscode-content {
+  text-align: center;
+  max-width: var(--container-md, 600px);
+  margin: 0 auto;
+}
+
+.dresscode-text {
+  font-size: var(--text-lg, 1.25rem);
+  margin-bottom: var(--spacing-md, 1.5rem);
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+.dresscode-colors-label {
+  font-style: italic;
+  color: var(--color-text-light, #666);
+  margin-bottom: var(--spacing-sm, 1rem);
+}
+
+.color-swatches {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm, 1rem);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-full, 50%);
+  border: 2px solid var(--color-border, #ddd);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  padding: var(--spacing-2xl, 4rem) 0;
+  background: var(--color-text, #333);
+  color: var(--color-white, #fff);
+  text-align: center;
+}
+
+.footer-names {
+  font-family: var(--font-heading, var(--font-serif, serif));
+  font-size: var(--text-2xl, 2rem);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.footer-date {
+  font-size: var(--text-md, 1.125rem);
+  color: var(--color-primary, #D4AF37);
+  margin-bottom: var(--spacing-sm, 1rem);
+}
+
+.footer-hashtag {
+  font-size: var(--text-lg, 1.25rem);
+  color: var(--color-primary, #D4AF37);
+  margin-bottom: var(--spacing-md, 1.5rem);
+}
+
+.footer-credit {
+  font-size: var(--text-sm, 0.875rem);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-credit .heart-beat {
+  display: inline-block;
+  animation: heartBeat 1s infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-2xl, 4rem) 0;
+  }
+
+  .section-title {
+    font-size: var(--text-xl, 1.5rem);
+    margin-bottom: var(--spacing-xl, 3rem);
+  }
+
+  .couple-names {
+    font-size: var(--text-3xl, 2.5rem);
+  }
+
+  .couple-names .ampersand {
+    margin: var(--spacing-xs, 0.5rem) 0;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .countdown-number {
+    font-size: var(--text-3xl, 2.5rem);
+  }
+
+  .countdown-item {
+    min-width: 70px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .invitation-card {
+    padding: var(--spacing-lg, 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .header,
+  .hero-section {
+    padding: var(--spacing-2xl, 4rem) var(--spacing-sm, 1rem);
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-sm, 1rem);
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+
+  .countdown-number {
+    font-size: var(--text-2xl, 2rem);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator {
+    animation: none;
+  }
+
+  .footer-credit .heart-beat {
+    animation: none;
+  }
+
+  .detail-card {
+    transition: none;
+  }
+}

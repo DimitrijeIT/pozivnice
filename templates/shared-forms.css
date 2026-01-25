@@ -1,0 +1,447 @@
+/**
+ * Wedding Invitation - Shared Form Components
+ *
+ * Reusable form styles that can be imported into any theme.
+ * Uses design tokens from tokens.css and can be customized
+ * with theme-specific CSS custom properties.
+ *
+ * Required theme variables:
+ * - --color-primary: Primary accent color
+ * - --color-text: Main text color
+ * - --color-text-light: Secondary text color
+ * - --color-background: Form background
+ * - --color-border: Border color (optional, defaults to #ccc)
+ * - --font-body: Body font family
+ */
+
+/* ============================================
+   FORM CONTAINER
+   ============================================ */
+
+.rsvp-form {
+  max-width: var(--container-sm, 500px);
+  margin: 0 auto;
+  background: var(--color-background, #fff);
+  padding: var(--spacing-lg, 2rem);
+  border-radius: var(--radius-lg, 8px);
+}
+
+.rsvp-deadline {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text-light, #666);
+  margin-bottom: var(--spacing-lg, 2rem);
+}
+
+/* ============================================
+   FORM GROUPS
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--spacing-md, 1.5rem);
+}
+
+.form-group:last-of-type {
+  margin-bottom: var(--spacing-lg, 2rem);
+}
+
+.form-group label,
+.form-group legend {
+  display: block;
+  font-weight: var(--weight-semibold, 600);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+  color: var(--color-text, #333);
+  font-size: var(--text-base, 1rem);
+}
+
+.form-group legend {
+  padding: 0;
+  border: 0;
+}
+
+/* Required field indicator */
+.form-group label span[aria-hidden="true"],
+.form-group legend span[aria-hidden="true"] {
+  color: var(--color-error, #EF4444);
+  margin-left: 0.125rem;
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea,
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-sm, 1rem);
+  border: var(--border-thin, 1px) solid var(--color-border, #ccc);
+  border-radius: var(--radius-md, 4px);
+  font-family: var(--font-body, inherit);
+  font-size: var(--text-base, 1rem);
+  color: var(--color-text, #333);
+  background-color: var(--input-bg, #fff);
+  transition: border-color var(--transition-fast, 0.15s ease),
+              box-shadow var(--transition-fast, 0.15s ease);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Placeholder styling */
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-light, #999);
+  opacity: 0.8;
+}
+
+/* Focus state */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary, #D4AF37);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 212, 175, 55), 0.15);
+}
+
+/* Focus visible for keyboard users */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--color-primary, #D4AF37);
+  outline-offset: 2px;
+}
+
+/* Select dropdown arrow */
+.form-group select,
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* Textarea */
+.form-group textarea,
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: var(--leading-relaxed, 1.625);
+}
+
+/* ============================================
+   RADIO & CHECKBOX GROUPS
+   ============================================ */
+
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+.radio-label,
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 0.5rem);
+  cursor: pointer;
+  font-weight: var(--weight-normal, 400);
+  margin: 0;
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+  border-radius: var(--radius-md, 4px);
+  transition: background-color var(--transition-fast, 0.15s ease);
+}
+
+.radio-label:hover,
+.checkbox-label:hover {
+  background-color: var(--color-hover-bg, rgba(0, 0, 0, 0.03));
+}
+
+/* Native radio/checkbox styling */
+.radio-label input[type="radio"],
+.checkbox-label input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--color-primary, #D4AF37);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Custom radio buttons (optional - enabled with .custom-radio class) */
+.custom-radio .radio-label input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-border, #ccc);
+  border-radius: var(--radius-full, 50%);
+  background: var(--input-bg, #fff);
+  transition: border-color var(--transition-fast, 0.15s ease);
+  position: relative;
+}
+
+.custom-radio .radio-label input[type="radio"]:checked {
+  border-color: var(--color-primary, #D4AF37);
+}
+
+.custom-radio .radio-label input[type="radio"]:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-primary, #D4AF37);
+  border-radius: var(--radius-full, 50%);
+}
+
+/* ============================================
+   CONDITIONAL FIELDS
+   Fields that show/hide based on other inputs
+   ============================================ */
+
+.conditional-field {
+  display: none;
+  animation: slideDown var(--duration-normal, 0.3s) var(--ease-out, ease-out);
+}
+
+.conditional-field.visible {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   SUBMIT BUTTON
+   ============================================ */
+
+.submit-button,
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-sm, 1rem) var(--spacing-lg, 2rem);
+  background: var(--color-primary, #D4AF37);
+  color: var(--btn-text-color, #fff);
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  font-family: var(--font-body, inherit);
+  font-size: var(--text-md, 1.125rem);
+  font-weight: var(--weight-medium, 500);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide, 0.05em);
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 0.15s ease),
+              transform var(--transition-fast, 0.15s ease),
+              box-shadow var(--transition-fast, 0.15s ease);
+}
+
+.submit-button:hover,
+.submit-btn:hover {
+  background: var(--color-primary-dark, #B8956B);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.submit-button:active,
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.submit-button:disabled,
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit-button:focus-visible,
+.submit-btn:focus-visible {
+  outline: 2px solid var(--color-primary, #D4AF37);
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.submit-button .button-loading,
+.submit-btn .button-loading {
+  display: none;
+}
+
+.submit-button.loading .button-text,
+.submit-btn.loading .button-text {
+  display: none;
+}
+
+.submit-button.loading .button-loading,
+.submit-btn.loading .button-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+/* Loading rings animation */
+.loading-rings {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  position: relative;
+}
+
+.loading-rings span {
+  position: absolute;
+  border: 2px solid currentColor;
+  opacity: 1;
+  border-radius: var(--radius-full, 50%);
+  animation: loading-rings 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.loading-rings span:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes loading-rings {
+  0% {
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+/* ============================================
+   FORM MESSAGES
+   Success/error feedback
+   ============================================ */
+
+.form-message {
+  margin-top: var(--spacing-md, 1.5rem);
+  padding: var(--spacing-sm, 1rem);
+  border-radius: var(--radius-md, 4px);
+  text-align: center;
+  font-size: var(--text-sm, 0.875rem);
+  display: none;
+}
+
+.form-message:not(:empty) {
+  display: block;
+  animation: fadeIn var(--duration-normal, 0.3s) var(--ease-out, ease-out);
+}
+
+.form-message.success {
+  background: var(--color-success-light, #DCFCE7);
+  color: var(--color-success-dark, #15803D);
+  border: 1px solid var(--color-success, #22C55E);
+}
+
+.form-message.error {
+  background: var(--color-error-light, #FEE2E2);
+  color: var(--color-error-dark, #B91C1C);
+  border: 1px solid var(--color-error, #EF4444);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   FIELDSET RESET
+   For grouped form elements
+   ============================================ */
+
+fieldset.form-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-md, 1.5rem) 0;
+}
+
+fieldset.form-group legend {
+  font-weight: var(--weight-semibold, 600);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+  display: block;
+  width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 480px) {
+  .rsvp-form {
+    padding: var(--spacing-md, 1.5rem);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: var(--spacing-sm, 0.75rem);
+    font-size: var(--text-md, 1rem); /* Prevent iOS zoom */
+  }
+
+  .submit-button,
+  .submit-btn {
+    padding: var(--spacing-sm, 0.875rem) var(--spacing-md, 1.5rem);
+    font-size: var(--text-base, 1rem);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .conditional-field {
+    animation: none;
+  }
+
+  .form-message:not(:empty) {
+    animation: none;
+  }
+
+  .loading-rings span {
+    animation: none;
+  }
+
+  .submit-button,
+  .submit-btn {
+    transition: none;
+  }
+}

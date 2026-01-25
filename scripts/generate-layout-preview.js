@@ -165,23 +165,44 @@ function replacePlaceholders(html, data) {
  * @returns {string} Generated HTML
  */
 function generateThemedPage(data, layout, theme, layoutConfig) {
-  const baseTemplatePath = path.join(TEMPLATES_DIR, `base-${layout}.html`);
-  const themeCssPath = path.join(TEMPLATES_DIR, `themes-${layout}`, theme, 'style.css');
+  let baseTemplatePath, themeCssPath;
+
+  if (layoutConfig.isOriginal) {
+    // Original themes use base.html and templates/themes/{theme}/style.css
+    baseTemplatePath = path.join(TEMPLATES_DIR, 'base.html');
+    const themePath = layoutConfig.themePath || layout;
+    themeCssPath = path.join(TEMPLATES_DIR, 'themes', themePath, 'style.css');
+  } else {
+    // 2026 layouts use base-{layout}.html and themes-{layout}/{theme}/style.css
+    baseTemplatePath = path.join(TEMPLATES_DIR, `base-${layout}.html`);
+    themeCssPath = path.join(TEMPLATES_DIR, `themes-${layout}`, theme, 'style.css');
+  }
 
   if (!fs.existsSync(baseTemplatePath)) {
-    throw new Error(`Base template not found: base-${layout}.html`);
+    const templateName = layoutConfig.isOriginal ? 'base.html' : `base-${layout}.html`;
+    throw new Error(`Base template not found: ${templateName}`);
   }
 
   if (!fs.existsSync(themeCssPath)) {
-    throw new Error(`Theme CSS not found: themes-${layout}/${theme}/style.css`);
+    const cssPath = layoutConfig.isOriginal
+      ? `themes/${layoutConfig.themePath || layout}/style.css`
+      : `themes-${layout}/${theme}/style.css`;
+    throw new Error(`Theme CSS not found: ${cssPath}`);
   }
 
   const baseTemplate = fs.readFileSync(baseTemplatePath, 'utf8');
   const themeCss = fs.readFileSync(themeCssPath, 'utf8');
 
+  // Load shared CSS tokens and form styles if they exist
+  let sharedCss = '';
+  const tokensCssPath = path.join(TEMPLATES_DIR, 'tokens.css');
+  if (fs.existsSync(tokensCssPath)) {
+    sharedCss += fs.readFileSync(tokensCssPath, 'utf8') + '\n';
+  }
+
   const templateData = {
     ...data,
-    _themeCss: `<style>${themeCss}</style>`,
+    _themeCss: `<style>${sharedCss}${themeCss}</style>`,
     _themeFonts: layoutConfig.fonts || ''
   };
 
@@ -379,10 +400,51 @@ function getLayoutStyles(layout) {
     telegram: {
       emoji: '📨',
       cssVars: `:root{--primary:#8B7355;--bg:#F5EFE6;--surface:#FFFEF7;--text:#3D3428;--border:#D4C5B0;--muted:#7A6F5D;--timer-bg:rgba(139,115,85,0.1);--btn-text:#F5EFE6;--badge-text:#F5EFE6}`
+    },
+    // Original themes (2025)
+    classic: {
+      emoji: '👑',
+      cssVars: `:root{--primary:#B8956B;--bg:#FFFEF9;--surface:#FFF;--text:#1C1C1C;--border:#B8956B;--muted:#4A4A4A;--timer-bg:rgba(184,149,107,0.1);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    modern: {
+      emoji: '◼️',
+      cssVars: `:root{--primary:#2C3E50;--bg:#FFF;--surface:#F8F9FA;--text:#2C3E50;--border:#E9ECEF;--muted:#6C757D;--timer-bg:rgba(44,62,80,0.1);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    romantic: {
+      emoji: '🌸',
+      cssVars: `:root{--primary:#E8B4B8;--bg:#FFF5F6;--surface:#FFF;--text:#4A3637;--border:#E8B4B8;--muted:#8B6E6E;--timer-bg:rgba(232,180,184,0.15);--btn-text:#4A3637;--badge-text:#4A3637}`
+    },
+    minimal: {
+      emoji: '○',
+      cssVars: `:root{--primary:#1A1A1A;--bg:#FFF;--surface:#FAFAFA;--text:#1A1A1A;--border:#E5E5E5;--muted:#757575;--timer-bg:rgba(26,26,26,0.05);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    rustic: {
+      emoji: '🌾',
+      cssVars: `:root{--primary:#8B7355;--bg:#FAF8F5;--surface:#FFFDF9;--text:#3D3428;--border:#D4C5B0;--muted:#6B5B4F;--timer-bg:rgba(139,115,85,0.1);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    'botanical-original': {
+      emoji: '🌿',
+      cssVars: `:root{--primary:#5A7A5E;--bg:#F7FAF7;--surface:#FFF;--text:#2D3B2D;--border:#B8C9B8;--muted:#5A6B5A;--timer-bg:rgba(90,122,94,0.1);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    moody: {
+      emoji: '🍷',
+      cssVars: `:root{--primary:#722F37;--bg:#1A1216;--surface:#2A1F24;--text:#F5E6E8;--border:rgba(114,47,55,0.3);--muted:#B39EA3;--timer-bg:rgba(114,47,55,0.2);--btn-text:#F5E6E8;--badge-text:#1A1216}`
+    },
+    gatsby: {
+      emoji: '✨',
+      cssVars: `:root{--primary:#D4AF37;--bg:#0A1628;--surface:#152238;--text:#F5F0E0;--border:rgba(212,175,55,0.3);--muted:#A8A090;--timer-bg:rgba(212,175,55,0.2);--btn-text:#0A1628;--badge-text:#0A1628}`
+    },
+    editorial: {
+      emoji: '📰',
+      cssVars: `:root{--primary:#1A1A1A;--bg:#FFF;--surface:#FAFAFA;--text:#1A1A1A;--border:#E5E5E5;--muted:#666;--timer-bg:rgba(26,26,26,0.08);--btn-text:#FFF;--badge-text:#FFF}`
+    },
+    whimsical: {
+      emoji: '🎨',
+      cssVars: `:root{--primary:#E8B4BC;--bg:#FFFAF5;--surface:#FFF;--text:#5A4A4D;--border:#E8D5D8;--muted:#8B7A7D;--timer-bg:rgba(232,180,188,0.15);--btn-text:#5A4A4D;--badge-text:#5A4A4D}`
     }
   };
 
-  return styles[layout] || styles.botanical;
+  return styles[layout] || styles.classic;
 }
 
 /**
@@ -430,24 +492,42 @@ async function generatePreview(layout, slug) {
 
   console.log(`📁 Output: ${outputDir}\n`);
 
+  // Check if this is a single-theme layout (original themes)
+  const isSingleTheme = layoutConfig.themes.length === 1 && layoutConfig.themes[0] === 'default';
+
   // Generate themed pages
   for (const theme of layoutConfig.themes) {
-    console.log(`  🎨 Generating ${theme}...`);
+    const displayName = isSingleTheme ? layoutConfig.name : theme;
+    console.log(`  🎨 Generating ${displayName}...`);
     try {
       const html = generateThemedPage(data, layout, theme, layoutConfig);
       await fs.writeFile(path.join(outputDir, `${theme}.html`), html, 'utf8');
     } catch (error) {
-      throw new Error(`Failed to generate ${theme} theme: ${error.message}`);
+      throw new Error(`Failed to generate ${displayName} theme: ${error.message}`);
     }
   }
 
-  // Generate index page
-  console.log(`  📋 Generating index...`);
-  try {
-    const indexHtml = generateIndexPage(data, layout, layoutConfig);
-    await fs.writeFile(path.join(outputDir, 'index.html'), indexHtml, 'utf8');
-  } catch (error) {
-    throw new Error(`Failed to generate index page: ${error.message}`);
+  // For single-theme layouts, use the theme directly as index.html
+  // For multi-theme layouts, generate the theme selection page
+  if (isSingleTheme) {
+    console.log(`  📋 Creating index (single theme)...`);
+    try {
+      // Copy default.html as index.html for direct access
+      await fs.copyFile(
+        path.join(outputDir, 'default.html'),
+        path.join(outputDir, 'index.html')
+      );
+    } catch (error) {
+      throw new Error(`Failed to create index: ${error.message}`);
+    }
+  } else {
+    console.log(`  📋 Generating theme selector...`);
+    try {
+      const indexHtml = generateIndexPage(data, layout, layoutConfig);
+      await fs.writeFile(path.join(outputDir, 'index.html'), indexHtml, 'utf8');
+    } catch (error) {
+      throw new Error(`Failed to generate index page: ${error.message}`);
+    }
   }
 
   console.log(`\n✅ Done! URL: http://localhost:${config.DEV_SERVER_PORT}/preview/${slug}-${layout}/\n`);
@@ -481,16 +561,46 @@ async function generateAllLayouts(slug) {
  * List available layouts
  */
 function listLayouts() {
-  console.log('\n📋 Available 2026 Layouts:\n');
-
   const layouts = config.getAvailableLayouts();
+
+  // Separate original themes from 2026 layouts
+  const originalThemes = [];
+  const layouts2026 = [];
+
   layouts.forEach(layout => {
     const cfg = config.getLayoutConfig(layout);
-    const styles = getLayoutStyles(layout);
-    console.log(`  ${styles.emoji} ${layout.padEnd(15)} - ${cfg.name} (${cfg.themes.join(', ')})`);
+    if (cfg.isOriginal) {
+      originalThemes.push(layout);
+    } else {
+      layouts2026.push(layout);
+    }
   });
 
-  console.log(`\nUsage:`);
+  console.log('\n📋 Available Layouts\n');
+
+  if (originalThemes.length > 0) {
+    console.log('  Original Themes (2025):');
+    originalThemes.forEach(layout => {
+      const cfg = config.getLayoutConfig(layout);
+      const styles = getLayoutStyles(layout);
+      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name}`);
+    });
+    console.log('');
+  }
+
+  if (layouts2026.length > 0) {
+    console.log('  2026 Layouts (multi-theme):');
+    layouts2026.forEach(layout => {
+      const cfg = config.getLayoutConfig(layout);
+      const styles = getLayoutStyles(layout);
+      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name} (${cfg.themes.join(', ')})`);
+    });
+    console.log('');
+  }
+
+  console.log(`Total: ${originalThemes.length} original + ${layouts2026.length} new = ${layouts.length} layouts\n`);
+
+  console.log(`Usage:`);
   console.log(`  node scripts/generate-layout-preview.js <layout> [slug]`);
   console.log(`  node scripts/generate-layout-preview.js --all [slug]   # Generate all layouts`);
   console.log(`  node scripts/generate-layout-preview.js --list         # List layouts\n`);

@@ -54,8 +54,105 @@ const config = {
     whimsical: 'Играјући илустровани дизајн са акварел текстурама и пастелним бојама'
   },
 
-  // 2026 Layout Registry - Centralized theme definitions for new layouts
+  // 2026 Layout Registry - Centralized theme definitions for all layouts
+  // Includes both new 2026 layouts and original themes for unified generation
   LAYOUT_REGISTRY: {
+    // === ORIGINAL THEMES (2025) ===
+    // These use templates/base.html with templates/themes/{theme}/style.css
+    classic: {
+      name: 'Класичан',
+      description: 'Традиционални елегантни дизајн са златним акцентима и орнаменталним детаљима',
+      themes: ['default'],
+      themeNames: { default: 'Класичан' },
+      themeDescriptions: { default: 'Старински новац естетика са позлаћеним оквирима' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    modern: {
+      name: 'Модеран',
+      description: 'Савремени минималистички дизајн са чистим линијама и обиљем белог простора',
+      themes: ['default'],
+      themeNames: { default: 'Модеран' },
+      themeDescriptions: { default: 'Чист и минималистички приступ' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    romantic: {
+      name: 'Романтичан',
+      description: 'Нежни романтични дизајн у розе тоновима са цветним мотивима',
+      themes: ['default'],
+      themeNames: { default: 'Романтичан' },
+      themeDescriptions: { default: 'Розе тонови са цветним елементима' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    minimal: {
+      name: 'Минималистички',
+      description: 'Ултра-чист дизајн фокусиран на типографију и садржај',
+      themes: ['default'],
+      themeNames: { default: 'Минималистички' },
+      themeDescriptions: { default: 'Максимум белог простора, минимум украса' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    rustic: {
+      name: 'Рустикални',
+      description: 'Топли природни дизајн инспирисан природом и рустичном естетиком',
+      themes: ['default'],
+      themeNames: { default: 'Рустикални' },
+      themeDescriptions: { default: 'Земљани тонови са природним текстурама' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    'botanical-original': {
+      name: 'Ботанички',
+      description: 'Елегантни зелени дизајн са еукалиптусом и лучним облицима - тренд 2025',
+      themes: ['default'],
+      themeNames: { default: 'Ботанички' },
+      themeDescriptions: { default: 'Зелени тонови са ботаничким мотивима' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Nunito:wght@300;400&display=swap" rel="stylesheet">',
+      isOriginal: true,
+      themePath: 'botanical' // Uses templates/themes/botanical/
+    },
+    moody: {
+      name: 'Тамна Романса',
+      description: 'Драматичан тамни дизајн у бордо тоновима са златним акцентима',
+      themes: ['default'],
+      themeNames: { default: 'Тамна Романса' },
+      themeDescriptions: { default: 'Драматични бордо тонови' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    gatsby: {
+      name: 'Арт Деко',
+      description: 'Ретро гламур 1920-их са геометријским узорцима и злато-навy палетом',
+      themes: ['default'],
+      themeNames: { default: 'Арт Деко' },
+      themeDescriptions: { default: 'Гламур двадесетих година' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Josefin+Sans:wght@300;400;500&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    editorial: {
+      name: 'Едиторијал',
+      description: 'Модерни часописни layout са смелом типографијом и асиметричним дизајном',
+      themes: ['default'],
+      themeNames: { default: 'Едиторијал' },
+      themeDescriptions: { default: 'Модерна часописна естетика' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+    whimsical: {
+      name: 'Илустровани',
+      description: 'Играјући илустровани дизајн са акварел текстурама и пастелним бојама',
+      themes: ['default'],
+      themeNames: { default: 'Илустровани' },
+      themeDescriptions: { default: 'Играјући акварел стил' },
+      fonts: '<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">',
+      isOriginal: true
+    },
+
+    // === 2026 LAYOUTS ===
+    // These use templates/base-{layout}.html with templates/themes-{layout}/{theme}/style.css
     aurora: {
       name: 'Аурора',
       description: 'Северни сјај са космичким честицама',
