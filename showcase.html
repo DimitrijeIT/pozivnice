@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svi dizajni — DigiPoz digitalne pozivnice</title>
+  <meta name="description" content="Pregledajte svih 20+ dizajna digitalnih pozivnica za venčanje. Cinema, Passport, Magazine, Envelope i mnogo više. Svaki dizajn sa varijacijama boja.">
+  <link rel="canonical" href="https://digipoz.rs/showcase.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #FDFBF7;
+      --color-surface: #FFFFFF;
+      --color-text: #2C2420;
+      --color-text-secondary: #6B5E57;
+      --color-text-muted: #9B8F88;
+      --color-accent: #B8860B;
+      --color-accent-light: #D4A843;
+      --color-accent-bg: #F7F0E3;
+      --color-border: #E8E0D6;
+      --color-border-light: #F0EBE4;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(253, 251, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-light);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--color-accent); }
+
+    .nav-back {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--color-accent); }
+
+    /* HEADER */
+    .page-header {
+      padding: 7rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header h1 em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .page-header p {
+      font-size: 1.0625rem;
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+    }
+
+    .page-header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    .page-header-stats strong {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    /* FILTER */
+    .filter-bar {
+      position: sticky;
+      top: 64px;
+      z-index: 100;
+      background: rgba(253, 251, 247, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border-light);
+      padding: 0.75rem 1.5rem;
+    }
+
+    .filter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .filter-inner::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      padding: 0.4375rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+    .filter-btn.active {
+      background: var(--color-text);
+      border-color: var(--color-text);
+      color: #fff;
+    }
+
+    /* LAYOUT SECTIONS */
+    .showcase { padding: 2.5rem 1.5rem 4rem; }
+
+    .showcase-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .layout-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 140px;
+    }
+
+    .layout-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .layout-section-name {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+
+    .layout-section-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    .layout-section-tag {
+      margin-left: auto;
+      padding: 0.25rem 0.75rem;
+      background: var(--color-accent-bg);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      white-space: nowrap;
+    }
+
+    /* VARIANT CARDS */
+    .variants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .variant-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--color-border-light);
+      background: var(--color-surface);
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .variant-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: var(--color-accent-light);
+    }
+
+    .variant-preview {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      position: relative;
+      background: var(--color-bg);
+    }
+
+    .variant-preview iframe {
+      width: 250%;
+      height: 250%;
+      border: none;
+      transform: scale(0.4);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .variant-preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(44,36,32,0.5) 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .variant-card:hover .variant-preview-overlay { opacity: 1; }
+
+    .variant-preview-cta {
+      color: #fff;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    .variant-preview-badge {
+      padding: 0.25rem 0.625rem;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      border-radius: 100px;
+      color: #fff;
+      font-size: 0.6875rem;
+      font-weight: 500;
+    }
+
+    .variant-info {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .variant-name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
+    .variant-open {
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .showcase-cta {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .showcase-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .showcase-cta p {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--color-text);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.25);
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer-text a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .page-header { padding: 6rem 1.25rem 2rem; }
+      .page-header-stats { gap: 1.5rem; font-size: 0.8125rem; }
+      .variants-grid { grid-template-columns: 1fr; }
+      .layout-section-header { flex-wrap: wrap; }
+      .layout-section-tag { margin-left: 0; }
+      .variant-preview { aspect-ratio: 16 / 9; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Digi<span>Poz</span></a>
+      <a href="/" class="nav-back">&larr; Nazad na početnu</a>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Svi <em>dizajni</em> pozivnica</h1>
+    <p>Pregledajte svaki dizajn sa svim varijacijama boja. Kliknite na bilo koji da ga otvorite na celom ekranu.</p>
+    <div class="page-header-stats">
+      <span><strong>20+</strong> dizajna</span>
+      <span><strong>50+</strong> varijacija</span>
+      <span><strong>2026</strong> kolekcija</span>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <button class="filter-btn active" data-filter="all">Svi dizajni</button>
+      <button class="filter-btn" data-filter="2026">2026 kolekcija</button>
+      <button class="filter-btn" data-filter="classic">Klasični</button>
+      <button class="filter-btn" data-filter="modern">Moderni</button>
+      <button class="filter-btn" data-filter="dark">Tamni</button>
+      <button class="filter-btn" data-filter="creative">Kreativni</button>
+      <button class="filter-btn" data-filter="romantic">Romantični</button>
+    </div>
+  </div>
+
+  <main class="showcase">
+    <div class="showcase-inner">
+
+      <!-- CINEMA -->
+      <div class="layout-section reveal" data-tags="2026 creative dark">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Cinema</div>
+          <div class="layout-section-desc">Filmska premijera sa dramatičnim poster dizajnom</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-cinema/noir.html" target="_blank" class="variant-card">
+            <div class="variant-preview">
+              <iframe src="preview/demo-cinema/noir.html" loading="lazy" sandbox title="Cinema Noir"></iframe>
+              <div class="variant-preview-overlay">
+                <span class="variant-preview-cta">Otvori &rarr;</span>
+                <span class="variant-preview-badge">Film Noir</span>
+              </div>
+            </div>
+            <div class="variant-info">
+              <div class="variant-name">Film Noir</div>
+              <div class="variant-open">Pogledaj &rarr;</div>
+            </div>
+          </a>
+          <a href="preview/demo-cinema/golden.html" target="_blank" class="variant-card">
+            <div class="variant-preview">
+              <iframe src="preview/demo-cinema/golden.html" loading="lazy" sandbox title="Cinema Golden"></iframe>
+              <div class="variant-preview-overlay">
+                <span class="variant-preview-cta">Otvori &rarr;</span>
+                <span class="variant-preview-badge">Zlatno Doba</span>
+              </div>
+            </div>
+            <div class="variant-info">
+              <div class="variant-name">Zlatno Doba</div>
+              <div class="variant-open">Pogledaj &rarr;</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- PASSPORT -->
+      <div class="layout-section reveal" data-tags="2026 creative">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Passport</div>
+          <div class="layout-section-desc">Putnički pasoš sa vizama i pečatima</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-passport/classic.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-passport/classic.html" loading="lazy" sandbox title="Passport Classic"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Klasični</span></div></div>
+            <div class="variant-info"><div class="variant-name">Klasični Pasoš</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-passport/tropical.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-passport/tropical.html" loading="lazy" sandbox title="Passport Tropical"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Tropski</span></div></div>
+            <div class="variant-info"><div class="variant-name">Tropska Destinacija</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- MAGAZINE -->
+      <div class="layout-section reveal" data-tags="2026 modern">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Magazine</div>
+          <div class="layout-section-desc">Modni časopis sa naslovnom stranom</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-magazine/vogue.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-magazine/vogue.html" loading="lazy" sandbox title="Magazine Vogue"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Vogue</span></div></div>
+            <div class="variant-info"><div class="variant-name">Vogue Stil</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-magazine/glossy.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-magazine/glossy.html" loading="lazy" sandbox title="Magazine Glossy"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Glossy</span></div></div>
+            <div class="variant-info"><div class="variant-name">Moderni Sjaj</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ENVELOPE -->
+      <div class="layout-section reveal" data-tags="2026 classic romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Envelope</div>
+          <div class="layout-section-desc">Interaktivna animacija otvaranja koverte</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-envelope/velvet.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-envelope/velvet.html" loading="lazy" sandbox title="Envelope Velvet"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Pliš</span></div></div>
+            <div class="variant-info"><div class="variant-name">Pliš</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-envelope/frost.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-envelope/frost.html" loading="lazy" sandbox title="Envelope Frost"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Moderni</span></div></div>
+            <div class="variant-info"><div class="variant-name">Moderni</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- STORYBOOK -->
+      <div class="layout-section reveal" data-tags="2026 romantic classic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Storybook</div>
+          <div class="layout-section-desc">Knjiga priča sa ilustracijama</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-storybook/novel.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-storybook/novel.html" loading="lazy" sandbox title="Storybook Novel"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Roman</span></div></div>
+            <div class="variant-info"><div class="variant-name">Roman</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-storybook/ink.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-storybook/ink.html" loading="lazy" sandbox title="Storybook Ink"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Mastilo</span></div></div>
+            <div class="variant-info"><div class="variant-name">Mastilo</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- GLASS -->
+      <div class="layout-section reveal" data-tags="2026 modern">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Glass</div>
+          <div class="layout-section-desc">Moderni glasmorfizam sa svetlosnim efektima</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-glass/frost.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-glass/frost.html" loading="lazy" sandbox title="Glass Frost"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Mraz</span></div></div>
+            <div class="variant-info"><div class="variant-name">Mraz</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-glass/aurora.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-glass/aurora.html" loading="lazy" sandbox title="Glass Aurora"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Aurora</span></div></div>
+            <div class="variant-info"><div class="variant-name">Aurora</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- CONCERT -->
+      <div class="layout-section reveal" data-tags="2026 creative">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Concert</div>
+          <div class="layout-section-desc">Festivalski poster stil sa karta RSVP</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-concert/rock.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-concert/rock.html" loading="lazy" sandbox title="Concert Rock"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Rock</span></div></div>
+            <div class="variant-info"><div class="variant-name">Rok Koncert</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-concert/indie.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-concert/indie.html" loading="lazy" sandbox title="Concert Indie"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Indie</span></div></div>
+            <div class="variant-info"><div class="variant-name">Indi Festival</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- GAZETTE -->
+      <div class="layout-section reveal" data-tags="2026 creative">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Gazette</div>
+          <div class="layout-section-desc">Novinski stil sa vestima o venčanju</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-gazette/broadsheet.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-gazette/broadsheet.html" loading="lazy" sandbox title="Gazette Broadsheet"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Klasične novine</span></div></div>
+            <div class="variant-info"><div class="variant-name">Klasične Novine</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-gazette/tabloid.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-gazette/tabloid.html" loading="lazy" sandbox title="Gazette Tabloid"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Tabloid</span></div></div>
+            <div class="variant-info"><div class="variant-name">Moderni Tabloid</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- LETTER -->
+      <div class="layout-section reveal" data-tags="2026 romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Love Letter</div>
+          <div class="layout-section-desc">Rukopisno ljubavno pismo sa pečatom</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-letter/romantic.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-letter/romantic.html" loading="lazy" sandbox title="Letter Romantic"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Romantično</span></div></div>
+            <div class="variant-info"><div class="variant-name">Romantično</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-letter/vintage.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-letter/vintage.html" loading="lazy" sandbox title="Letter Vintage"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Vintage</span></div></div>
+            <div class="variant-info"><div class="variant-name">Vintage Elegancija</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- TELEGRAM -->
+      <div class="layout-section reveal" data-tags="2026 creative">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Telegram</div>
+          <div class="layout-section-desc">Vintage telegram sa klasičnom estetikom</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-telegram/western.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-telegram/western.html" loading="lazy" sandbox title="Telegram Western"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Western</span></div></div>
+            <div class="variant-info"><div class="variant-name">Western Union</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-telegram/express.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-telegram/express.html" loading="lazy" sandbox title="Telegram Express"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Express</span></div></div>
+            <div class="variant-info"><div class="variant-name">Express</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOTANICAL -->
+      <div class="layout-section reveal" data-tags="2026 romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Botanical</div>
+          <div class="layout-section-desc">Naučni herbarijum sa presovanim cvećem</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-botanical/forest.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-botanical/forest.html" loading="lazy" sandbox title="Botanical Forest"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Šuma</span></div></div>
+            <div class="variant-info"><div class="variant-name">Šuma</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-botanical/pressed.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-botanical/pressed.html" loading="lazy" sandbox title="Botanical Pressed"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Herbarijum</span></div></div>
+            <div class="variant-info"><div class="variant-name">Herbarijum</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- VELVET -->
+      <div class="layout-section reveal" data-tags="2026 dark romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Velvet</div>
+          <div class="layout-section-desc">Luksuzna tamna elegancija u somotu</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-velvet/burgundy.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-velvet/burgundy.html" loading="lazy" sandbox title="Velvet Burgundy"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Bordo</span></div></div>
+            <div class="variant-info"><div class="variant-name">Bordo</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-velvet/navy.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-velvet/navy.html" loading="lazy" sandbox title="Velvet Navy"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Teget</span></div></div>
+            <div class="variant-info"><div class="variant-name">Teget</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- AURORA -->
+      <div class="layout-section reveal" data-tags="2026 modern">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Aurora</div>
+          <div class="layout-section-desc">Severni sjaj sa kosmičkim česticama</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-aurora/northern.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-aurora/northern.html" loading="lazy" sandbox title="Aurora Northern"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Severna svetla</span></div></div>
+            <div class="variant-info"><div class="variant-name">Severna Svetla</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-aurora/cosmic.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-aurora/cosmic.html" loading="lazy" sandbox title="Aurora Cosmic"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Kosmos</span></div></div>
+            <div class="variant-info"><div class="variant-name">Kosmos</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- MEDITERRANEAN -->
+      <div class="layout-section reveal" data-tags="2026 romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Mediterranean</div>
+          <div class="layout-section-desc">Sunčana obala sa keramičkim motivima</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-mediterranean/amalfi.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-mediterranean/amalfi.html" loading="lazy" sandbox title="Mediterranean Amalfi"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Amalfi</span></div></div>
+            <div class="variant-info"><div class="variant-name">Amalfi</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-mediterranean/santorini.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-mediterranean/santorini.html" loading="lazy" sandbox title="Mediterranean Santorini"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Santorini</span></div></div>
+            <div class="variant-info"><div class="variant-name">Santorini</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- OLD MONEY -->
+      <div class="layout-section reveal" data-tags="2026 classic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Old Money</div>
+          <div class="layout-section-desc">Klasična elegancija nasleđenog bogatstva</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-oldmoney/ivory.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-oldmoney/ivory.html" loading="lazy" sandbox title="Old Money Ivory"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Slonovača</span></div></div>
+            <div class="variant-info"><div class="variant-name">Slonovača</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-oldmoney/estate.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-oldmoney/estate.html" loading="lazy" sandbox title="Old Money Estate"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Imanje</span></div></div>
+            <div class="variant-info"><div class="variant-name">Imanje</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FILM NOIR -->
+      <div class="layout-section reveal" data-tags="2026 dark creative">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Film Noir</div>
+          <div class="layout-section-desc">Holivudska drama u crno-belom</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-filmnoir/classic.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-filmnoir/classic.html" loading="lazy" sandbox title="Film Noir Classic"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Klasik</span></div></div>
+            <div class="variant-info"><div class="variant-name">Klasik</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-filmnoir/golden.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-filmnoir/golden.html" loading="lazy" sandbox title="Film Noir Golden"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Zlatno Doba</span></div></div>
+            <div class="variant-info"><div class="variant-name">Zlatno Doba</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- KINETIC -->
+      <div class="layout-section reveal" data-tags="2026 modern">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Kinetic</div>
+          <div class="layout-section-desc">Dinamična tipografija sa animacijama</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-kinetic/editorial.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-kinetic/editorial.html" loading="lazy" sandbox title="Kinetic Editorial"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Editoriјal</span></div></div>
+            <div class="variant-info"><div class="variant-name">Editoriјal</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-kinetic/moody.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-kinetic/moody.html" loading="lazy" sandbox title="Kinetic Moody"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Mračni</span></div></div>
+            <div class="variant-info"><div class="variant-name">Mračni</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- SCRIBBLE -->
+      <div class="layout-section reveal" data-tags="2026 creative romantic">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Scribble</div>
+          <div class="layout-section-desc">Ručno crtani stil sa igrajućim ilustracijama</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-scribble/watercolor.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-scribble/watercolor.html" loading="lazy" sandbox title="Scribble Watercolor"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Akvarel</span></div></div>
+            <div class="variant-info"><div class="variant-name">Akvarel</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-scribble/pencil.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-scribble/pencil.html" loading="lazy" sandbox title="Scribble Pencil"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Olovka</span></div></div>
+            <div class="variant-info"><div class="variant-name">Olovka</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- WABI-SABI -->
+      <div class="layout-section reveal" data-tags="2026 modern">
+        <div class="layout-section-header">
+          <div class="layout-section-name">Wabi-Sabi</div>
+          <div class="layout-section-desc">Japanska estetika nesavršene lepote</div>
+          <div class="layout-section-tag">2 varijacije</div>
+        </div>
+        <div class="variants-grid">
+          <a href="preview/demo-wabisabi/paper.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-wabisabi/paper.html" loading="lazy" sandbox title="Wabi-Sabi Paper"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Washi papir</span></div></div>
+            <div class="variant-info"><div class="variant-name">Washi Papir</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+          <a href="preview/demo-wabisabi/ink.html" target="_blank" class="variant-card">
+            <div class="variant-preview"><iframe src="preview/demo-wabisabi/ink.html" loading="lazy" sandbox title="Wabi-Sabi Ink"></iframe><div class="variant-preview-overlay"><span class="variant-preview-cta">Otvori &rarr;</span><span class="variant-preview-badge">Sumi mastilo</span></div></div>
+            <div class="variant-info"><div class="variant-name">Sumi Mastilo</div><div class="variant-open">Pogledaj &rarr;</div></div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <section class="showcase-cta">
+    <h2>Pronašli ste svoj stil?</h2>
+    <p>Javite nam se i za 5 minuta započnite kreiranje vaše pozivnice.</p>
+    <a href="https://www.instagram.com/digipoz.rs/" target="_blank" rel="noopener" class="btn btn-primary">Pišite nam na Instagram</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-text">&copy; 2026 <a href="/">DigiPoz</a>. Sva prava zadržana.</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    (function() {
+      var els = document.querySelectorAll('.reveal');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+      els.forEach(function(el) { obs.observe(el); });
+    })();
+
+    // Filter
+    (function() {
+      var btns = document.querySelectorAll('.filter-btn');
+      var sections = document.querySelectorAll('.layout-section');
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          btns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var filter = btn.dataset.filter;
+          sections.forEach(function(s) {
+            if (filter === 'all' || s.dataset.tags.indexOf(filter) !== -1) {
+              s.style.display = '';
+            } else {
+              s.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
