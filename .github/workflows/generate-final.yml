@@ -79,7 +79,7 @@ jobs:
         run: |
           echo "## Final Site Generated Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Site URL:** https://${{ github.repository_owner }}.github.io/pozivnice/site/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
+          echo "**Site URL:** https://digipoz.rs/site/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Theme: ${{ steps.extract.outputs.theme }}" >> $GITHUB_STEP_SUMMARY
 
@@ -101,7 +101,7 @@ jobs:
             Ваша позивница за венчање је спремна!
 
             Можете је погледати на следећој адреси:
-            https://${{ github.repository_owner }}.github.io/pozivnice/site/${{ steps.extract.outputs.slug }}/
+            https://digipoz.rs/site/${{ steps.extract.outputs.slug }}/
 
             Овај линк можете делити са вашим гостима.
 

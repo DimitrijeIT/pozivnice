@@ -11,7 +11,13 @@
     "layout:list": "node scripts/generate-layout-preview.js --list",
     "generate": "node scripts/generate-final.js",
     "cleanup": "node scripts/cleanup-expired.js",
-    "validate": "node -e \"const c = require('./scripts/config'); console.log(c.validateConfig())\""
+    "validate": "node -e \"const c = require('./scripts/config'); console.log(c.validateConfig())\"",
+    "images": "node scripts/generate-images.js",
+    "images:list": "node scripts/generate-images.js --list",
+    "images:dry-run": "node scripts/generate-images.js --dry-run",
+    "images:chatgpt": "node scripts/generate-images-chatgpt.js",
+    "images:chatgpt:list": "node scripts/generate-images-chatgpt.js --list",
+    "chrome:debug": "open -a 'Google Chrome' --args --remote-debugging-port=9222"
   },
   "keywords": [
     "wedding",
@@ -22,7 +28,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fs-extra": "^11.2.0"
-  },
-  "devDependencies": {}
+    "fs-extra": "^11.2.0",
+    "playwright": "^1.58.1"
+  }
 }

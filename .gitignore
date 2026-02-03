@@ -48,6 +48,9 @@ dist/
 build/
 *.tgz
 
+# Generated marketing images
+marketing/images/
+
 # Temporary files
 tmp/
 temp/

@@ -65,7 +65,7 @@ jobs:
         run: |
           echo "## Preview Generated Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Preview URL:** https://${{ github.repository_owner }}.github.io/pozivnice/preview/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
+          echo "**Preview URL:** https://digipoz.rs/preview/${{ steps.extract.outputs.slug }}/" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Share this link with the couple to select their theme." >> $GITHUB_STEP_SUMMARY
 
@@ -90,7 +90,7 @@ jobs:
             Ваш преглед позивнице за венчање је спреман!
 
             Погледајте све теме и изаберите ону која вам се највише свиђа:
-            https://${{ github.repository_owner }}.github.io/pozivnice/preview/${{ steps.extract.outputs.slug }}/
+            https://digipoz.rs/preview/${{ steps.extract.outputs.slug }}/
 
             Линк важи 24 сата.
 
