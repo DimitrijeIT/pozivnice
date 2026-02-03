@@ -1,60 +1,1364 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr" prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Позивнице.rs - Дигиталне позивнице за венчање</title>
+  <title>DigiPoz — Digitalne pozivnice za venčanje | 20+ interaktivnih dizajna</title>
+  <meta name="description" content="Jedinstvene digitalne pozivnice za venčanje sa 20+ interaktivnih dizajna. Cinema, Passport, Magazine i još mnogo toga. RSVP, countdown, Google Maps — sve u jednoj pozivnici.">
+  <meta name="keywords" content="digitalne pozivnice, pozivnice za venčanje, svadba 2026, svadbene pozivnice, interaktivne pozivnice, online pozivnice, pozivnice Srbija">
+  <meta property="og:title" content="DigiPoz — Digitalne pozivnice za venčanje">
+  <meta property="og:description" content="20+ jedinstvenih interaktivnih dizajna. Pozivnica kakvu Srbija još nije videla.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://digipoz.rs">
+  <meta property="og:locale" content="sr_RS">
+  <link rel="canonical" href="https://digipoz.rs">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #FDFBF7;
+      --color-surface: #FFFFFF;
+      --color-text: #2C2420;
+      --color-text-secondary: #6B5E57;
+      --color-text-muted: #9B8F88;
+      --color-accent: #B8860B;
+      --color-accent-light: #D4A843;
+      --color-accent-bg: #F7F0E3;
+      --color-border: #E8E0D6;
+      --color-border-light: #F0EBE4;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
     }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* --- NAV --- */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(253, 251, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-light);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span { color: var(--color-accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover { color: var(--color-accent); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.25rem;
+      background: var(--color-text);
+      color: var(--color-bg) !important;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.8125rem !important;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--color-accent) !important; color: #fff !important; }
+
+    .nav-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-mobile-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-text);
+      position: absolute;
+      left: 6px;
+      transition: all 0.3s;
+    }
+
+    .nav-mobile-toggle span:nth-child(1) { top: 10px; }
+    .nav-mobile-toggle span:nth-child(2) { top: 16px; }
+    .nav-mobile-toggle span:nth-child(3) { top: 22px; }
+
+    .nav-mobile-toggle.open span:nth-child(1) { top: 16px; transform: rotate(45deg); }
+    .nav-mobile-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-mobile-toggle.open span:nth-child(3) { top: 16px; transform: rotate(-45deg); }
+
+    /* --- HERO --- */
+    .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
       text-align: center;
-      padding: 20px;
+      padding: 7rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
     }
-    .container {
-      max-width: 600px;
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(184,134,11,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(184,134,11,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(212,168,67,0.03) 0%, transparent 50%);
+      pointer-events: none;
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
     }
-    p {
-      font-size: 1.25rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-    .emoji {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-    .status {
-      background: rgba(255,255,255,0.2);
-      padding: 1rem 2rem;
-      border-radius: 10px;
+
+    .hero-badge {
       display: inline-block;
+      padding: 0.375rem 1rem;
+      background: var(--color-accent-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary {
+      background: var(--color-text);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-text);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--color-accent);
+    }
+
+    .hero-stat-label {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* --- SECTIONS --- */
+    section {
+      padding: 6rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1.0625rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* --- LAYOUTS SHOWCASE --- */
+    .layouts {
+      background: var(--color-surface);
+    }
+
+    .layouts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .layout-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-light);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .layout-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: var(--color-accent-light);
+    }
+
+    .layout-card-preview {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .layout-card-preview iframe {
+      width: 200%;
+      height: 200%;
+      border: none;
+      transform: scale(0.5);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .layout-card-preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(44,36,32,0.6) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .layout-card:hover .layout-card-preview-overlay { opacity: 1; }
+
+    .layout-card-preview-cta {
+      color: #fff;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .layout-card-info { padding: 1.25rem; }
+
+    .layout-card-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.375rem;
+    }
+
+    .layout-card-desc {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    .layout-card-tag {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.25rem 0.625rem;
+      background: var(--color-accent-bg);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    /* --- FEATURES --- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--color-border-light);
+      background: var(--color-surface);
+      transition: border-color 0.3s;
+    }
+
+    .feature-card:hover { border-color: var(--color-accent-light); }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: var(--color-accent-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* --- HOW IT WORKS --- */
+    .how-it-works { background: var(--color-surface); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      counter-reset: step;
+    }
+
+    .step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-text);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0 auto 1.25rem;
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-text {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* --- COMPARISON --- */
+    .comparison-table {
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .comparison-row:last-child { border-bottom: none; }
+
+    .comparison-row.header {
+      background: var(--color-text);
+      color: #fff;
+    }
+
+    .comparison-cell {
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .comparison-row.header .comparison-cell {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      letter-spacing: 0.03em;
+    }
+
+    .comparison-cell:not(:first-child) { justify-content: center; text-align: center; }
+
+    .comparison-cell.highlight {
+      background: var(--color-accent-bg);
+      font-weight: 500;
+    }
+
+    .check { color: var(--color-accent); font-weight: 600; }
+    .cross { color: var(--color-text-muted); }
+
+    /* --- PRICING --- */
+    .pricing { background: var(--color-surface); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      border-radius: 12px;
+      border: 1.5px solid var(--color-border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      background: var(--color-bg);
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--color-accent);
+      background: var(--color-surface);
+      box-shadow: 0 8px 32px rgba(184,134,11,0.12);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.25rem 1rem;
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 100px;
+    }
+
+    .pricing-name {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-desc {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-price span { font-size: 1rem; vertical-align: super; }
+    .pricing-currency { font-size: 0.875rem; color: var(--color-text-muted); }
+
+    .pricing-features {
+      list-style: none;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.625rem;
+    }
+
+    .pricing-features li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border-radius: 50%;
+      background: var(--color-accent-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23B8860B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    /* --- FAQ --- */
+    .faq-list {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.5rem 0;
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--color-text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      gap: 1rem;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--color-accent);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-question::after { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer-inner {
+      padding-bottom: 1.5rem;
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* --- CTA FINAL --- */
+    .cta-final {
+      background: var(--color-text);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at center, rgba(184,134,11,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-final-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-final h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .cta-final p {
+      font-size: 1.0625rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .cta-final .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    .cta-final .btn-primary:hover {
+      background: var(--color-accent-light);
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-logo span { color: var(--color-accent); }
+
+    .footer-text {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--color-accent); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* --- SCROLL ANIMATIONS --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        padding: 1rem 1.5rem 1.5rem;
+        gap: 0.5rem;
+      }
+      .nav-links.open a { padding: 0.625rem 0; display: block; }
+      .nav-mobile-toggle { display: block; }
+
+      section { padding: 4rem 1.25rem; }
+      .section-header { margin-bottom: 2.5rem; }
+
+      .hero { min-height: auto; padding: 6rem 1.25rem 3rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .hero-stat-value { font-size: 1.5rem; }
+
+      .layouts-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 0; }
+
+      .comparison-cell { padding: 0.75rem; font-size: 0.75rem; }
+
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; max-width: 320px; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .layouts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="emoji">💒</div>
-    <h1>Позивнице.rs</h1>
-    <p>Дигиталне позивнице за венчање</p>
-    <div class="status">
-      ✓ Систем је активан
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Digi<span>Poz</span></a>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Meni">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#layouts">Dizajni</a></li>
+        <li><a href="#features">Mogućnosti</a></li>
+        <li><a href="#pricing">Cene</a></li>
+        <li><a href="#faq">Pitanja</a></li>
+        <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+      </ul>
     </div>
-  </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge reveal">Novo u Srbiji</div>
+      <h1 class="reveal">Pozivnica kakvu vaši gosti <em>još nisu videli</em></h1>
+      <p class="hero-sub reveal">Interaktivne digitalne pozivnice za venčanje sa 20+ jedinstvenih dizajna. RSVP, countdown, mapa, muzika — sve na jednom mestu.</p>
+      <div class="hero-actions reveal">
+        <a href="#layouts" class="btn btn-primary">Pogledajte dizajne</a>
+        <a href="#pricing" class="btn btn-secondary">Pogledajte cene</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <div class="hero-stat-value">20+</div>
+          <div class="hero-stat-label">dizajna</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">50+</div>
+          <div class="hero-stat-label">varijacija boja</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">&infin;</div>
+          <div class="hero-stat-label">gostiju</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUTS -->
+  <section class="layouts" id="layouts">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Dizajni</div>
+        <h2 class="section-title">Svaki dizajn priča drugu priču</h2>
+        <p class="section-desc">Ne nudimo šablone sa različitim bojama. Svaki od naših dizajna je potpuno jedinstveno iskustvo — od filmske premijere do putničkog pasoša.</p>
+      </div>
+      <div class="layouts-grid">
+
+        <a href="preview/demo-cinema/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-cinema/" loading="lazy" title="Cinema" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Cinema</div>
+            <div class="layout-card-desc">Filmska premijera sa dramatičnim poster dizajnom</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-passport/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-passport/" loading="lazy" title="Passport" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Passport</div>
+            <div class="layout-card-desc">Putnički pasoš sa vizama i pečatima</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-magazine/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-magazine/" loading="lazy" title="Magazine" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Magazine</div>
+            <div class="layout-card-desc">Modni časopis sa naslovnom stranom</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-envelope/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-envelope/" loading="lazy" title="Envelope" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Envelope</div>
+            <div class="layout-card-desc">Interaktivna animacija otvaranja koverte</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-storybook/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-storybook/" loading="lazy" title="Storybook" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Storybook</div>
+            <div class="layout-card-desc">Knjiga priča sa ilustracijama</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-glass/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-glass/" loading="lazy" title="Glass" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Glass</div>
+            <div class="layout-card-desc">Moderni glasmorfizam sa svetlosnim efektima</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-concert/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-concert/" loading="lazy" title="Concert" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Concert</div>
+            <div class="layout-card-desc">Festivalski poster stil sa karta RSVP</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-gazette/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-gazette/" loading="lazy" title="Gazette" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Gazette</div>
+            <div class="layout-card-desc">Novinski stil sa vestima o venčanju</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-letter/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-letter/" loading="lazy" title="Letter" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Love Letter</div>
+            <div class="layout-card-desc">Rukopisno ljubavno pismo sa pečatom</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-telegram/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-telegram/" loading="lazy" title="Telegram" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Telegram</div>
+            <div class="layout-card-desc">Vintage telegram sa klasičnom estetikom</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-botanical/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-botanical/" loading="lazy" title="Botanical" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Botanical</div>
+            <div class="layout-card-desc">Naučni herbarijum sa presovanim cvećem</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+        <a href="preview/demo-velvet/" target="_blank" class="layout-card reveal">
+          <div class="layout-card-preview">
+            <iframe src="preview/demo-velvet/" loading="lazy" title="Velvet" sandbox></iframe>
+            <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
+          </div>
+          <div class="layout-card-info">
+            <div class="layout-card-name">Velvet</div>
+            <div class="layout-card-desc">Luksuzna tamna elegancija u somotu</div>
+            <div class="layout-card-tag">2 varijacije</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Mogućnosti</div>
+        <h2 class="section-title">Sve što vam treba, na jednom mestu</h2>
+        <p class="section-desc">Svaka pozivnica dolazi sa kompletnim paketom funkcija koje štampane pozivnice ne mogu da pruže.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#9993;</div>
+          <div class="feature-title">RSVP u realnom vremenu</div>
+          <div class="feature-text">Gosti potvrđuju dolazak direktno sa pozivnice. Vi pratite odgovore u Google Sheets tabeli — u svakom trenutku znate ko dolazi.</div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#9201;</div>
+          <div class="feature-title">Countdown do svadbe</div>
+          <div class="feature-text">Animirani brojač koji odbrojava dane, sate i minute do vašeg velikog dana. Gradi uzbuđenje kod gostiju.</div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#128205;</div>
+          <div class="feature-title">Google Maps integracija</div>
+          <div class="feature-text">Lokacija ceremonije i proslave direktno na mapi. Gosti jednim klikom otvaraju navigaciju — nema više zvanja za adresu.</div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#127926;</div>
+          <div class="feature-title">Muzički plejer</div>
+          <div class="feature-text">Dodajte vašu pesmu koja svira dok gosti pregledaju pozivnicu. Savršen detalj za stvaranje atmosfere.</div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#128247;</div>
+          <div class="feature-title">Foto galerija</div>
+          <div class="feature-text">Prikazite vaše najlepše fotografije u elegantnoj galeriji sa lightbox pregledom. Podelite vašu priču sa gostima.</div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#128241;</div>
+          <div class="feature-title">Radi na svim uređajima</div>
+          <div class="feature-text">Optimizovano za telefone, tablete i desktop. Vaši gosti dobijaju savršen prikaz bez obzira kako otvaraju pozivnicu.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Kako funkcioniše</div>
+        <h2 class="section-title">Od izbora do slanja za 24h</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-title">Izaberite dizajn</div>
+          <div class="step-text">Pregledajte naše dizajne i izaberite onaj koji najbolje odgovara vašem stilu i temi venčanja.</div>
+        </div>
+        <div class="step reveal">
+          <div class="step-title">Pošaljite podatke</div>
+          <div class="step-text">Prosledite nam imena, datum, lokacije, fotografije i sve detalje koje želite na pozivnici.</div>
+        </div>
+        <div class="step reveal">
+          <div class="step-title">Dobijete pozivnicu</div>
+          <div class="step-text">Mi kreiramo vašu pozivnicu i šaljemo vam link za pregled i odobrenje.</div>
+        </div>
+        <div class="step reveal">
+          <div class="step-title">Podelite sa gostima</div>
+          <div class="step-text">Pošaljite link gostima putem Vibera, WhatsApp-a, SMS-a ili društvenih mreža. Pratite RSVP odgovore uživo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison" id="comparison">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Poređenje</div>
+        <h2 class="section-title">Štampane vs digitalne pozivnice</h2>
+      </div>
+      <div class="comparison-table reveal">
+        <div class="comparison-row header">
+          <div class="comparison-cell"></div>
+          <div class="comparison-cell">Štampane</div>
+          <div class="comparison-cell">DigiPoz</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Cena za 100+ gostiju</div>
+          <div class="comparison-cell">15.000-30.000 din</div>
+          <div class="comparison-cell highlight">od 4.900 din</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Vreme izrade</div>
+          <div class="comparison-cell">5-10 dana</div>
+          <div class="comparison-cell highlight">24 sata</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Broj gostiju</div>
+          <div class="comparison-cell">Plaćate po komadu</div>
+          <div class="comparison-cell highlight">Neograničeno</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">RSVP praćenje</div>
+          <div class="comparison-cell"><span class="cross">&#10005;</span></div>
+          <div class="comparison-cell highlight"><span class="check">&#10003;</span></div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Interaktivna mapa</div>
+          <div class="comparison-cell"><span class="cross">&#10005;</span></div>
+          <div class="comparison-cell highlight"><span class="check">&#10003;</span></div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Muzika i animacije</div>
+          <div class="comparison-cell"><span class="cross">&#10005;</span></div>
+          <div class="comparison-cell highlight"><span class="check">&#10003;</span></div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-cell">Izmene nakon izrade</div>
+          <div class="comparison-cell"><span class="cross">&#10005;</span></div>
+          <div class="comparison-cell highlight"><span class="check">&#10003;</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Cene</div>
+        <h2 class="section-title">Jednostavne cene, bez skrivenih troškova</h2>
+        <p class="section-desc">Jedna cena — neograničen broj gostiju. Bez dodatnih troškova za svaki poziv.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <div class="pricing-card reveal">
+          <div class="pricing-name">Osnovni</div>
+          <div class="pricing-desc">Za parove koji žele elegantnu pozivnicu</div>
+          <div class="pricing-price">4.900 <span>din</span></div>
+          <ul class="pricing-features">
+            <li>1 dizajn po izboru</li>
+            <li>Vaši podaci, datumi i lokacije</li>
+            <li>RSVP obrazac</li>
+            <li>Google Maps lokacija</li>
+            <li>Countdown tajmer</li>
+            <li>Neograničen broj gostiju</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Izaberite</a>
+        </div>
+
+        <div class="pricing-card featured reveal">
+          <div class="pricing-badge">Najpopularniji</div>
+          <div class="pricing-name">Premium</div>
+          <div class="pricing-desc">Kompletno iskustvo sa svim detaljima</div>
+          <div class="pricing-price">7.900 <span>din</span></div>
+          <ul class="pricing-features">
+            <li>Sve iz Osnovnog paketa</li>
+            <li>Foto galerija (do 20 slika)</li>
+            <li>Muzički plejer</li>
+            <li>Ljubavna priča / timeline</li>
+            <li>Izbor obroka u RSVP</li>
+            <li>1 besplatna izmena</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Izaberite</a>
+        </div>
+
+        <div class="pricing-card reveal">
+          <div class="pricing-name">Ekskluzivni</div>
+          <div class="pricing-desc">Za parove koji žele savršenstvo</div>
+          <div class="pricing-price">12.900 <span>din</span></div>
+          <ul class="pricing-features">
+            <li>Sve iz Premium paketa</li>
+            <li>Neograničene fotografije</li>
+            <li>Prilagođene boje i fontovi</li>
+            <li>Dress code sekcija</li>
+            <li>Save the Date stranica</li>
+            <li>Neograničene izmene</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Izaberite</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Česta pitanja</div>
+        <h2 class="section-title">Imate pitanje?</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question">Kako gosti otvaraju pozivnicu?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Gosti dobijaju link koji otvaraju u bilo kom pregledaču na telefonu ili računaru. Nije potrebna instalacija aplikacije — pozivnica radi na svim uređajima.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Koliko gostiju mogu da pozovem?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Neograničen broj! Za razliku od štampanih pozivnica, jednom kreirana digitalna pozivnica se šalje svim gostima putem jednog linka. Bez dodatnih troškova.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Kako funkcioniše RSVP?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Svaka pozivnica sadrži obrazac za potvrdu dolaska. Kada gost popuni obrazac, odgovor se automatski beleži u vašu Google Sheets tabelu koju možete pratiti u realnom vremenu.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Mogu li da menjam pozivnicu nakon izrade?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Da! Premium paket uključuje 1 besplatnu izmenu, a Ekskluzivni paket neograničene izmene. Osnovni paket može da se nadogradi u bilo kom trenutku.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Kako se šalje link gostima?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Možete podeliti link putem Vibera, WhatsApp-a, SMS-a, email-a ili društvenih mreža. Mi vam dajemo kratak, elegantan link koji je lako podeliti.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Koliko dugo pozivnica ostaje aktivna?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Pozivnica ostaje aktivna minimum 6 meseci od datuma venčanja. Nakon toga je možemo produžiti na vaš zahtev, besplatno.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Da li mogu da dodam sopstvene fotografije?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Apsolutno! Premium i Ekskluzivni paketi podržavaju foto galeriju. Pošaljite nam fotografije i mi ih uklapamo u dizajn vaše pozivnice.</div></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question">Koliko brzo mogu dobiti gotovu pozivnicu?</button>
+          <div class="faq-answer"><div class="faq-answer-inner">Standardno vreme izrade je 24 sata od trenutka kada primimo sve podatke. Za hitne narudžbine, kontaktirajte nas — potrudićemo se da izađemo u susret.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-final" id="contact">
+    <div class="cta-final-inner reveal">
+      <h2>Spremni da ostavite utisak?</h2>
+      <p>Pošaljite nam poruku i kreirajte pozivnicu koja će vaši gosti pamtiti.</p>
+      <a href="https://www.instagram.com/digipoz.rs/" target="_blank" rel="noopener" class="btn btn-primary">Pišite nam na Instagram</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">Digi<span>Poz</span></div>
+    <div class="footer-text">Digitalne pozivnice za venčanje</div>
+    <ul class="footer-links">
+      <li><a href="#layouts">Dizajni</a></li>
+      <li><a href="#pricing">Cene</a></li>
+      <li><a href="#faq">Pitanja</a></li>
+      <li><a href="https://www.instagram.com/digipoz.rs/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2026 DigiPoz. Sva prava zadržana.</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    (function() {
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    })();
+
+    // Nav scroll effect
+    (function() {
+      var nav = document.getElementById('nav');
+      var last = 0;
+      window.addEventListener('scroll', function() {
+        var y = window.scrollY;
+        if (y > 50) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+        last = y;
+      }, { passive: true });
+    })();
+
+    // Mobile nav toggle
+    (function() {
+      var toggle = document.getElementById('nav-toggle');
+      var links = document.getElementById('nav-links');
+      toggle.addEventListener('click', function() {
+        toggle.classList.toggle('open');
+        links.classList.toggle('open');
+      });
+      links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          toggle.classList.remove('open');
+          links.classList.remove('open');
+        });
+      });
+    })();
+
+    // FAQ accordion
+    (function() {
+      document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = btn.parentElement;
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>
