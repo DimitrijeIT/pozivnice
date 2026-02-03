@@ -462,11 +462,4 @@ section {
   .falling-petals {
     display: none;
   }
-
-  .animate-fade-up,
-  .animate-fade-left,
-  .animate-fade-right {
-    transform: none;
-    opacity: 1;
-  }
 }

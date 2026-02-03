@@ -452,9 +452,29 @@
         display: none;
       }
     }
+  
+    /* Skip link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--color-accent, #D4AF37);
+      color: var(--color-bg, #fff);
+      z-index: 10000;
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
 </head>
 <body>
+  <a href="#rsvp-form" class="skip-link">Прескочи на РСВП</a>
+
   <article class="gazette">
     <!-- Masthead -->
     <header class="masthead">
@@ -545,8 +565,8 @@
             </div>
 
             <div class="attendance-row">
-              <button type="button" class="attendance-btn" data-value="yes">✓ Долазим</button>
-              <button type="button" class="attendance-btn" data-value="no">✗ Не могу</button>
+              <button type="button" class="attendance-btn" data-value="yes" aria-label="Долазим">✓ Долазим</button>
+              <button type="button" class="attendance-btn" data-value="no" aria-label="Не могу доћи">✗ Не могу</button>
             </div>
             <input type="hidden" name="attending" id="attending-input">
 

@@ -512,10 +512,30 @@
       90% { opacity: 1; }
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
+  
+    /* Skip link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--color-accent, #D4AF37);
+      color: var(--color-bg, #fff);
+      z-index: 10000;
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
   {{THEME_CSS}}
 </head>
 <body>
+  <a href="#rsvp-form" class="skip-link">Прескочи на РСВП</a>
+
   <!-- Floating Particles -->
   <div class="particles" id="particles"></div>
 
@@ -691,9 +711,11 @@
       const rooms = document.querySelectorAll('.gallery-room');
       const indicator = document.getElementById('room-indicator');
 
+      const roomLabels = ['Насловна', 'Прича', 'Детаљи', 'Потврда доласка', 'Затварање'];
       rooms.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'room-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', roomLabels[i] || ('Соба ' + (i + 1)));
         dot.addEventListener('click', () => {
           rooms[i].scrollIntoView({ behavior: 'smooth', inline: 'start' });
         });

@@ -193,10 +193,12 @@
       opacity: 1;
     }
 
-    .dot-nav a {
+    .dot-nav button {
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      border: none;
+      cursor: pointer;
       background: var(--color-muted, #ccc);
       transition: all 0.3s ease;
       position: relative;
@@ -205,7 +207,7 @@
       box-sizing: content-box;
     }
 
-    .dot-nav a::after {
+    .dot-nav button::after {
       content: attr(data-label);
       position: absolute;
       right: 24px;
@@ -221,12 +223,12 @@
       border-radius: 4px;
     }
 
-    .dot-nav a:hover::after {
+    .dot-nav button:hover::after {
       opacity: 1;
     }
 
-    .dot-nav a.active,
-    .dot-nav a:hover {
+    .dot-nav button.active,
+    .dot-nav button:hover {
       background: var(--color-accent, #B8860B);
       transform: scale(1.3);
     }
@@ -841,7 +843,7 @@
         right: 1rem;
       }
 
-      .dot-nav a::after {
+      .dot-nav button::after {
         display: none;
       }
 
@@ -909,12 +911,32 @@
         transform: translateY(100vh) rotate(720deg);
       }
     }
+  
+    /* Skip link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--color-accent, #D4AF37);
+      color: var(--color-bg, #fff);
+      z-index: 10000;
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
 
   <!-- Theme-specific fonts -->
   {{THEME_FONTS}}
 </head>
 <body>
+  <a href="#rsvp-form" class="skip-link">Прескочи на РСВП</a>
+
   <!-- Envelope Opening Experience -->
   <div class="envelope-cover" id="envelope-cover">
     <div class="envelope-inner">
@@ -931,14 +953,14 @@
   <div class="invitation-content" id="invitation-content">
     <!-- Dot Navigation -->
     <nav class="dot-nav" id="dot-nav" aria-label="Навигација секцијама">
-      <a href="#hero" data-label="Почетак" class="active"></a>
-      <a href="#countdown" data-label="Одбројавање"></a>
-      <a href="#message" data-label="Позив"></a>
+      <button type="button" class="dot-nav-item active" data-section="hero" data-label="Почетак" aria-label="Почетак"></button>
+      <button type="button" class="dot-nav-item" data-section="countdown" data-label="Одбројавање" aria-label="Одбројавање"></button>
+      <button type="button" class="dot-nav-item" data-section="message" data-label="Позив" aria-label="Позив"></button>
       {{#IF_TIMELINE}}
-      <a href="#story" data-label="Наша прича"></a>
+      <button type="button" class="dot-nav-item" data-section="story" data-label="Наша прича" aria-label="Наша прича"></button>
       {{/IF_TIMELINE}}
-      <a href="#venue" data-label="Локације"></a>
-      <a href="#rsvp" data-label="RSVP"></a>
+      <button type="button" class="dot-nav-item" data-section="venue" data-label="Локације" aria-label="Локације"></button>
+      <button type="button" class="dot-nav-item" data-section="rsvp" data-label="RSVP" aria-label="RSVP"></button>
     </nav>
 
     <!-- Hero Section -->
@@ -1233,7 +1255,17 @@
 
       // ===== DOT NAVIGATION =====
       const sections = document.querySelectorAll('.section[id]');
-      const navDots = document.querySelectorAll('.dot-nav a');
+      const navDots = document.querySelectorAll('.dot-nav button');
+
+      navDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const sectionId = dot.dataset.section;
+          const target = document.getElementById(sectionId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
 
       function updateActiveSection() {
         let current = '';
@@ -1246,7 +1278,7 @@
 
         navDots.forEach(dot => {
           dot.classList.remove('active');
-          if (dot.getAttribute('href') === '#' + current) {
+          if (dot.dataset.section === current) {
             dot.classList.add('active');
           }
         });

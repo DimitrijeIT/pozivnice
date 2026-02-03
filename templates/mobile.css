@@ -369,21 +369,14 @@ body {
    ANIMATIONS & PERFORMANCE
    ============================================ */
 
-/* Reduce motion for performance and accessibility */
-@media (max-width: 768px), (prefers-reduced-motion: reduce) {
-  /* Disable complex animations on mobile */
+/* Disable complex animations on mobile */
+@media (max-width: 768px) {
   .floating-element,
   .particle {
     animation-duration: 0s !important;
     animation: none !important;
   }
 
-  /* Simplify transitions */
-  * {
-    transition-duration: 0.15s !important;
-  }
-
-  /* Reduce parallax effects */
   [style*="parallax"],
   .parallax {
     transform: none !important;
