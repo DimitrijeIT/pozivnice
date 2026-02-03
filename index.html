@@ -456,6 +456,116 @@
     /* --- HOW IT WORKS --- */
     .how-it-works { background: var(--color-surface); }
 
+    .process-diagram {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      position: relative;
+    }
+
+    .process-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      position: relative;
+    }
+
+    .process-flow::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 60px;
+      right: 60px;
+      height: 3px;
+      background: var(--color-border);
+      z-index: 0;
+    }
+
+    .process-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 0.5rem;
+    }
+
+    .process-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      border: 3px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto 1rem;
+      transition: all 0.3s;
+    }
+
+    .process-step:hover .process-icon {
+      border-color: var(--color-accent);
+      background: var(--color-accent-bg);
+      transform: scale(1.08);
+    }
+
+    .process-icon.active {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+    }
+
+    .process-icon.active span { filter: brightness(0) invert(1); }
+
+    .process-time {
+      display: inline-block;
+      padding: 0.2rem 0.625rem;
+      background: var(--color-accent-bg);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: 0.625rem;
+      letter-spacing: 0.02em;
+    }
+
+    .process-title {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.375rem;
+    }
+
+    .process-desc {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    .process-arrow {
+      position: absolute;
+      top: 36px;
+      right: -12px;
+      color: var(--color-accent);
+      font-size: 1.25rem;
+      z-index: 2;
+    }
+
+    .process-highlight {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      background: var(--color-accent-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      line-height: 1.65;
+    }
+
+    .process-highlight strong {
+      color: var(--color-accent);
+    }
+
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -497,6 +607,33 @@
       font-size: 0.875rem;
       color: var(--color-text-secondary);
       line-height: 1.65;
+    }
+
+    @media (max-width: 768px) {
+      .process-flow {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .process-flow::before {
+        top: 0; bottom: 0; left: 40px; right: auto;
+        width: 3px; height: auto;
+      }
+      .process-step {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+        width: 100%;
+        max-width: 400px;
+        padding: 0;
+      }
+      .process-icon {
+        width: 64px; height: 64px; min-width: 64px;
+        font-size: 1.5rem; margin: 0;
+      }
+      .process-arrow { display: none; }
+      .process-highlight { padding: 1.25rem; }
     }
 
     /* --- COMPARISON --- */
@@ -1103,25 +1240,52 @@
     <div class="section-inner">
       <div class="section-header reveal">
         <div class="section-label">Kako funkcioniše</div>
-        <h2 class="section-title">Od izbora do slanja za 24h</h2>
+        <h2 class="section-title">Za 5 minuta vidite kako izgleda vaša pozivnica</h2>
+        <p class="section-desc">Bez obaveza, bez plaćanja unapred. Prvo vidite — pa tek onda odlučite.</p>
       </div>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-title">Izaberite dizajn</div>
-          <div class="step-text">Pregledajte naše dizajne i izaberite onaj koji najbolje odgovara vašem stilu i temi venčanja.</div>
+
+      <div class="process-diagram reveal">
+        <div class="process-flow">
+          <div class="process-step">
+            <div class="process-icon"><span>&#128172;</span></div>
+            <div>
+              <div class="process-time">2 min</div>
+              <div class="process-title">Javite nam se</div>
+              <div class="process-desc">Pišite nam na Instagram ili popunite formu. Odgovorićemo za par minuta.</div>
+            </div>
+            <div class="process-arrow">&#8594;</div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon"><span>&#9997;</span></div>
+            <div>
+              <div class="process-time">3 min</div>
+              <div class="process-title">Odgovorite na par pitanja</div>
+              <div class="process-desc">Imena, datum, lokacija venčanja. To je sve što nam treba za početak.</div>
+            </div>
+            <div class="process-arrow">&#8594;</div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon"><span>&#127912;</span></div>
+            <div>
+              <div class="process-time">24h</div>
+              <div class="process-title">Dobijete pregled svih dizajna</div>
+              <div class="process-desc">Šaljemo vam link sa svim šablonima prilagođenim vašim podacima. Imate 24h da izaberete.</div>
+            </div>
+            <div class="process-arrow">&#8594;</div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon active"><span>&#10003;</span></div>
+            <div>
+              <div class="process-time">Tek sad</div>
+              <div class="process-title">Izaberete i platite</div>
+              <div class="process-desc">Znate tačno šta dobijate. Izaberite dizajn koji vam se najviše dopada i tek tada platite.</div>
+            </div>
+          </div>
         </div>
-        <div class="step reveal">
-          <div class="step-title">Pošaljite podatke</div>
-          <div class="step-text">Prosledite nam imena, datum, lokacije, fotografije i sve detalje koje želite na pozivnici.</div>
-        </div>
-        <div class="step reveal">
-          <div class="step-title">Dobijete pozivnicu</div>
-          <div class="step-text">Mi kreiramo vašu pozivnicu i šaljemo vam link za pregled i odobrenje.</div>
-        </div>
-        <div class="step reveal">
-          <div class="step-title">Podelite sa gostima</div>
-          <div class="step-text">Pošaljite link gostima putem Vibera, WhatsApp-a, SMS-a ili društvenih mreža. Pratite RSVP odgovore uživo.</div>
-        </div>
+      </div>
+
+      <div class="process-highlight reveal">
+        <strong>Bez iznenađenja.</strong> Vi vidite vašu pozivnicu sa vašim podacima pre nego što platite. Plaćate samo kada ste 100% zadovoljni izborom.
       </div>
     </div>
   </section>
@@ -1210,7 +1374,7 @@
           <div class="pricing-price">7.900 <span>din</span></div>
           <ul class="pricing-features">
             <li>Sve iz Osnovnog paketa</li>
-            <li>Foto galerija (do 20 slika)</li>
+            <li>Foto galerija (do 5 slika)</li>
             <li>Muzički plejer</li>
             <li>Ljubavna priča / timeline</li>
             <li>Izbor obroka u RSVP</li>
@@ -1225,7 +1389,7 @@
           <div class="pricing-price">12.900 <span>din</span></div>
           <ul class="pricing-features">
             <li>Sve iz Premium paketa</li>
-            <li>Neograničene fotografije</li>
+            <li>Foto galerija (do 20 slika)</li>
             <li>Prilagođene boje i fontovi</li>
             <li>Dress code sekcija</li>
             <li>Save the Date stranica</li>
