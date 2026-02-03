@@ -387,10 +387,15 @@
     @media (max-width: 768px) {
       .page-header { padding: 6rem 1.25rem 2rem; }
       .page-header-stats { gap: 1.5rem; font-size: 0.8125rem; }
-      .variants-grid { grid-template-columns: 1fr; }
+      .variants-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .layout-section-header { flex-wrap: wrap; }
       .layout-section-tag { margin-left: 0; }
-      .variant-preview { aspect-ratio: 16 / 9; }
+      .variant-preview { aspect-ratio: 9 / 16; }
+      .variant-preview iframe {
+        width: 100%;
+        height: 100%;
+        transform: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {

@@ -423,6 +423,33 @@
       font-weight: 500;
     }
 
+    /* --- SHOWCASE CTA --- */
+    .showcase-cta {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .showcase-cta-inner {
+      background: linear-gradient(135deg, var(--color-accent-bg) 0%, #FFF8E7 100%);
+      border: 1px solid rgba(184,134,11,0.15);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .showcase-cta-text {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+    }
+
     /* --- FEATURES --- */
     .features-grid {
       display: grid;
@@ -978,7 +1005,13 @@
       .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
       .hero-stat-value { font-size: 1.5rem; }
 
-      .layouts-grid { grid-template-columns: 1fr; }
+      .layouts-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .layout-card-preview { aspect-ratio: 9 / 16; }
+      .layout-card-preview iframe {
+        width: 100%;
+        height: 100%;
+        transform: none;
+      }
       .features-grid { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; gap: 0; }
 
@@ -1010,7 +1043,7 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#layouts">Dizajni</a></li>
+        <li><a href="showcase.html">Svi dizajni</a></li>
         <li><a href="#features">Mogućnosti</a></li>
         <li><a href="#pricing">Cene</a></li>
         <li><a href="#faq">Pitanja</a></li>
@@ -1256,8 +1289,11 @@
         </a>
 
       </div>
-      <div style="text-align:center; margin-top:2.5rem;" class="reveal">
-        <a href="showcase.html" class="btn btn-primary">Pogledajte sve dizajne &rarr;</a>
+      <div class="showcase-cta reveal">
+        <div class="showcase-cta-inner">
+          <p class="showcase-cta-text">Ovo je samo deo naše kolekcije. Pogledajte svih 20+ dizajna sa svim varijacijama boja.</p>
+          <a href="showcase.html" class="btn btn-primary btn-lg">Pogledajte sve dizajne &rarr;</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1475,7 +1511,7 @@
     <div class="footer-logo">Digi<span>Poz</span></div>
     <div class="footer-text">Digitalne pozivnice za venčanje</div>
     <ul class="footer-links">
-      <li><a href="#layouts">Dizajni</a></li>
+      <li><a href="showcase.html">Svi dizajni</a></li>
       <li><a href="#pricing">Cene</a></li>
       <li><a href="#faq">Pitanja</a></li>
       <li><a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener">Instagram</a></li>
