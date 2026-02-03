@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - Милица и Стефан">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Милица & Стефан - Позивница за венчање</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+
+  <!-- Theme CSS -->
+  <style>/**
+ * Wedding Invitation - Shared Design Tokens
+ *
+ * This file contains CSS custom properties (design tokens) that are shared
+ * across all themes and layouts. Import this file in theme stylesheets to
+ * ensure consistency and reduce duplication.
+ *
+ * Tokens are organized by category:
+ * - Spacing
+ * - Typography
+ * - Transitions
+ * - Shadows
+ * - Borders
+ * - Z-index
+ */
+
+:root {
+  /* ============================================
+     SPACING SYSTEM
+     Based on 8px grid with flexible rem units
+     ============================================ */
+  --spacing-3xs: 0.125rem;  /* 2px */
+  --spacing-2xs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  --spacing-2xl: 4rem;      /* 64px */
+  --spacing-3xl: 6rem;      /* 96px */
+  --spacing-4xl: 8rem;      /* 128px */
+
+  /* ============================================
+     TYPOGRAPHY
+     Font stacks, sizes, line heights, letter spacing
+     ============================================ */
+
+  /* Font Stacks */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Lato', 'Helvetica Neue', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes - Mobile First */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+  --text-6xl: 5rem;       /* 80px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.8;
+  --leading-prose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --tracking-caps: 0.2em;      /* For uppercase text */
+  --tracking-super-caps: 0.35em; /* For very spaced uppercase */
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Timing functions and durations
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1000ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-smooth: var(--duration-slow) var(--ease-smooth);
+  --transition-color: color var(--duration-fast) var(--ease-out);
+  --transition-bg: background-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ============================================
+     SHADOWS
+     Box shadows for depth and elevation
+     ============================================ */
+
+  /* Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-3xl: 0 32px 64px rgba(0, 0, 0, 0.2);
+
+  /* Soft Shadows (for cards) */
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Inner Shadows */
+  --shadow-inner-sm: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-inner-md: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Emboss Effect */
+  --shadow-emboss: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Glow Effects (use with theme colors) */
+  --shadow-glow-sm: 0 0 10px;
+  --shadow-glow-md: 0 0 20px;
+  --shadow-glow-lg: 0 0 30px;
+
+  /* ============================================
+     BORDERS
+     Border radii and widths
+     ============================================ */
+
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-md: 0.25rem;     /* 4px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Pill/Circle */
+
+  /* Border Widths */
+  --border-none: 0;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+
+  /* ============================================
+     Z-INDEX SCALE
+     Layering system
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 500;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-tooltip: 1200;
+  --z-toast: 1300;
+  --z-max: 9999;
+
+  /* ============================================
+     CONTAINER WIDTHS
+     Max-widths for content containers
+     ============================================ */
+  --container-xs: 320px;
+  --container-sm: 480px;
+  --container-md: 640px;
+  --container-lg: 800px;
+  --container-xl: 1000px;
+  --container-2xl: 1200px;
+
+  /* ============================================
+     ASPECT RATIOS
+     Common aspect ratios for media
+     ============================================ */
+  --aspect-square: 1 / 1;
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 4 / 3;
+  --aspect-wide: 16 / 9;
+  --aspect-ultrawide: 21 / 9;
+  --aspect-golden: 1.618 / 1;
+
+  /* ============================================
+     FORM TOKENS
+     Consistent form styling
+     ============================================ */
+  --input-height-sm: 2rem;      /* 32px */
+  --input-height-md: 2.5rem;    /* 40px */
+  --input-height-lg: 3rem;      /* 48px */
+  --input-padding-x: var(--spacing-sm);
+  --input-padding-y: var(--spacing-xs);
+  --input-border-width: var(--border-thin);
+  --input-border-radius: var(--radius-md);
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Status/feedback colors (themes override primary/accent)
+     ============================================ */
+  --color-success: #22C55E;
+  --color-success-light: #DCFCE7;
+  --color-success-dark: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-error-dark: #B91C1C;
+
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1D4ED8;
+}
+
+/* ============================================
+   RESPONSIVE TOKENS
+   Adjust spacing at different breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+
+    /* Reduce font sizes on mobile */
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3rem;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Respect user preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   Adjustments for accessibility
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-xs: none;
+    --shadow-sm: 0 0 0 1px currentColor;
+    --shadow-md: 0 0 0 2px currentColor;
+    --shadow-lg: 0 0 0 2px currentColor;
+    --border-thin: 2px;
+  }
+}
+
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Reduce motion for performance and accessibility */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  /* Disable complex animations on mobile */
+  .floating-element,
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.15s !important;
+  }
+
+  /* Reduce parallax effects */
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Minimal Theme - Quiet Luxury
+ * Trend 2025-2026: Old Money restraint, whispered elegance, precision typography
+ * Font: System UI with refined weight hierarchy
+ * Colors: Warm off-white, Ink black, Antique brass accents
+ * Updated: January 2026 - Enhanced restraint with micro-details
+ */
+
+/* CSS Custom Properties */
+:root {
+  --color-primary: #1A1A1A;
+  --color-primary-light: #2D2D2D;
+  --color-accent: #A69060;
+  --color-accent-light: #C4B080;
+  --color-text: #1A1A1A;
+  --color-text-light: #5A5A5A;
+  --color-background: #FEFDFB;
+  --color-background-alt: #F8F7F4;
+  --color-white: #FFFFFF;
+  --color-border: #1A1A1A;
+  --color-border-light: #E8E6E2;
+  --color-cream: #FAF9F5;
+  --color-warm: #F5F3EE;
+
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 10rem;
+
+  --border-radius: 0;
+  --transition: 0.25s ease;
+
+  /* Ultra-subtle warm gradient */
+  --gradient-subtle: linear-gradient(180deg, var(--color-cream) 0%, var(--color-background) 50%, var(--color-warm) 100%);
+
+  /* Micro-texture for depth */
+  --micro-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+
+  /* Refined glassmorphism */
+  --glass-bg: rgba(254, 253, 251, 0.97);
+  --glass-blur: 12px;
+  --glass-border: rgba(26, 26, 26, 0.06);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.section-title {
+  font-size: 1rem;
+  text-align: left;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-sm);
+}
+
+.section-title::after {
+  display: none;
+}
+
+/* Decorative Elements - Hidden for Minimal */
+.decorative-divider {
+  display: none;
+}
+
+/* Header Section */
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--color-background);
+  position: relative;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.couple-names {
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.1;
+}
+
+.couple-names .ampersand {
+  display: inline;
+  margin: 0 0.3em;
+}
+
+.wedding-date-header {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: var(--spacing-md);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  transition: opacity var(--transition);
+}
+
+.scroll-indicator span {
+  display: inline;
+}
+
+/* Countdown Section */
+.countdown-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: left;
+}
+
+.countdown-number {
+  display: block;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+/* Invitation Section */
+.invitation-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.invitation-card {
+  text-align: left;
+  max-width: 600px;
+}
+
+.invitation-intro {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.invitation-text {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.9;
+}
+
+.invitation-signature {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-md);
+}
+
+/* Story Section */
+.story-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+.story-text {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.story-photo img {
+  width: 100%;
+}
+
+/* Details Section */
+.details-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.detail-card {
+  text-align: left;
+}
+
+.detail-icon {
+  display: none;
+}
+
+.detail-title {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 400;
+}
+
+.detail-time {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-venue {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-address {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.detail-map-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-text);
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+.detail-map-link:hover {
+  text-decoration: none;
+}
+
+.additional-info {
+  margin-top: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--spacing-md);
+}
+
+/* Dress Code Section */
+.dresscode-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.dresscode-content {
+  text-align: left;
+  max-width: 600px;
+}
+
+.dresscode-text {
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.dresscode-colors-label {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.color-swatches {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-border);
+}
+
+/* RSVP Section */
+.rsvp-section {
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.rsvp-counter {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.counter-item {
+  text-align: left;
+}
+
+.counter-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-text);
+}
+
+.counter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+}
+
+.counter-divider {
+  display: none;
+}
+
+.rsvp-deadline {
+  text-align: left;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.rsvp-form {
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-light);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-bottom-width: 2px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.radio-group {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.radio-label input[type="radio"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-label input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--color-text);
+  border-radius: 50%;
+}
+
+.conditional-field {
+  display: none;
+}
+
+.submit-button {
+  padding: 14px 40px;
+  background: var(--color-primary);
+  color: var(--color-background);
+  border: 1px solid var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.submit-button:hover {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  font-size: 0.95rem;
+}
+
+.form-message.success {
+  border-left: 2px solid #000;
+  padding-left: var(--spacing-sm);
+}
+
+.form-message.error {
+  border-left: 2px solid #000;
+  padding-left: var(--spacing-sm);
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.footer-names {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.footer-date {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.footer-hashtag {
+  font-size: 0.875rem;
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .couple-names {
+    font-size: 2.5rem;
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-md);
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+
+  .story-photo {
+    order: -1;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .footer .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .couple-names {
+    font-size: 2rem;
+  }
+
+  .countdown-timer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .rsvp-counter {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+</style>
+
+  <!-- Animations & Components CSS -->
+  {{ANIMATIONS_CSS}}
+
+  <!-- Theme-specific fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
+  <div class="floating-elements" aria-hidden="true">
+    <span class="floating-element">{{FLOATING_ICON_1}}</span>
+    <span class="floating-element">{{FLOATING_ICON_2}}</span>
+    <span class="floating-element">{{FLOATING_ICON_3}}</span>
+    <span class="floating-element">{{FLOATING_ICON_4}}</span>
+    <span class="floating-element">{{FLOATING_ICON_5}}</span>
+    <span class="floating-element">{{FLOATING_ICON_6}}</span>
+    <span class="floating-element">{{FLOATING_ICON_7}}</span>
+    <span class="floating-element">{{FLOATING_ICON_8}}</span>
+  </div>
+
+  
+
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-content animate-fade-up">
+      <p class="header-subtitle">Позивница за венчање</p>
+      <h1 class="couple-names">
+        <span class="name-animate">Милица</span>
+        <span class="ampersand heart-beat">&</span>
+        <span class="name-animate">Стефан</span>
+      </h1>
+      <p class="wedding-date-header">12. септембар 2026</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>↓</span>
+    </div>
+  </header>
+
+  <!-- Countdown Section -->
+  <section class="countdown-section" id="countdown">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">До нашег венчања</h2>
+      <div class="countdown-timer animate-stagger" data-wedding-date="2026-09-12T00:00:00.000Z">
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-days">--</span>
+          <span class="countdown-label">дана</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-hours">--</span>
+          <span class="countdown-label">сати</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-minutes">--</span>
+          <span class="countdown-label">минута</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-seconds">--</span>
+          <span class="countdown-label">секунди</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Invitation Text Section -->
+  <section class="invitation-section" id="invitation">
+    <div class="container">
+      <div class="invitation-card animate-scale">
+        <p class="invitation-intro">Са великом радошћу вас позивамо на наше венчање</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-text">Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
+        <div class="decorative-divider"></div>
+        <p class="invitation-signature">{{INVITATION_SIGNATURE}}</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Love Story Timeline (Trend #4: Animated Timeline) -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наша прича</h2>
+      <div class="timeline">
+        {{TIMELINE_ITEMS}}
+      </div>
+    </div>
+  </section>
+  
+
+  
+  <!-- Our Story Section (without timeline) -->
+  <section class="story-section" id="story">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наша прича</h2>
+      <div class="story-content">
+        <div class="story-text animate-fade-left">
+          Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина. Волимо се више него икада и једва чекамо да започнемо нову главу нашег живота као муж и жена.
+        </div>
+        {{#IF_STORY_PHOTO}}
+        <div class="story-photo animate-fade-right">
+          <img src="{{STORY_PHOTO_URL}}" alt="Милица и Стефан" loading="lazy">
+        </div>
+        {{/IF_STORY_PHOTO}}
+      </div>
+    </div>
+  </section>
+  
+
+  
+  <!-- Photo Gallery with Lightbox (Trend #2: Interactive Gallery) -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Наше фотографије</h2>
+      <div class="gallery-grid animate-stagger">
+        {{GALLERY_ITEMS}}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Преглед фотографије">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Затвори">&times;</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Претходна">&#10094;</button>
+    <button class="lightbox-next" id="lightbox-next" aria-label="Следећа">&#10095;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-image">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <p class="lightbox-counter" id="lightbox-counter"></p>
+    </div>
+  </div>
+  
+
+  <!-- Wedding Details Section -->
+  <section class="details-section" id="details">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Детаљи венчања</h2>
+
+      <div class="details-grid animate-stagger">
+        <!-- Ceremony -->
+        <div class="detail-card animate-fade-left">
+          <div class="detail-icon">💒</div>
+          <h3 class="detail-title">Венчање</h3>
+          <p class="detail-time">15:00</p>
+          <p class="detail-venue">Храм Светог Саве</p>
+          <p class="detail-address">Крушедолска 2а, Београд</p>
+          
+          <a href="https://maps.google.com/?q=44.7983,20.4694" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          
+        </div>
+
+        <!-- Reception -->
+        <div class="detail-card animate-fade-right">
+          <div class="detail-icon">🎉</div>
+          <h3 class="detail-title">Прослава</h3>
+          <p class="detail-time">18:00</p>
+          <p class="detail-venue">Ресторан Франш</p>
+          <p class="detail-address">Господар Јованова 42, Београд</p>
+          
+          <a href="https://maps.google.com/?q=44.8186,20.4571" target="_blank" rel="noopener" class="detail-map-link btn-animated">
+            Прикажи на мапи →
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Add to Calendar -->
+      <div class="add-to-calendar animate-fade-up">
+        <h3 class="calendar-title">Додај у календар</h3>
+        {{CALENDAR_BUTTONS}}
+      </div>
+
+      {{#IF_ADDITIONAL_INFO}}
+      <div class="additional-info animate-fade-up">
+        <p>{{ADDITIONAL_INFO}}</p>
+      </div>
+      {{/IF_ADDITIONAL_INFO}}
+    </div>
+  </section>
+
+  {{#IF_DRESS_CODE}}
+  <!-- Dress Code Section -->
+  <section class="dresscode-section" id="dresscode">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Дрес код</h2>
+      <div class="dresscode-content animate-scale">
+        <p class="dresscode-text">{{DRESS_CODE_TEXT}}</p>
+        {{#IF_DRESS_CODE_COLORS}}
+        <div class="dresscode-colors">
+          <p class="dresscode-colors-label">Препоручене боје:</p>
+          <div class="color-swatches animate-stagger">
+            {{DRESS_CODE_COLOR_SWATCHES}}
+          </div>
+        </div>
+        {{/IF_DRESS_CODE_COLORS}}
+      </div>
+    </div>
+  </section>
+  {{/IF_DRESS_CODE}}
+
+  <!-- RSVP Section -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="container">
+      <h2 class="section-title animate-fade-up">Потврда доласка</h2>
+
+      <p class="rsvp-deadline animate-fade-up">Молимо вас да потврдите долазак до 15. август 2026</p>
+
+      <!-- RSVP Form -->
+      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="demo" aria-labelledby="rsvp-form-title">
+        <h3 id="rsvp-form-title" class="visually-hidden">Формулар за потврду доласка</h3>
+
+        <div class="form-group">
+          <label for="guest-name">Име и презиме <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></label>
+          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме" autocomplete="name" aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-email">Е-маил адреса</label>
+          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу" autocomplete="email" inputmode="email">
+        </div>
+
+        <div class="form-group">
+          <label for="guest-phone">Телефон</label>
+          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона" autocomplete="tel" inputmode="tel">
+        </div>
+
+        <fieldset class="form-group">
+          <legend>Да ли долазите? <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></legend>
+          <div class="radio-group" role="radiogroup" aria-required="true">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="yes" required>
+              <span>Да, долазим</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="no">
+              <span>Нажалост, не могу да дођем</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-group conditional-field" id="guests-count-group">
+          <label for="guests-count">Број гостију (укључујући вас)</label>
+          <select id="guests-count" name="guests_count">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        
+        <div class="form-group conditional-field" id="meal-group">
+          <label for="meal-preference">Преференција оброка</label>
+          <select id="meal-preference" name="meal_preference">
+            <option value="">Изаберите...</option>
+            <option value="meat">Месо (телетина)</option><option value="fish">Риба (орада)</option><option value="vegetarian">Вегетаријанско</option><option value="vegan">Веганско</option>
+          </select>
+        </div>
+        
+
+        <div class="form-group">
+          <label for="message">Порука за младенце (опционално)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Оставите поруку или напомену..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn" aria-describedby="form-message">
+          <span class="button-text">Потврди долазак</span>
+          <span class="button-loading" style="display: none;" aria-hidden="true">
+            <span class="loading-rings"><span></span><span></span></span>
+            <span aria-live="polite">Шаљем...</span>
+          </span>
+        </button>
+
+        <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Confetti Container (for celebration effect) -->
+  <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-names">Милица & Стефан</p>
+      <p class="footer-date">12. септембар 2026</p>
+      
+      <p class="footer-hashtag">#МилицаИСтефан2026</p>
+      
+      <p class="footer-credit">Направљено са <span class="heart-beat">❤️</span></p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    {{INLINE_SCRIPT}}
+  </script>
+</body>
+</html>

@@ -1,0 +1,2674 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - Милица и Стефан">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Милица & Стефан - Позивница за венчање</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+
+  <!-- Theme CSS -->
+  <style>/**
+ * Wedding Invitation - Shared Design Tokens
+ *
+ * This file contains CSS custom properties (design tokens) that are shared
+ * across all themes and layouts. Import this file in theme stylesheets to
+ * ensure consistency and reduce duplication.
+ *
+ * Tokens are organized by category:
+ * - Spacing
+ * - Typography
+ * - Transitions
+ * - Shadows
+ * - Borders
+ * - Z-index
+ */
+
+:root {
+  /* ============================================
+     SPACING SYSTEM
+     Based on 8px grid with flexible rem units
+     ============================================ */
+  --spacing-3xs: 0.125rem;  /* 2px */
+  --spacing-2xs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  --spacing-2xl: 4rem;      /* 64px */
+  --spacing-3xl: 6rem;      /* 96px */
+  --spacing-4xl: 8rem;      /* 128px */
+
+  /* ============================================
+     TYPOGRAPHY
+     Font stacks, sizes, line heights, letter spacing
+     ============================================ */
+
+  /* Font Stacks */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Lato', 'Helvetica Neue', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes - Mobile First */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+  --text-6xl: 5rem;       /* 80px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.8;
+  --leading-prose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --tracking-caps: 0.2em;      /* For uppercase text */
+  --tracking-super-caps: 0.35em; /* For very spaced uppercase */
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Timing functions and durations
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1000ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-smooth: var(--duration-slow) var(--ease-smooth);
+  --transition-color: color var(--duration-fast) var(--ease-out);
+  --transition-bg: background-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ============================================
+     SHADOWS
+     Box shadows for depth and elevation
+     ============================================ */
+
+  /* Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-3xl: 0 32px 64px rgba(0, 0, 0, 0.2);
+
+  /* Soft Shadows (for cards) */
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Inner Shadows */
+  --shadow-inner-sm: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-inner-md: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Emboss Effect */
+  --shadow-emboss: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Glow Effects (use with theme colors) */
+  --shadow-glow-sm: 0 0 10px;
+  --shadow-glow-md: 0 0 20px;
+  --shadow-glow-lg: 0 0 30px;
+
+  /* ============================================
+     BORDERS
+     Border radii and widths
+     ============================================ */
+
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-md: 0.25rem;     /* 4px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Pill/Circle */
+
+  /* Border Widths */
+  --border-none: 0;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+
+  /* ============================================
+     Z-INDEX SCALE
+     Layering system
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 500;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-tooltip: 1200;
+  --z-toast: 1300;
+  --z-max: 9999;
+
+  /* ============================================
+     CONTAINER WIDTHS
+     Max-widths for content containers
+     ============================================ */
+  --container-xs: 320px;
+  --container-sm: 480px;
+  --container-md: 640px;
+  --container-lg: 800px;
+  --container-xl: 1000px;
+  --container-2xl: 1200px;
+
+  /* ============================================
+     ASPECT RATIOS
+     Common aspect ratios for media
+     ============================================ */
+  --aspect-square: 1 / 1;
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 4 / 3;
+  --aspect-wide: 16 / 9;
+  --aspect-ultrawide: 21 / 9;
+  --aspect-golden: 1.618 / 1;
+
+  /* ============================================
+     FORM TOKENS
+     Consistent form styling
+     ============================================ */
+  --input-height-sm: 2rem;      /* 32px */
+  --input-height-md: 2.5rem;    /* 40px */
+  --input-height-lg: 3rem;      /* 48px */
+  --input-padding-x: var(--spacing-sm);
+  --input-padding-y: var(--spacing-xs);
+  --input-border-width: var(--border-thin);
+  --input-border-radius: var(--radius-md);
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Status/feedback colors (themes override primary/accent)
+     ============================================ */
+  --color-success: #22C55E;
+  --color-success-light: #DCFCE7;
+  --color-success-dark: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-error-dark: #B91C1C;
+
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1D4ED8;
+}
+
+/* ============================================
+   RESPONSIVE TOKENS
+   Adjust spacing at different breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+
+    /* Reduce font sizes on mobile */
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3rem;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Respect user preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   Adjustments for accessibility
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-xs: none;
+    --shadow-sm: 0 0 0 1px currentColor;
+    --shadow-md: 0 0 0 2px currentColor;
+    --shadow-lg: 0 0 0 2px currentColor;
+    --border-thin: 2px;
+  }
+}
+
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Reduce motion for performance and accessibility */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  /* Disable complex animations on mobile */
+  .floating-element,
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.15s !important;
+  }
+
+  /* Reduce parallax effects */
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Frost Theme - Envelope Layout
+ *
+ * A modern minimalist theme with cool tones, clean lines,
+ * and contemporary sans-serif typography. Features:
+ * - Cool blue-gray palette
+ * - Glassmorphism effects
+ * - Bold sans-serif typography
+ * - Geometric patterns
+ */
+
+:root {
+  /* Color Palette - Cool Minimalist */
+  --color-bg: #F8FAFB;
+  --color-bg-alt: #EEF2F5;
+  --color-text: #1A2B3C;
+  --color-muted: #64748B;
+  --color-accent: #2563EB;
+  --color-accent-dark: #1D4ED8;
+  --color-accent-light: rgba(37, 99, 235, 0.08);
+  --color-border: #E2E8F0;
+
+  /* Card & Shadow */
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --shadow-card: 0 20px 50px rgba(26, 43, 60, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+
+  /* Envelope Colors - Frosted Glass */
+  --envelope-bg: linear-gradient(135deg, #E8EEF2 0%, #D4DEE6 100%);
+  --envelope-flap: linear-gradient(180deg, #D4DEE6 0%, #C8D4DE 100%);
+  --envelope-body: #E0E8EE;
+  --seal-color: var(--color-accent);
+
+  /* Typography */
+  --font-display: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, sans-serif;
+
+  /* Borders */
+  --radius-sm: 12px;
+  --radius-lg: 24px;
+
+  /* Hero */
+  --hero-bg: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  --hero-pattern: none;
+
+  /* Footer */
+  --footer-bg: var(--color-bg-alt);
+
+  /* Status Colors */
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+}
+
+/* ===== TYPOGRAPHY ===== */
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-names,
+.story-title,
+.venue-title,
+.rsvp-title,
+.footer-names {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ===== ENVELOPE CUSTOMIZATION ===== */
+.envelope-cover {
+  backdrop-filter: blur(20px);
+}
+
+.envelope-seal {
+  background: var(--color-accent);
+  border: none;
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+}
+
+.envelope-hint {
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+  background: var(--hero-bg);
+}
+
+.hero-date {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.hero-names {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero-ampersand {
+  font-weight: 300;
+  color: var(--color-muted);
+}
+
+.hero-venue-preview {
+  font-weight: 400;
+}
+
+.scroll-cue svg {
+  stroke: var(--color-accent);
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown-section {
+  background: var(--color-bg);
+}
+
+.countdown-number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.countdown-label {
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.countdown-item {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== MESSAGE CARD ===== */
+.message-section {
+  background: var(--color-bg-alt);
+}
+
+.message-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.message-card::before {
+  display: none;
+}
+
+.message-intro {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+}
+
+.message-text {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  font-weight: 400;
+}
+
+.message-signature {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--color-text);
+}
+
+/* ===== STORY CARDS ===== */
+.story-section {
+  background: var(--color-bg);
+}
+
+.story-title {
+  font-weight: 700;
+}
+
+.story-card {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.story-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 25px 60px rgba(37, 99, 235, 0.1);
+}
+
+.story-card-date {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.story-card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.story-card-icon {
+  background: var(--color-accent);
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.story-scroll-hint {
+  font-weight: 500;
+}
+
+/* ===== VENUE CARDS ===== */
+.venue-section {
+  background: var(--color-bg-alt);
+}
+
+.venue-title {
+  font-weight: 700;
+}
+
+.venue-card-front {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.venue-card-icon {
+  background: var(--color-bg);
+  font-size: 3rem;
+  padding: 2rem;
+}
+
+.venue-card-front .venue-card-type {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.venue-card-front .venue-card-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.venue-card-front .venue-card-time {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.venue-card-back {
+  background: var(--color-accent);
+  border-radius: var(--radius-lg);
+}
+
+.venue-card-back .venue-card-type,
+.venue-card-back .venue-card-name,
+.venue-card-back .venue-card-time,
+.venue-card-back .venue-card-address {
+  font-family: var(--font-body);
+}
+
+.venue-map-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+}
+
+.venue-map-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.venue-flip-hint {
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* ===== RSVP FORM ===== */
+.rsvp-section {
+  background: var(--color-bg);
+}
+
+.rsvp-title {
+  font-weight: 700;
+}
+
+.rsvp-deadline {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rsvp-form {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-light);
+}
+
+.attendance-option label {
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.attendance-option input:checked + label {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.attendance-emoji {
+  font-size: 2.5rem;
+}
+
+.submit-btn {
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+}
+
+/* ===== FOOTER ===== */
+.footer-names {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.footer-date {
+  font-weight: 400;
+}
+
+.footer-hashtag {
+  background: var(--color-accent);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+.footer-credit {
+  font-weight: 400;
+}
+
+/* ===== DOT NAVIGATION ===== */
+.dot-nav a {
+  background: var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.dot-nav a.active,
+.dot-nav a:hover {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-light);
+}
+
+.dot-nav a::after {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+/* ===== FLOATING ACTION BUTTONS ===== */
+.fab {
+  background: var(--color-accent);
+  border: none;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+}
+
+.fab:hover {
+  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.4);
+}
+
+.fab.secondary {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-card);
+}
+
+.fab.secondary:hover {
+  border-color: var(--color-accent);
+}
+
+/* ===== GEOMETRIC PATTERN OVERLAY ===== */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, var(--color-accent-light) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--color-accent-light) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Grid pattern for sections */
+.countdown-section::before,
+.venue-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .countdown-item {
+    padding: 1rem;
+  }
+
+  .message-card,
+  .rsvp-form {
+    padding: 1.5rem;
+  }
+
+  .story-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ===== SMOOTH TRANSITIONS ===== */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+  transition-duration: 0.6s;
+}
+
+/* Button hover animations */
+.submit-btn,
+.venue-map-btn,
+.fab {
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before,
+.fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.submit-btn:hover::before,
+.fab:hover::before {
+  transform: translateX(100%);
+}
+</style>
+
+  <!-- Base Envelope Structure CSS -->
+  <style>
+    /* ===== ENVELOPE OPENING EXPERIENCE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity; /* Changed for smoother scrolling */
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body, 'Georgia', serif);
+      background: var(--color-bg, #FDFBF7);
+      color: var(--color-text, #2D2926);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y pinch-zoom;
+    }
+
+    /* Mobile: Free scrolling */
+    @media (max-width: 768px) {
+      html {
+        scroll-snap-type: none;
+      }
+    }
+
+    /* Envelope Cover - Initial State */
+    .envelope-cover {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--envelope-bg, linear-gradient(135deg, #F5EDE3 0%, #E8DFD3 100%));
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+    }
+
+    .envelope-cover.opened {
+      transform: translateY(-100vh);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .envelope-inner {
+      position: relative;
+      width: min(90vw, 500px);
+      aspect-ratio: 4/3;
+      perspective: 1000px;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: var(--envelope-flap, linear-gradient(180deg, #E8DFD3 0%, #DDD4C7 100%));
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .envelope-cover.opening .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70%;
+      background: var(--envelope-body, #F0E8DC);
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    .envelope-seal {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: var(--seal-color, #B8860B);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 3;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse-seal 2s infinite;
+    }
+
+    .envelope-seal:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    @keyframes pulse-seal {
+      0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.2), 0 0 0 0 var(--seal-color); }
+      50% { box-shadow: 0 4px 15px rgba(0,0,0,0.2), 0 0 0 15px transparent; }
+    }
+
+    .envelope-hint {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: var(--color-muted, #8B8680);
+      opacity: 0.8;
+      animation: bounce-hint 2s infinite;
+    }
+
+    @keyframes bounce-hint {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* ===== FULLSCREEN SECTIONS ===== */
+    .invitation-content {
+      opacity: 0;
+      transition: opacity 0.5s ease 0.5s;
+    }
+
+    .invitation-content.visible {
+      opacity: 1;
+    }
+
+    .section {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: start;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .section-content {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ===== DOT NAVIGATION ===== */
+    .dot-nav {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .dot-nav.visible {
+      opacity: 1;
+    }
+
+    .dot-nav a {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-muted, #ccc);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot-nav a::after {
+      content: attr(data-label);
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: var(--color-text);
+      background: var(--color-bg);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .dot-nav a:hover::after {
+      opacity: 1;
+    }
+
+    .dot-nav a.active,
+    .dot-nav a:hover {
+      background: var(--color-accent, #B8860B);
+      transform: scale(1.3);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+      background: var(--hero-bg, linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt, #F5EDE3) 100%));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--hero-pattern, none);
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .hero-date {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero-names {
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .hero-ampersand {
+      display: block;
+      font-size: 0.5em;
+      color: var(--color-accent);
+      margin: 0.5rem 0;
+    }
+
+    .hero-venue-preview {
+      font-size: 1rem;
+      color: var(--color-muted);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scroll-bounce 2s infinite;
+    }
+
+    .scroll-cue svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-muted);
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ===== COUNTDOWN SECTION ===== */
+    .countdown-section {
+      background: var(--color-bg-alt, #F5EDE3);
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-number {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--color-accent);
+    }
+
+    .countdown-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== MESSAGE SECTION (Invitation Text) ===== */
+    .message-section {
+      background: var(--color-bg);
+    }
+
+    .message-card {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 3rem;
+      background: var(--card-bg, white);
+      border-radius: var(--radius-lg, 16px);
+      box-shadow: var(--shadow-card, 0 20px 60px rgba(0,0,0,0.08));
+      position: relative;
+    }
+
+    .message-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: var(--color-accent);
+      opacity: 0.2;
+      line-height: 1;
+    }
+
+    .message-intro {
+      font-size: 1.1rem;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .message-text {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .message-signature {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+    }
+
+    /* ===== STORY SECTION - HORIZONTAL SCROLL ===== */
+    .story-section {
+      background: var(--color-bg-alt);
+      padding: 0;
+    }
+
+    .story-section .section-content {
+      max-width: none;
+      width: 100%;
+      padding: 3rem 0;
+    }
+
+    .story-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .story-track {
+      display: flex;
+      gap: 3rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 2rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .story-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-card {
+      flex: 0 0 min(85vw, 350px);
+      scroll-snap-align: center;
+      background: var(--card-bg, white);
+      border-radius: var(--radius-lg, 16px);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      text-align: left;
+      position: relative;
+    }
+
+    .story-card-date {
+      font-size: 0.85rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .story-card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-card-text {
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    .story-card-icon {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .story-scroll-hint {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      color: var(--color-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ===== VENUE SECTION - FLIP CARDS ===== */
+    .venue-section {
+      background: var(--color-bg);
+    }
+
+    .venue-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 3rem;
+    }
+
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .venue-card {
+      perspective: 1000px;
+      height: 400px;
+      cursor: pointer;
+    }
+
+    .venue-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .venue-card:hover .venue-card-inner,
+    .venue-card.flipped .venue-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .venue-card-front,
+    .venue-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .venue-card-front {
+      background: var(--card-bg, white);
+      box-shadow: var(--shadow-card);
+    }
+
+    .venue-card-back {
+      background: var(--color-accent);
+      color: white;
+      transform: rotateY(180deg);
+      padding: 2rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .venue-card-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .venue-card-type {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-card-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-card-time {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .venue-card-address {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .venue-map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .venue-map-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .venue-flip-hint {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--color-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ===== RSVP SECTION ===== */
+    .rsvp-section {
+      background: var(--rsvp-bg, linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%));
+    }
+
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .rsvp-deadline {
+      color: var(--color-muted);
+      margin-bottom: 3rem;
+    }
+
+    .rsvp-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--card-bg, white);
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      color: var(--color-muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--color-border, #E8E4DF);
+      border-radius: var(--radius-sm, 8px);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      background: transparent;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .attendance-toggle {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .attendance-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .attendance-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .attendance-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .attendance-option input:checked + label {
+      border-color: var(--color-accent);
+      background: var(--color-accent-light, rgba(184, 134, 11, 0.1));
+    }
+
+    .attendance-emoji {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.25rem 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-accent-dark, #9A7209);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .conditional-field {
+      display: none;
+    }
+
+    .conditional-field.visible {
+      display: block;
+    }
+
+    .form-message {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: var(--color-success-bg, #E8F5E9);
+      color: var(--color-success, #2E7D32);
+    }
+
+    .form-message.error {
+      display: block;
+      background: var(--color-error-bg, #FFEBEE);
+      color: var(--color-error, #C62828);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-section {
+      min-height: auto;
+      padding: 4rem 2rem;
+      background: var(--footer-bg, var(--color-bg-alt));
+      text-align: center;
+    }
+
+    .footer-names {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-date {
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-hashtag {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+
+    .footer-credit {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+
+    /* ===== FLOATING ACTION BUTTONS ===== */
+    .fab-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .fab-container.visible {
+      opacity: 1;
+    }
+
+    .fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    .fab.secondary {
+      background: var(--card-bg, white);
+      color: var(--color-accent);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .dot-nav {
+        right: 1rem;
+      }
+
+      .dot-nav a::after {
+        display: none;
+      }
+
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .venue-card {
+        height: 350px;
+      }
+
+      .fab-container {
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .section {
+        padding: 1.5rem;
+      }
+
+      .message-card,
+      .rsvp-form {
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-names {
+        font-size: clamp(2.5rem, 15vw, 4rem);
+      }
+
+      .countdown-number {
+        font-size: 2.5rem;
+      }
+
+      .venue-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== CONFETTI ===== */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1001;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 1;
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+      }
+    }
+  </style>
+
+  <!-- Theme-specific fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Envelope Opening Experience -->
+  <div class="envelope-cover" id="envelope-cover">
+    <div class="envelope-inner">
+      <div class="envelope-flap"></div>
+      <div class="envelope-seal" id="envelope-seal" role="button" tabindex="0" aria-label="Отвори позивницу">
+        💌
+      </div>
+      <div class="envelope-body"></div>
+    </div>
+    <p class="envelope-hint">Додирни да отвориш</p>
+  </div>
+
+  <!-- Main Invitation Content -->
+  <div class="invitation-content" id="invitation-content">
+    <!-- Dot Navigation -->
+    <nav class="dot-nav" id="dot-nav" aria-label="Навигација секцијама">
+      <a href="#hero" data-label="Почетак" class="active"></a>
+      <a href="#countdown" data-label="Одбројавање"></a>
+      <a href="#message" data-label="Позив"></a>
+      
+      <a href="#story" data-label="Наша прича"></a>
+      
+      <a href="#venue" data-label="Локације"></a>
+      <a href="#rsvp" data-label="RSVP"></a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section hero-section" id="hero">
+      <div class="section-content">
+        <p class="hero-date fade-in">12. септембар 2026</p>
+        <h1 class="hero-names fade-in stagger-1">
+          Милица
+          <span class="hero-ampersand">&</span>
+          Стефан
+        </h1>
+        <p class="hero-venue-preview fade-in stagger-2">
+          Храм Светог Саве · Ресторан Франш
+        </p>
+      </div>
+      <div class="scroll-cue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="section countdown-section" id="countdown">
+      <div class="section-content">
+        <div class="countdown-grid" data-wedding-date="2026-09-12T00:00:00.000Z">
+          <div class="countdown-item fade-in">
+            <span class="countdown-number" id="countdown-days">--</span>
+            <span class="countdown-label">дана</span>
+          </div>
+          <div class="countdown-item fade-in stagger-1">
+            <span class="countdown-number" id="countdown-hours">--</span>
+            <span class="countdown-label">сати</span>
+          </div>
+          <div class="countdown-item fade-in stagger-2">
+            <span class="countdown-number" id="countdown-minutes">--</span>
+            <span class="countdown-label">минута</span>
+          </div>
+          <div class="countdown-item fade-in stagger-3">
+            <span class="countdown-number" id="countdown-seconds">--</span>
+            <span class="countdown-label">секунди</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Message Section -->
+    <section class="section message-section" id="message">
+      <div class="section-content">
+        <div class="message-card fade-in">
+          <p class="message-intro">Са великом радошћу вас позивамо на наше венчање</p>
+          <p class="message-text">Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
+          <p class="message-signature">{{INVITATION_SIGNATURE}}</p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- Story Section - Horizontal Scroll -->
+    <section class="section story-section" id="story">
+      <div class="section-content">
+        <h2 class="story-title fade-in">Наша прича</h2>
+        <div class="story-track">
+          {{STORY_CARDS}}
+        </div>
+        <p class="story-scroll-hint fade-in">
+          <span>←</span> Повуци за више <span>→</span>
+        </p>
+      </div>
+    </section>
+    
+
+    <!-- Venue Section - Flip Cards -->
+    <section class="section venue-section" id="venue">
+      <div class="section-content">
+        <h2 class="venue-title fade-in">Локације</h2>
+        <div class="venue-grid">
+          <!-- Ceremony Card -->
+          <div class="venue-card fade-in stagger-1" data-type="ceremony">
+            <div class="venue-card-inner">
+              <div class="venue-card-front">
+                <div class="venue-card-icon">💒</div>
+                <div style="padding: 2rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                  <p class="venue-card-type">Венчање</p>
+                  <h3 class="venue-card-name">Храм Светог Саве</h3>
+                  <p class="venue-card-time">15:00</p>
+                </div>
+              </div>
+              <div class="venue-card-back">
+                <p class="venue-card-type">Венчање</p>
+                <h3 class="venue-card-name">Храм Светог Саве</h3>
+                <p class="venue-card-time">15:00</p>
+                <p class="venue-card-address">Крушедолска 2а, Београд</p>
+                
+                <a href="https://maps.google.com/?q=44.7983,20.4694" target="_blank" rel="noopener" class="venue-map-btn">
+                  <span>📍</span> Отвори мапу
+                </a>
+                
+              </div>
+            </div>
+          </div>
+
+          <!-- Reception Card -->
+          <div class="venue-card fade-in stagger-2" data-type="reception">
+            <div class="venue-card-inner">
+              <div class="venue-card-front">
+                <div class="venue-card-icon">🎉</div>
+                <div style="padding: 2rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                  <p class="venue-card-type">Прослава</p>
+                  <h3 class="venue-card-name">Ресторан Франш</h3>
+                  <p class="venue-card-time">18:00</p>
+                </div>
+              </div>
+              <div class="venue-card-back">
+                <p class="venue-card-type">Прослава</p>
+                <h3 class="venue-card-name">Ресторан Франш</h3>
+                <p class="venue-card-time">18:00</p>
+                <p class="venue-card-address">Господар Јованова 42, Београд</p>
+                
+                <a href="https://maps.google.com/?q=44.8186,20.4571" target="_blank" rel="noopener" class="venue-map-btn">
+                  <span>📍</span> Отвори мапу
+                </a>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="venue-flip-hint fade-in stagger-3">Додирни картицу за детаље</p>
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="section rsvp-section" id="rsvp">
+      <div class="section-content">
+        <h2 class="rsvp-title fade-in">Потврда доласка</h2>
+        <p class="rsvp-deadline fade-in stagger-1">Молимо потврдите до 15. август 2026</p>
+
+        <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="demo">
+          <div class="form-group">
+            <label for="guest-name">Име и презиме</label>
+            <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име">
+          </div>
+
+          <div class="form-group">
+            <label for="guest-email">Е-маил</label>
+            <input type="email" id="guest-email" name="email" placeholder="Унесите е-маил">
+          </div>
+
+          <div class="form-group">
+            <label>Да ли долазите?</label>
+            <div class="attendance-toggle">
+              <div class="attendance-option">
+                <input type="radio" id="attending-yes" name="attending" value="yes" required>
+                <label for="attending-yes">
+                  <span class="attendance-emoji">🎉</span>
+                  <span>Долазим!</span>
+                </label>
+              </div>
+              <div class="attendance-option">
+                <input type="radio" id="attending-no" name="attending" value="no">
+                <label for="attending-no">
+                  <span class="attendance-emoji">😢</span>
+                  <span>Не могу</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group conditional-field" id="guests-count-group">
+            <label for="guests-count">Број гостију</label>
+            <select id="guests-count" name="guests_count">
+              <option value="1">1 особа</option>
+              <option value="2">2 особе</option>
+              <option value="3">3 особе</option>
+              <option value="4">4 особе</option>
+              <option value="5">5+ особа</option>
+            </select>
+          </div>
+
+          
+          <div class="form-group conditional-field" id="meal-group">
+            <label for="meal-preference">Преференција оброка</label>
+            <select id="meal-preference" name="meal_preference">
+              <option value="">Изаберите...</option>
+              <option value="meat">Месо (телетина)</option><option value="fish">Риба (орада)</option><option value="vegetarian">Вегетаријанско</option><option value="vegan">Веганско</option>
+            </select>
+          </div>
+          
+
+          <div class="form-group">
+            <label for="message">Порука (опционално)</label>
+            <textarea id="message" name="message" rows="3" placeholder="Оставите поруку..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Потврди долазак
+          </button>
+
+          <div class="form-message" id="form-message"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section footer-section" id="footer">
+      <div class="section-content">
+        <p class="footer-names">Милица & Стефан</p>
+        <p class="footer-date">12. септембар 2026</p>
+        
+        <p class="footer-hashtag">#МилицаИСтефан2026</p>
+        
+        <p class="footer-credit">Направљено са ❤️</p>
+      </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container" id="fab-container">
+      <a href="#rsvp" class="fab" title="RSVP">
+        ✉️
+      </a>
+      <button class="fab secondary" id="calendar-fab" title="Додај у календар">
+        📅
+      </button>
+    </div>
+  </div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+  <!-- JavaScript -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ===== ENVELOPE OPENING =====
+      const envelope = document.getElementById('envelope-cover');
+      const seal = document.getElementById('envelope-seal');
+      const content = document.getElementById('invitation-content');
+      const dotNav = document.getElementById('dot-nav');
+      const fabContainer = document.getElementById('fab-container');
+
+      function openEnvelope() {
+        envelope.classList.add('opening');
+        setTimeout(() => {
+          envelope.classList.add('opened');
+          content.classList.add('visible');
+          dotNav.classList.add('visible');
+          fabContainer.classList.add('visible');
+          // Trigger fade-in animations
+          document.querySelectorAll('.fade-in').forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 50);
+          });
+        }, 800);
+      }
+
+      seal.addEventListener('click', openEnvelope);
+      seal.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') openEnvelope();
+      });
+
+      // ===== COUNTDOWN TIMER =====
+      const countdownGrid = document.querySelector('[data-wedding-date]');
+      if (countdownGrid) {
+        const weddingDate = new Date(countdownGrid.dataset.weddingDate);
+
+        function updateCountdown() {
+          const now = new Date();
+          const diff = weddingDate - now;
+
+          if (diff <= 0) {
+            document.getElementById('countdown-days').textContent = '0';
+            document.getElementById('countdown-hours').textContent = '0';
+            document.getElementById('countdown-minutes').textContent = '0';
+            document.getElementById('countdown-seconds').textContent = '0';
+            return;
+          }
+
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          document.getElementById('countdown-days').textContent = days;
+          document.getElementById('countdown-hours').textContent = hours;
+          document.getElementById('countdown-minutes').textContent = minutes;
+          document.getElementById('countdown-seconds').textContent = seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // ===== DOT NAVIGATION =====
+      const sections = document.querySelectorAll('.section[id]');
+      const navDots = document.querySelectorAll('.dot-nav a');
+
+      function updateActiveSection() {
+        let current = '';
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+            current = section.id;
+          }
+        });
+
+        navDots.forEach(dot => {
+          dot.classList.remove('active');
+          if (dot.getAttribute('href') === '#' + current) {
+            dot.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveSection);
+
+      // ===== SCROLL FADE-IN ANIMATION =====
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // ===== VENUE CARD FLIP (Mobile Touch) =====
+      document.querySelectorAll('.venue-card').forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('flipped');
+        });
+      });
+
+      // ===== RSVP FORM =====
+      const form = document.getElementById('rsvp-form');
+      const attendingRadios = document.querySelectorAll('input[name="attending"]');
+      const conditionalFields = document.querySelectorAll('.conditional-field');
+
+      attendingRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const isAttending = document.getElementById('attending-yes').checked;
+          conditionalFields.forEach(field => {
+            field.classList.toggle('visible', isAttending);
+          });
+        });
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submit-btn');
+          const formMessage = document.getElementById('form-message');
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Шаљем...';
+
+          const formData = new FormData(form);
+          const data = {
+            slug: form.dataset.weddingSlug,
+            name: formData.get('name'),
+            email: formData.get('email'),
+            attending: formData.get('attending'),
+            guests_count: formData.get('guests_count'),
+            meal_preference: formData.get('meal_preference'),
+            message: formData.get('message'),
+            submitted_at: new Date().toISOString()
+          };
+
+          // Demo mode or real submission
+          const isDemo = form.dataset.weddingSlug === 'demo' ||
+                        form.dataset.weddingSlug.startsWith('test');
+
+          if (isDemo) {
+            await new Promise(r => setTimeout(r, 1000));
+            formMessage.textContent = 'Хвала на потврди! (демо режим)';
+            formMessage.className = 'form-message success';
+            if (data.attending === 'yes') createConfetti();
+          } else {
+            try {
+              await fetch('https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+              });
+              formMessage.textContent = 'Хвала на потврди!';
+              formMessage.className = 'form-message success';
+              if (data.attending === 'yes') createConfetti();
+            } catch (err) {
+              formMessage.textContent = 'Грешка. Покушајте поново.';
+              formMessage.className = 'form-message error';
+            }
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Потврди долазак';
+        });
+      }
+
+      // ===== CONFETTI =====
+      function createConfetti() {
+        const container = document.getElementById('confetti-container');
+        const colors = ['#B8860B', '#FFD700', '#FFA500', '#FF69B4', '#87CEEB'];
+
+        for (let i = 0; i < 100; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.width = (Math.random() * 10 + 5) + 'px';
+          confetti.style.height = confetti.style.width;
+          confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          confetti.style.animation = `confetti-fall ${Math.random() * 2 + 2}s linear forwards`;
+          confetti.style.animationDelay = Math.random() * 0.5 + 's';
+          container.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+          container.innerHTML = '';
+        }, 5000);
+      }
+
+      // ===== CALENDAR FAB =====
+      const calendarFab = document.getElementById('calendar-fab');
+      if (calendarFab) {
+        calendarFab.addEventListener('click', () => {
+          // Generate Google Calendar link
+          const weddingDate = countdownGrid?.dataset.weddingDate;
+          if (weddingDate) {
+            const date = new Date(weddingDate);
+            const dateStr = date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, 15) + 'Z';
+            const title = encodeURIComponent('Милица & Стефан - Венчање');
+            const location = encodeURIComponent('Храм Светог Саве, Крушедолска 2а, Београд');
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dateStr}/${dateStr}&location=${location}`;
+            window.open(url, '_blank');
+          }
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

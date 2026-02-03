@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Венчање - Милица и Стефан">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Милица & Стефан - Наша прича</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+
+  <!-- Theme CSS -->
+  <style>/**
+ * Wedding Invitation - Shared Design Tokens
+ *
+ * This file contains CSS custom properties (design tokens) that are shared
+ * across all themes and layouts. Import this file in theme stylesheets to
+ * ensure consistency and reduce duplication.
+ *
+ * Tokens are organized by category:
+ * - Spacing
+ * - Typography
+ * - Transitions
+ * - Shadows
+ * - Borders
+ * - Z-index
+ */
+
+:root {
+  /* ============================================
+     SPACING SYSTEM
+     Based on 8px grid with flexible rem units
+     ============================================ */
+  --spacing-3xs: 0.125rem;  /* 2px */
+  --spacing-2xs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  --spacing-2xl: 4rem;      /* 64px */
+  --spacing-3xl: 6rem;      /* 96px */
+  --spacing-4xl: 8rem;      /* 128px */
+
+  /* ============================================
+     TYPOGRAPHY
+     Font stacks, sizes, line heights, letter spacing
+     ============================================ */
+
+  /* Font Stacks */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Lato', 'Helvetica Neue', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes - Mobile First */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+  --text-6xl: 5rem;       /* 80px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.8;
+  --leading-prose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --tracking-caps: 0.2em;      /* For uppercase text */
+  --tracking-super-caps: 0.35em; /* For very spaced uppercase */
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Timing functions and durations
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1000ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-smooth: var(--duration-slow) var(--ease-smooth);
+  --transition-color: color var(--duration-fast) var(--ease-out);
+  --transition-bg: background-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ============================================
+     SHADOWS
+     Box shadows for depth and elevation
+     ============================================ */
+
+  /* Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-3xl: 0 32px 64px rgba(0, 0, 0, 0.2);
+
+  /* Soft Shadows (for cards) */
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Inner Shadows */
+  --shadow-inner-sm: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-inner-md: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Emboss Effect */
+  --shadow-emboss: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Glow Effects (use with theme colors) */
+  --shadow-glow-sm: 0 0 10px;
+  --shadow-glow-md: 0 0 20px;
+  --shadow-glow-lg: 0 0 30px;
+
+  /* ============================================
+     BORDERS
+     Border radii and widths
+     ============================================ */
+
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-md: 0.25rem;     /* 4px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Pill/Circle */
+
+  /* Border Widths */
+  --border-none: 0;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+
+  /* ============================================
+     Z-INDEX SCALE
+     Layering system
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 500;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-tooltip: 1200;
+  --z-toast: 1300;
+  --z-max: 9999;
+
+  /* ============================================
+     CONTAINER WIDTHS
+     Max-widths for content containers
+     ============================================ */
+  --container-xs: 320px;
+  --container-sm: 480px;
+  --container-md: 640px;
+  --container-lg: 800px;
+  --container-xl: 1000px;
+  --container-2xl: 1200px;
+
+  /* ============================================
+     ASPECT RATIOS
+     Common aspect ratios for media
+     ============================================ */
+  --aspect-square: 1 / 1;
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 4 / 3;
+  --aspect-wide: 16 / 9;
+  --aspect-ultrawide: 21 / 9;
+  --aspect-golden: 1.618 / 1;
+
+  /* ============================================
+     FORM TOKENS
+     Consistent form styling
+     ============================================ */
+  --input-height-sm: 2rem;      /* 32px */
+  --input-height-md: 2.5rem;    /* 40px */
+  --input-height-lg: 3rem;      /* 48px */
+  --input-padding-x: var(--spacing-sm);
+  --input-padding-y: var(--spacing-xs);
+  --input-border-width: var(--border-thin);
+  --input-border-radius: var(--radius-md);
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Status/feedback colors (themes override primary/accent)
+     ============================================ */
+  --color-success: #22C55E;
+  --color-success-light: #DCFCE7;
+  --color-success-dark: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-error-dark: #B91C1C;
+
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1D4ED8;
+}
+
+/* ============================================
+   RESPONSIVE TOKENS
+   Adjust spacing at different breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+
+    /* Reduce font sizes on mobile */
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3rem;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Respect user preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   Adjustments for accessibility
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-xs: none;
+    --shadow-sm: 0 0 0 1px currentColor;
+    --shadow-md: 0 0 0 2px currentColor;
+    --shadow-lg: 0 0 0 2px currentColor;
+    --border-thin: 2px;
+  }
+}
+
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Reduce motion for performance and accessibility */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  /* Disable complex animations on mobile */
+  .floating-element,
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.15s !important;
+  }
+
+  /* Reduce parallax effects */
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Novel Theme - Storybook Layout
+ *
+ * Warm, romantic, book-like aesthetic
+ * - Cream and sepia tones
+ * - Elegant serif typography
+ * - Paper texture feel
+ * - Gold accents
+ */
+
+:root {
+  /* Colors */
+  --color-bg: #F5EFE6;
+  --color-bg-alt: #EDE4D8;
+  --color-text: #3D3229;
+  --color-text-muted: #7A6F63;
+  --color-accent: #B8860B;
+  --color-accent-dark: #8B6914;
+  --color-accent-light: rgba(184, 134, 11, 0.1);
+  --color-border: #D9CFC2;
+
+  /* Navigation */
+  --nav-bg: #3D3229;
+  --nav-dot: rgba(255, 255, 255, 0.4);
+
+  /* Layout */
+  --visual-bg: linear-gradient(135deg, #EDE4D8 0%, #E5D9CA 50%, #DDD0BF 100%);
+  --content-bg: #FFFDF9;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Crimson Text', 'EB Garamond', Georgia, serif;
+
+  /* Borders */
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+/* Typography */
+body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.visual-names {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* Navigation */
+.chapter-nav {
+  background: var(--nav-bg);
+  box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+}
+
+.chapter-dot.active {
+  background: var(--color-accent);
+}
+
+.nav-arrow {
+  border-color: var(--nav-dot);
+  color: var(--nav-dot);
+}
+
+.nav-arrow:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Page Visual */
+.page-visual {
+  background: var(--visual-bg);
+  position: relative;
+}
+
+.page-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Page Content */
+.page-content {
+  background: var(--content-bg);
+  border-left: 1px solid var(--color-border);
+  position: relative;
+}
+
+.page-content::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: var(--color-border);
+  opacity: 0.5;
+}
+
+/* Visual Elements */
+.visual-names .ampersand {
+  color: var(--color-accent);
+  font-style: normal;
+}
+
+.visual-icon {
+  filter: drop-shadow(0 10px 25px rgba(184, 134, 11, 0.2));
+}
+
+/* Countdown */
+.countdown-box {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 30px rgba(61, 50, 41, 0.08);
+}
+
+.countdown-number {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+
+/* Venue Cards */
+.venue-card {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+}
+
+.venue-type {
+  color: var(--color-accent);
+}
+
+.venue-link {
+  background: var(--color-accent);
+}
+
+.venue-link:hover {
+  background: var(--color-accent-dark);
+}
+
+/* Timeline */
+.timeline-track::before {
+  background: var(--color-accent);
+}
+
+.timeline-marker {
+  background: var(--content-bg);
+  border: 2px solid var(--color-accent);
+}
+
+.timeline-info {
+  background: var(--content-bg);
+  border: 1px solid var(--color-border);
+}
+
+.timeline-date {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+}
+
+/* RSVP */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.attendance-btn.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.submit-btn {
+  background: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+.submit-btn:hover {
+  background: var(--color-accent-dark);
+}
+
+/* Chapter Label */
+.chapter-label {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+
+/* Decorative Elements */
+.chapter-title::after {
+  content: '❧';
+  display: block;
+  margin-top: 1rem;
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+/* Page indicator */
+.page-indicator {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* Keyboard hint */
+.keyboard-hint {
+  font-family: var(--font-body);
+}
+
+.keyboard-hint kbd {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .page-content::before {
+    display: none;
+  }
+}
+</style>
+
+  <!-- Storybook Layout CSS -->
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: var(--font-body, 'Georgia', serif);
+      background: var(--color-bg, #F5F0E8);
+      color: var(--color-text, #2D2926);
+      line-height: 1.7;
+      /* Enable touch actions */
+      touch-action: manipulation;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Mobile: Enable scrolling */
+    @media (max-width: 900px) {
+      html, body {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+
+    /* ===== STORYBOOK CONTAINER ===== */
+    .storybook {
+      display: flex;
+      height: 100vh;
+      height: 100dvh;
+      position: relative;
+    }
+
+    /* ===== CHAPTER NAVIGATION (Left Sidebar) ===== */
+    .chapter-nav {
+      width: 60px;
+      background: var(--nav-bg, #2D2926);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0;
+      z-index: 100;
+    }
+
+    .chapter-dots {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .chapter-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--nav-dot, rgba(255,255,255,0.3));
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .chapter-dot::before {
+      content: attr(data-chapter);
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 0.75rem;
+      color: white;
+      background: var(--nav-bg);
+      padding: 4px 12px;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .chapter-dot:hover::before {
+      opacity: 1;
+    }
+
+    .chapter-dot.active {
+      background: var(--color-accent, #C9A962);
+      transform: scale(1.3);
+    }
+
+    .chapter-dot:hover {
+      background: var(--color-accent);
+    }
+
+    .nav-arrows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid var(--nav-dot);
+      color: var(--nav-dot);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--nav-bg);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* ===== BOOK SPREAD ===== */
+    .book-spread {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== PAGES CONTAINER ===== */
+    .pages-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .page.prev {
+      transform: translateX(-100%);
+    }
+
+    .page.next {
+      transform: translateX(100%);
+    }
+
+    /* ===== SPLIT LAYOUT ===== */
+    .page-visual {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--visual-bg, linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-bg-alt) 100%));
+      overflow: hidden;
+    }
+
+    .page-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      background: var(--content-bg, white);
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .page-content-inner {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ===== CHAPTER HEADER ===== */
+    .chapter-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .chapter-title {
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      color: var(--color-text);
+    }
+
+    .chapter-text {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--color-text-muted, #5A5550);
+    }
+
+    .chapter-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* ===== VISUAL ELEMENTS ===== */
+    .visual-illustration {
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .visual-icon {
+      font-size: 8rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1));
+    }
+
+    .visual-date {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .visual-names {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--color-text);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .visual-names .ampersand {
+      display: block;
+      font-size: 0.5em;
+      color: var(--color-accent);
+      margin: 0.5rem 0;
+    }
+
+    /* ===== COUNTDOWN PAGE ===== */
+    .countdown-visual {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      width: 80%;
+      max-width: 350px;
+    }
+
+    .countdown-box {
+      background: var(--content-bg, white);
+      border-radius: var(--radius, 12px);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .countdown-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== VENUE PAGE ===== */
+    .venue-visual {
+      width: 90%;
+      max-width: 450px;
+    }
+
+    .venue-card {
+      background: var(--content-bg, white);
+      border-radius: var(--radius, 12px);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+      margin-bottom: 1.5rem;
+    }
+
+    .venue-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .venue-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .venue-type {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .venue-time {
+      font-size: 1.25rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .venue-address {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .venue-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .venue-link:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===== TIMELINE PAGE ===== */
+    .timeline-visual {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .timeline-track {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 30px;
+      bottom: 30px;
+      width: 2px;
+      background: var(--color-accent);
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    .timeline-marker {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--content-bg, white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-info {
+      background: var(--content-bg, white);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius, 8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      flex: 1;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--color-text);
+    }
+
+    /* ===== RSVP PAGE ===== */
+    .rsvp-visual {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .rsvp-icon {
+      font-size: 6rem;
+      margin-bottom: 1rem;
+    }
+
+    .rsvp-prompt {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .rsvp-form {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--color-border, #E8E4DF);
+      border-radius: var(--radius-sm, 8px);
+      font-family: inherit;
+      font-size: 1rem;
+      background: transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .attendance-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .attendance-btn {
+      padding: 1.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius, 12px);
+      background: transparent;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .attendance-btn:hover {
+      border-color: var(--color-accent);
+    }
+
+    .attendance-btn.selected {
+      border-color: var(--color-accent);
+      background: var(--color-accent-light);
+    }
+
+    .attendance-emoji {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .attendance-text {
+      font-size: 0.9rem;
+      color: var(--color-text);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.25rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius, 12px);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .conditional-field {
+      display: none;
+    }
+
+    .conditional-field.visible {
+      display: block;
+    }
+
+    /* ===== FINAL PAGE ===== */
+    .final-visual {
+      text-align: center;
+    }
+
+    .final-icon {
+      font-size: 6rem;
+      margin-bottom: 1rem;
+    }
+
+    .final-names {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .final-date {
+      color: var(--color-accent);
+      font-size: 1.1rem;
+    }
+
+    .final-hashtag {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.5rem 1.5rem;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+
+    /* ===== PAGE INDICATOR ===== */
+    .page-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== KEYBOARD HINT ===== */
+    .keyboard-hint {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      opacity: 0.6;
+    }
+
+    .keyboard-hint kbd {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: var(--color-bg-alt);
+      border-radius: 4px;
+      font-family: inherit;
+      margin: 0 0.25rem;
+    }
+
+    /* ===== MOBILE LAYOUT ===== */
+    @media (max-width: 900px) {
+      .storybook {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .chapter-nav {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        padding: 0 1rem;
+        order: 2;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      .book-spread {
+        overflow: visible;
+        height: auto;
+      }
+
+      .pages-container {
+        position: relative;
+        flex-direction: column;
+        height: auto;
+      }
+
+      .chapter-dots {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .chapter-dot::before {
+        display: none;
+      }
+
+      .nav-arrows {
+        flex-direction: row;
+      }
+
+      .page {
+        position: relative;
+        flex-direction: column;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        min-height: 100vh;
+      }
+
+      .page.prev,
+      .page.next {
+        transform: none;
+      }
+
+      .page-visual {
+        height: 40%;
+        flex: none;
+      }
+
+      .page-content {
+        height: 60%;
+        flex: none;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .countdown-visual {
+        max-width: 280px;
+      }
+
+      .countdown-box {
+        padding: 1rem;
+      }
+
+      .countdown-number {
+        font-size: 2rem;
+      }
+
+      .keyboard-hint {
+        display: none;
+      }
+
+      .timeline-visual {
+        padding: 1rem;
+      }
+
+      .timeline-item {
+        gap: 1rem;
+      }
+
+      .timeline-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+
+      .timeline-track::before {
+        left: 19px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-content {
+        padding: 1.5rem;
+      }
+
+      .chapter-title {
+        font-size: 1.75rem;
+      }
+
+      .visual-names {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page.active .chapter-label,
+    .page.active .chapter-title,
+    .page.active .chapter-text,
+    .page.active .visual-illustration,
+    .page.active .countdown-box,
+    .page.active .venue-card,
+    .page.active .timeline-item {
+      animation: fade-in-up 0.6s ease forwards;
+    }
+
+    .page.active .chapter-label { animation-delay: 0.1s; }
+    .page.active .chapter-title { animation-delay: 0.2s; }
+    .page.active .chapter-text { animation-delay: 0.3s; }
+
+    .page.active .countdown-box:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .countdown-box:nth-child(2) { animation-delay: 0.2s; }
+    .page.active .countdown-box:nth-child(3) { animation-delay: 0.3s; }
+    .page.active .countdown-box:nth-child(4) { animation-delay: 0.4s; }
+
+    .page.active .venue-card:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .venue-card:nth-child(2) { animation-delay: 0.3s; }
+
+    .page.active .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .page.active .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .page.active .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+    .page.active .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    .page.active .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% { opacity: 1; transform: translateY(-50px) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+  </style>
+
+  <!-- Theme-specific fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="storybook">
+    <!-- Chapter Navigation -->
+    <nav class="chapter-nav" aria-label="Поглавља">
+      <div class="chapter-dots">
+        <button class="chapter-dot active" data-page="0" data-chapter="Насловна" aria-label="Насловна"></button>
+        <button class="chapter-dot" data-page="1" data-chapter="Одбројавање" aria-label="Одбројавање"></button>
+        <button class="chapter-dot" data-page="2" data-chapter="Позив" aria-label="Позив"></button>
+        
+        <button class="chapter-dot" data-page="3" data-chapter="Наша прича" aria-label="Наша прича"></button>
+        
+        <button class="chapter-dot" data-page="{{VENUE_PAGE}}" data-chapter="Локације" aria-label="Локације"></button>
+        <button class="chapter-dot" data-page="{{RSVP_PAGE}}" data-chapter="RSVP" aria-label="RSVP"></button>
+      </div>
+      <div class="nav-arrows">
+        <button class="nav-arrow" id="prev-btn" aria-label="Претходна страница">↑</button>
+        <button class="nav-arrow" id="next-btn" aria-label="Следећа страница">↓</button>
+      </div>
+    </nav>
+
+    <!-- Book Spread -->
+    <div class="book-spread">
+      <div class="pages-container" id="pages-container">
+
+        <!-- Page 1: Title -->
+        <div class="page active" data-page="0">
+          <div class="page-visual">
+            <div class="visual-illustration">
+              <div class="visual-names">
+                Милица
+                <span class="ampersand">&</span>
+                Стефан
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 1</p>
+              <h1 class="chapter-title">Наша прича почиње</h1>
+              <div class="chapter-text">
+                <p>Са великом радошћу вас позивамо да будете део најважнијег дана у нашим животима.</p>
+                <p><strong>12. септембар 2026</strong></p>
+              </div>
+            </div>
+            <p class="page-indicator">1 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 2: Countdown -->
+        <div class="page" data-page="1">
+          <div class="page-visual">
+            <div class="countdown-visual" data-wedding-date="2026-09-12T00:00:00.000Z">
+              <div class="countdown-box">
+                <div class="countdown-number" id="days">--</div>
+                <div class="countdown-unit">дана</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="hours">--</div>
+                <div class="countdown-unit">сати</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="minutes">--</div>
+                <div class="countdown-unit">минута</div>
+              </div>
+              <div class="countdown-box">
+                <div class="countdown-number" id="seconds">--</div>
+                <div class="countdown-unit">секунди</div>
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 2</p>
+              <h2 class="chapter-title">Одбројавање је почело</h2>
+              <div class="chapter-text">
+                <p>Сваки дан нас приближава тренутку када ћемо рећи „да" пред нашим најдражима.</p>
+                <p>Означите датум у календару и припремите се за незаборавну прославу.</p>
+              </div>
+            </div>
+            <p class="page-indicator">2 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 3: Invitation Message -->
+        <div class="page" data-page="2">
+          <div class="page-visual">
+            <div class="visual-illustration">
+              <div class="visual-icon">💌</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 3</p>
+              <h2 class="chapter-title">Са великом радошћу вас позивамо на наше венчање</h2>
+              <div class="chapter-text">
+                <p>Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
+                <p><em>{{INVITATION_SIGNATURE}}</em></p>
+              </div>
+            </div>
+            <p class="page-indicator">3 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        
+        <!-- Page 4: Our Story Timeline -->
+        <div class="page" data-page="3">
+          <div class="page-visual">
+            <div class="timeline-visual">
+              <div class="timeline-track">
+                {{TIMELINE_ITEMS}}
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље 4</p>
+              <h2 class="chapter-title">Наша прича</h2>
+              <div class="chapter-text">
+                <p>Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина. Волимо се више него икада и једва чекамо да започнемо нову главу нашег живота као муж и жена.</p>
+              </div>
+            </div>
+            <p class="page-indicator">4 / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+        
+
+        <!-- Page 5: Venues -->
+        <div class="page" data-page="{{VENUE_PAGE}}">
+          <div class="page-visual">
+            <div class="venue-visual">
+              <div class="venue-card">
+                <div class="venue-icon">💒</div>
+                <p class="venue-type">Венчање</p>
+                <h3 class="venue-name">Храм Светог Саве</h3>
+                <p class="venue-time">15:00</p>
+                <p class="venue-address">Крушедолска 2а, Београд</p>
+                
+                <a href="https://maps.google.com/?q=44.7983,20.4694" target="_blank" rel="noopener" class="venue-link">
+                  📍 Мапа
+                </a>
+                
+              </div>
+              <div class="venue-card">
+                <div class="venue-icon">🎉</div>
+                <p class="venue-type">Прослава</p>
+                <h3 class="venue-name">Ресторан Франш</h3>
+                <p class="venue-time">18:00</p>
+                <p class="venue-address">Господар Јованова 42, Београд</p>
+                
+                <a href="https://maps.google.com/?q=44.8186,20.4571" target="_blank" rel="noopener" class="venue-link">
+                  📍 Мапа
+                </a>
+                
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Поглавље {{VENUE_CHAPTER}}</p>
+              <h2 class="chapter-title">Где се видимо</h2>
+              <div class="chapter-text">
+                <p>Венчање ће се одржати у <strong>Храм Светог Саве</strong> са почетком у 15:00.</p>
+                <p>Након церемоније, прослава нас чека у <strong>Ресторан Франш</strong> од 18:00.</p>
+                {{#IF_ADDITIONAL_INFO}}
+                <p>{{ADDITIONAL_INFO}}</p>
+                {{/IF_ADDITIONAL_INFO}}
+              </div>
+            </div>
+            <p class="page-indicator">{{VENUE_PAGE_NUM}} / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+        <!-- Page 6: RSVP -->
+        <div class="page" data-page="{{RSVP_PAGE}}">
+          <div class="page-visual">
+            <div class="rsvp-visual">
+              <div class="rsvp-icon">✉️</div>
+              <p class="rsvp-prompt">Потврдите до<br>15. август 2026</p>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="page-content-inner">
+              <p class="chapter-label">Последње поглавље</p>
+              <h2 class="chapter-title">Потврда доласка</h2>
+
+              <form class="rsvp-form" id="rsvp-form" data-wedding-slug="demo">
+                <div class="form-group">
+                  <label>Име и презиме</label>
+                  <input type="text" name="name" required placeholder="Ваше име">
+                </div>
+
+                <div class="form-group">
+                  <label>Да ли долазите?</label>
+                  <div class="attendance-buttons">
+                    <button type="button" class="attendance-btn" data-value="yes">
+                      <span class="attendance-emoji">🎉</span>
+                      <span class="attendance-text">Долазим!</span>
+                    </button>
+                    <button type="button" class="attendance-btn" data-value="no">
+                      <span class="attendance-emoji">😢</span>
+                      <span class="attendance-text">Не могу</span>
+                    </button>
+                  </div>
+                  <input type="hidden" name="attending" id="attending-input">
+                </div>
+
+                <div class="form-group conditional-field" id="guests-group">
+                  <label>Број гостију</label>
+                  <select name="guests_count">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4+</option>
+                  </select>
+                </div>
+
+                
+                <div class="form-group conditional-field" id="meal-group">
+                  <label>Преференција оброка</label>
+                  <select name="meal_preference">
+                    <option value="">Изаберите...</option>
+                    <option value="meat">Месо (телетина)</option><option value="fish">Риба (орада)</option><option value="vegetarian">Вегетаријанско</option><option value="vegan">Веганско</option>
+                  </select>
+                </div>
+                
+
+                <div class="form-group">
+                  <label>Порука (опционално)</label>
+                  <textarea name="message" rows="2" placeholder="Ваша порука..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Пошаљи</button>
+                <div class="form-message" id="form-message"></div>
+              </form>
+            </div>
+            <p class="page-indicator">{{RSVP_PAGE_NUM}} / {{TOTAL_PAGES}}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="keyboard-hint">
+        Користи <kbd>←</kbd> <kbd>→</kbd> или <kbd>↑</kbd> <kbd>↓</kbd> за навигацију
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti -->
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ===== PAGE NAVIGATION =====
+      const pages = document.querySelectorAll('.page');
+      const dots = document.querySelectorAll('.chapter-dot');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      let currentPage = 0;
+      const totalPages = pages.length;
+
+      function goToPage(index) {
+        if (index < 0 || index >= totalPages) return;
+
+        pages[currentPage].classList.remove('active');
+        pages[currentPage].classList.add(index > currentPage ? 'prev' : 'next');
+
+        currentPage = index;
+
+        pages.forEach((page, i) => {
+          page.classList.remove('active', 'prev', 'next');
+          if (i < currentPage) page.classList.add('prev');
+          if (i > currentPage) page.classList.add('next');
+        });
+        pages[currentPage].classList.add('active');
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentPage);
+        });
+
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage === totalPages - 1;
+      }
+
+      // Dot navigation
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goToPage(i));
+      });
+
+      // Arrow buttons
+      prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+      nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          goToPage(currentPage + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          goToPage(currentPage - 1);
+        }
+      });
+
+      // Touch swipe
+      let touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      });
+      document.addEventListener('touchend', (e) => {
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goToPage(currentPage + 1);
+          else goToPage(currentPage - 1);
+        }
+      });
+
+      // ===== COUNTDOWN =====
+      const countdownEl = document.querySelector('[data-wedding-date]');
+      if (countdownEl) {
+        const weddingDate = new Date(countdownEl.dataset.weddingDate);
+        function updateCountdown() {
+          const now = new Date();
+          const diff = weddingDate - now;
+          if (diff <= 0) return;
+
+          document.getElementById('days').textContent = Math.floor(diff / 86400000);
+          document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000);
+          document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000);
+          document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000);
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // ===== RSVP FORM =====
+      const form = document.getElementById('rsvp-form');
+      const attendBtns = document.querySelectorAll('.attendance-btn');
+      const attendInput = document.getElementById('attending-input');
+      const conditionalFields = document.querySelectorAll('.conditional-field');
+
+      attendBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          attendBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          attendInput.value = btn.dataset.value;
+
+          conditionalFields.forEach(f => {
+            f.classList.toggle('visible', btn.dataset.value === 'yes');
+          });
+        });
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submit-btn');
+          const formMessage = document.getElementById('form-message');
+
+          if (!attendInput.value) {
+            alert('Молимо изаберите да ли долазите');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Шаљем...';
+
+          const formData = new FormData(form);
+          const data = {
+            slug: form.dataset.weddingSlug,
+            name: formData.get('name'),
+            attending: formData.get('attending'),
+            guests_count: formData.get('guests_count'),
+            meal_preference: formData.get('meal_preference'),
+            message: formData.get('message'),
+            submitted_at: new Date().toISOString()
+          };
+
+          const isDemo = data.slug === 'demo' || data.slug.startsWith('test');
+
+          if (isDemo) {
+            await new Promise(r => setTimeout(r, 1000));
+            formMessage.textContent = 'Хвала! (демо режим)';
+            formMessage.className = 'form-message success';
+            if (data.attending === 'yes') createConfetti();
+          } else {
+            try {
+              await fetch('https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(data)
+              });
+              formMessage.textContent = 'Хвала на потврди!';
+              formMessage.className = 'form-message success';
+              if (data.attending === 'yes') createConfetti();
+            } catch (err) {
+              formMessage.textContent = 'Грешка. Покушајте поново.';
+              formMessage.className = 'form-message error';
+            }
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Пошаљи';
+        });
+      }
+
+      // ===== CONFETTI =====
+      function createConfetti() {
+        const container = document.getElementById('confetti-container');
+        const colors = ['#C9A962', '#8B2942', '#2563EB', '#10B981', '#F59E0B'];
+        for (let i = 0; i < 80; i++) {
+          const c = document.createElement('div');
+          c.className = 'confetti';
+          c.style.left = Math.random() * 100 + 'vw';
+          c.style.background = colors[Math.floor(Math.random() * colors.length)];
+          c.style.width = (Math.random() * 10 + 5) + 'px';
+          c.style.height = c.style.width;
+          c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          c.style.animation = `confetti-fall ${Math.random() * 2 + 2}s linear forwards`;
+          c.style.animationDelay = Math.random() * 0.5 + 's';
+          container.appendChild(c);
+        }
+        setTimeout(() => container.innerHTML = '', 5000);
+      }
+
+    })();
+  </script>
+</body>
+</html>
