@@ -10,7 +10,9 @@
   <meta property="og:description" content="20+ jedinstvenih interaktivnih dizajna. Pozivnica kakvu Srbija još nije videla.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://digipoz.rs">
+  <meta property="og:image" content="https://digipoz.rs/digipoz_logo.png">
   <meta property="og:locale" content="sr_RS">
+  <link rel="icon" type="image/png" href="digipoz_logo.png">
   <link rel="canonical" href="https://digipoz.rs">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,15 +73,15 @@
     }
 
     .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--color-text);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: 0.02em;
     }
 
-    .nav-logo span { color: var(--color-accent); }
+    .nav-logo img {
+      height: 40px;
+      width: auto;
+    }
 
     .nav-links {
       display: flex;
@@ -993,7 +995,7 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Digi<span>Poz</span></a>
+      <a href="#" class="nav-logo"><img src="digipoz_logo.png" alt="DigiPoz"></a>
       <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Meni">
         <span></span><span></span><span></span>
       </button>
@@ -1454,7 +1456,7 @@
     <div class="cta-final-inner reveal">
       <h2>Spremni da ostavite utisak?</h2>
       <p>Pošaljite nam poruku i kreirajte pozivnicu koja će vaši gosti pamtiti.</p>
-      <a href="https://www.instagram.com/digipoz.rs/" target="_blank" rel="noopener" class="btn btn-primary">Pišite nam na Instagram</a>
+      <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="btn btn-primary">Pišite nam na Instagram</a>
     </div>
   </section>
 
@@ -1466,7 +1468,7 @@
       <li><a href="#layouts">Dizajni</a></li>
       <li><a href="#pricing">Cene</a></li>
       <li><a href="#faq">Pitanja</a></li>
-      <li><a href="https://www.instagram.com/digipoz.rs/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>
     <div class="footer-copy">&copy; 2026 DigiPoz. Sva prava zadržana.</div>
   </footer>
