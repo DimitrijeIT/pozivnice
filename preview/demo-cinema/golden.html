@@ -1457,6 +1457,66 @@ body {
   }
 }
 
+/* === DIGIPOZ BRANDING BADGE === */
+.digipoz-badge {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  text-decoration: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.digipoz-badge:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.digipoz-badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.digipoz-badge-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.digipoz-badge-text span {
+  color: #B8860B;
+}
+
+@media (max-width: 480px) {
+  .digipoz-badge {
+    bottom: 8px;
+    padding: 5px 10px;
+    gap: 4px;
+  }
+  .digipoz-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .digipoz-badge-text {
+    font-size: 10px;
+  }
+}
+
 /**
  * Golden Theme - Cinema Layout
  * Golden age Hollywood glamour with rich gold accents
@@ -1924,5 +1984,16 @@ body {
       });
     })();
   </script>
+
+  <!-- DigiPoz Badge -->
+  <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="digipoz-badge" title="Napravljeno od strane DigiPoz">
+    <svg class="digipoz-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="17.5" cy="6.5" r="1.5" fill="#B8860B"/>
+    </svg>
+    <span class="digipoz-badge-text">Digi<span>Poz</span></span>
+  </a>
+
 </body>
 </html>
