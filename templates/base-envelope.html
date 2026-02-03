@@ -24,7 +24,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity; /* Changed for smoother scrolling */
       overflow-x: hidden;
     }
 
@@ -34,6 +34,15 @@
       color: var(--color-text, #2D2926);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y pinch-zoom;
+    }
+
+    /* Mobile: Free scrolling */
+    @media (max-width: 768px) {
+      html {
+        scroll-snap-type: none;
+      }
     }
 
     /* Envelope Cover - Initial State */

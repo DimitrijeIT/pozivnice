@@ -22,13 +22,18 @@
       --font-accent: 'Cormorant Garamond', serif;
     }
 
-    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity; /* Changed for smoother scrolling */
+    }
 
     body {
       font-family: var(--font-body);
       background: var(--color-bg);
       color: var(--color-text);
       line-height: 1.6;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
     }
 
     /* === MAGAZINE PAGE === */
@@ -37,6 +42,18 @@
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
+    }
+
+    /* Mobile: Free scrolling */
+    @media (max-width: 768px) {
+      html {
+        scroll-snap-type: none;
+      }
+
+      .magazine-page {
+        scroll-snap-align: none;
+        min-height: auto;
+      }
     }
 
     /* === COVER PAGE === */

@@ -32,6 +32,19 @@
       background: var(--color-bg, #F5F0E8);
       color: var(--color-text, #2D2926);
       line-height: 1.7;
+      /* Enable touch actions */
+      touch-action: manipulation;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Mobile: Enable scrolling */
+    @media (max-width: 900px) {
+      html, body {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
     }
 
     /* ===== STORYBOOK CONTAINER ===== */
@@ -647,6 +660,8 @@
     @media (max-width: 900px) {
       .storybook {
         flex-direction: column;
+        height: auto;
+        min-height: 100vh;
       }
 
       .chapter-nav {
@@ -655,6 +670,21 @@
         flex-direction: row;
         padding: 0 1rem;
         order: 2;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      .book-spread {
+        overflow: visible;
+        height: auto;
+      }
+
+      .pages-container {
+        position: relative;
+        flex-direction: column;
+        height: auto;
       }
 
       .chapter-dots {
@@ -671,7 +701,17 @@
       }
 
       .page {
+        position: relative;
         flex-direction: column;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        min-height: 100vh;
+      }
+
+      .page.prev,
+      .page.next {
+        transform: none;
       }
 
       .page-visual {

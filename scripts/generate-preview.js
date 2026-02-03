@@ -122,6 +122,15 @@ function generateThemedPage(rawData, theme) {
     decorationsCss = '';
   }
 
+  // Load mobile optimizations CSS
+  let mobileCss = '';
+  try {
+    mobileCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'mobile.css'), 'utf8');
+  } catch (error) {
+    console.warn(`  ⚠️  mobile.css not found, skipping`);
+    mobileCss = '';
+  }
+
   try {
     clientScript = fs.readFileSync(path.join(TEMPLATES_DIR, 'script.js'), 'utf8');
   } catch (error) {
@@ -136,7 +145,7 @@ function generateThemedPage(rawData, theme) {
   const themeData = {
     ...templateData,
     THEME_CSS: `<style>\n${themeCss}\n</style>`,
-    ANIMATIONS_CSS: `<style>\n${animationsCss}\n${componentsCss}\n${backgroundsCss}\n${decorationsCss}\n</style>`,
+    ANIMATIONS_CSS: `<style>\n${animationsCss}\n${componentsCss}\n${backgroundsCss}\n${decorationsCss}\n${mobileCss}\n</style>`,
     THEME_FONTS: utils.getThemeFonts(theme),
     INLINE_SCRIPT: clientScript
   };

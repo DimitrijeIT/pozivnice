@@ -1,0 +1,81 @@
+{
+  "slug": "test-no-timeline",
+  "bride_name": "Мила",
+  "groom_name": "Петар",
+  "wedding_date": "2026-09-12",
+
+  "ceremony_venue": "Храм Светог Саве",
+  "ceremony_address": "Крушедолска 2а, Београд",
+  "ceremony_time": "15:00",
+  "ceremony_map_url": "https://maps.google.com/?q=44.7983,20.4694",
+
+  "reception_venue": "Ресторан Франш",
+  "reception_address": "Господар Јованова 42, Београд",
+  "reception_time": "18:00",
+  "reception_map_url": "https://maps.google.com/?q=44.8186,20.4571",
+
+  "invitation_intro": "Са великом радошћу вас позивамо на наше венчање",
+  "invitation_text": "Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.",
+  "invitation_signature": "Са љубављу, Мила и Петар",
+
+  "story_text": "Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина.",
+
+  "story_photo_url": "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800",
+
+  "timeline": [],
+
+  "gallery": [
+    {
+      "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
+      "caption": "Наш први заједнички одмор"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=400",
+      "caption": "Романтична вечера"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400",
+      "caption": "Дан просидбе"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400",
+      "caption": "Заједнички тренуци"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400",
+      "caption": "Наша љубав"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
+      "thumbnail": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
+      "caption": "Припреме за велики дан"
+    }
+  ],
+
+  "music_url": "",
+  "music_title": "Perfect",
+  "music_artist": "Ed Sheeran",
+
+  "dress_code_text": "Елегантан формалан dress code. Молимо вас да избегавате белу и црну боју.",
+  "dress_code_colors": ["#D4C4A8", "#8B7355", "#4A6B5A", "#6B5B95"],
+
+  "additional_info": "Паркинг је обезбеђен у близини ресторана. За госте који долазе из других градова, препоручујемо хотел \"Москва\" у центру Београда.",
+
+  "wedding_hashtag": "#МилаИПетар2026",
+
+  "rsvp_deadline": "2026-08-15",
+
+  "meal_options": [
+    { "value": "meat", "label": "Месо (телетина)" },
+    { "value": "fish", "label": "Риба (орада)" },
+    { "value": "vegetarian", "label": "Вегетаријанско" },
+    { "value": "vegan", "label": "Веганско" }
+  ],
+
+  "contact_email": "test@pozivnice.rs"
+}

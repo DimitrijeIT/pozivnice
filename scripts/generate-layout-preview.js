@@ -193,11 +193,15 @@ function generateThemedPage(data, layout, theme, layoutConfig) {
   const baseTemplate = fs.readFileSync(baseTemplatePath, 'utf8');
   const themeCss = fs.readFileSync(themeCssPath, 'utf8');
 
-  // Load shared CSS tokens and form styles if they exist
+  // Load shared CSS tokens, form styles, and mobile optimizations if they exist
   let sharedCss = '';
   const tokensCssPath = path.join(TEMPLATES_DIR, 'tokens.css');
   if (fs.existsSync(tokensCssPath)) {
     sharedCss += fs.readFileSync(tokensCssPath, 'utf8') + '\n';
+  }
+  const mobileCssPath = path.join(TEMPLATES_DIR, 'mobile.css');
+  if (fs.existsSync(mobileCssPath)) {
+    sharedCss += fs.readFileSync(mobileCssPath, 'utf8') + '\n';
   }
 
   const templateData = {

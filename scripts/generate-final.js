@@ -109,6 +109,14 @@ function generateFinalPage(rawData, theme) {
     'utf8'
   );
 
+  // Load mobile optimizations CSS
+  let mobileCss = '';
+  try {
+    mobileCss = fs.readFileSync(path.join(TEMPLATES_DIR, 'mobile.css'), 'utf8');
+  } catch (error) {
+    // mobile.css is optional
+  }
+
   // Load client-side script
   const clientScript = fs.readFileSync(
     path.join(TEMPLATES_DIR, 'script.js'),
@@ -122,7 +130,7 @@ function generateFinalPage(rawData, theme) {
   const themeData = {
     ...templateData,
     THEME_CSS: `<style>\n${themeCss}\n</style>`,
-    ANIMATIONS_CSS: `<style>\n${animationsCss}\n${componentsCss}\n${backgroundsCss}\n${decorationsCss}\n</style>`,
+    ANIMATIONS_CSS: `<style>\n${animationsCss}\n${componentsCss}\n${backgroundsCss}\n${decorationsCss}\n${mobileCss}\n</style>`,
     THEME_FONTS: utils.getThemeFonts(theme),
     INLINE_SCRIPT: clientScript
   };

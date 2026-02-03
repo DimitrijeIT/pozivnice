@@ -381,6 +381,107 @@
   }
 
   // ============================================
+  // Universal Swipe Navigation Helper
+  // ============================================
+
+  function initSwipeNavigation() {
+    // Detect if page has sections that can be swiped
+    const sections = document.querySelectorAll('section, .page, .gallery-room, .cinema-section, .magazine-page');
+    if (sections.length < 2) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    const threshold = 50; // Minimum swipe distance
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+
+      // Check if horizontal swipe is stronger than vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
+        // Horizontal swipe detected
+        const horizontalContainer = document.querySelector('.gallery-container, [data-swipe-horizontal]');
+        if (horizontalContainer) {
+          if (diffX > 0) {
+            // Swipe left - scroll right
+            horizontalContainer.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+          } else {
+            // Swipe right - scroll left
+            horizontalContainer.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
+          }
+        }
+      }
+    }, { passive: true });
+
+    // Add visual swipe hint for horizontal scrolling layouts
+    const horizontalContainer = document.querySelector('.gallery-container');
+    if (horizontalContainer && window.innerWidth <= 768) {
+      const hint = document.createElement('div');
+      hint.className = 'swipe-hint';
+      hint.innerHTML = '<span>👆 Превуците да бисте видели више</span>';
+      hint.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:8px 16px;border-radius:20px;font-size:12px;z-index:1000;opacity:0;transition:opacity 0.3s;';
+      document.body.appendChild(hint);
+
+      setTimeout(() => { hint.style.opacity = '1'; }, 1000);
+      setTimeout(() => { hint.style.opacity = '0'; }, 4000);
+      setTimeout(() => { hint.remove(); }, 4500);
+    }
+  }
+
+  // ============================================
+  // Section Navigation with Keyboard & Swipe
+  // ============================================
+
+  function initSectionNavigation() {
+    const sections = document.querySelectorAll('section[id], .cinema-section, .magazine-page');
+    if (sections.length < 2) return;
+
+    let currentSection = 0;
+
+    function goToSection(index) {
+      if (index >= 0 && index < sections.length) {
+        currentSection = index;
+        sections[currentSection].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      // Don't hijack keyboard when in form fields
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        goToSection(currentSection + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        goToSection(currentSection - 1);
+      }
+    });
+
+    // Update current section on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          currentSection = Array.from(sections).indexOf(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => observer.observe(section));
+  }
+
+  // ============================================
   // Smooth Scrolling & Scroll Indicator
   // ============================================
 
@@ -430,6 +531,8 @@
     initGallery();
     initMusicPlayer();
     initTimeline();
+    initSwipeNavigation();
+    initSectionNavigation();
   });
 
 })();
