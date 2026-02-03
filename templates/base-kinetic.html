@@ -503,6 +503,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
   {{THEME_CSS}}
 </head>
@@ -583,24 +592,24 @@
 
   <!-- RSVP SECTION -->
   <section class="kinetic-section rsvp-section reveal">
-    <h2 class="rsvp-question">Долазите?</h2>
+    <h2 class="rsvp-question" id="rsvp-question-heading">Долазите?</h2>
 
-    <form class="rsvp-form" id="rsvp-form">
+    <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-question-heading">
       <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
 
       <div class="form-group">
         <label class="form-label" for="guest-name">Име и презиме</label>
-        <input type="text" id="guest-name" name="name" class="form-input" required>
+        <input type="text" id="guest-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
       </div>
 
       <div class="form-group">
         <label class="form-label" for="guest-email">Емаил</label>
-        <input type="email" id="guest-email" name="email" class="form-input" required>
+        <input type="email" id="guest-email" name="email" class="form-input" required autocomplete="email">
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Долазак</label>
-        <div class="radio-group">
+      <fieldset class="form-group">
+        <legend class="form-label">Долазак</legend>
+        <div class="radio-group" role="radiogroup" aria-required="true">
           <label class="radio-label">
             <input type="radio" name="attending" value="yes" required>
             <span>Да, долазим</span>
@@ -610,7 +619,7 @@
             <span>Нажалост, не</span>
           </label>
         </div>
-      </div>
+      </fieldset>
 
       <div class="form-group" id="guests-group">
         <label class="form-label" for="guests-count">Број гостију</label>
@@ -635,7 +644,7 @@
       <button type="submit" class="submit-btn" id="submit-btn">ДА</button>
     </form>
 
-    <div class="form-success hidden" id="form-success">
+    <div class="form-success hidden" id="form-success" role="status" aria-live="polite" aria-atomic="true">
       <h3 class="success-title">Хвала.</h3>
       <p class="success-text">Видимо се ускоро.</p>
     </div>

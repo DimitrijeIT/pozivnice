@@ -543,6 +543,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -629,20 +638,20 @@
       </div>
 
       <div class="rsvp-page">
-        <h2 class="rsvp-title">Јави нам!</h2>
+        <h2 class="rsvp-title" id="rsvp-title-scribble">Јави нам!</h2>
         <p class="rsvp-subtitle">до {{RSVP_DEADLINE}} 🙏</p>
 
-        <form class="rsvp-form" id="rsvp-form">
+        <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title-scribble">
           <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
 
           <div class="form-group">
-            <label class="form-label">Твоје име:</label>
-            <input type="text" name="guest_name" class="form-input" required>
+            <label class="form-label" for="guest-name">Твоје име:</label>
+            <input type="text" id="guest-name" name="guest_name" class="form-input" required autocomplete="name" aria-required="true">
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Долазиш?</label>
-            <div class="attendance-options">
+          <fieldset class="form-group">
+            <legend class="form-label">Долазиш?</legend>
+            <div class="attendance-options" role="radiogroup" aria-required="true">
               <label class="checkbox-label">
                 <input type="radio" name="attending" value="yes" required>
                 <span>Да! 🎉</span>
@@ -652,28 +661,29 @@
                 <span>Не могу 😢</span>
               </label>
             </div>
-          </div>
+          </fieldset>
 
           <div class="form-group">
-            <label class="form-label">Колико вас долази?</label>
-            <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+            <label class="form-label" for="guest-count">Колико вас долази?</label>
+            <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="10" value="1">
           </div>
 
           {{#IF_MEAL_OPTIONS}}
           <div class="form-group">
-            <label class="form-label">Шта једеш? 🍽️</label>
-            <select name="meal_preference" class="form-select">
+            <label class="form-label" for="meal-choice">Шта једеш? 🍽️</label>
+            <select id="meal-choice" name="meal_preference" class="form-select">
               {{MEAL_OPTIONS}}
             </select>
           </div>
           {{/IF_MEAL_OPTIONS}}
 
           <div class="form-group">
-            <label class="form-label">Хоћеш нешто да нам кажеш? 💬</label>
-            <textarea name="message" class="form-textarea" placeholder="Напиши нам..."></textarea>
+            <label class="form-label" for="guest-message">Хоћеш нешто да нам кажеш? 💬</label>
+            <textarea id="guest-message" name="message" class="form-textarea" placeholder="Напиши нам..."></textarea>
           </div>
 
           <button type="submit" class="submit-btn">Пошаљи! 💌</button>
+          <div id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
         </form>
       </div>
     </section>

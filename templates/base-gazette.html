@@ -470,6 +470,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -555,24 +564,27 @@
 
         <!-- RSVP -->
         <div class="rsvp-box">
-          <h3 class="rsvp-title">RSVP</h3>
+          <h3 class="rsvp-title" id="rsvp-title">RSVP</h3>
           <p class="rsvp-deadline">Молимо потврдите до {{RSVP_DEADLINE}}</p>
 
-          <form id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+          <form id="rsvp-form" aria-labelledby="rsvp-title" data-wedding-slug="{{WEDDING_SLUG}}">
             <div class="form-row">
-              <label>Име и презиме</label>
-              <input type="text" name="name" required>
+              <label for="guest-name">Име и презиме</label>
+              <input type="text" id="guest-name" name="name" required autocomplete="name" aria-required="true">
             </div>
 
-            <div class="attendance-row">
-              <button type="button" class="attendance-btn" data-value="yes" aria-label="Долазим">✓ Долазим</button>
-              <button type="button" class="attendance-btn" data-value="no" aria-label="Не могу доћи">✗ Не могу</button>
-            </div>
-            <input type="hidden" name="attending" id="attending-input">
+            <fieldset class="form-row">
+              <legend style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25rem;color:var(--color-muted);">Долазак</legend>
+              <div class="attendance-row" role="radiogroup" aria-required="true">
+                <button type="button" class="attendance-btn" data-value="yes" aria-label="Долазим" role="radio" aria-checked="false">✓ Долазим</button>
+                <button type="button" class="attendance-btn" data-value="no" aria-label="Не могу доћи" role="radio" aria-checked="false">✗ Не могу</button>
+              </div>
+              <input type="hidden" name="attending" id="attending-input">
+            </fieldset>
 
             <div class="form-row conditional-field" id="guests-group">
-              <label>Број гостију</label>
-              <select name="guests_count">
+              <label for="guests-count">Број гостију</label>
+              <select id="guests-count" name="guests_count">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -582,8 +594,8 @@
 
             {{#IF_MEAL_OPTIONS}}
             <div class="form-row conditional-field" id="meal-group">
-              <label>Оброк</label>
-              <select name="meal_preference">
+              <label for="meal-choice">Оброк</label>
+              <select id="meal-choice" name="meal_preference">
                 <option value="">Изаберите...</option>
                 {{MEAL_OPTIONS}}
               </select>
@@ -591,7 +603,7 @@
             {{/IF_MEAL_OPTIONS}}
 
             <button type="submit" class="submit-btn">Пошаљи</button>
-            <div class="form-message" id="form-message"></div>
+            <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
           </form>
         </div>
       </aside>
@@ -627,8 +639,9 @@
 
       btns.forEach(btn => {
         btn.addEventListener('click', () => {
-          btns.forEach(b => b.classList.remove('selected'));
+          btns.forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-checked', 'false'); });
           btn.classList.add('selected');
+          btn.setAttribute('aria-checked', 'true');
           input.value = btn.dataset.value;
           conditionalFields.forEach(f => f.classList.toggle('visible', btn.dataset.value === 'yes'));
         });
@@ -655,7 +668,14 @@
             msg.className = 'form-message success';
           } else {
             try {
-              await fetch('{{RSVP_SCRIPT_URL}}', { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+              const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+              });
+              if (!response.ok) throw new Error('Server error');
+              const result = await response.json();
+              if (!result.success) throw new Error(result.message || 'Failed');
               msg.textContent = 'Хвала!';
               msg.className = 'form-message success';
             } catch {

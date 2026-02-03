@@ -860,6 +860,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 
   <!-- Theme-specific fonts -->
@@ -1050,17 +1059,17 @@
           <div class="page-content">
             <div class="page-content-inner">
               <p class="chapter-label">Последње поглавље</p>
-              <h2 class="chapter-title">Потврда доласка</h2>
+              <h2 class="chapter-title" id="rsvp-title-storybook">Потврда доласка</h2>
 
-              <form class="rsvp-form" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+              <form class="rsvp-form" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}" aria-labelledby="rsvp-title-storybook">
                 <div class="form-group">
-                  <label>Име и презиме</label>
-                  <input type="text" name="name" required placeholder="Ваше име">
+                  <label for="guest-name">Име и презиме</label>
+                  <input type="text" id="guest-name" name="name" required placeholder="Ваше име" autocomplete="name" aria-required="true">
                 </div>
 
-                <div class="form-group">
-                  <label>Да ли долазите?</label>
-                  <div class="attendance-buttons">
+                <fieldset class="form-group">
+                  <legend>Да ли долазите?</legend>
+                  <div class="attendance-buttons" role="radiogroup" aria-required="true">
                     <button type="button" class="attendance-btn" data-value="yes" aria-label="Долазим">
                       <span class="attendance-emoji">🎉</span>
                       <span class="attendance-text">Долазим!</span>
@@ -1071,11 +1080,11 @@
                     </button>
                   </div>
                   <input type="hidden" name="attending" id="attending-input">
-                </div>
+                </fieldset>
 
                 <div class="form-group conditional-field" id="guests-group">
-                  <label>Број гостију</label>
-                  <select name="guests_count">
+                  <label for="guests-count">Број гостију</label>
+                  <select id="guests-count" name="guests_count">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -1085,8 +1094,8 @@
 
                 {{#IF_MEAL_OPTIONS}}
                 <div class="form-group conditional-field" id="meal-group">
-                  <label>Преференција оброка</label>
-                  <select name="meal_preference">
+                  <label for="meal-preference">Преференција оброка</label>
+                  <select id="meal-preference" name="meal_preference">
                     <option value="">Изаберите...</option>
                     {{MEAL_OPTIONS}}
                   </select>
@@ -1094,12 +1103,12 @@
                 {{/IF_MEAL_OPTIONS}}
 
                 <div class="form-group">
-                  <label>Порука (опционално)</label>
-                  <textarea name="message" rows="2" placeholder="Ваша порука..."></textarea>
+                  <label for="guest-message">Порука (опционално)</label>
+                  <textarea id="guest-message" name="message" rows="2" placeholder="Ваша порука..."></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submit-btn">Пошаљи</button>
-                <div class="form-message" id="form-message"></div>
+                <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
               </form>
             </div>
             <p class="page-indicator">{{RSVP_PAGE_NUM}} / {{TOTAL_PAGES}}</p>
@@ -1255,11 +1264,14 @@
             if (data.attending === 'yes') createConfetti();
           } else {
             try {
-              await fetch('{{RSVP_SCRIPT_URL}}', {
+              const response = await fetch('{{RSVP_SCRIPT_URL}}', {
                 method: 'POST',
-                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
               });
+              if (!response.ok) throw new Error('Server error');
+              const result = await response.json();
+              if (!result.success) throw new Error(result.message || 'Failed');
               formMessage.textContent = 'Хвала на потврди!';
               formMessage.className = 'form-message success';
               if (data.attending === 'yes') createConfetti();

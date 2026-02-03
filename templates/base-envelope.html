@@ -929,6 +929,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 
   <!-- Theme-specific fonts -->
@@ -1095,23 +1104,23 @@
     <!-- RSVP Section -->
     <section class="section rsvp-section" id="rsvp">
       <div class="section-content">
-        <h2 class="rsvp-title fade-in">Потврда доласка</h2>
+        <h2 class="rsvp-title fade-in" id="rsvp-title-heading">Потврда доласка</h2>
         <p class="rsvp-deadline fade-in stagger-1">Молимо потврдите до {{RSVP_DEADLINE}}</p>
 
-        <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}">
+        <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="{{WEDDING_SLUG}}" aria-labelledby="rsvp-title-heading">
           <div class="form-group">
             <label for="guest-name">Име и презиме</label>
-            <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име">
+            <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име" autocomplete="name" aria-required="true">
           </div>
 
           <div class="form-group">
             <label for="guest-email">Е-маил</label>
-            <input type="email" id="guest-email" name="email" placeholder="Унесите е-маил">
+            <input type="email" id="guest-email" name="email" placeholder="Унесите е-маил" autocomplete="email">
           </div>
 
-          <div class="form-group">
-            <label>Да ли долазите?</label>
-            <div class="attendance-toggle">
+          <fieldset class="form-group">
+            <legend>Да ли долазите?</legend>
+            <div class="attendance-toggle" role="radiogroup" aria-required="true">
               <div class="attendance-option">
                 <input type="radio" id="attending-yes" name="attending" value="yes" required>
                 <label for="attending-yes">
@@ -1127,7 +1136,7 @@
                 </label>
               </div>
             </div>
-          </div>
+          </fieldset>
 
           <div class="form-group conditional-field" id="guests-count-group">
             <label for="guests-count">Број гостију</label>
@@ -1159,7 +1168,7 @@
             Потврди долазак
           </button>
 
-          <div class="form-message" id="form-message"></div>
+          <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
         </form>
       </div>
     </section>
@@ -1356,12 +1365,14 @@
             if (data.attending === 'yes') createConfetti();
           } else {
             try {
-              await fetch('{{RSVP_SCRIPT_URL}}', {
+              const response = await fetch('{{RSVP_SCRIPT_URL}}', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
               });
+              if (!response.ok) throw new Error('Server error');
+              const result = await response.json();
+              if (!result.success) throw new Error(result.message || 'Failed');
               formMessage.textContent = 'Хвала на потврди!';
               formMessage.className = 'form-message success';
               if (data.attending === 'yes') createConfetti();

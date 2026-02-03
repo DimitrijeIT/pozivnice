@@ -397,6 +397,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
   {{THEME_CSS}}
 </head>
@@ -487,35 +496,38 @@
 
       <!-- RSVP -->
       <div class="telegram-rsvp">
-        <h3 class="rsvp-title">📨 Одговор</h3>
+        <h3 class="rsvp-title" id="rsvp-title">📨 Одговор</h3>
 
-        <form class="rsvp-form" id="rsvp-form">
+        <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title">
           <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
 
           <div class="form-row">
-            <label class="form-label">Име:</label>
-            <input type="text" name="name" class="form-input" required>
+            <label class="form-label" for="guest-name">Име:</label>
+            <input type="text" id="guest-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
           </div>
 
           <div class="form-row">
-            <label class="form-label">Емаил:</label>
-            <input type="email" name="email" class="form-input" required>
+            <label class="form-label" for="guest-email">Емаил:</label>
+            <input type="email" id="guest-email" name="email" class="form-input" required autocomplete="email">
           </div>
 
-          <div class="radio-row">
-            <label class="radio-label">
-              <input type="radio" name="attending" value="yes" required>
-              <span>ДОЛАЗИМ</span>
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="attending" value="no">
-              <span>НЕ МОГУ</span>
-            </label>
-          </div>
+          <fieldset style="border:none;padding:0;margin:0;">
+            <legend class="form-label" style="text-align:center;width:100%;margin-bottom:0.5rem;">Долазак</legend>
+            <div class="radio-row" role="radiogroup" aria-required="true">
+              <label class="radio-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>ДОЛАЗИМ</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="attending" value="no">
+                <span>НЕ МОГУ</span>
+              </label>
+            </div>
+          </fieldset>
 
           <div class="form-row" id="guests-group">
-            <label class="form-label">Гости:</label>
-            <select name="guests" class="form-select">
+            <label class="form-label" for="guests-count">Гости:</label>
+            <select id="guests-count" name="guests" class="form-select">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -525,8 +537,8 @@
 
           {{#IF_MEAL_OPTIONS}}
           <div class="form-row" id="meal-group">
-            <label class="form-label">Јело:</label>
-            <select name="meal" class="form-select">
+            <label class="form-label" for="meal-choice">Јело:</label>
+            <select id="meal-choice" name="meal" class="form-select">
               <option value="">Изаберите</option>
               {{MEAL_OPTIONS}}
             </select>
@@ -538,7 +550,7 @@
           </button>
         </form>
 
-        <div class="form-success hidden" id="form-success">
+        <div class="form-success hidden" id="form-success" role="status" aria-live="polite" aria-atomic="true">
           <div class="success-icon">📬</div>
           <h3 class="success-title">Порука примљена!</h3>
           <p class="success-text">Хвала на одговору.</p>

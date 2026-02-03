@@ -419,6 +419,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
   {{THEME_CSS}}
 </head>
@@ -494,26 +503,26 @@
     <!-- RSVP -->
     <section class="rsvp-section">
       <div class="rsvp-header">
-        <h2 class="rsvp-title">Répondez s'il vous plaît</h2>
+        <h2 class="rsvp-title" id="rsvp-title">Répondez s'il vous plaît</h2>
         <p class="rsvp-subtitle">Молимо потврдите ваш долазак</p>
       </div>
 
-      <form class="rsvp-form" id="rsvp-form">
+      <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title">
         <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
 
         <div class="form-group">
           <label class="form-label" for="guest-name">Име и презиме</label>
-          <input type="text" id="guest-name" name="name" class="form-input" required>
+          <input type="text" id="guest-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
         </div>
 
         <div class="form-group">
           <label class="form-label" for="guest-email">Емаил адреса</label>
-          <input type="email" id="guest-email" name="email" class="form-input" required>
+          <input type="email" id="guest-email" name="email" class="form-input" required autocomplete="email">
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Долазак</label>
-          <div class="radio-group">
+        <fieldset class="form-group">
+          <legend class="form-label">Долазак</legend>
+          <div class="radio-group" role="radiogroup" aria-required="true">
             <label class="radio-label">
               <input type="radio" name="attending" value="yes" required>
               <span>М_______ ће присуствовати</span>
@@ -523,7 +532,7 @@
               <span>М_______ неће моћи да присуствује</span>
             </label>
           </div>
-        </div>
+        </fieldset>
 
         <div class="form-group" id="guests-group">
           <label class="form-label" for="guests-count">Број особа</label>
@@ -548,7 +557,7 @@
         <button type="submit" class="submit-btn" id="submit-btn">Потврди</button>
       </form>
 
-      <div class="form-success hidden" id="form-success">
+      <div class="form-success hidden" id="form-success" role="status" aria-live="polite" aria-atomic="true">
         <h3 class="success-title">Хвала</h3>
         <p class="success-text">Са нестрпљењем ишчекујемо ваше присуство.</p>
       </div>

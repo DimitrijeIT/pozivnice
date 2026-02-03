@@ -349,11 +349,16 @@
 
       fetch(CONFIG.RSVP_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
-      .then(() => {
+      .then(response => {
+        if (!response.ok) throw new Error('Server error');
+        return response.json();
+      })
+      .then(result => {
+        if (!result.success) throw new Error(result.message || 'Failed');
+
         buttonText.style.display = 'inline';
         buttonLoading.style.display = 'none';
         submitBtn.disabled = false;

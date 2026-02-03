@@ -456,6 +456,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -577,21 +586,21 @@
     <!-- Field Notes RSVP -->
     <section class="specimen-page">
       <div class="field-notes grow-in">
-        <div class="field-header">Теренске белешке</div>
+        <div class="field-header" id="field-header-title">Теренске белешке</div>
         <div class="field-body">
           <div class="field-date">Рок за одговор: {{RSVP_DEADLINE}}</div>
 
-          <form id="rsvp-form">
+          <form id="rsvp-form" aria-labelledby="field-header-title" aria-live="polite" aria-atomic="true">
             <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
 
             <div class="form-group">
-              <label class="form-label">Име посматрача:</label>
-              <input type="text" name="guest_name" class="form-input" required>
+              <label class="form-label" for="guest-name">Име посматрача:</label>
+              <input type="text" id="guest-name" name="guest_name" class="form-input" required autocomplete="name" aria-required="true">
             </div>
 
-            <div class="form-group">
-              <label class="form-label">Присуство на терену:</label>
-              <div class="attendance-options">
+            <fieldset class="form-group">
+              <legend class="form-label">Присуство на терену:</legend>
+              <div class="attendance-options" role="radiogroup" aria-required="true">
                 <label class="radio-label">
                   <input type="radio" name="attending" value="yes" required>
                   <span>Присутан</span>
@@ -601,25 +610,25 @@
                   <span>Одсутан</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="form-group">
-              <label class="form-label">Број у групи:</label>
-              <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+              <label class="form-label" for="guest-count">Број у групи:</label>
+              <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="10" value="1">
             </div>
 
             {{#IF_MEAL_OPTIONS}}
             <div class="form-group">
-              <label class="form-label">Преференције исхране:</label>
-              <select name="meal_preference" class="form-select">
+              <label class="form-label" for="meal-choice">Преференције исхране:</label>
+              <select id="meal-choice" name="meal_preference" class="form-select">
                 {{MEAL_OPTIONS}}
               </select>
             </div>
             {{/IF_MEAL_OPTIONS}}
 
             <div class="form-group">
-              <label class="form-label">Додатне напомене:</label>
-              <textarea name="message" class="form-textarea"></textarea>
+              <label class="form-label" for="guest-message">Додатне напомене:</label>
+              <textarea id="guest-message" name="message" class="form-textarea"></textarea>
             </div>
 
             <button type="submit" class="submit-btn">Забележи одговор</button>

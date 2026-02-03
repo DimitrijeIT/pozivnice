@@ -512,6 +512,15 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
   {{THEME_CSS}}
 </head>
@@ -614,7 +623,7 @@
 
       <div class="ticket">
         <div class="ticket-header">
-          <h3 class="ticket-title">VIP УЛАЗНИЦА</h3>
+          <h3 class="ticket-title" id="ticket-rsvp-title">VIP УЛАЗНИЦА</h3>
           <p class="ticket-subtitle">{{BRIDE_NAME}} & {{GROOM_NAME}} FEST</p>
         </div>
         <div class="ticket-body">
@@ -629,22 +638,22 @@
             </div>
           </div>
 
-          <form class="rsvp-form" id="rsvp-form">
+          <form class="rsvp-form" id="rsvp-form" aria-labelledby="ticket-rsvp-title">
             <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
 
             <div class="form-group">
               <label for="guest-name">Име на карти</label>
-              <input type="text" id="guest-name" name="name" class="form-input" required>
+              <input type="text" id="guest-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
             </div>
 
             <div class="form-group">
               <label for="guest-email">Емаил</label>
-              <input type="email" id="guest-email" name="email" class="form-input" required>
+              <input type="email" id="guest-email" name="email" class="form-input" required autocomplete="email">
             </div>
 
-            <div class="form-group">
-              <label>Долазак</label>
-              <div class="radio-group">
+            <fieldset class="form-group">
+              <legend style="display:block;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:0.5rem;">Долазак</legend>
+              <div class="radio-group" role="radiogroup" aria-required="true">
                 <label class="radio-label">
                   <input type="radio" name="attending" value="yes" required>
                   <span>Долазим!</span>
@@ -654,7 +663,7 @@
                   <span>Пропуштам</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="form-group" id="guests-group">
               <label for="guests-count">Број карата</label>
@@ -681,7 +690,7 @@
             </button>
           </form>
 
-          <div class="form-success hidden" id="form-success">
+          <div class="form-success hidden" id="form-success" role="status" aria-live="polite" aria-atomic="true">
             <div class="success-icon">🎫</div>
             <h3 class="success-title">Карта резервисана!</h3>
             <p class="success-text">Видимо се на фестивалу!</p>

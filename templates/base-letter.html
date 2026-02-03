@@ -513,6 +513,21 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .letter {
+        display: block !important;
+      }
+      .envelope-outer {
+        display: none !important;
+      }
+    }
   </style>
   {{THEME_CSS}}
 </head>
@@ -617,25 +632,25 @@
 
       <!-- RSVP -->
       <div class="letter-rsvp">
-        <h2 class="rsvp-title">Молимо одговорите</h2>
+        <h2 class="rsvp-title" id="rsvp-title">Молимо одговорите</h2>
         <p class="rsvp-subtitle">Волели бисмо да знамо да ли можете доћи</p>
 
-        <form class="rsvp-form" id="rsvp-form">
+        <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title">
           <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
 
           <div class="form-group">
             <label for="guest-name">Ваше име</label>
-            <input type="text" id="guest-name" name="name" class="form-input" placeholder="Име и презиме" required>
+            <input type="text" id="guest-name" name="name" class="form-input" placeholder="Име и презиме" required autocomplete="name" aria-required="true">
           </div>
 
           <div class="form-group">
             <label for="guest-email">Емаил адреса</label>
-            <input type="email" id="guest-email" name="email" class="form-input" placeholder="email@example.com" required>
+            <input type="email" id="guest-email" name="email" class="form-input" placeholder="email@example.com" required autocomplete="email">
           </div>
 
-          <div class="form-group">
-            <label>Да ли долазите?</label>
-            <div class="radio-group">
+          <fieldset class="form-group">
+            <legend style="display:block;font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0.5rem;font-style:italic;">Да ли долазите?</legend>
+            <div class="radio-group" role="radiogroup" aria-required="true">
               <label class="radio-label">
                 <input type="radio" name="attending" value="yes" required>
                 <span>Са радошћу долазим</span>
@@ -645,7 +660,7 @@
                 <span>Нажалост, не могу</span>
               </label>
             </div>
-          </div>
+          </fieldset>
 
           <div class="form-group" id="guests-group">
             <label for="guests-count">Број гостију</label>
@@ -672,7 +687,7 @@
           </button>
         </form>
 
-        <div class="form-success hidden" id="form-success">
+        <div class="form-success hidden" id="form-success" role="status" aria-live="polite" aria-atomic="true">
           <div class="success-icon">💌</div>
           <h3 class="success-title">Хвала вам!</h3>
           <p class="success-text">Примили смо ваш одговор са захвалношћу.</p>

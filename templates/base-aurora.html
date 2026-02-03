@@ -578,6 +578,16 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .stars, .aurora, .shooting-star { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -659,20 +669,20 @@
     <section class="section">
       <div class="constellation-card">
         <div class="rsvp-container">
-          <h2 class="rsvp-title">Пожели жељу</h2>
+          <h2 class="rsvp-title" id="rsvp-title-aurora">Пожели жељу</h2>
           <p class="rsvp-subtitle">Молимо вас да потврдите до {{RSVP_DEADLINE}}</p>
 
-          <form id="rsvp-form">
+          <form id="rsvp-form" aria-labelledby="rsvp-title-aurora">
             <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
 
             <div class="form-group">
-              <label class="form-label">Име и презиме</label>
-              <input type="text" name="guest_name" class="form-input" required>
+              <label class="form-label" for="guest-name">Име и презиме</label>
+              <input type="text" id="guest-name" name="guest_name" class="form-input" required autocomplete="name" aria-required="true">
             </div>
 
-            <div class="form-group">
-              <label class="form-label">Долазак</label>
-              <div class="attendance-options">
+            <fieldset class="form-group">
+              <legend class="form-label">Долазак</legend>
+              <div class="attendance-options" role="radiogroup" aria-required="true">
                 <label class="radio-label">
                   <input type="radio" name="attending" value="yes" required>
                   <span>Долазим</span>
@@ -682,28 +692,29 @@
                   <span>Не долазим</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="form-group">
-              <label class="form-label">Број гостију</label>
-              <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+              <label class="form-label" for="guest-count">Број гостију</label>
+              <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="10" value="1">
             </div>
 
             {{#IF_MEAL_OPTIONS}}
             <div class="form-group">
-              <label class="form-label">Исхрана</label>
-              <select name="meal_preference" class="form-select">
+              <label class="form-label" for="meal-choice">Исхрана</label>
+              <select id="meal-choice" name="meal_preference" class="form-select">
                 {{MEAL_OPTIONS}}
               </select>
             </div>
             {{/IF_MEAL_OPTIONS}}
 
             <div class="form-group">
-              <label class="form-label">Порука (опционо)</label>
-              <textarea name="message" class="form-textarea"></textarea>
+              <label class="form-label" for="guest-message">Порука (опционо)</label>
+              <textarea id="guest-message" name="message" class="form-textarea"></textarea>
             </div>
 
             <button type="submit" class="submit-btn">✨ ПОШАЉИ ЖЕЉУ ✨</button>
+            <div id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
           </form>
         </div>
       </div>
