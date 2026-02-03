@@ -17,7 +17,8 @@
     "images:dry-run": "node scripts/generate-images.js --dry-run",
     "images:chatgpt": "node scripts/generate-images-chatgpt.js",
     "images:chatgpt:list": "node scripts/generate-images-chatgpt.js --list",
-    "chrome:debug": "open -a 'Google Chrome' --args --remote-debugging-port=9222"
+    "chrome:debug": "open -a 'Google Chrome' --args --remote-debugging-port=9222",
+    "screenshots": "node scripts/generate-screenshots.js"
   },
   "keywords": [
     "wedding",

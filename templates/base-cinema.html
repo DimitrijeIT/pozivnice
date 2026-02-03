@@ -488,6 +488,12 @@
       border-color: var(--color-gold);
     }
 
+    .form-input:focus-visible,
+    .form-select:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 2px;
+    }
+
     .form-select {
       cursor: pointer;
       appearance: none;
@@ -602,7 +608,9 @@
       background: transparent;
       cursor: pointer;
       transition: all 0.3s;
-      padding: 0;
+      padding: 16px;
+      margin: -16px;
+      box-sizing: content-box;
     }
 
     .nav-dot.active,

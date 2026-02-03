@@ -438,6 +438,12 @@
       border-color: var(--color-accent);
     }
 
+    .form-input:focus-visible,
+    .form-select:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
     .radio-group {
       display: flex;
       gap: 2rem;
@@ -532,7 +538,9 @@
       border-radius: 50%;
       background: transparent;
       cursor: pointer;
-      padding: 0;
+      padding: 16px;
+      margin: -16px;
+      box-sizing: content-box;
       transition: all 0.3s;
     }
 
@@ -556,11 +564,11 @@
 <body>
   <!-- Nav Dots -->
   <nav class="nav-dots">
-    <button class="nav-dot active" data-page="0"></button>
-    <button class="nav-dot" data-page="1"></button>
-    <button class="nav-dot" data-page="2"></button>
-    <button class="nav-dot" data-page="3"></button>
-    <button class="nav-dot" data-page="4"></button>
+    <button class="nav-dot active" data-page="0" aria-label="Почетак"></button>
+    <button class="nav-dot" data-page="1" aria-label="Прича"></button>
+    <button class="nav-dot" data-page="2" aria-label="Локације"></button>
+    <button class="nav-dot" data-page="3" aria-label="Одбројавање"></button>
+    <button class="nav-dot" data-page="4" aria-label="РСВП"></button>
   </nav>
 
   <!-- COVER -->

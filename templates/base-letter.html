@@ -388,6 +388,12 @@
       border-bottom-width: 2px;
     }
 
+    .form-input:focus-visible,
+    .form-select:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
     .form-input::placeholder {
       color: var(--color-text-muted);
       font-style: italic;
@@ -495,7 +501,7 @@
 <body>
   <div class="envelope">
     <!-- Closed Envelope -->
-    <div class="envelope-outer" id="envelope-outer">
+    <div class="envelope-outer" id="envelope-outer" tabindex="0" role="button" aria-label="Отвори писмо">
       <div class="envelope-flap"></div>
       <p class="envelope-to">За наше драге госте</p>
       <p class="envelope-address">{{BRIDE_NAME}} & {{GROOM_NAME}}</p>
@@ -675,6 +681,13 @@
       envelope.addEventListener('click', () => {
         envelope.style.display = 'none';
         letter.classList.add('open');
+      });
+
+      envelope.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          envelope.click();
+        }
       });
 
       closeBtn.addEventListener('click', (e) => {

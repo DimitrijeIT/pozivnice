@@ -519,6 +519,12 @@
       border-color: var(--color-cover);
     }
 
+    .form-input:focus-visible,
+    .form-select:focus-visible {
+      outline: 2px solid var(--color-cover);
+      outline-offset: 2px;
+    }
+
     .radio-group {
       display: flex;
       gap: 1.5rem;
@@ -630,6 +636,18 @@
         background: var(--color-bg);
         padding: 0.5rem 0;
       }
+
+      .page-nav { display: none; }
+      .passport-page {
+        display: block !important;
+        opacity: 1 !important;
+        position: relative !important;
+      }
+      .passport-page + .passport-page {
+        border-top: 1px solid var(--color-text-muted, #ccc);
+        padding-top: 1.5rem;
+        margin-top: 1.5rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -646,7 +664,7 @@
 <body>
   <div class="passport">
     <!-- Cover -->
-    <div class="passport-cover" id="passport-cover">
+    <div class="passport-cover" id="passport-cover" tabindex="0" role="button" aria-label="Отвори пасош">
       <div class="passport-emblem">💒</div>
       <p class="passport-type">Путна исправа</p>
       <h1 class="passport-title">ПАСОШ</h1>
@@ -897,6 +915,13 @@
         pages.classList.add('open');
       });
 
+      cover.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          cover.click();
+        }
+      });
+
       closeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         pages.classList.remove('open');
@@ -905,6 +930,7 @@
 
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
+          if (window.innerWidth <= 768) return;
           tabs.forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
           const pageId = tab.dataset.page;

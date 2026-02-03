@@ -16,7 +16,7 @@
   <link rel="canonical" href="https://digipoz.rs">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -32,7 +32,7 @@
       --color-border: #E8E0D6;
       --color-border-light: #F0EBE4;
       --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'Inter', system-ui, sans-serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -219,6 +219,7 @@
       max-width: 540px;
       margin: 0 auto 2.5rem;
       font-weight: 300;
+      text-align: left;
     }
 
     .hero-actions {
@@ -368,13 +369,11 @@
       position: relative;
     }
 
-    .layout-card-preview iframe {
-      width: 200%;
-      height: 200%;
-      border: none;
-      transform: scale(0.5);
-      transform-origin: top left;
-      pointer-events: none;
+    .layout-card-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
     }
 
     .layout-card-preview-overlay {
@@ -1007,11 +1006,6 @@
 
       .layouts-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .layout-card-preview { aspect-ratio: 9 / 16; }
-      .layout-card-preview iframe {
-        width: 100%;
-        height: 100%;
-        transform: none;
-      }
       .features-grid { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; gap: 0; }
 
@@ -1146,7 +1140,7 @@
 
         <a href="preview/demo-cinema/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-cinema/" loading="lazy" title="Cinema" sandbox></iframe>
+            <img src="screenshots/cinema.webp" loading="lazy" alt="Cinema">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1158,7 +1152,7 @@
 
         <a href="preview/demo-passport/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-passport/" loading="lazy" title="Passport" sandbox></iframe>
+            <img src="screenshots/passport.webp" loading="lazy" alt="Passport">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1170,7 +1164,7 @@
 
         <a href="preview/demo-magazine/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-magazine/" loading="lazy" title="Magazine" sandbox></iframe>
+            <img src="screenshots/magazine.webp" loading="lazy" alt="Magazine">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1182,7 +1176,7 @@
 
         <a href="preview/demo-envelope/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-envelope/" loading="lazy" title="Envelope" sandbox></iframe>
+            <img src="screenshots/envelope.webp" loading="lazy" alt="Envelope">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1194,7 +1188,7 @@
 
         <a href="preview/demo-storybook/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-storybook/" loading="lazy" title="Storybook" sandbox></iframe>
+            <img src="screenshots/storybook.webp" loading="lazy" alt="Storybook">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1206,7 +1200,7 @@
 
         <a href="preview/demo-glass/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-glass/" loading="lazy" title="Glass" sandbox></iframe>
+            <img src="screenshots/glass.webp" loading="lazy" alt="Glass">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1218,7 +1212,7 @@
 
         <a href="preview/demo-concert/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-concert/" loading="lazy" title="Concert" sandbox></iframe>
+            <img src="screenshots/concert.webp" loading="lazy" alt="Concert">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1230,7 +1224,7 @@
 
         <a href="preview/demo-gazette/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-gazette/" loading="lazy" title="Gazette" sandbox></iframe>
+            <img src="screenshots/gazette.webp" loading="lazy" alt="Gazette">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1242,7 +1236,7 @@
 
         <a href="preview/demo-letter/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-letter/" loading="lazy" title="Letter" sandbox></iframe>
+            <img src="screenshots/letter.webp" loading="lazy" alt="Love Letter">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1254,7 +1248,7 @@
 
         <a href="preview/demo-telegram/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-telegram/" loading="lazy" title="Telegram" sandbox></iframe>
+            <img src="screenshots/telegram.webp" loading="lazy" alt="Telegram">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1266,7 +1260,7 @@
 
         <a href="preview/demo-botanical/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-botanical/" loading="lazy" title="Botanical" sandbox></iframe>
+            <img src="screenshots/botanical.webp" loading="lazy" alt="Botanical">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">
@@ -1278,7 +1272,7 @@
 
         <a href="preview/demo-velvet/" target="_blank" class="layout-card reveal">
           <div class="layout-card-preview">
-            <iframe src="preview/demo-velvet/" loading="lazy" title="Velvet" sandbox></iframe>
+            <img src="screenshots/velvet.webp" loading="lazy" alt="Velvet">
             <div class="layout-card-preview-overlay"><span class="layout-card-preview-cta">Pogledaj demo &rarr;</span></div>
           </div>
           <div class="layout-card-info">

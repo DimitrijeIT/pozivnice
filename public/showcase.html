@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="digipoz_logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -25,7 +25,7 @@
       --color-border: #E8E0D6;
       --color-border-light: #F0EBE4;
       --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'Inter', system-ui, sans-serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -217,11 +217,11 @@
       background: var(--color-bg);
     }
 
-    .gallery-card-preview iframe {
+    .gallery-card-preview img {
       width: 100%;
       height: 100%;
-      border: none;
-      pointer-events: none;
+      object-fit: cover;
+      object-position: top;
     }
 
     .gallery-card-overlay {
@@ -404,7 +404,7 @@
 
         <a href="preview/demo-cinema/noir.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative dark">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-cinema/noir.html" loading="lazy" sandbox title="Cinema"></iframe>
+            <img src="screenshots/cinema.webp" loading="lazy" alt="Cinema">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Filmska premijera sa dramatičnim poster dizajnom</span>
@@ -418,7 +418,7 @@
 
         <a href="preview/demo-passport/classic.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-passport/classic.html" loading="lazy" sandbox title="Passport"></iframe>
+            <img src="screenshots/passport.webp" loading="lazy" alt="Passport">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Putnički pasoš sa vizama i pečatima</span>
@@ -432,7 +432,7 @@
 
         <a href="preview/demo-magazine/vogue.html" target="_blank" class="gallery-card reveal" data-tags="2026 modern">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-magazine/vogue.html" loading="lazy" sandbox title="Magazine"></iframe>
+            <img src="screenshots/magazine.webp" loading="lazy" alt="Magazine">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Modni časopis sa naslovnom stranom</span>
@@ -446,7 +446,7 @@
 
         <a href="preview/demo-envelope/velvet.html" target="_blank" class="gallery-card reveal" data-tags="2026 classic romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-envelope/velvet.html" loading="lazy" sandbox title="Envelope"></iframe>
+            <img src="screenshots/envelope.webp" loading="lazy" alt="Envelope">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Interaktivna animacija otvaranja koverte</span>
@@ -460,7 +460,7 @@
 
         <a href="preview/demo-storybook/novel.html" target="_blank" class="gallery-card reveal" data-tags="2026 romantic classic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-storybook/novel.html" loading="lazy" sandbox title="Storybook"></iframe>
+            <img src="screenshots/storybook.webp" loading="lazy" alt="Storybook">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Knjiga priča sa ilustracijama</span>
@@ -474,7 +474,7 @@
 
         <a href="preview/demo-glass/frost.html" target="_blank" class="gallery-card reveal" data-tags="2026 modern">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-glass/frost.html" loading="lazy" sandbox title="Glass"></iframe>
+            <img src="screenshots/glass.webp" loading="lazy" alt="Glass">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Moderni glasmorfizam sa svetlosnim efektima</span>
@@ -488,7 +488,7 @@
 
         <a href="preview/demo-concert/rock.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-concert/rock.html" loading="lazy" sandbox title="Concert"></iframe>
+            <img src="screenshots/concert.webp" loading="lazy" alt="Concert">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Festivalski poster stil sa karta RSVP</span>
@@ -502,7 +502,7 @@
 
         <a href="preview/demo-gazette/broadsheet.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-gazette/broadsheet.html" loading="lazy" sandbox title="Gazette"></iframe>
+            <img src="screenshots/gazette.webp" loading="lazy" alt="Gazette">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Novinski stil sa vestima o venčanju</span>
@@ -516,7 +516,7 @@
 
         <a href="preview/demo-letter/romantic.html" target="_blank" class="gallery-card reveal" data-tags="2026 romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-letter/romantic.html" loading="lazy" sandbox title="Love Letter"></iframe>
+            <img src="screenshots/letter.webp" loading="lazy" alt="Love Letter">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Rukopisno ljubavno pismo sa pečatom</span>
@@ -530,7 +530,7 @@
 
         <a href="preview/demo-telegram/western.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-telegram/western.html" loading="lazy" sandbox title="Telegram"></iframe>
+            <img src="screenshots/telegram.webp" loading="lazy" alt="Telegram">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Vintage telegram sa klasičnom estetikom</span>
@@ -544,7 +544,7 @@
 
         <a href="preview/demo-botanical/forest.html" target="_blank" class="gallery-card reveal" data-tags="2026 romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-botanical/forest.html" loading="lazy" sandbox title="Botanical"></iframe>
+            <img src="screenshots/botanical.webp" loading="lazy" alt="Botanical">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Naučni herbarijum sa presovanim cvećem</span>
@@ -558,7 +558,7 @@
 
         <a href="preview/demo-velvet/burgundy.html" target="_blank" class="gallery-card reveal" data-tags="2026 dark romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-velvet/burgundy.html" loading="lazy" sandbox title="Velvet"></iframe>
+            <img src="screenshots/velvet.webp" loading="lazy" alt="Velvet">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Luksuzna tamna elegancija u somotu</span>
@@ -572,7 +572,7 @@
 
         <a href="preview/demo-aurora/northern.html" target="_blank" class="gallery-card reveal" data-tags="2026 modern">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-aurora/northern.html" loading="lazy" sandbox title="Aurora"></iframe>
+            <img src="screenshots/aurora.webp" loading="lazy" alt="Aurora">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Severni sjaj sa kosmičkim česticama</span>
@@ -586,7 +586,7 @@
 
         <a href="preview/demo-mediterranean/amalfi.html" target="_blank" class="gallery-card reveal" data-tags="2026 romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-mediterranean/amalfi.html" loading="lazy" sandbox title="Mediterranean"></iframe>
+            <img src="screenshots/mediterranean.webp" loading="lazy" alt="Mediterranean">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Sunčana obala sa keramičkim motivima</span>
@@ -600,7 +600,7 @@
 
         <a href="preview/demo-oldmoney/ivory.html" target="_blank" class="gallery-card reveal" data-tags="2026 classic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-oldmoney/ivory.html" loading="lazy" sandbox title="Old Money"></iframe>
+            <img src="screenshots/oldmoney.webp" loading="lazy" alt="Old Money">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Klasična elegancija nasleđenog bogatstva</span>
@@ -614,7 +614,7 @@
 
         <a href="preview/demo-filmnoir/classic.html" target="_blank" class="gallery-card reveal" data-tags="2026 dark creative">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-filmnoir/classic.html" loading="lazy" sandbox title="Film Noir"></iframe>
+            <img src="screenshots/filmnoir.webp" loading="lazy" alt="Film Noir">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Holivudska drama u crno-belom</span>
@@ -628,7 +628,7 @@
 
         <a href="preview/demo-kinetic/editorial.html" target="_blank" class="gallery-card reveal" data-tags="2026 modern">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-kinetic/editorial.html" loading="lazy" sandbox title="Kinetic"></iframe>
+            <img src="screenshots/kinetic.webp" loading="lazy" alt="Kinetic">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Dinamična tipografija sa animacijama</span>
@@ -642,7 +642,7 @@
 
         <a href="preview/demo-scribble/watercolor.html" target="_blank" class="gallery-card reveal" data-tags="2026 creative romantic">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-scribble/watercolor.html" loading="lazy" sandbox title="Scribble"></iframe>
+            <img src="screenshots/scribble.webp" loading="lazy" alt="Scribble">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Ručno crtani stil sa igrajućim ilustracijama</span>
@@ -656,7 +656,7 @@
 
         <a href="preview/demo-wabisabi/paper.html" target="_blank" class="gallery-card reveal" data-tags="2026 modern">
           <div class="gallery-card-preview">
-            <iframe src="preview/demo-wabisabi/paper.html" loading="lazy" sandbox title="Wabi-Sabi"></iframe>
+            <img src="screenshots/wabisabi.webp" loading="lazy" alt="Wabi-Sabi">
             <div class="gallery-card-overlay">
               <span class="gallery-card-overlay-cta">Otvori &rarr;</span>
               <span class="gallery-card-overlay-desc">Japanska estetika nesavršene lepote</span>
