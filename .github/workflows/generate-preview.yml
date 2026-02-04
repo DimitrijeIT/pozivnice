@@ -38,9 +38,11 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
             echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
+            echo "rsvp_sheet_url=${{ github.event.client_payload.rsvp_sheet_url }}" >> $GITHUB_OUTPUT
             echo '${{ toJson(github.event.client_payload.wedding_data) }}' > data/temp-wedding.json
           else
             echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
+            echo "rsvp_sheet_url=" >> $GITHUB_OUTPUT
             echo '${{ github.event.inputs.wedding_data }}' > data/temp-wedding.json
           fi
 
@@ -93,6 +95,9 @@ jobs:
             https://digipoz.rs/preview/${{ steps.extract.outputs.slug }}/
 
             Линк важи 24 сата.
+
+            Табела за праћење потврда доласка (RSVP):
+            ${{ steps.extract.outputs.rsvp_sheet_url }}
 
             Срдачан поздрав,
             Позивнице.rs тим

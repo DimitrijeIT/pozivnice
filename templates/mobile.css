@@ -309,7 +309,7 @@ body {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 }
@@ -369,9 +369,19 @@ body {
    ANIMATIONS & PERFORMANCE
    ============================================ */
 
-/* Disable complex animations on mobile */
+/* Simplify animations on mobile for performance */
 @media (max-width: 768px) {
-  .floating-element,
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Keep only 3 floating elements on mobile */
+  .floating-element:nth-child(n+4) {
+    display: none;
+  }
+
   .particle {
     animation-duration: 0s !important;
     animation: none !important;
@@ -457,8 +467,21 @@ body {
     padding: 2rem;
   }
 
+  /* All sections: avoid full-height in landscape */
+  section,
+  .section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
   /* Side-by-side layout for countdown */
-  .countdown-timer {
+  .countdown-timer,
+  .countdown-display,
+  .countdown-grid {
     flex-wrap: nowrap;
     gap: 0.5rem;
   }
@@ -467,8 +490,40 @@ body {
     min-width: 50px;
   }
 
-  .countdown-number {
+  .countdown-number,
+  .countdown-value {
     font-size: 1.5rem !important;
+  }
+
+  /* Forms: reduce padding so keyboard doesn't obscure content */
+  .rsvp-form,
+  .rsvp-container,
+  .ticket-frame {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Radio groups side-by-side in landscape */
+  .radio-group,
+  .attendance-toggle {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  /* Gallery: 2-column in landscape */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Venue cards side-by-side */
+  .venue-grid,
+  .venue-cards,
+  .venue-spread {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
   }
 }
 
@@ -501,7 +556,7 @@ body {
 /* === DIGIPOZ BRANDING BADGE === */
 .digipoz-badge {
   position: fixed;
-  bottom: 12px;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -545,7 +600,7 @@ body {
 
 @media (max-width: 480px) {
   .digipoz-badge {
-    bottom: 8px;
+    bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
     padding: 5px 10px;
     gap: 4px;
   }

@@ -2,7 +2,7 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Венчање - {{BRIDE_NAME}} и {{GROOM_NAME}}">
   <meta name="robots" content="noindex, nofollow">
   <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Позивница за венчање</title>
@@ -939,6 +939,12 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Mobile: Prevent iOS auto-zoom on input focus */
+    @media (max-width: 768px) {
+      input, select, textarea { font-size: 16px !important; }
+    }
+
   </style>
 
   <!-- Theme-specific fonts -->

@@ -467,7 +467,18 @@ section {
 }
 
 @media (max-width: 768px) {
-  .floating-elements,
+  /* Show fewer floating elements on mobile for lighter visual effect */
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Hide most elements, keep only 3 */
+  .floating-element:nth-child(n+4) {
+    display: none;
+  }
+
   .falling-petals {
     display: none;
   }

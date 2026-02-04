@@ -51,6 +51,7 @@ jobs:
             echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
             echo "theme=${{ github.event.client_payload.theme }}" >> $GITHUB_OUTPUT
             echo "contact_email=${{ github.event.client_payload.contact_email }}" >> $GITHUB_OUTPUT
+            echo "rsvp_sheet_url=${{ github.event.client_payload.rsvp_sheet_url }}" >> $GITHUB_OUTPUT
           else
             echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
             echo "theme=${{ github.event.inputs.theme }}" >> $GITHUB_OUTPUT
@@ -104,6 +105,9 @@ jobs:
             https://digipoz.rs/site/${{ steps.extract.outputs.slug }}/
 
             Овај линк можете делити са вашим гостима.
+
+            Табела за праћење потврда доласка (RSVP):
+            ${{ steps.extract.outputs.rsvp_sheet_url }}
 
             Срећно венчање!
 

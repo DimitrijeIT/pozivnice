@@ -64,6 +64,61 @@ function generateSlug(brideName, groomName) {
 }
 
 /**
+ * Create a per-couple RSVP spreadsheet
+ * Returns { spreadsheetId, spreadsheetUrl } or null on failure
+ */
+function createRsvpSpreadsheet(slug, brideName, groomName) {
+  try {
+    var title = 'RSVP - ' + brideName + ' & ' + groomName + ' (' + slug + ')';
+    var ss = SpreadsheetApp.create(title);
+    var sheet = ss.getSheets()[0];
+    sheet.setName('Потврде доласка');
+
+    var headers = [
+      'Име', 'Е-маил', 'Телефон', 'Долази',
+      'Број гостију', 'Оброк', 'Порука', 'Време пријаве'
+    ];
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
+
+    // Make viewable by anyone with the link
+    var file = DriveApp.getFileById(ss.getId());
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+    Logger.log('Created RSVP spreadsheet: ' + ss.getUrl());
+
+    return {
+      spreadsheetId: ss.getId(),
+      spreadsheetUrl: ss.getUrl()
+    };
+  } catch (error) {
+    Logger.log('Warning: Failed to create RSVP spreadsheet: ' + error.toString());
+    return null;
+  }
+}
+
+/**
+ * Register the per-couple RSVP spreadsheet in the RSVP_Lookup tab
+ */
+function registerRsvpSpreadsheet(slug, spreadsheetId) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+
+    if (!lookupSheet) {
+      lookupSheet = ss.insertSheet('RSVP_Lookup');
+      lookupSheet.getRange(1, 1, 1, 3).setValues([['Slug', 'Spreadsheet ID', 'Created At']]);
+      lookupSheet.getRange(1, 1, 1, 3).setFontWeight('bold');
+    }
+
+    lookupSheet.appendRow([slug, spreadsheetId, new Date().toISOString()]);
+    Logger.log('Registered RSVP spreadsheet for: ' + slug);
+  } catch (error) {
+    Logger.log('Warning: Failed to register RSVP spreadsheet: ' + error.toString());
+  }
+}
+
+/**
  * Format date for JSON (ISO 8601)
  */
 function formatDateForJson(dateValue) {
@@ -169,6 +224,19 @@ function onFormSubmit(e) {
     weddingData.selected_theme = '';
     weddingData.theme_selected_at = '';
 
+    // Create per-couple RSVP spreadsheet
+    var rsvpResult = createRsvpSpreadsheet(weddingData.slug, weddingData.bride_name, weddingData.groom_name);
+    if (rsvpResult) {
+      weddingData.rsvp_spreadsheet_id = rsvpResult.spreadsheetId;
+      weddingData.rsvp_sheet_url = rsvpResult.spreadsheetUrl;
+      registerRsvpSpreadsheet(weddingData.slug, rsvpResult.spreadsheetId);
+      Logger.log('RSVP spreadsheet created: ' + rsvpResult.spreadsheetUrl);
+    } else {
+      Logger.log('Warning: RSVP spreadsheet creation failed, continuing without it');
+      weddingData.rsvp_spreadsheet_id = '';
+      weddingData.rsvp_sheet_url = '';
+    }
+
     // Trigger GitHub Actions to generate preview
     if (CONFIG.GITHUB_TOKEN && CONFIG.GITHUB_REPO) {
       Logger.log('Triggering GitHub Action...');
@@ -212,6 +280,7 @@ function triggerGitHubAction(weddingData, CONFIG) {
     client_payload: {
       slug: weddingData.slug,
       contact_email: weddingData.contact_email,
+      rsvp_sheet_url: weddingData.rsvp_sheet_url || '',
       wedding_data: weddingData
     }
   };

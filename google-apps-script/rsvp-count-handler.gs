@@ -21,9 +21,34 @@
 
 // Configuration
 const CONFIG = {
-  SPREADSHEET_ID: '', // Leave empty to use active spreadsheet
+  MASTER_SPREADSHEET_ID: PropertiesService.getScriptProperties().getProperty('MASTER_SPREADSHEET_ID') || '',
   CACHE_DURATION_SECONDS: 60 // Cache results for this many seconds
 };
+
+/**
+ * Look up per-couple spreadsheet ID from the RSVP_Lookup tab
+ */
+function lookupSpreadsheetId(slug) {
+  var ss = CONFIG.MASTER_SPREADSHEET_ID
+    ? SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
+
+  var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+  if (!lookupSheet) {
+    Logger.log('RSVP_Lookup tab not found');
+    return null;
+  }
+
+  var data = lookupSheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] === slug) {
+      return data[i][1]; // Column B: Spreadsheet ID
+    }
+  }
+
+  Logger.log('No RSVP spreadsheet found for slug: ' + slug);
+  return null;
+}
 
 /**
  * Handle GET requests for RSVP counts
@@ -77,18 +102,12 @@ function doPost(e) {
 }
 
 /**
- * Get RSVP counts from spreadsheet
+ * Get RSVP counts from per-couple spreadsheet
  */
 function getRSVPCounts(slug) {
-  const ss = CONFIG.SPREADSHEET_ID
-    ? SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID)
-    : SpreadsheetApp.getActiveSpreadsheet();
-
-  const sheetName = 'RSVP_' + slug;
-  const sheet = ss.getSheetByName(sheetName);
-
-  if (!sheet) {
-    // No RSVP sheet yet - return zeros
+  var spreadsheetId = lookupSpreadsheetId(slug);
+  if (!spreadsheetId) {
+    // No spreadsheet registered yet - return zeros (graceful fallback)
     return {
       success: true,
       data: {
@@ -100,6 +119,23 @@ function getRSVPCounts(slug) {
     };
   }
 
+  var ss;
+  try {
+    ss = SpreadsheetApp.openById(spreadsheetId);
+  } catch (error) {
+    Logger.log('Failed to open RSVP spreadsheet ' + spreadsheetId + ': ' + error.toString());
+    return {
+      success: true,
+      data: {
+        attending: 0,
+        notAttending: 0,
+        totalGuests: 0,
+        responses: 0
+      }
+    };
+  }
+
+  var sheet = ss.getSheets()[0];
   const data = sheet.getDataRange().getValues();
 
   let attending = 0;
@@ -198,18 +234,25 @@ function testGetCounts() {
 }
 
 /**
- * Debug function - list all RSVP sheets
+ * Debug function - list all registered RSVP spreadsheets
  */
-function listRSVPSheets() {
-  const ss = CONFIG.SPREADSHEET_ID
-    ? SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID)
+function listRSVPSpreadsheets() {
+  var ss = CONFIG.MASTER_SPREADSHEET_ID
+    ? SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID)
     : SpreadsheetApp.getActiveSpreadsheet();
 
-  const sheets = ss.getSheets();
-  const rsvpSheets = sheets
-    .filter(sheet => sheet.getName().startsWith('RSVP_'))
-    .map(sheet => sheet.getName().replace('RSVP_', ''));
+  var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+  if (!lookupSheet) {
+    Logger.log('No RSVP_Lookup tab found');
+    return [];
+  }
 
-  Logger.log('RSVP sheets found: ' + rsvpSheets.join(', '));
-  return rsvpSheets;
+  var data = lookupSheet.getDataRange().getValues();
+  var slugs = [];
+  for (var i = 1; i < data.length; i++) {
+    slugs.push(data[i][0]);
+  }
+
+  Logger.log('Registered RSVP spreadsheets: ' + slugs.join(', '));
+  return slugs;
 }

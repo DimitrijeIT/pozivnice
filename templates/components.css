@@ -69,7 +69,7 @@ fieldset.form-group legend {
 
 .music-player {
   position: fixed;
-  bottom: 20px;
+  bottom: max(20px, calc(env(safe-area-inset-bottom) + 8px));
   right: 20px;
   z-index: 1000;
   display: flex;
@@ -142,7 +142,7 @@ fieldset.form-group legend {
 @media (max-width: 480px) {
   .music-player {
     padding: 8px 12px;
-    bottom: 15px;
+    bottom: max(15px, calc(env(safe-area-inset-bottom) + 8px));
     right: 15px;
   }
 
@@ -283,6 +283,8 @@ fieldset.form-group legend {
   top: 1rem;
   right: 1rem;
   font-size: 2.5rem;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .lightbox-prev {
@@ -640,7 +642,7 @@ fieldset.form-group legend {
 
   .calendar-btn {
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     justify-content: center;
   }
 }
@@ -683,7 +685,8 @@ fieldset.form-group legend {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
 }
 
@@ -722,12 +725,42 @@ fieldset.form-group legend {
 }
 
 /* ============================================
+   TOUCH FEEDBACK (Mobile)
+   ============================================ */
+
+@media (pointer: coarse) {
+  .glass-card:active,
+  .theme-card:active,
+  .venue-card:active,
+  .story-card:active,
+  .gallery-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .btn:active,
+  .submit-btn:active,
+  .submit-button:active,
+  .calendar-btn:active,
+  .fab:active,
+  .music-toggle:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .venue-map-btn:active,
+  .venue-link:active {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================
    DIGIPOZ BRANDING BADGE
    ============================================ */
 
 .digipoz-badge {
   position: fixed;
-  bottom: 12px;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -771,7 +804,7 @@ fieldset.form-group legend {
 
 @media (max-width: 480px) {
   .digipoz-badge {
-    bottom: 8px;
+    bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
     padding: 5px 10px;
     gap: 4px;
   }

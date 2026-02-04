@@ -10,6 +10,7 @@
  * 3. Add Script Properties (Project Settings > Script Properties):
  *    - GITHUB_TOKEN = your GitHub personal access token
  *    - GITHUB_REPO = username/repo-name (e.g., DimitrijeIT/pozivnice)
+ *    - MASTER_SPREADSHEET_ID = ID of the intake form's Google Sheet
  * 4. Deploy as web app:
  *    - Deploy > New deployment
  *    - Type: Web app
@@ -25,8 +26,94 @@ function getConfig() {
   const props = PropertiesService.getScriptProperties();
   return {
     GITHUB_TOKEN: props.getProperty('GITHUB_TOKEN') || '',
-    GITHUB_REPO: props.getProperty('GITHUB_REPO') || ''
+    GITHUB_REPO: props.getProperty('GITHUB_REPO') || '',
+    MASTER_SPREADSHEET_ID: props.getProperty('MASTER_SPREADSHEET_ID') || ''
   };
+}
+
+/**
+ * Look up RSVP sheet URL from RSVP_Lookup tab in the master spreadsheet
+ */
+function lookupRsvpSheetUrl(slug, CONFIG) {
+  if (!CONFIG.MASTER_SPREADSHEET_ID) {
+    Logger.log('MASTER_SPREADSHEET_ID not configured');
+    return '';
+  }
+
+  try {
+    var ss = SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID);
+    var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+    if (!lookupSheet) {
+      Logger.log('RSVP_Lookup tab not found');
+      return '';
+    }
+
+    var data = lookupSheet.getDataRange().getValues();
+    for (var i = 1; i < data.length; i++) {
+      if (data[i][0] === slug) {
+        var spreadsheetId = data[i][1];
+        return 'https://docs.google.com/spreadsheets/d/' + spreadsheetId;
+      }
+    }
+
+    Logger.log('No RSVP spreadsheet found for slug: ' + slug);
+    return '';
+  } catch (error) {
+    Logger.log('Error looking up RSVP sheet URL: ' + error.toString());
+    return '';
+  }
+}
+
+/**
+ * Look up contact email from the Weddings tab in the master spreadsheet
+ */
+function lookupContactEmail(slug, CONFIG) {
+  if (!CONFIG.MASTER_SPREADSHEET_ID) {
+    Logger.log('MASTER_SPREADSHEET_ID not configured');
+    return '';
+  }
+
+  try {
+    var ss = SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID);
+    var weddingsSheet = ss.getSheetByName('Weddings');
+    if (!weddingsSheet) {
+      // Try the first sheet as fallback
+      weddingsSheet = ss.getSheets()[0];
+    }
+
+    var data = weddingsSheet.getDataRange().getValues();
+    var headers = data[0];
+
+    // Find the slug and email columns
+    var slugCol = -1;
+    var emailCol = -1;
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h].toString().toLowerCase();
+      if (header === 'slug') {
+        slugCol = h;
+      }
+      if (header.indexOf('е-маил') !== -1 || header.indexOf('email') !== -1 || header.indexOf('контакт') !== -1) {
+        emailCol = h;
+      }
+    }
+
+    if (slugCol === -1 || emailCol === -1) {
+      Logger.log('Could not find slug or email column in Weddings sheet');
+      return '';
+    }
+
+    for (var i = 1; i < data.length; i++) {
+      if (data[i][slugCol] === slug) {
+        return data[i][emailCol] || '';
+      }
+    }
+
+    Logger.log('No contact email found for slug: ' + slug);
+    return '';
+  } catch (error) {
+    Logger.log('Error looking up contact email: ' + error.toString());
+    return '';
+  }
 }
 
 /**
@@ -138,11 +225,17 @@ function doGet(e) {
 function triggerFinalSiteGeneration(slug, theme, CONFIG) {
   const url = 'https://api.github.com/repos/' + CONFIG.GITHUB_REPO + '/dispatches';
 
+  // Look up RSVP sheet URL and contact email from master spreadsheet
+  var rsvpSheetUrl = lookupRsvpSheetUrl(slug, CONFIG);
+  var contactEmail = lookupContactEmail(slug, CONFIG);
+
   const payload = {
     event_type: 'theme-selected',
     client_payload: {
       slug: slug,
-      theme: theme
+      theme: theme,
+      rsvp_sheet_url: rsvpSheetUrl,
+      contact_email: contactEmail
     }
   };
 

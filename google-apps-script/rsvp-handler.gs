@@ -2,7 +2,8 @@
  * RSVP Handler
  *
  * This script handles RSVP form submissions from wedding invitation pages.
- * Each wedding has its own sheet for RSVP responses (RSVP_<slug>).
+ * Each wedding has its own dedicated Google Spreadsheet for RSVP responses,
+ * looked up via the RSVP_Lookup tab in the master spreadsheet.
  *
  * Setup:
  * 1. Create a Google Sheet (or use existing one)
@@ -18,9 +19,34 @@
 
 // Configuration
 const CONFIG = {
-  SPREADSHEET_ID: '', // Leave empty to use active spreadsheet
+  MASTER_SPREADSHEET_ID: PropertiesService.getScriptProperties().getProperty('MASTER_SPREADSHEET_ID') || '',
   NOTIFY_EMAILS: {} // Map of slug to notification email, e.g., {'ana-marko': 'couple@email.com'}
 };
+
+/**
+ * Look up per-couple spreadsheet ID from the RSVP_Lookup tab
+ */
+function lookupSpreadsheetId(slug) {
+  var ss = CONFIG.MASTER_SPREADSHEET_ID
+    ? SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
+
+  var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+  if (!lookupSheet) {
+    Logger.log('RSVP_Lookup tab not found');
+    return null;
+  }
+
+  var data = lookupSheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] === slug) {
+      return data[i][1]; // Column B: Spreadsheet ID
+    }
+  }
+
+  Logger.log('No RSVP spreadsheet found for slug: ' + slug);
+  return null;
+}
 
 /**
  * Handle POST requests for RSVP submissions
@@ -117,34 +143,23 @@ function doGet(e) {
 }
 
 /**
- * Save RSVP to spreadsheet
+ * Save RSVP to per-couple spreadsheet
  */
 function saveRSVP(slug, rsvpData) {
-  const ss = CONFIG.SPREADSHEET_ID
-    ? SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID)
-    : SpreadsheetApp.getActiveSpreadsheet();
-
-  const sheetName = 'RSVP_' + slug;
-  let sheet = ss.getSheetByName(sheetName);
-
-  // Create sheet if it doesn't exist
-  if (!sheet) {
-    sheet = ss.insertSheet(sheetName);
-
-    // Add headers
-    const headers = [
-      'Name',
-      'Email',
-      'Phone',
-      'Attending',
-      'Guests Count',
-      'Meal Preference',
-      'Message',
-      'Submitted At'
-    ];
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-    sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
+  var spreadsheetId = lookupSpreadsheetId(slug);
+  if (!spreadsheetId) {
+    return { success: false, error: 'No RSVP spreadsheet found for this wedding' };
   }
+
+  var ss;
+  try {
+    ss = SpreadsheetApp.openById(spreadsheetId);
+  } catch (error) {
+    Logger.log('Failed to open RSVP spreadsheet ' + spreadsheetId + ': ' + error.toString());
+    return { success: false, error: 'Failed to open RSVP spreadsheet' };
+  }
+
+  var sheet = ss.getSheets()[0];
 
   // Check for duplicate submission (same name)
   const existingData = sheet.getDataRange().getValues();

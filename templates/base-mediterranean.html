@@ -2,7 +2,7 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Венчање</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>">
   {{THEME_FONTS}}
@@ -502,6 +502,12 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Mobile: Prevent iOS auto-zoom on input focus */
+    @media (max-width: 768px) {
+      input, select, textarea { font-size: 16px !important; }
+    }
+
   </style>
 </head>
 <body>
