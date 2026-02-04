@@ -322,6 +322,7 @@
       font-family: var(--font-display);
       font-size: 2.5rem;
       color: var(--color-accent);
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-unit {
@@ -518,11 +519,14 @@
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
         scroll-behavior: auto !important;
       }
       .letter {
         display: block !important;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
       }
       .envelope-outer {
         display: none !important;
@@ -740,9 +744,9 @@
         const diff = weddingDate - now;
         if (diff <= 0) return;
 
-        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
       }
 
       updateCountdown();

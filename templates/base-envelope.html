@@ -323,6 +323,7 @@
       font-weight: 300;
       line-height: 1;
       color: var(--color-accent);
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-label {
@@ -1240,10 +1241,10 @@
           const diff = weddingDate - now;
 
           if (diff <= 0) {
-            document.getElementById('countdown-days').textContent = '0';
-            document.getElementById('countdown-hours').textContent = '0';
-            document.getElementById('countdown-minutes').textContent = '0';
-            document.getElementById('countdown-seconds').textContent = '0';
+            document.getElementById('countdown-days').textContent = '00';
+            document.getElementById('countdown-hours').textContent = '00';
+            document.getElementById('countdown-minutes').textContent = '00';
+            document.getElementById('countdown-seconds').textContent = '00';
             return;
           }
 
@@ -1252,10 +1253,10 @@
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-          document.getElementById('countdown-days').textContent = days;
-          document.getElementById('countdown-hours').textContent = hours;
-          document.getElementById('countdown-minutes').textContent = minutes;
-          document.getElementById('countdown-seconds').textContent = seconds;
+          document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+          document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+          document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+          document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
         }
 
         updateCountdown();
@@ -1390,6 +1391,7 @@
       // ===== CONFETTI =====
       function createConfetti() {
         const container = document.getElementById('confetti-container');
+        container.innerHTML = '';
         const colors = ['#B8860B', '#FFD700', '#FFA500', '#FF69B4', '#87CEEB'];
 
         for (let i = 0; i < 100; i++) {
@@ -1414,14 +1416,17 @@
       const calendarFab = document.getElementById('calendar-fab');
       if (calendarFab) {
         calendarFab.addEventListener('click', () => {
-          // Generate Google Calendar link
+          // Generate Google Calendar link using local time (no UTC conversion)
           const weddingDate = countdownGrid?.dataset.weddingDate;
           if (weddingDate) {
             const date = new Date(weddingDate);
-            const dateStr = date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, 15) + 'Z';
+            const pad = (n) => String(n).padStart(2, '0');
+            const dateStr = date.getFullYear() + pad(date.getMonth()+1) + pad(date.getDate()) + 'T' + pad(date.getHours()) + pad(date.getMinutes()) + '00';
+            const endDate = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+            const endStr = endDate.getFullYear() + pad(endDate.getMonth()+1) + pad(endDate.getDate()) + 'T' + pad(endDate.getHours()) + pad(endDate.getMinutes()) + '00';
             const title = encodeURIComponent('{{BRIDE_NAME}} & {{GROOM_NAME}} - Венчање');
             const location = encodeURIComponent('{{CEREMONY_VENUE}}, {{CEREMONY_ADDRESS}}');
-            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dateStr}/${dateStr}&location=${location}`;
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dateStr}/${endStr}&location=${location}`;
             window.open(url, '_blank');
           }
         });

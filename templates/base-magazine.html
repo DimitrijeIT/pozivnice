@@ -359,6 +359,7 @@
       font-size: clamp(3rem, 10vw, 5rem);
       color: var(--color-accent);
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-label {
@@ -649,9 +650,11 @@
       <div class="article-body">
         <p>{{STORY_TEXT}}</p>
 
+        {{#IF_PULL_QUOTE}}
         <div class="pull-quote">
           <p>"{{PULL_QUOTE}}"</p>
         </div>
+        {{/IF_PULL_QUOTE}}
 
         <p>{{INVITATION_TEXT}}</p>
       </div>
@@ -813,10 +816,10 @@
 
         if (diff <= 0) return;
 
-        document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
       }
 
       updateCountdown();

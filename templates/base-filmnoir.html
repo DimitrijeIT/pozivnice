@@ -744,7 +744,11 @@
           e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-family:Bebas Neue,sans-serif;font-size:1.8rem;letter-spacing:0.1em;margin-bottom:1rem;">★ КАРТА РЕЗЕРВИСАНА ★</h3><p style="color:var(--color-text-muted);">Видимо се на премијери!</p></div>';
         }
       } catch (error) {
-        console.error('Error:', error);
+        const msgEl = document.getElementById('form-message');
+        if (msgEl) {
+          msgEl.textContent = 'Дошло је до грешке. Молимо покушајте поново.';
+          msgEl.style.cssText = 'margin-top:1rem;padding:1rem;background:rgba(231,76,60,0.15);color:#E74C3C;border:1px solid rgba(231,76,60,0.3);text-align:center;';
+        }
       }
     });
   </script>

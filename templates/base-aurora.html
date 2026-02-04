@@ -776,7 +776,11 @@
           e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-size:1.5rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--color-aurora-1),var(--color-aurora-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">✨ Жеља послата! ✨</h3><p style="color:var(--color-text-muted);">Видимо се под звездама.</p></div>';
         }
       } catch (error) {
-        console.error('Error:', error);
+        const msgEl = document.getElementById('form-message');
+        if (msgEl) {
+          msgEl.textContent = 'Дошло је до грешке. Молимо покушајте поново.';
+          msgEl.style.cssText = 'margin-top:1rem;padding:1rem;background:rgba(231,76,60,0.15);color:#E74C3C;border-radius:8px;text-align:center;';
+        }
       }
     });
   </script>

@@ -240,6 +240,7 @@
       font-size: 2.5rem;
       font-weight: 700;
       line-height: 1.2;
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-unit {
@@ -401,7 +402,7 @@
     }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       body {
         padding: 0.5rem;
       }
@@ -626,7 +627,7 @@
         const date = new Date(box.dataset.weddingDate);
         function update() {
           const diff = date - new Date();
-          document.getElementById('countdown-days').textContent = Math.max(0, Math.floor(diff / 86400000));
+          document.getElementById('countdown-days').textContent = String(Math.max(0, Math.floor(diff / 86400000))).padStart(2, '0');
         }
         update();
         setInterval(update, 60000);

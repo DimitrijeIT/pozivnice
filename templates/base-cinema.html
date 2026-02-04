@@ -41,6 +41,7 @@
     /* === CINEMA SECTIONS === */
     .cinema-section {
       min-height: 100vh;
+      min-height: 100dvh;
       scroll-snap-align: start;
       position: relative;
       display: flex;
@@ -247,6 +248,7 @@
       font-weight: 400;
       color: var(--color-gold);
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-label {
@@ -924,10 +926,10 @@
         const diff = weddingDate - now;
 
         if (diff <= 0) {
-          document.getElementById('days').textContent = '0';
-          document.getElementById('hours').textContent = '0';
-          document.getElementById('minutes').textContent = '0';
-          document.getElementById('seconds').textContent = '0';
+          document.getElementById('days').textContent = '00';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
           return;
         }
 
@@ -936,10 +938,10 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        document.getElementById('days').textContent = days;
-        document.getElementById('hours').textContent = hours;
-        document.getElementById('minutes').textContent = minutes;
-        document.getElementById('seconds').textContent = seconds;
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
       }
 
       updateCountdown();

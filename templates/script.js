@@ -221,10 +221,10 @@
       const diff = weddingDate - now;
 
       if (diff <= 0) {
-        animateNumber(daysEl, '0');
-        animateNumber(hoursEl, '0');
-        animateNumber(minutesEl, '0');
-        animateNumber(secondsEl, '0');
+        animateNumber(daysEl, '00');
+        animateNumber(hoursEl, '00');
+        animateNumber(minutesEl, '00');
+        animateNumber(secondsEl, '00');
         return;
       }
 
@@ -233,10 +233,10 @@
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      animateNumber(daysEl, String(days));
-      animateNumber(hoursEl, String(hours));
-      animateNumber(minutesEl, String(minutes));
-      animateNumber(secondsEl, String(seconds));
+      animateNumber(daysEl, String(days).padStart(2, '0'));
+      animateNumber(hoursEl, String(hours).padStart(2, '0'));
+      animateNumber(minutesEl, String(minutes).padStart(2, '0'));
+      animateNumber(secondsEl, String(seconds).padStart(2, '0'));
     }
 
     updateCountdown();
@@ -251,6 +251,7 @@
     const container = document.getElementById('confetti-container');
     if (!container) return;
 
+    container.innerHTML = '';
     const colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
     const confettiCount = 100;
 
@@ -327,7 +328,7 @@
       };
 
       // Demo mode
-      if (CONFIG.RSVP_SCRIPT_URL.includes('{{') || CONFIG.RSVP_SCRIPT_URL.includes('YOUR_')) {
+      if (CONFIG.RSVP_SCRIPT_URL.includes('{{RSVP_SCRIPT_URL}}') || CONFIG.RSVP_SCRIPT_URL.includes('YOUR_') || CONFIG.RSVP_SCRIPT_URL === '') {
         console.log('RSVP submission (demo mode):', formData);
         setTimeout(() => {
           buttonText.style.display = 'inline';
@@ -463,7 +464,7 @@
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       // Don't hijack keyboard when in form fields
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.isContentEditable) return;
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();

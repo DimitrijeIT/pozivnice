@@ -375,9 +375,15 @@ function generateCalendarLinks(data) {
   const endDate = new Date(startDate);
   endDate.setHours(startDate.getHours() + 8);
 
-  // Format for Google Calendar (YYYYMMDDTHHmmss)
+  // Format for Google Calendar (YYYYMMDDTHHmmss) in local time (no Z suffix)
   const formatGoogleDate = (date) => {
-    return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    const h = String(date.getHours()).padStart(2, '0');
+    const min = String(date.getMinutes()).padStart(2, '0');
+    const s = String(date.getSeconds()).padStart(2, '0');
+    return `${y}${m}${d}T${h}${min}${s}`;
   };
 
   // Event details
@@ -394,9 +400,18 @@ function generateCalendarLinks(data) {
   const googleEnd = formatGoogleDate(endDate);
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${googleStart}/${googleEnd}&location=${ceremonyLocation}&details=${description}`;
 
-  // Outlook Web Calendar link
-  const outlookStart = startDate.toISOString();
-  const outlookEnd = endDate.toISOString();
+  // Outlook Web Calendar link (use local ISO format without Z)
+  const formatOutlookDate = (date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    const h = String(date.getHours()).padStart(2, '0');
+    const min = String(date.getMinutes()).padStart(2, '0');
+    const s = String(date.getSeconds()).padStart(2, '0');
+    return `${y}-${m}-${d}T${h}:${min}:${s}`;
+  };
+  const outlookStart = formatOutlookDate(startDate);
+  const outlookEnd = formatOutlookDate(endDate);
   const outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${outlookStart}&enddt=${outlookEnd}&location=${ceremonyLocation}&body=${description}`;
 
   // ICS file content (for Apple Calendar and others)
