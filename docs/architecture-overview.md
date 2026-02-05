@@ -49,6 +49,10 @@ https://pozivnice.rs/preview/{slug}/
 
 The preview page shows all 10 theme options. The couple browses and picks one.
 
+### 2026 Layout Previews
+
+2026 layouts use a separate generation pipeline via `generate-layout-preview.js`. Each of the 19 layouts (aurora, botanical, cinema, concert, envelope, filmnoir, gazette, glass, kinetic, letter, magazine, mediterranean, oldmoney, passport, scribble, storybook, telegram, velvet, wabisabi) has its own standalone HTML template and theme variants. These are generated independently from the original 10-theme system.
+
 ---
 
 ## 3. Theme Selection & Final Site
@@ -123,16 +127,17 @@ Per-couple Google Spreadsheet: live RSVP dashboard
 
 ```
 scripts/
-  generate-preview.js     # Build 10 theme previews
-  generate-final.js       # Build final single-theme site
-  utils.js                # Template processing, data prep, validation
-  config.js               # Theme registry, URLs, settings
+  generate-preview.js       # Build 10 original theme previews
+  generate-final.js         # Build final single-theme site
+  generate-layout-preview.js # Build 2026 layout previews (19 layouts)
+  utils.js                  # Template processing, data prep, validation
+  config.js                 # Theme/layout registry, URLs, settings
 
 google-apps-script/
-  intake-form-handler-automated.gs      # Form -> GitHub webhook
+  intake-form-handler-automated.gs      # Form -> GitHub webhook + per-couple RSVP spreadsheet
   theme-selection-handler-automated.gs  # Selection -> GitHub webhook
-  rsvp-handler.gs                       # Guest RSVP -> per-couple Google Sheet
-  rsvp-count-handler.gs                 # RSVP statistics from per-couple sheets
+  rsvp-handler.gs                       # Guest RSVP -> per-couple Google Spreadsheet
+  rsvp-count-handler.gs                 # RSVP statistics from per-couple spreadsheets
 
 .github/workflows/
   generate-preview.yml    # Triggered by: new-wedding dispatch
@@ -140,9 +145,10 @@ google-apps-script/
   deploy-pages.yml        # Triggered by: push to public/
 
 templates/
-  base.html               # Main template (used by original 10 themes)
-  base-{layout}.html      # Standalone layout templates (16 layouts)
-  themes/{theme}/style.css # Theme-specific styles
+  base.html                            # Main template (used by original 10 themes)
+  base-{layout}.html                   # Standalone layout templates (19 layouts)
+  themes/{theme}/style.css             # Original theme-specific styles (10 themes)
+  themes-{layout}/{theme}/style.css    # 2026 layout theme styles
 ```
 
 ---

@@ -271,7 +271,7 @@ RSVP_SCRIPT_URL: 'https://script.google.com/macros/s/YOUR_RSVP_SCRIPT_ID/exec',
          ↓
 8. Гости попуњавају RSVP на страници
          ↓ (аутоматски)
-9. RSVP подаци иду у посебан Sheet таб
+9. RSVP подаци иду у посебан Google Spreadsheet за сваки пар
 ```
 
 **Потпуно аутоматски! 🎉**

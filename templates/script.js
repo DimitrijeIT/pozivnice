@@ -62,16 +62,23 @@
       caption: item.dataset.caption || ''
     }));
 
+    var previousFocus = null;
+
     function openLightbox(index) {
+      previousFocus = document.activeElement;
       currentIndex = index;
       updateLightbox();
       lightbox.classList.add('active');
+      lightbox.setAttribute('aria-modal', 'true');
       document.body.style.overflow = 'hidden';
+      if (closeBtn) closeBtn.focus();
     }
 
     function closeLightbox() {
       lightbox.classList.remove('active');
+      lightbox.removeAttribute('aria-modal');
       document.body.style.overflow = '';
+      if (previousFocus) previousFocus.focus();
     }
 
     function updateLightbox() {
@@ -94,9 +101,11 @@
 
     // Event listeners
     galleryItems.forEach((item, index) => {
+      if (!item.getAttribute('tabindex')) item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
       item.addEventListener('click', () => openLightbox(index));
-      item.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') openLightbox(index);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); }
       });
     });
 
@@ -119,7 +128,7 @@
     let touchStartX = 0;
     lightbox.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
-    });
+    }, { passive: true });
 
     lightbox.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].clientX;
@@ -128,7 +137,7 @@
         if (diff > 0) nextImage();
         else prevImage();
       }
-    });
+    }, { passive: true });
   }
 
   // ============================================
@@ -145,22 +154,32 @@
     const pauseIcon = musicToggle.querySelector('.music-pause');
     let isPlaying = false;
 
+    var isToggling = false;
+
     function toggleMusic() {
+      if (isToggling) return;
+
       if (isPlaying) {
         audio.pause();
         playIcon.style.display = 'inline';
         pauseIcon.style.display = 'none';
         musicToggle.classList.remove('playing');
+        musicToggle.setAttribute('aria-label', 'Пусти музику');
+        isPlaying = false;
       } else {
-        audio.play().then(() => {
+        isToggling = true;
+        audio.play().then(function() {
           playIcon.style.display = 'none';
           pauseIcon.style.display = 'inline';
           musicToggle.classList.add('playing');
-        }).catch(err => {
+          musicToggle.setAttribute('aria-label', 'Паузирај музику');
+          isPlaying = true;
+          isToggling = false;
+        }).catch(function(err) {
           console.log('Audio playback failed:', err);
+          isToggling = false;
         });
       }
-      isPlaying = !isPlaying;
     }
 
     musicToggle.addEventListener('click', toggleMusic);
@@ -202,36 +221,48 @@
     if (!countdownElement) return;
 
     const weddingDate = new Date(countdownElement.dataset.weddingDate);
+    if (isNaN(weddingDate.getTime())) return;
+
     const daysEl = document.getElementById('countdown-days');
     const hoursEl = document.getElementById('countdown-hours');
     const minutesEl = document.getElementById('countdown-minutes');
     const secondsEl = document.getElementById('countdown-seconds');
 
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    var lastValues = {};
     function animateNumber(element, newValue) {
-      const currentValue = element.textContent;
-      if (currentValue !== newValue) {
+      var key = element.id;
+      if (lastValues[key] !== newValue) {
+        lastValues[key] = newValue;
         element.classList.add('counter-animate');
         element.textContent = newValue;
-        setTimeout(() => element.classList.remove('counter-animate'), 500);
+        setTimeout(function() { element.classList.remove('counter-animate'); }, 500);
       }
     }
 
+    var countdownInterval = null;
+
     function updateCountdown() {
-      const now = new Date();
-      const diff = weddingDate - now;
+      var now = new Date();
+      var diff = weddingDate - now;
 
       if (diff <= 0) {
         animateNumber(daysEl, '00');
         animateNumber(hoursEl, '00');
         animateNumber(minutesEl, '00');
         animateNumber(secondsEl, '00');
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       animateNumber(daysEl, String(days).padStart(2, '0'));
       animateNumber(hoursEl, String(hours).padStart(2, '0'));
@@ -240,7 +271,16 @@
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 1000);
+    countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Pause when tab hidden, resume when visible
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+      } else {
+        if (!countdownInterval) { updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
+      }
+    });
   }
 
   // ============================================
@@ -248,27 +288,26 @@
   // ============================================
 
   function createConfetti() {
-    const container = document.getElementById('confetti-container');
+    var container = document.getElementById('confetti-container');
     if (!container) return;
 
+    // Respect reduced motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     container.innerHTML = '';
-    const colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
-    const confettiCount = 100;
+    var colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+    var confettiCount = 100;
+    var fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < confettiCount; i++) {
-      const confetti = document.createElement('div');
+    for (var i = 0; i < confettiCount; i++) {
+      var confetti = document.createElement('div');
       confetti.className = 'confetti';
-      confetti.style.left = Math.random() * 100 + '%';
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDelay = Math.random() * 3 + 's';
-      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-      container.appendChild(confetti);
+      confetti.style.cssText = 'left:' + (Math.random() * 100) + '%;background-color:' + colors[Math.floor(Math.random() * colors.length)] + ';animation-delay:' + (Math.random() * 3) + 's;animation-duration:' + (Math.random() * 2 + 2) + 's';
+      fragment.appendChild(confetti);
     }
+    container.appendChild(fragment);
 
-    // Remove confetti after animation
-    setTimeout(() => {
-      container.innerHTML = '';
-    }, 5000);
+    setTimeout(function() { container.innerHTML = ''; }, 5000);
   }
 
   // ============================================
@@ -336,7 +375,7 @@
           submitBtn.disabled = false;
 
           if (formData.attending === 'yes') {
-            formMessage.innerHTML = '🎉 Хвала! Радујемо се вашем присуству!';
+            formMessage.textContent = '\uD83C\uDF89 Хвала! Радујемо се вашем присуству!';
             createConfetti();
           } else {
             formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
@@ -365,7 +404,7 @@
         submitBtn.disabled = false;
 
         if (formData.attending === 'yes') {
-          formMessage.innerHTML = '🎉 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!';
+          formMessage.textContent = '\uD83C\uDF89 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!';
           createConfetti();
         } else {
           formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
@@ -504,24 +543,24 @@
   }
 
   function initScrollIndicator() {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
+    var scrollIndicator = document.querySelector('.scroll-indicator');
     if (!scrollIndicator) return;
 
-    scrollIndicator.addEventListener('click', () => {
-      const firstSection = document.querySelector('section');
+    scrollIndicator.addEventListener('click', function() {
+      var firstSection = document.querySelector('section');
       if (firstSection) {
         firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
-    let hasScrolled = false;
-    window.addEventListener('scroll', () => {
-      if (!hasScrolled && window.scrollY > 100) {
-        hasScrolled = true;
+    function onScroll() {
+      if (window.scrollY > 100) {
         scrollIndicator.style.opacity = '0';
-        setTimeout(() => scrollIndicator.style.display = 'none', 300);
+        setTimeout(function() { scrollIndicator.style.display = 'none'; }, 300);
+        window.removeEventListener('scroll', onScroll);
       }
-    });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   // ============================================

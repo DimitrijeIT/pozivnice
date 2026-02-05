@@ -7,6 +7,9 @@
   <meta name="robots" content="noindex, nofollow">
   <title>{{BRIDE_NAME}} & {{GROOM_NAME}} - Позивница за венчање</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
 
@@ -20,6 +23,8 @@
   {{THEME_FONTS}}
 </head>
 <body>
+  <a href="#rsvp" class="skip-link">Прескочи на потврду доласка</a>
+
   <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
   <div class="floating-elements" aria-hidden="true">
     <span class="floating-element">{{FLOATING_ICON_1}}</span>
@@ -43,7 +48,7 @@
       <span class="music-title">{{MUSIC_TITLE}}</span>
       <span class="music-artist">{{MUSIC_ARTIST}}</span>
     </div>
-    <audio id="background-music" loop preload="auto">
+    <audio id="background-music" loop preload="none">
       <source src="{{MUSIC_URL}}" type="audio/mpeg">
     </audio>
   </div>
