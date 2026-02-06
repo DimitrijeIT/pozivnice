@@ -541,9 +541,26 @@ async function generatePreview(layout, slug) {
  * Generate all layouts for a wedding
  * @param {string} slug - Wedding data slug
  */
-async function generateAllLayouts(slug) {
-  const layouts = config.getAvailableLayouts();
-  console.log(`\n🎨 Generating all ${layouts.length} layouts for: ${slug}\n`);
+async function generateAllLayouts(slug, includeHidden = false) {
+  // Use visibility-filtered layouts unless includeHidden is true
+  let layouts;
+  if (includeHidden) {
+    layouts = config.getAvailableLayouts();
+  } else {
+    const visible = config.getVisibleTemplates ? config.getVisibleTemplates() : { original: [], layouts2026: [] };
+    layouts = [...visible.original, ...visible.layouts2026];
+  }
+
+  const allLayouts = config.getAvailableLayouts();
+  const hiddenCount = allLayouts.length - layouts.length;
+
+  console.log(`\n🎨 Generating ${layouts.length} layouts for: ${slug}`);
+  if (hiddenCount > 0 && !includeHidden) {
+    console.log(`  ℹ️  ${hiddenCount} layout(s) hidden via template-visibility.json`);
+    console.log(`  💡 Use --all --include-hidden to generate all layouts\n`);
+  } else {
+    console.log('');
+  }
 
   let successCount = 0;
   let failCount = 0;
@@ -562,10 +579,11 @@ async function generateAllLayouts(slug) {
 }
 
 /**
- * List available layouts
+ * List available layouts with visibility status
  */
 function listLayouts() {
   const layouts = config.getAvailableLayouts();
+  const visible = config.getVisibleTemplates ? config.getVisibleTemplates() : { original: config.THEMES, layouts2026: [] };
 
   // Separate original themes from 2026 layouts
   const originalThemes = [];
@@ -587,27 +605,35 @@ function listLayouts() {
     originalThemes.forEach(layout => {
       const cfg = config.getLayoutConfig(layout);
       const styles = getLayoutStyles(layout);
-      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name}`);
+      const isVisible = visible.original.includes(layout) || visible.original.includes(layout.replace('-original', ''));
+      const status = isVisible ? '' : ' [HIDDEN]';
+      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name}${status}`);
     });
     console.log('');
   }
 
   if (layouts2026.length > 0) {
-    console.log('  2026 Layouts (multi-theme):');
+    console.log('  2026 Layouts (standalone):');
     layouts2026.forEach(layout => {
       const cfg = config.getLayoutConfig(layout);
       const styles = getLayoutStyles(layout);
-      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name} (${cfg.themes.join(', ')})`);
+      const isVisible = visible.layouts2026.includes(layout);
+      const status = isVisible ? '' : ' [HIDDEN]';
+      console.log(`    ${styles.emoji} ${layout.padEnd(20)} - ${cfg.name}${status}`);
     });
     console.log('');
   }
 
-  console.log(`Total: ${originalThemes.length} original + ${layouts2026.length} new = ${layouts.length} layouts\n`);
+  const visibleCount = visible.original.length + visible.layouts2026.length;
+  const hiddenCount = layouts.length - visibleCount;
+  console.log(`Total: ${layouts.length} layouts (${visibleCount} visible, ${hiddenCount} hidden)\n`);
 
   console.log(`Usage:`);
   console.log(`  node scripts/generate-layout-preview.js <layout> [slug]`);
-  console.log(`  node scripts/generate-layout-preview.js --all [slug]   # Generate all layouts`);
-  console.log(`  node scripts/generate-layout-preview.js --list         # List layouts\n`);
+  console.log(`  node scripts/generate-layout-preview.js --all [slug]            # Generate visible layouts`);
+  console.log(`  node scripts/generate-layout-preview.js --all --include-hidden  # Generate all layouts`);
+  console.log(`  node scripts/generate-layout-preview.js --list                  # List layouts\n`);
+  console.log(`Visibility: Edit scripts/template-visibility.json to show/hide templates\n`);
 }
 
 // CLI handling
@@ -625,8 +651,9 @@ if (require.main === module) {
   }
 
   if (args[0] === '--all') {
-    const slug = args[1] || 'demo';
-    generateAllLayouts(slug).catch(error => {
+    const includeHidden = args.includes('--include-hidden');
+    const slug = args.find(a => !a.startsWith('--') && a !== '--all') || 'demo';
+    generateAllLayouts(slug, includeHidden).catch(error => {
       console.error(`\n❌ Error: ${error.message}\n`);
       process.exit(1);
     });

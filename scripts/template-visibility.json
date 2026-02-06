@@ -1,0 +1,278 @@
+{
+  "_comment": "Template visibility configuration. Set 'hidden: true' to hide a template from preview and showcase. Templates can be hidden based on season, popularity, or maintenance needs.",
+  "_updated": "2026-02-06",
+  "original": {
+    "_comment": "Original 2025 themes using base.html",
+    "classic": {
+      "hidden": false,
+      "order": 1,
+      "tags": [
+        "popular",
+        "formal"
+      ]
+    },
+    "modern": {
+      "hidden": false,
+      "order": 2,
+      "tags": [
+        "popular",
+        "minimal"
+      ]
+    },
+    "romantic": {
+      "hidden": false,
+      "order": 3,
+      "tags": [
+        "popular",
+        "soft"
+      ]
+    },
+    "minimal": {
+      "hidden": false,
+      "order": 4,
+      "tags": [
+        "minimal"
+      ]
+    },
+    "rustic": {
+      "hidden": false,
+      "order": 5,
+      "tags": [
+        "nature",
+        "casual"
+      ]
+    },
+    "botanical": {
+      "hidden": false,
+      "order": 6,
+      "tags": [
+        "nature",
+        "trending"
+      ]
+    },
+    "moody": {
+      "hidden": false,
+      "order": 7,
+      "tags": [
+        "dark",
+        "dramatic"
+      ]
+    },
+    "gatsby": {
+      "hidden": false,
+      "order": 8,
+      "tags": [
+        "vintage",
+        "glamour"
+      ]
+    },
+    "editorial": {
+      "hidden": false,
+      "order": 9,
+      "tags": [
+        "modern",
+        "bold"
+      ]
+    },
+    "whimsical": {
+      "hidden": false,
+      "order": 10,
+      "tags": [
+        "playful",
+        "illustrated"
+      ]
+    }
+  },
+  "layouts2026": {
+    "_comment": "2026 standalone layouts with unique HTML structures",
+    "aurora": {
+      "hidden": false,
+      "order": 1,
+      "tags": [
+        "cosmic",
+        "animated",
+        "trending"
+      ]
+    },
+    "botanical": {
+      "hidden": false,
+      "order": 2,
+      "tags": [
+        "nature",
+        "scientific"
+      ]
+    },
+    "cinema": {
+      "hidden": false,
+      "order": 3,
+      "tags": [
+        "dark",
+        "dramatic",
+        "cinematic"
+      ]
+    },
+    "concert": {
+      "hidden": false,
+      "order": 4,
+      "tags": [
+        "bold",
+        "festival",
+        "fun"
+      ]
+    },
+    "envelope": {
+      "hidden": false,
+      "order": 5,
+      "tags": [
+        "interactive",
+        "animated",
+        "popular"
+      ]
+    },
+    "filmnoir": {
+      "hidden": false,
+      "order": 6,
+      "tags": [
+        "dark",
+        "vintage",
+        "dramatic"
+      ]
+    },
+    "gazette": {
+      "hidden": false,
+      "order": 7,
+      "tags": [
+        "vintage",
+        "newspaper"
+      ]
+    },
+    "glass": {
+      "hidden": false,
+      "order": 8,
+      "tags": [
+        "modern",
+        "glassmorphism"
+      ]
+    },
+    "kinetic": {
+      "hidden": false,
+      "order": 9,
+      "tags": [
+        "animated",
+        "typography"
+      ]
+    },
+    "letter": {
+      "hidden": false,
+      "order": 10,
+      "tags": [
+        "romantic",
+        "handwritten"
+      ]
+    },
+    "magazine": {
+      "hidden": false,
+      "order": 11,
+      "tags": [
+        "modern",
+        "editorial"
+      ]
+    },
+    "mediterranean": {
+      "hidden": false,
+      "order": 12,
+      "tags": [
+        "summer",
+        "destination"
+      ]
+    },
+    "oldmoney": {
+      "hidden": false,
+      "order": 13,
+      "tags": [
+        "luxury",
+        "classic",
+        "formal"
+      ]
+    },
+    "passport": {
+      "hidden": false,
+      "order": 14,
+      "tags": [
+        "travel",
+        "destination",
+        "fun"
+      ]
+    },
+    "scribble": {
+      "hidden": false,
+      "order": 15,
+      "tags": [
+        "playful",
+        "casual",
+        "illustrated"
+      ]
+    },
+    "storybook": {
+      "hidden": false,
+      "order": 16,
+      "tags": [
+        "romantic",
+        "narrative"
+      ]
+    },
+    "telegram": {
+      "hidden": false,
+      "order": 17,
+      "tags": [
+        "vintage",
+        "retro"
+      ]
+    },
+    "velvet": {
+      "hidden": false,
+      "order": 18,
+      "tags": [
+        "luxury",
+        "dark",
+        "elegant"
+      ]
+    },
+    "wabisabi": {
+      "hidden": false,
+      "order": 19,
+      "tags": [
+        "minimal",
+        "zen",
+        "japanese"
+      ]
+    }
+  },
+  "seasonal": {
+    "_comment": "Seasonal presets - use setSeasonalVisibility() helper to apply",
+    "spring": [
+      "botanical",
+      "romantic",
+      "letter",
+      "scribble"
+    ],
+    "summer": [
+      "mediterranean",
+      "glass",
+      "aurora",
+      "concert"
+    ],
+    "autumn": [
+      "rustic",
+      "moody",
+      "velvet",
+      "wabisabi"
+    ],
+    "winter": [
+      "gatsby",
+      "oldmoney",
+      "cinema",
+      "filmnoir"
+    ]
+  }
+}

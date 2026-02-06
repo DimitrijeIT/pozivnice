@@ -454,10 +454,165 @@ function getAvailableLayouts() {
   return Object.keys(config.LAYOUT_REGISTRY);
 }
 
+// ============================================
+// TEMPLATE VISIBILITY MANAGEMENT
+// ============================================
+
+const path = require('path');
+const fs = require('fs');
+
+// Cache for visibility config
+let visibilityCache = null;
+let visibilityCacheTime = 0;
+const VISIBILITY_CACHE_TTL = 5000; // 5 seconds
+
+/**
+ * Load template visibility configuration
+ * @param {boolean} forceReload - Force reload from disk
+ * @returns {object} Visibility configuration
+ */
+function loadVisibilityConfig(forceReload = false) {
+  const now = Date.now();
+  if (!forceReload && visibilityCache && (now - visibilityCacheTime) < VISIBILITY_CACHE_TTL) {
+    return visibilityCache;
+  }
+
+  const configPath = path.join(__dirname, 'template-visibility.json');
+  try {
+    const content = fs.readFileSync(configPath, 'utf8');
+    visibilityCache = JSON.parse(content);
+    visibilityCacheTime = now;
+    return visibilityCache;
+  } catch (error) {
+    console.warn('Could not load template-visibility.json, using defaults:', error.message);
+    return { original: {}, layouts2026: {} };
+  }
+}
+
+/**
+ * Check if a template is visible (not hidden)
+ * @param {string} templateName - Template/theme name
+ * @param {string} type - 'original' or 'layouts2026'
+ * @returns {boolean} True if visible
+ */
+function isTemplateVisible(templateName, type = 'original') {
+  const visibility = loadVisibilityConfig();
+  const section = visibility[type] || {};
+  const templateConfig = section[templateName];
+
+  // Default to visible if not configured
+  if (!templateConfig) return true;
+  return !templateConfig.hidden;
+}
+
+/**
+ * Get visible original themes (2025)
+ * @returns {string[]} Array of visible theme names
+ */
+function getVisibleOriginalThemes() {
+  const visibility = loadVisibilityConfig();
+  const section = visibility.original || {};
+
+  return config.THEMES.filter(theme => {
+    const conf = section[theme];
+    return !conf || !conf.hidden;
+  }).sort((a, b) => {
+    const orderA = (section[a] && section[a].order) || 999;
+    const orderB = (section[b] && section[b].order) || 999;
+    return orderA - orderB;
+  });
+}
+
+/**
+ * Get visible 2026 layouts
+ * @returns {string[]} Array of visible layout names
+ */
+function getVisible2026Layouts() {
+  const visibility = loadVisibilityConfig();
+  const section = visibility.layouts2026 || {};
+
+  // Get all 2026 layouts (non-original entries in LAYOUT_REGISTRY)
+  const layouts2026 = Object.keys(config.LAYOUT_REGISTRY)
+    .filter(key => !config.LAYOUT_REGISTRY[key].isOriginal);
+
+  return layouts2026.filter(layout => {
+    const conf = section[layout];
+    return !conf || !conf.hidden;
+  }).sort((a, b) => {
+    const orderA = (section[a] && section[a].order) || 999;
+    const orderB = (section[b] && section[b].order) || 999;
+    return orderA - orderB;
+  });
+}
+
+/**
+ * Get all visible templates (both original and 2026)
+ * @returns {object} { original: string[], layouts2026: string[] }
+ */
+function getVisibleTemplates() {
+  return {
+    original: getVisibleOriginalThemes(),
+    layouts2026: getVisible2026Layouts()
+  };
+}
+
+/**
+ * Get templates by tag
+ * @param {string} tag - Tag to filter by (e.g., 'popular', 'trending', 'dark')
+ * @returns {object} { original: string[], layouts2026: string[] }
+ */
+function getTemplatesByTag(tag) {
+  const visibility = loadVisibilityConfig();
+
+  const filterByTag = (section) => {
+    return Object.entries(section)
+      .filter(([key, conf]) => {
+        if (key.startsWith('_')) return false; // Skip comments
+        if (conf.hidden) return false;
+        return conf.tags && conf.tags.includes(tag);
+      })
+      .sort((a, b) => (a[1].order || 999) - (b[1].order || 999))
+      .map(([key]) => key);
+  };
+
+  return {
+    original: filterByTag(visibility.original || {}),
+    layouts2026: filterByTag(visibility.layouts2026 || {})
+  };
+}
+
+/**
+ * Update template visibility (programmatic update)
+ * @param {string} templateName - Template name
+ * @param {string} type - 'original' or 'layouts2026'
+ * @param {boolean} hidden - True to hide, false to show
+ */
+function setTemplateVisibility(templateName, type, hidden) {
+  const configPath = path.join(__dirname, 'template-visibility.json');
+  const visibility = loadVisibilityConfig(true);
+
+  if (!visibility[type]) visibility[type] = {};
+  if (!visibility[type][templateName]) visibility[type][templateName] = {};
+
+  visibility[type][templateName].hidden = hidden;
+  visibility._updated = new Date().toISOString().split('T')[0];
+
+  fs.writeFileSync(configPath, JSON.stringify(visibility, null, 2), 'utf8');
+  visibilityCache = null; // Invalidate cache
+}
+
 // Export config and helper functions
 module.exports = {
   ...config,
   validateConfig,
   getLayoutConfig,
-  getAvailableLayouts
+  getAvailableLayouts,
+  // Visibility management
+  loadVisibilityConfig,
+  isTemplateVisible,
+  getVisibleOriginalThemes,
+  getVisible2026Layouts,
+  getVisibleTemplates,
+  getTemplatesByTag,
+  setTemplateVisibility
 };

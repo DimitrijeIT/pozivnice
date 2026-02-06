@@ -230,8 +230,15 @@ async function generatePreview(slug, cliData) {
 
   console.log(`📁 Output directory: ${outputDir}\n`);
 
-  // Generate each theme
-  for (const theme of config.THEMES) {
+  // Get visible themes only (respects template-visibility.json)
+  const visibleThemes = config.getVisibleOriginalThemes ? config.getVisibleOriginalThemes() : config.THEMES;
+  const hiddenCount = config.THEMES.length - visibleThemes.length;
+  if (hiddenCount > 0) {
+    console.log(`  ℹ️  ${hiddenCount} theme(s) hidden via template-visibility.json\n`);
+  }
+
+  // Generate each visible theme
+  for (const theme of visibleThemes) {
     console.log(`  🎨 Generating ${theme} theme...`);
 
     try {

@@ -476,11 +476,13 @@ function calculateExpiryDate(hours = config.PREVIEW_EXPIRY_HOURS) {
 
 /**
  * Generate theme cards HTML for preview selector
+ * Uses visibility config to only show non-hidden themes
  * @param {object} weddingData - Wedding data object
  * @returns {string} HTML for theme cards
  */
 function generateThemeCards(weddingData) {
-  const themes = config.THEMES;
+  // Use visibility-filtered themes instead of full list
+  const themes = config.getVisibleOriginalThemes ? config.getVisibleOriginalThemes() : config.THEMES;
   const themeNames = config.THEME_NAMES;
   const themeDescriptions = config.THEME_DESCRIPTIONS;
 

@@ -22,6 +22,7 @@
       --color-aurora-2: #FF69B4;
       --color-aurora-3: #9B4DCA;
       --color-star: #FFFFFF;
+      --color-accent: #9B4DCA;
     }
 
     html { scroll-behavior: smooth; }
@@ -480,7 +481,7 @@
       font-size: 1rem;
       letter-spacing: 0.15em;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
       margin-top: 1rem;
       position: relative;
       overflow: hidden;
@@ -740,18 +741,17 @@
   </div>
 
   <script>
-    // Generate random stars
+    // Generate random stars using DocumentFragment for single reflow
     const starsContainer = document.getElementById('stars');
+    const fragment = document.createDocumentFragment();
     for (let i = 0; i < 150; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 3 + 's';
-      star.style.width = (Math.random() * 2 + 1) + 'px';
-      star.style.height = star.style.width;
-      starsContainer.appendChild(star);
+      const size = (Math.random() * 2 + 1) + 'px';
+      star.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;animation-delay:' + (Math.random() * 3) + 's;width:' + size + ';height:' + size;
+      fragment.appendChild(star);
     }
+    starsContainer.appendChild(fragment);
 
     // Shooting star on form submit
     function createShootingStar() {

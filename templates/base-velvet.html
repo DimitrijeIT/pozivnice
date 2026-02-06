@@ -151,10 +151,16 @@
     }
 
     @keyframes flicker {
-      0%, 100% { opacity: 0.8; transform: scale(1); }
-      25% { opacity: 0.6; transform: scale(0.98); }
-      50% { opacity: 0.9; transform: scale(1.02); }
-      75% { opacity: 0.7; transform: scale(0.99); }
+      0% { opacity: 0.8; transform: scale(1); }
+      8% { opacity: 0.55; transform: scale(0.96); }
+      15% { opacity: 0.85; transform: scale(1.01); }
+      25% { opacity: 0.6; transform: scale(0.97) translateX(2px); }
+      38% { opacity: 0.9; transform: scale(1.03); }
+      50% { opacity: 0.5; transform: scale(0.95) translateX(-1px); }
+      62% { opacity: 0.85; transform: scale(1.02); }
+      75% { opacity: 0.65; transform: scale(0.98) translateX(1px); }
+      88% { opacity: 0.9; transform: scale(1.01); }
+      100% { opacity: 0.8; transform: scale(1); }
     }
 
     /* === SCROLL INDICATOR === */
@@ -433,7 +439,7 @@
       letter-spacing: 0.3em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: background 0.3s;
       margin-top: 0.5rem;
     }
 
@@ -538,7 +544,6 @@
     }
 
   </style>
-  {{THEME_CSS}}
 </head>
 <body>
   <a href="#rsvp-form" class="skip-link">Прескочи на РСВП</a>
