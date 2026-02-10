@@ -91,7 +91,6 @@ jobs:
         with:
           server_address: ${{ secrets.SMTP_SERVER }}
           server_port: 587
-          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "🎉 Ваша позивница је спремна!"
