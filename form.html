@@ -877,7 +877,9 @@
           <div class="field-row">
             <div class="field">
               <label class="field-label" for="ceremony_time">Vreme <span class="required">*</span></label>
-              <input type="time" id="ceremony_time" name="ceremony_time" class="field-input" required step="900">
+              <select id="ceremony_time" name="ceremony_time" class="field-input" required>
+                <option value="">-- Izaberite --</option>
+              </select>
               <div class="field-error" id="ceremony_time_error">Unesite vreme ceremonije</div>
             </div>
             <div class="field">
@@ -911,7 +913,9 @@
           <div class="field-row">
             <div class="field">
               <label class="field-label" for="reception_time">Vreme <span class="required">*</span></label>
-              <input type="time" id="reception_time" name="reception_time" class="field-input" required step="900">
+              <select id="reception_time" name="reception_time" class="field-input" required>
+                <option value="">-- Izaberite --</option>
+              </select>
               <div class="field-error" id="reception_time_error">Unesite vreme proslave</div>
             </div>
             <div class="field">
@@ -1041,6 +1045,50 @@
           additional_info:  'entry.165586042'
         }
       };
+
+      // ========================================
+      // POPULATE TIME DROPDOWNS (15-min increments)
+      // ========================================
+      (function() {
+        var timeSelects = ['ceremony_time', 'reception_time'];
+        timeSelects.forEach(function(id) {
+          var sel = document.getElementById(id);
+          if (!sel) return;
+          for (var h = 0; h < 24; h++) {
+            for (var m = 0; m < 60; m += 15) {
+              var hh = (h < 10 ? '0' : '') + h;
+              var mm = (m < 10 ? '0' : '') + m;
+              var val = hh + ':' + mm;
+              var opt = document.createElement('option');
+              opt.value = val;
+              opt.textContent = val;
+              sel.appendChild(opt);
+            }
+          }
+        });
+      })();
+
+      // ========================================
+      // AUTO-SET RSVP DEADLINE (1 month before wedding)
+      // ========================================
+      document.getElementById('wedding_date').addEventListener('change', function() {
+        var rsvpInput = document.getElementById('rsvp_deadline');
+        if (!this.value || rsvpInput.dataset.manual) return;
+        var wedding = new Date(this.value + 'T00:00:00');
+        var oneMonthBefore = new Date(wedding);
+        oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var deadline = oneMonthBefore < today ? today : oneMonthBefore;
+        var yyyy = deadline.getFullYear();
+        var mm = (deadline.getMonth() + 1 < 10 ? '0' : '') + (deadline.getMonth() + 1);
+        var dd = (deadline.getDate() < 10 ? '0' : '') + deadline.getDate();
+        rsvpInput.value = yyyy + '-' + mm + '-' + dd;
+      });
+      // If user manually changes RSVP, don't overwrite on next wedding_date change
+      document.getElementById('rsvp_deadline').addEventListener('change', function() {
+        this.dataset.manual = '1';
+      });
 
       // ========================================
       // STATE
