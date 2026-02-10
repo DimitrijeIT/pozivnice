@@ -408,7 +408,7 @@
     }
 
     .time-sep {
-      background: var(--color-bg-input);
+      background: var(--color-bg);
       border-top: 1px solid var(--color-border);
       border-bottom: 1px solid var(--color-border);
       padding: 0.625rem 0.25rem;
@@ -1343,19 +1343,7 @@
       groomInput.addEventListener('input', updatePreview);
       dateInput.addEventListener('change', updatePreview);
 
-      // Auto-set RSVP deadline to 1 month before wedding (or today if in the past)
-      var rsvpInput = document.getElementById('rsvp_deadline');
-      dateInput.addEventListener('change', function() {
-        var val = dateInput.value;
-        if (!val) return;
-        var wedding = new Date(val + 'T00:00:00');
-        var deadline = new Date(wedding);
-        deadline.setMonth(deadline.getMonth() - 1);
-        var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (deadline < today) deadline = today;
-        rsvpInput.value = deadline.toISOString().split('T')[0];
-      });
+      // (RSVP auto-set is handled above in the dedicated listener)
 
       // ========================================
       // REVIEW
@@ -1413,7 +1401,9 @@
         var hasConfig = CONFIG.GOOGLE_FORM_URL && CONFIG.GOOGLE_FORM_URL.length > 0;
 
         // Date fields in Google Forms need _year, _month, _day suffixes
-        var DATE_FIELDS = ['wedding_date', 'rsvp_deadline'];
+        // Only wedding_date is a Google Forms DATE type field (needs _year/_month/_day)
+        // rsvp_deadline is likely a TEXT field — send as plain YYYY-MM-DD string
+        var DATE_FIELDS = ['wedding_date'];
 
         if (hasConfig) {
           Object.keys(CONFIG.FIELD_MAP).forEach(function(field) {
