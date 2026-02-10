@@ -1,0 +1,19 @@
+{
+  "slug": "test-test",
+  "bride_name": "Test",
+  "groom_name": "Test",
+  "created_at": "2026-02-10T14:39:48.797Z",
+  "expires_at": "2026-02-11T14:39:48.797Z",
+  "themes": [
+    "classic",
+    "modern",
+    "romantic",
+    "minimal",
+    "rustic",
+    "botanical",
+    "moody",
+    "gatsby",
+    "editorial",
+    "whimsical"
+  ]
+}

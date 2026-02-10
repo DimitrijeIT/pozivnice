@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Изаберите тему - Test & Test</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-accent: #B8860B;
+      --color-accent-light: #D4A843;
+      --color-accent-bg: #F7F0E3;
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-error: #EF4444;
+      --color-text: #2C2420;
+      --color-text-secondary: #6B5E57;
+      --color-text-muted: #9B8F88;
+      --color-bg: #FDFBF7;
+      --color-surface: #FFFFFF;
+      --color-border: #E8E0D6;
+      --color-border-light: #F0EBE4;
+      --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    .header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .header-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .header-title span {
+      color: var(--color-accent);
+    }
+
+    /* Expiry Timer */
+    .expiry-timer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #FEF3C7;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+
+    .expiry-timer.expired {
+      background: #FEE2E2;
+      color: var(--color-error);
+    }
+
+    .expiry-icon {
+      font-size: 1rem;
+    }
+
+    /* Main Content */
+    .main {
+      padding: 3rem 0;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .intro h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro p {
+      color: var(--color-text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Theme Grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Theme Card */
+    .theme-card {
+      background: var(--color-surface);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .theme-preview {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--color-bg);
+    }
+
+    .theme-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .theme-info {
+      padding: 1.5rem;
+    }
+
+    .theme-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .theme-description {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .theme-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      background: #9A7209;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-accent);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-accent-bg);
+      border-color: var(--color-accent);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Confirmation Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--color-surface);
+      border-radius: var(--border-radius);
+      max-width: 450px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal p {
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-theme-name {
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    /* Success State */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .success-message h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-success);
+    }
+
+    .success-message p {
+      color: var(--color-text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Expired State */
+    .expired-message {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .expired-message.active {
+      display: block;
+    }
+
+    .expired-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .expired-message h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-error);
+    }
+
+    .expired-message p {
+      color: var(--color-text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Correction Form */
+    .correction-section {
+      max-width: 600px;
+      margin: 3rem auto 0;
+      text-align: center;
+    }
+
+    .correction-toggle {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: color 0.2s;
+    }
+
+    .correction-toggle:hover { color: var(--color-accent); }
+
+    .correction-form {
+      display: none;
+      margin-top: 1rem;
+      padding: 1.5rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      text-align: left;
+    }
+
+    .correction-form.open { display: block; }
+
+    .correction-form label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.375rem;
+    }
+
+    .correction-form textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+
+    .correction-form textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+    }
+
+    .correction-sent {
+      display: none;
+      padding: 1rem;
+      background: #F0FFF4;
+      border: 1px solid #C6F6D5;
+      border-radius: 8px;
+      color: #276749;
+      font-size: 0.875rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .correction-sent.visible { display: block; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .theme-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .intro h1 {
+        font-size: 1.5rem;
+      }
+
+      .theme-actions {
+        flex-direction: column;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="header-title">Позивница за <span>Test & Test</span></h1>
+        <div class="expiry-timer" id="expiry-timer" data-expiry="2026-02-11T14:39:48.796Z">
+          <span class="expiry-icon">⏱️</span>
+          <span id="expiry-text">Преостало време: --:--:--</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main" id="main-content">
+    <div class="container">
+      <div class="intro">
+        <h1>Изаберите тему за вашу позивницу</h1>
+        <p>Прегледајте доступне теме и изаберите ону која најбоље одговара стилу вашег венчања.</p>
+      </div>
+
+      <div class="theme-grid" id="theme-grid">
+        
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;classic.html&quot; alt=&quot;Класичан&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;classic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Класичан&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Традиционални елегантни дизајн са златним акцентима и орнаменталним детаљима&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;classic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;classic&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;modern.html&quot; alt=&quot;Модеран&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;modern.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Модеран&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Савремени минималистички дизајн са чистим линијама и обиљем белог простора&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;modern.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;modern&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;romantic.html&quot; alt=&quot;Романтичан&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;romantic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Романтичан&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Нежни романтични дизајн у розе тоновима са цветним мотивима&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;romantic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;romantic&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;minimal.html&quot; alt=&quot;Минималистички&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;minimal.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Минималистички&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Ултра-чист дизајн фокусиран на типографију и садржај&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;minimal.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;minimal&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;rustic.html&quot; alt=&quot;Рустикални&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;rustic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Рустикални&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Топли природни дизајн инспирисан природом и рустичном естетиком&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;rustic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;rustic&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;botanical.html&quot; alt=&quot;Ботанички&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;botanical.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Ботанички&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Елегантни зелени дизајн са еукалиптусом и лучним облицима - тренд 2025&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;botanical.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;botanical&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;moody.html&quot; alt=&quot;Тамна Романса&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;moody.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Тамна Романса&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Драматичан тамни дизајн у бордо тоновима са златним акцентима&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;moody.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;moody&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;gatsby.html&quot; alt=&quot;Арт Деко&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;gatsby.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Арт Деко&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Ретро гламур 1920-их са геометријским узорцима и злато-навy палетом&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;gatsby.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;gatsby&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;editorial.html&quot; alt=&quot;Едиторијал&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;editorial.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Едиторијал&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Модерни часописни layout са смелом типографијом и асиметричним дизајном&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;editorial.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;editorial&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+
+    &lt;div class=&quot;theme-card&quot;&gt;
+      &lt;div class=&quot;theme-preview&quot;&gt;
+        &lt;img src=&quot;whimsical.html&quot; alt=&quot;Илустровани&quot; style=&quot;display:none;&quot;&gt;
+        &lt;iframe src=&quot;whimsical.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;theme-info&quot;&gt;
+        &lt;h3 class=&quot;theme-name&quot;&gt;Илустровани&lt;/h3&gt;
+        &lt;p class=&quot;theme-description&quot;&gt;Играјући илустровани дизајн са акварел текстурама и пастелним бојама&lt;/p&gt;
+        &lt;div class=&quot;theme-actions&quot;&gt;
+          &lt;a href=&quot;whimsical.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
+          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;whimsical&quot;&gt;Изабери&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  
+      </div>
+    </div>
+  </main>
+
+  <!-- Correction Form -->
+  <div class="correction-section" id="correction-section">
+    <button class="correction-toggle" id="correction-toggle">Нешто није тачно? Јавите нам →</button>
+    <div class="correction-form" id="correction-form">
+      <label for="correction-text">Опишите шта треба исправити:</label>
+      <textarea id="correction-text" placeholder="нпр. Погрешно сам унео/ла адресу просlave, треба да буде..."></textarea>
+      <button class="btn btn-primary" id="correction-submit" style="width:100%;">Пошаљите исправку</button>
+    </div>
+    <div class="correction-sent" id="correction-sent">&#10003; Хвала! Примили смо вашу поруку и јавићемо вам када исправимо податке.</div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-message" id="success-message">
+    <div class="container">
+      <div class="success-icon">✅</div>
+      <h2>Тема је успешно изабрана!</h2>
+      <p>Ваша позивница ће ускоро бити спремна. Добићете обавештење када буде доступна.</p>
+    </div>
+  </div>
+
+  <!-- Expired Message -->
+  <div class="expired-message" id="expired-message">
+    <div class="container">
+      <div class="expired-icon">⏰</div>
+      <h2>Истекло време за избор</h2>
+      <p>Рок за избор теме је истекао. Молимо контактирајте нас за помоћ.</p>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-icon">💍</div>
+      <h2>Потврдите избор</h2>
+      <p>Да ли сте сигурни да желите тему <span class="modal-theme-name" id="modal-theme-name">--</span>?</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="modal-cancel">Откажи</button>
+        <button class="btn btn-primary" id="modal-confirm">Потврди</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const CONFIG = {
+        THEME_SELECTION_URL: 'https://script.google.com/macros/s/AKfycbxSyr989LbPiQ3LYSk2bjzlYt9PXjpY5wWcJmi-xLroGK8Exzw3ygGbEnQqdf5hajKSrA/exec',
+        WEDDING_SLUG: 'test-test'
+      };
+
+      let selectedTheme = null;
+
+      // Expiry Timer
+      function initExpiryTimer() {
+        const timerElement = document.getElementById('expiry-timer');
+        const textElement = document.getElementById('expiry-text');
+        const expiryDate = new Date(timerElement.dataset.expiry);
+
+        function update() {
+          const now = new Date();
+          const diff = expiryDate - now;
+
+          if (diff <= 0) {
+            timerElement.classList.add('expired');
+            textElement.textContent = 'Истекло';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('correction-section').style.display = 'none';
+            document.getElementById('expired-message').classList.add('active');
+            return;
+          }
+
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          textElement.textContent = 'Преостало време: ' +
+            String(hours).padStart(2, '0') + ':' +
+            String(minutes).padStart(2, '0') + ':' +
+            String(seconds).padStart(2, '0');
+        }
+
+        update();
+        setInterval(update, 1000);
+      }
+
+      // Theme Selection
+      function handleThemeSelect(themeName) {
+        selectedTheme = themeName;
+        document.getElementById('modal-theme-name').textContent = themeName;
+        document.getElementById('modal-overlay').classList.add('active');
+      }
+
+      function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('active');
+        selectedTheme = null;
+      }
+
+      function confirmSelection() {
+        if (!selectedTheme) return;
+
+        const confirmBtn = document.getElementById('modal-confirm');
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Шаљем...';
+
+        const data = {
+          slug: CONFIG.WEDDING_SLUG,
+          theme: selectedTheme,
+          selected_at: new Date().toISOString()
+        };
+
+        // Check if URL is a placeholder
+        if (CONFIG.THEME_SELECTION_URL.includes('{{') || CONFIG.THEME_SELECTION_URL.includes('YOUR_')) {
+          console.log('Theme selection (demo mode):', data);
+          setTimeout(function() {
+            closeModal();
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('correction-section').style.display = 'none';
+            document.getElementById('success-message').classList.add('active');
+          }, 1000);
+          return;
+        }
+
+        fetch(CONFIG.THEME_SELECTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Server error');
+          return response.json();
+        })
+        .then(function(result) {
+          if (!result.success) throw new Error(result.message || 'Failed');
+          closeModal();
+          document.getElementById('main-content').style.display = 'none';
+          document.getElementById('correction-section').style.display = 'none';
+          document.getElementById('success-message').classList.add('active');
+        })
+        .catch(function(error) {
+          console.error('Error selecting theme:', error);
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Потврди';
+          alert('Дошло је до грешке. Молимо покушајте поново.');
+        });
+      }
+
+      // Event Listeners
+      document.addEventListener('DOMContentLoaded', function() {
+        initExpiryTimer();
+
+        // Theme select buttons
+        document.querySelectorAll('[data-select-theme]').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            handleThemeSelect(this.dataset.selectTheme);
+          });
+        });
+
+        // Modal buttons
+        document.getElementById('modal-cancel').addEventListener('click', closeModal);
+        document.getElementById('modal-confirm').addEventListener('click', confirmSelection);
+
+        // Close modal on overlay click
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeModal();
+          }
+        });
+
+        // Correction form toggle
+        document.getElementById('correction-toggle').addEventListener('click', function() {
+          document.getElementById('correction-form').classList.toggle('open');
+        });
+
+        // Correction form submit
+        document.getElementById('correction-submit').addEventListener('click', function() {
+          var text = document.getElementById('correction-text').value.trim();
+          if (!text) {
+            document.getElementById('correction-text').focus();
+            return;
+          }
+
+          var btn = this;
+          btn.disabled = true;
+          btn.textContent = 'Шаљем...';
+
+          var data = {
+            action: 'correction',
+            slug: CONFIG.WEDDING_SLUG,
+            correction: text,
+            submitted_at: new Date().toISOString()
+          };
+
+          // Check demo mode
+          if (CONFIG.THEME_SELECTION_URL.includes('{{') || CONFIG.THEME_SELECTION_URL.includes('YOUR_')) {
+            console.log('Correction (demo mode):', data);
+            setTimeout(showCorrectionSent, 800);
+            return;
+          }
+
+          fetch(CONFIG.THEME_SELECTION_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).then(showCorrectionSent).catch(showCorrectionSent);
+
+          function showCorrectionSent() {
+            document.getElementById('correction-form').classList.remove('open');
+            document.getElementById('correction-toggle').style.display = 'none';
+            document.getElementById('correction-sent').classList.add('visible');
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
