@@ -1308,13 +1308,25 @@
         var formData = new FormData();
         var hasConfig = CONFIG.GOOGLE_FORM_URL && CONFIG.GOOGLE_FORM_URL.length > 0;
 
+        // Date fields in Google Forms need _year, _month, _day suffixes
+        var DATE_FIELDS = ['wedding_date', 'rsvp_deadline'];
+
         if (hasConfig) {
           Object.keys(CONFIG.FIELD_MAP).forEach(function(field) {
             var entryId = CONFIG.FIELD_MAP[field];
             if (entryId) {
               var input = document.getElementById(field);
               if (input) {
-                formData.append(entryId, input.value.trim());
+                var val = input.value.trim();
+                if (DATE_FIELDS.indexOf(field) !== -1 && val) {
+                  // Google Forms date fields need separate year/month/day
+                  var parts = val.split('-');
+                  formData.append(entryId + '_year', parts[0]);
+                  formData.append(entryId + '_month', parts[1].replace(/^0/, ''));
+                  formData.append(entryId + '_day', parts[2].replace(/^0/, ''));
+                } else {
+                  formData.append(entryId, val);
+                }
               }
             }
           });
