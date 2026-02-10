@@ -304,15 +304,109 @@
     }
 
     .success-message h2 {
+      font-family: var(--font-display);
       font-size: 1.75rem;
       margin-bottom: 0.75rem;
-      color: var(--color-success);
     }
 
     .success-message p {
       color: var(--color-text-secondary);
       max-width: 500px;
       margin: 0 auto;
+    }
+
+    .success-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--color-accent-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      max-width: 480px;
+      margin: 1.5rem auto;
+      text-align: left;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .success-notice-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .success-notice.ready {
+      background: #F0FFF4;
+      border-color: #C6F6D5;
+    }
+
+    .success-notice.ready strong { color: #276749; }
+
+    .poll-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--color-border);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.375rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .success-site-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--color-accent);
+      color: #fff;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .success-site-link:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.3);
+    }
+
+    .success-site-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .success-site-link.ready {
+      animation: readyPulse 0.6s ease;
+    }
+
+    @keyframes readyPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .success-detail {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      max-width: 440px;
+      margin: 1rem auto 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .poll-spinner { animation: none; }
+      .success-site-link.ready { animation: none; }
     }
 
     /* Expired State */
@@ -448,7 +542,7 @@
     <div class="container">
       <div class="header-content">
         <h1 class="header-title">Позивница за <span>Милица & Стефан</span></h1>
-        <div class="expiry-timer" id="expiry-timer" data-expiry="2026-02-11T14:51:00.776Z">
+        <div class="expiry-timer" id="expiry-timer" data-expiry="2026-02-11T22:41:20.340Z">
           <span class="expiry-icon">⏱️</span>
           <span id="expiry-text">Преостало време: --:--:--</span>
         </div>
@@ -466,164 +560,164 @@
 
       <div class="theme-grid" id="theme-grid">
         
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;classic.html&quot; alt=&quot;Класичан&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;classic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Класичан&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Традиционални елегантни дизајн са златним акцентима и орнаменталним детаљима&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;classic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;classic&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="classic.html" alt="Класичан" style="display:none;">
+        <iframe src="classic.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Класичан</h3>
+        <p class="theme-description">Традиционални елегантни дизајн са златним акцентима и орнаменталним детаљима</p>
+        <div class="theme-actions">
+          <a href="classic.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="classic">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;modern.html&quot; alt=&quot;Модеран&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;modern.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Модеран&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Савремени минималистички дизајн са чистим линијама и обиљем белог простора&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;modern.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;modern&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="modern.html" alt="Модеран" style="display:none;">
+        <iframe src="modern.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Модеран</h3>
+        <p class="theme-description">Савремени минималистички дизајн са чистим линијама и обиљем белог простора</p>
+        <div class="theme-actions">
+          <a href="modern.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="modern">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;romantic.html&quot; alt=&quot;Романтичан&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;romantic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Романтичан&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Нежни романтични дизајн у розе тоновима са цветним мотивима&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;romantic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;romantic&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="romantic.html" alt="Романтичан" style="display:none;">
+        <iframe src="romantic.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Романтичан</h3>
+        <p class="theme-description">Нежни романтични дизајн у розе тоновима са цветним мотивима</p>
+        <div class="theme-actions">
+          <a href="romantic.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="romantic">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;minimal.html&quot; alt=&quot;Минималистички&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;minimal.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Минималистички&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Ултра-чист дизајн фокусиран на типографију и садржај&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;minimal.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;minimal&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="minimal.html" alt="Минималистички" style="display:none;">
+        <iframe src="minimal.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Минималистички</h3>
+        <p class="theme-description">Ултра-чист дизајн фокусиран на типографију и садржај</p>
+        <div class="theme-actions">
+          <a href="minimal.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="minimal">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;rustic.html&quot; alt=&quot;Рустикални&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;rustic.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Рустикални&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Топли природни дизајн инспирисан природом и рустичном естетиком&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;rustic.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;rustic&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="rustic.html" alt="Рустикални" style="display:none;">
+        <iframe src="rustic.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Рустикални</h3>
+        <p class="theme-description">Топли природни дизајн инспирисан природом и рустичном естетиком</p>
+        <div class="theme-actions">
+          <a href="rustic.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="rustic">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;botanical.html&quot; alt=&quot;Ботанички&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;botanical.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Ботанички&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Елегантни зелени дизајн са еукалиптусом и лучним облицима - тренд 2025&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;botanical.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;botanical&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="botanical.html" alt="Ботанички" style="display:none;">
+        <iframe src="botanical.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Ботанички</h3>
+        <p class="theme-description">Елегантни зелени дизајн са еукалиптусом и лучним облицима - тренд 2025</p>
+        <div class="theme-actions">
+          <a href="botanical.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="botanical">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;moody.html&quot; alt=&quot;Тамна Романса&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;moody.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Тамна Романса&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Драматичан тамни дизајн у бордо тоновима са златним акцентима&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;moody.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;moody&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="moody.html" alt="Тамна Романса" style="display:none;">
+        <iframe src="moody.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Тамна Романса</h3>
+        <p class="theme-description">Драматичан тамни дизајн у бордо тоновима са златним акцентима</p>
+        <div class="theme-actions">
+          <a href="moody.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="moody">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;gatsby.html&quot; alt=&quot;Арт Деко&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;gatsby.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Арт Деко&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Ретро гламур 1920-их са геометријским узорцима и злато-навy палетом&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;gatsby.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;gatsby&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="gatsby.html" alt="Арт Деко" style="display:none;">
+        <iframe src="gatsby.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Арт Деко</h3>
+        <p class="theme-description">Ретро гламур 1920-их са геометријским узорцима и злато-навy палетом</p>
+        <div class="theme-actions">
+          <a href="gatsby.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="gatsby">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;editorial.html&quot; alt=&quot;Едиторијал&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;editorial.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Едиторијал&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Модерни часописни layout са смелом типографијом и асиметричним дизајном&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;editorial.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;editorial&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="editorial.html" alt="Едиторијал" style="display:none;">
+        <iframe src="editorial.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Едиторијал</h3>
+        <p class="theme-description">Модерни часописни layout са смелом типографијом и асиметричним дизајном</p>
+        <div class="theme-actions">
+          <a href="editorial.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="editorial">Изабери</button>
+        </div>
+      </div>
+    </div>
   
 
-    &lt;div class=&quot;theme-card&quot;&gt;
-      &lt;div class=&quot;theme-preview&quot;&gt;
-        &lt;img src=&quot;whimsical.html&quot; alt=&quot;Илустровани&quot; style=&quot;display:none;&quot;&gt;
-        &lt;iframe src=&quot;whimsical.html&quot; style=&quot;width:100%;height:100%;border:none;pointer-events:none;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;theme-info&quot;&gt;
-        &lt;h3 class=&quot;theme-name&quot;&gt;Илустровани&lt;/h3&gt;
-        &lt;p class=&quot;theme-description&quot;&gt;Играјући илустровани дизајн са акварел текстурама и пастелним бојама&lt;/p&gt;
-        &lt;div class=&quot;theme-actions&quot;&gt;
-          &lt;a href=&quot;whimsical.html&quot; target=&quot;_blank&quot; class=&quot;btn btn-secondary&quot;&gt;Преглед&lt;/a&gt;
-          &lt;button class=&quot;btn btn-primary&quot; data-select-theme=&quot;whimsical&quot;&gt;Изабери&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="theme-card">
+      <div class="theme-preview">
+        <img src="whimsical.html" alt="Илустровани" style="display:none;">
+        <iframe src="whimsical.html" style="width:100%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Илустровани</h3>
+        <p class="theme-description">Играјући илустровани дизајн са акварел текстурама и пастелним бојама</p>
+        <div class="theme-actions">
+          <a href="whimsical.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="whimsical">Изабери</button>
+        </div>
+      </div>
+    </div>
   
       </div>
     </div>
@@ -645,7 +739,18 @@
     <div class="container">
       <div class="success-icon">✅</div>
       <h2>Тема је успешно изабрана!</h2>
-      <p>Ваша позивница ће ускоро бити спремна. Добићете обавештење када буде доступна.</p>
+      <p>Ваша позивница се управо креира у изабраном дизајну.</p>
+
+      <div class="success-notice" id="siteStatusNotice">
+        <span class="success-notice-icon" id="siteStatusIcon">⏳</span>
+        <div id="siteStatusText">
+          <strong><span class="poll-spinner"></span> Позивница се креира...</strong>
+          Сачекајте пар минута. Страница ће се аутоматски активирати. Такође ћемо вам послати емаил са линком.
+        </div>
+      </div>
+
+      <a href="#" class="success-site-link disabled" id="siteLink" target="_blank">Отворите вашу позивницу →</a>
+      <div class="success-detail">Линк ће радити чим се позивница заврши са креирањем.</div>
     </div>
   </div>
 
@@ -677,7 +782,8 @@
 
       const CONFIG = {
         THEME_SELECTION_URL: 'https://script.google.com/macros/s/AKfycbxSyr989LbPiQ3LYSk2bjzlYt9PXjpY5wWcJmi-xLroGK8Exzw3ygGbEnQqdf5hajKSrA/exec',
-        WEDDING_SLUG: 'demo'
+        WEDDING_SLUG: 'demo',
+        SITE_BASE_URL: '/site/'
       };
 
       let selectedTheme = null;
@@ -687,12 +793,14 @@
         const timerElement = document.getElementById('expiry-timer');
         const textElement = document.getElementById('expiry-text');
         const expiryDate = new Date(timerElement.dataset.expiry);
+        let timerInterval = null;
 
         function update() {
           const now = new Date();
           const diff = expiryDate - now;
 
           if (diff <= 0) {
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             timerElement.classList.add('expired');
             textElement.textContent = 'Истекло';
             document.getElementById('main-content').style.display = 'none';
@@ -712,7 +820,7 @@
         }
 
         update();
-        setInterval(update, 1000);
+        timerInterval = setInterval(update, 1000);
       }
 
       // Theme Selection
@@ -744,31 +852,20 @@
         if (CONFIG.THEME_SELECTION_URL.includes('{{') || CONFIG.THEME_SELECTION_URL.includes('YOUR_')) {
           console.log('Theme selection (demo mode):', data);
           setTimeout(function() {
-            closeModal();
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('correction-section').style.display = 'none';
-            document.getElementById('success-message').classList.add('active');
+            showSuccess();
           }, 1000);
           return;
         }
 
+        // Google Apps Script requires no-cors mode to avoid CORS preflight failures
         fetch(CONFIG.THEME_SELECTION_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         })
-        .then(function(response) {
-          if (!response.ok) throw new Error('Server error');
-          return response.json();
-        })
-        .then(function(result) {
-          if (!result.success) throw new Error(result.message || 'Failed');
-          closeModal();
-          document.getElementById('main-content').style.display = 'none';
-          document.getElementById('correction-section').style.display = 'none';
-          document.getElementById('success-message').classList.add('active');
+        .then(function() {
+          showSuccess();
         })
         .catch(function(error) {
           console.error('Error selecting theme:', error);
@@ -776,6 +873,78 @@
           confirmBtn.textContent = 'Потврди';
           alert('Дошло је до грешке. Молимо покушајте поново.');
         });
+      }
+
+      function showSuccess() {
+        closeModal();
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('correction-section').style.display = 'none';
+        document.getElementById('success-message').classList.add('active');
+
+        var siteUrl = CONFIG.SITE_BASE_URL + CONFIG.WEDDING_SLUG + '/';
+        var link = document.getElementById('siteLink');
+        link.href = siteUrl;
+
+        pollSite(siteUrl);
+      }
+
+      function pollSite(url) {
+        var notice = document.getElementById('siteStatusNotice');
+        var icon = document.getElementById('siteStatusIcon');
+        var text = document.getElementById('siteStatusText');
+        var link = document.getElementById('siteLink');
+        var attempts = 0;
+        var maxAttempts = 40; // 40 x 15s = 10 minutes
+        var interval = 15000;
+        var pollUrl = url + (url.endsWith('/') ? 'index.html' : '/index.html');
+
+        function check() {
+          attempts++;
+          text.querySelector('strong').innerHTML = '<span class="poll-spinner"></span> Позивница се креира... (' + attempts + '/' + maxAttempts + ')';
+
+          fetch(pollUrl + '?_=' + Date.now(), { method: 'GET', cache: 'no-store', redirect: 'follow' })
+          .then(function(res) {
+            if (res.ok) {
+              return res.text().then(function(body) {
+                if (body.indexOf('<!DOCTYPE') !== -1 && body.indexOf('pozivnic') !== -1) {
+                  onReady();
+                } else if (attempts < maxAttempts) {
+                  setTimeout(check, interval);
+                } else {
+                  onTimeout();
+                }
+              });
+            } else if (attempts < maxAttempts) {
+              setTimeout(check, interval);
+            } else {
+              onTimeout();
+            }
+          })
+          .catch(function() {
+            if (attempts < maxAttempts) {
+              setTimeout(check, interval);
+            } else {
+              onTimeout();
+            }
+          });
+        }
+
+        function onReady() {
+          notice.classList.add('ready');
+          icon.textContent = '✓';
+          text.innerHTML = '<strong>Позивница је спремна!</strong> Кликните испод да видите вашу позивницу.';
+          link.classList.remove('disabled');
+          link.classList.add('ready');
+        }
+
+        function onTimeout() {
+          icon.textContent = '✉';
+          text.innerHTML = '<strong>Позивница још није спремна.</strong> Не брините — послаћемо вам емаил са линком чим буде готова. Можете такође покушати да отворите линк испод за пар минута.';
+          link.classList.remove('disabled');
+        }
+
+        // First check after 45s (GitHub Actions needs ~30s to start + build + deploy)
+        setTimeout(check, 45000);
       }
 
       // Event Listeners
@@ -800,10 +969,25 @@
           }
         });
 
-        // Close modal on Escape key
+        // Close modal on Escape key + focus trap
         document.addEventListener('keydown', function(e) {
+          var overlay = document.getElementById('modal-overlay');
+          if (!overlay.classList.contains('active')) return;
+
           if (e.key === 'Escape') {
             closeModal();
+            return;
+          }
+
+          if (e.key === 'Tab') {
+            var focusable = overlay.querySelectorAll('button:not([disabled])');
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+            if (e.shiftKey) {
+              if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+            } else {
+              if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
           }
         });
 
@@ -841,7 +1025,7 @@
           fetch(CONFIG.THEME_SELECTION_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(data)
           }).then(showCorrectionSent).catch(showCorrectionSent);
 
