@@ -877,9 +877,7 @@
           <div class="field-row">
             <div class="field">
               <label class="field-label" for="ceremony_time">Vreme <span class="required">*</span></label>
-              <select id="ceremony_time" name="ceremony_time" class="field-input" required>
-                <option value="">-- Izaberite --</option>
-              </select>
+              <input type="time" id="ceremony_time" name="ceremony_time" class="field-input" required step="900">
               <div class="field-error" id="ceremony_time_error">Unesite vreme ceremonije</div>
             </div>
             <div class="field">
@@ -913,9 +911,7 @@
           <div class="field-row">
             <div class="field">
               <label class="field-label" for="reception_time">Vreme <span class="required">*</span></label>
-              <select id="reception_time" name="reception_time" class="field-input" required>
-                <option value="">-- Izaberite --</option>
-              </select>
+              <input type="time" id="reception_time" name="reception_time" class="field-input" required step="900">
               <div class="field-error" id="reception_time_error">Unesite vreme proslave</div>
             </div>
             <div class="field">
@@ -1045,28 +1041,6 @@
           additional_info:  'entry.165586042'
         }
       };
-
-      // ========================================
-      // POPULATE TIME DROPDOWNS (15-min increments)
-      // ========================================
-      (function() {
-        var timeSelects = ['ceremony_time', 'reception_time'];
-        timeSelects.forEach(function(id) {
-          var sel = document.getElementById(id);
-          if (!sel) return;
-          for (var h = 0; h < 24; h++) {
-            for (var m = 0; m < 60; m += 15) {
-              var hh = (h < 10 ? '0' : '') + h;
-              var mm = (m < 10 ? '0' : '') + m;
-              var val = hh + ':' + mm;
-              var opt = document.createElement('option');
-              opt.value = val;
-              opt.textContent = val;
-              sel.appendChild(opt);
-            }
-          }
-        });
-      })();
 
       // ========================================
       // AUTO-SET RSVP DEADLINE (1 month before wedding)
