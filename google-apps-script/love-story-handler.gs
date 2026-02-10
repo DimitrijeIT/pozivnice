@@ -79,7 +79,7 @@ function buildPrompt(howMet, firstDate, proposal, tone) {
 
   var prompt = 'Napisi kratku ljubavnu pricu za svadbenu pozivnicu na srpskom jeziku (latinica). ';
   prompt += 'Prica treba da bude ' + toneDesc + '. ';
-  prompt += 'Prica treba da ima 3-5 recenica, da bude topla i licna. ';
+  prompt += 'Prica treba da ima 5-8 recenica, da bude topla i licna. ';
   prompt += 'Ne koristi klikse poput "sudjeno im je bilo" ili "ljubav na prvi pogled" osim ako to zaista odgovara. ';
   prompt += 'Pisi u trecem licu. ';
   prompt += '\n\nDetalji o paru:\n';
@@ -113,7 +113,7 @@ function callGemini(apiKey, prompt) {
     }],
     generationConfig: {
       temperature: 0.8,
-      maxOutputTokens: 300,
+      maxOutputTokens: 4000,
       topP: 0.9
     }
   };
@@ -126,14 +126,22 @@ function callGemini(apiKey, prompt) {
   };
 
   var response = UrlFetchApp.fetch(url, options);
-  var json = JSON.parse(response.getContentText());
+  var responseText = response.getContentText();
+  Logger.log('Gemini raw response: ' + responseText);
+  var json = JSON.parse(responseText);
 
   if (json.error) {
     throw new Error('Gemini API error: ' + json.error.message);
   }
 
-  if (json.candidates && json.candidates[0] && json.candidates[0].content) {
-    return json.candidates[0].content.parts[0].text.trim();
+  if (json.candidates && json.candidates[0]) {
+    var finishReason = json.candidates[0].finishReason;
+    Logger.log('Finish reason: ' + finishReason);
+    if (json.candidates[0].content) {
+      var story = json.candidates[0].content.parts[0].text.trim();
+      Logger.log('Generated story (' + story.length + ' chars): ' + story);
+      return story;
+    }
   }
 
   throw new Error('Unexpected Gemini response format');
@@ -150,19 +158,33 @@ function createResponse(data) {
 
 /**
  * Test function — run from Apps Script editor
+ * Simulates the exact POST request the form sends.
+ * After running, check Execution log for:
+ *   - Full Gemini raw response
+ *   - Finish reason (STOP = complete, MAX_TOKENS = truncated)
+ *   - Generated story with character count
+ *   - Final JSON response sent to client
  */
 function testStoryGeneration() {
   var testEvent = {
     postData: {
       contents: JSON.stringify({
-        how_met: 'Upoznali smo se na fakultetu, u istoj grupi za vezbe iz matematike',
-        first_date: 'Otisli smo na kafu u centru grada, pricali satima o svemu',
-        proposal: 'Na putovanju u Grckoj, na zalazak sunca pored mora',
+        how_met: 'na faksu',
+        first_date: 'dok smo ucili',
+        proposal: 'na ispitu',
         tone: 'romantican'
       })
     }
   };
 
+  Logger.log('=== TEST START ===');
+  Logger.log('Input: ' + testEvent.postData.contents);
+
   var result = doPost(testEvent);
-  Logger.log(result.getContent());
+  var output = result.getContent();
+
+  Logger.log('=== FINAL RESPONSE TO CLIENT ===');
+  Logger.log(output);
+  Logger.log('Response length: ' + output.length + ' chars');
+  Logger.log('=== TEST END ===');
 }
