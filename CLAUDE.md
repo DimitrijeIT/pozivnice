@@ -69,7 +69,6 @@ Google Apps Scripts in `google-apps-script/` bridge external services to GitHub:
 1. `intake-form-handler-automated.gs` — Google Form submit triggers `repository_dispatch` → `generate-preview.yml`
 2. `theme-selection-handler-automated.gs` — Theme selection POST triggers `repository_dispatch` → `generate-final.yml`
 3. `rsvp-handler.gs` — Guest RSVP POST → looks up per-couple spreadsheet via `RSVP_Lookup` tab → writes to dedicated per-couple Google Spreadsheet
-4. `rsvp-count-handler.gs` — GET endpoint returning live RSVP counts from per-couple spreadsheets
 
 Legacy (non-automated) versions also exist: `intake-form-handler.gs`, `theme-selection-handler.gs`.
 

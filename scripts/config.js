@@ -12,9 +12,8 @@ const config = {
 
   // Google Apps Script Web App URLs
   // These URLs are obtained after deploying each Apps Script as a web app
-  THEME_SELECTION_URL: process.env.THEME_SELECTION_URL || 'https://script.google.com/macros/s/AKfycby3TKfusf7c36I09L_RZJwuY90GlKsoaKBNU9PUPshUB61pIzEaL-330RVjOhJTJ0ywUg/exec',
-  RSVP_SCRIPT_URL: process.env.RSVP_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec',
-  RSVP_COUNT_SCRIPT_URL: process.env.RSVP_COUNT_SCRIPT_URL || '',
+  THEME_SELECTION_URL: process.env.THEME_SELECTION_URL || 'https://script.google.com/macros/s/AKfycbxSyr989LbPiQ3LYSk2bjzlYt9PXjpY5wWcJmi-xLroGK8Exzw3ygGbEnQqdf5hajKSrA/exec',
+  RSVP_SCRIPT_URL: process.env.RSVP_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec',
 
   // Domain Configuration
   DOMAIN: process.env.DOMAIN || 'pozivnice.rs',

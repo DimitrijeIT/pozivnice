@@ -644,13 +644,6 @@ section {
   background: var(--color-background);
 }
 
-.rsvp-counter {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-}
-
 .counter-item {
   text-align: center;
   padding: var(--spacing-md) var(--spacing-lg);
@@ -958,11 +951,6 @@ section {
 
   .details-grid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .rsvp-counter {
-    flex-wrap: wrap;
     gap: var(--spacing-md);
   }
 

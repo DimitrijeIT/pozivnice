@@ -518,14 +518,6 @@ section {
   background: var(--color-background);
 }
 
-.rsvp-counter {
-  display: flex;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid var(--color-gray);
-}
-
 .counter-item {
   text-align: left;
 }
@@ -847,10 +839,6 @@ section {
 
   .detail-card:last-child {
     border-bottom: none;
-  }
-
-  .rsvp-counter {
-    flex-wrap: wrap;
   }
 
   .counter-divider {

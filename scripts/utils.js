@@ -786,7 +786,6 @@ function prepareWeddingData(rawData, theme = 'classic') {
 
     // Script URLs
     RSVP_SCRIPT_URL: config.RSVP_SCRIPT_URL,
-    RSVP_COUNT_SCRIPT_URL: config.RSVP_COUNT_SCRIPT_URL,
     THEME_SELECTION_URL: config.THEME_SELECTION_URL
   };
 

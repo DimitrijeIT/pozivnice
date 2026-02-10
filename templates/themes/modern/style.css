@@ -402,14 +402,6 @@ h1, h2, h3 {
   background: var(--color-background);
 }
 
-.rsvp-counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-xl);
-  margin-bottom: var(--spacing-xl);
-}
-
 .counter-item {
   text-align: center;
 }
@@ -656,11 +648,6 @@ h1, h2, h3 {
 
   .countdown-item {
     min-width: 60px;
-  }
-
-  .rsvp-counter {
-    flex-direction: column;
-    gap: var(--spacing-md);
   }
 
   .counter-divider {
