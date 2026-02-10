@@ -58,6 +58,12 @@ jobs:
       - name: Generate preview
         run: node scripts/generate-preview.js ${{ steps.extract.outputs.slug }}
 
+      - name: Persist wedding data for final generation
+        run: |
+          SLUG="${{ steps.extract.outputs.slug }}"
+          mkdir -p public/data
+          cp "data/${SLUG}.json" "public/data/${SLUG}.json"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -75,7 +81,7 @@ jobs:
           echo "Share this link with the couple to select their theme." >> $GITHUB_STEP_SUMMARY
 
       - name: Send notification email
-        if: success() && github.event_name == 'repository_dispatch'
+        if: success() && github.event_name == 'repository_dispatch' && github.event.client_payload.contact_email != ''
         continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:

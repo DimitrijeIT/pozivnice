@@ -145,18 +145,25 @@ function createRsvpSpreadsheet(slug, brideName, groomName) {
 /**
  * Register the per-couple RSVP spreadsheet in the RSVP_Lookup tab
  */
-function registerRsvpSpreadsheet(slug, spreadsheetId) {
+function registerRsvpSpreadsheet(slug, spreadsheetId, contactEmail) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var lookupSheet = ss.getSheetByName('RSVP_Lookup');
 
     if (!lookupSheet) {
       lookupSheet = ss.insertSheet('RSVP_Lookup');
-      lookupSheet.getRange(1, 1, 1, 3).setValues([['Slug', 'Spreadsheet ID', 'Created At']]);
-      lookupSheet.getRange(1, 1, 1, 3).setFontWeight('bold');
+      lookupSheet.getRange(1, 1, 1, 4).setValues([['Slug', 'Spreadsheet ID', 'Created At', 'Contact Email']]);
+      lookupSheet.getRange(1, 1, 1, 4).setFontWeight('bold');
+    } else {
+      // Add Contact Email header if missing (upgrade existing sheets)
+      var headers = lookupSheet.getRange(1, 1, 1, lookupSheet.getLastColumn()).getValues()[0];
+      if (headers.length < 4 || headers[3] !== 'Contact Email') {
+        lookupSheet.getRange(1, 4).setValue('Contact Email');
+        lookupSheet.getRange(1, 4).setFontWeight('bold');
+      }
     }
 
-    lookupSheet.appendRow([slug, spreadsheetId, new Date().toISOString()]);
+    lookupSheet.appendRow([slug, spreadsheetId, new Date().toISOString(), contactEmail || '']);
     Logger.log('Registered RSVP spreadsheet for: ' + slug);
   } catch (error) {
     Logger.log('Warning: Failed to register RSVP spreadsheet: ' + error.toString());
@@ -275,7 +282,7 @@ function onFormSubmit(e) {
     if (rsvpResult) {
       weddingData.rsvp_spreadsheet_id = rsvpResult.spreadsheetId;
       weddingData.rsvp_sheet_url = rsvpResult.spreadsheetUrl;
-      registerRsvpSpreadsheet(weddingData.slug, rsvpResult.spreadsheetId);
+      registerRsvpSpreadsheet(weddingData.slug, rsvpResult.spreadsheetId, weddingData.contact_email);
       Logger.log('RSVP spreadsheet created: ' + rsvpResult.spreadsheetUrl);
     } else {
       Logger.log('Warning: RSVP spreadsheet creation failed, continuing without it');

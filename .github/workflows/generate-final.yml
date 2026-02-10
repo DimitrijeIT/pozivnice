@@ -59,10 +59,17 @@ jobs:
 
       - name: Download existing data
         run: |
-          # Try to get data from gh-pages branch
+          SLUG="${{ steps.extract.outputs.slug }}"
+          # Try to get wedding data from gh-pages branch
           git fetch origin gh-pages:gh-pages || true
-          git checkout gh-pages -- "preview/${{ steps.extract.outputs.slug }}/metadata.json" 2>/dev/null || true
-          git checkout gh-pages -- "data/${{ steps.extract.outputs.slug }}.json" 2>/dev/null || true
+          # Data is stored in public/data/ during preview generation
+          git checkout gh-pages -- "data/${SLUG}.json" 2>/dev/null || true
+          if [ -f "data/${SLUG}.json" ]; then
+            echo "Found wedding data for ${SLUG}"
+            cat "data/${SLUG}.json"
+          else
+            echo "WARNING: No wedding data found for ${SLUG}, will use defaults"
+          fi
 
       - name: Generate final site
         run: |
@@ -85,7 +92,7 @@ jobs:
           echo "Theme: ${{ steps.extract.outputs.theme }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Send notification email
-        if: success() && github.event_name == 'repository_dispatch'
+        if: success() && github.event_name == 'repository_dispatch' && steps.extract.outputs.contact_email != ''
         continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:

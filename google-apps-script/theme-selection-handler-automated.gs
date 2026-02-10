@@ -65,7 +65,8 @@ function lookupRsvpSheetUrl(slug, CONFIG) {
 }
 
 /**
- * Look up contact email from the Weddings tab in the master spreadsheet
+ * Look up contact email from RSVP_Lookup tab in the master spreadsheet.
+ * The intake form handler stores contact_email in column 4 of RSVP_Lookup.
  */
 function lookupContactEmail(slug, CONFIG) {
   if (!CONFIG.MASTER_SPREADSHEET_ID) {
@@ -75,36 +76,16 @@ function lookupContactEmail(slug, CONFIG) {
 
   try {
     var ss = SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID);
-    var weddingsSheet = ss.getSheetByName('Weddings');
-    if (!weddingsSheet) {
-      // Try the first sheet as fallback
-      weddingsSheet = ss.getSheets()[0];
-    }
-
-    var data = weddingsSheet.getDataRange().getValues();
-    var headers = data[0];
-
-    // Find the slug and email columns
-    var slugCol = -1;
-    var emailCol = -1;
-    for (var h = 0; h < headers.length; h++) {
-      var header = headers[h].toString().toLowerCase();
-      if (header === 'slug') {
-        slugCol = h;
-      }
-      if (header.indexOf('е-маил') !== -1 || header.indexOf('email') !== -1 || header.indexOf('контакт') !== -1) {
-        emailCol = h;
-      }
-    }
-
-    if (slugCol === -1 || emailCol === -1) {
-      Logger.log('Could not find slug or email column in Weddings sheet');
+    var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+    if (!lookupSheet) {
+      Logger.log('RSVP_Lookup tab not found');
       return '';
     }
 
+    var data = lookupSheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
-      if (data[i][slugCol] === slug) {
-        return data[i][emailCol] || '';
+      if (data[i][0] === slug) {
+        return data[i][3] || ''; // Column 4 = Contact Email
       }
     }
 
