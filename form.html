@@ -997,8 +997,8 @@
           </div>
         </div>
 
-        <a href="#" class="success-preview-link disabled" id="previewLink" target="_blank">Otvorite pregled pozivnica &rarr;</a>
-        <div class="success-detail">Imate 24 sata da pregledate sve dizajne i izaberete omiljeni.</div>
+        <a href="#" class="success-preview-link" id="previewLink" target="_blank">Otvorite pregled pozivnica &rarr;</a>
+        <div class="success-detail">Imate 24 sata da pregledate sve dizajne i izaberete omiljeni.<br>Link ce raditi cim se pregled zavrsi sa kreiranjem.</div>
 
         <a href="/" class="btn btn-back" style="margin-top: 0.5rem;">&#8592; Nazad na pocetnu</a>
       </div>
@@ -1438,12 +1438,24 @@
         var attempts = 0;
         var maxAttempts = 40; // 40 x 15s = 10 minutes
         var interval = 15000;
+        // Poll index.html directly with cache-busting
+        var pollUrl = url + (url.endsWith('/') ? 'index.html' : '/index.html');
 
         function check() {
           attempts++;
-          fetch(url, { method: 'HEAD', cache: 'no-store' }).then(function(res) {
+          text.querySelector('strong').textContent = ' Pregled se kreira... (' + attempts + '/' + maxAttempts + ')';
+          fetch(pollUrl + '?_=' + Date.now(), { method: 'GET', cache: 'no-store', redirect: 'follow' }).then(function(res) {
             if (res.ok) {
-              onReady();
+              return res.text().then(function(body) {
+                // Verify it's actual preview content, not a 404 page
+                if (body.indexOf('<!DOCTYPE') !== -1 && body.indexOf('pozivnic') !== -1) {
+                  onReady();
+                } else if (attempts < maxAttempts) {
+                  setTimeout(check, interval);
+                } else {
+                  onTimeout();
+                }
+              });
             } else if (attempts < maxAttempts) {
               setTimeout(check, interval);
             } else {
@@ -1468,12 +1480,12 @@
 
         function onTimeout() {
           icon.innerHTML = '&#9993;';
-          text.innerHTML = '<strong>Pregled jos nije spreman.</strong> Ne brinite — poslaćemo vam email sa linkom cim bude gotov.';
+          text.innerHTML = '<strong>Pregled jos nije spreman.</strong> Ne brinite — poslacemo vam email sa linkom cim bude gotov. Mozete takodje pokusati da otvorite link ispod za par minuta.';
           link.classList.remove('disabled');
         }
 
-        // First check after 30s (GitHub Actions needs time to start)
-        setTimeout(check, 30000);
+        // First check after 45s (GitHub Actions needs ~30s to start + build + deploy)
+        setTimeout(check, 45000);
       }
 
       // Simple Cyrillic-to-Latin slugify (matches server-side logic)
