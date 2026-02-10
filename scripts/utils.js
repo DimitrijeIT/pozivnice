@@ -144,16 +144,21 @@ function processConditionals(template, data) {
   // Match {{#IF_SOMETHING}}...{{/IF_SOMETHING}}
   const conditionalRegex = /\{\{#IF_(\w+)\}\}([\s\S]*?)\{\{\/IF_\1\}\}/g;
 
-  result = result.replace(conditionalRegex, (match, condition, content) => {
-    const key = condition;
-    const value = data[key];
+  // Loop to handle nested conditionals (inner ones exposed after outer ones resolve)
+  let previous;
+  do {
+    previous = result;
+    result = result.replace(conditionalRegex, (match, condition, content) => {
+      const key = condition;
+      const value = data[key];
 
-    // Check if the value is truthy
-    if (value && value !== '' && value !== 'false' && value !== '0') {
-      return content;
-    }
-    return '';
-  });
+      // Check if the value is truthy
+      if (value && value !== '' && value !== 'false' && value !== '0') {
+        return content;
+      }
+      return '';
+    });
+  } while (result !== previous);
 
   return result;
 }

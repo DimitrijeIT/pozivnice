@@ -141,13 +141,17 @@ function generateThemedPage(rawData, theme) {
   // Prepare template data with theme-specific settings
   const templateData = utils.prepareWeddingData(rawData, theme);
 
+  // Pre-process inline script to replace template variables (e.g., RSVP_SCRIPT_URL, WEDDING_SLUG)
+  let processedScript = utils.processConditionals(clientScript, templateData);
+  processedScript = utils.replacePlaceholders(processedScript, templateData);
+
   // Prepare theme-specific data
   const themeData = {
     ...templateData,
     THEME_CSS: `<style>\n${themeCss}\n</style>`,
     ANIMATIONS_CSS: `<style>\n${animationsCss}\n${componentsCss}\n${backgroundsCss}\n${decorationsCss}\n${mobileCss}\n</style>`,
     THEME_FONTS: utils.getThemeFonts(theme),
-    INLINE_SCRIPT: clientScript
+    INLINE_SCRIPT: processedScript
   };
 
   // Process conditionals first
