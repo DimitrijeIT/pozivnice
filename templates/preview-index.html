@@ -593,19 +593,15 @@
           return;
         }
 
+        // Google Apps Script requires no-cors mode to avoid CORS preflight failures
         fetch(CONFIG.THEME_SELECTION_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         })
-        .then(function(response) {
-          if (!response.ok) throw new Error('Server error');
-          return response.json();
-        })
-        .then(function(result) {
-          if (!result.success) throw new Error(result.message || 'Failed');
+        .then(function() {
+          // Response is opaque with no-cors; show success optimistically
           closeModal();
           document.getElementById('main-content').style.display = 'none';
           document.getElementById('correction-section').style.display = 'none';
@@ -682,7 +678,7 @@
           fetch(CONFIG.THEME_SELECTION_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(data)
           }).then(showCorrectionSent).catch(showCorrectionSent);
 
