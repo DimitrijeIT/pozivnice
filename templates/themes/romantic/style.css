@@ -8,9 +8,9 @@
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #C4A4A4;
-  --color-primary-dark: #9E7B7B;
-  --color-primary-light: #E8D5D5;
+  --color-primary: #9E8080;
+  --color-primary-dark: #7A5C5C;
+  --color-primary-light: #D4BCBC;
   --color-secondary: #FDF9F7;
   --color-accent: #A8B5A0;
   --color-accent-warm: #D4B896;
@@ -38,7 +38,7 @@
   --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Rococo ornate flourish SVG */
-  --flourish-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 35 Q50 0 100 20 T200 35' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M80 20 Q100 5 120 20' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.6'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%23C4A4A4' opacity='0.5'/%3E%3C/svg%3E");
+  --flourish-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 35 Q50 0 100 20 T200 35' fill='none' stroke='%239E8080' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M80 20 Q100 5 120 20' fill='none' stroke='%239E8080' stroke-width='1' opacity='0.6'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%239E8080' opacity='0.5'/%3E%3C/svg%3E");
 
   /* Scalloped edge pattern */
   --scallop-border: radial-gradient(circle at 50% 0%, transparent 12px, var(--color-primary-light) 12px, var(--color-primary-light) 14px, transparent 14px);
@@ -51,7 +51,7 @@
   /* Glassmorphism - soft romantic */
   --glass-bg: rgba(255, 252, 250, 0.85);
   --glass-blur: 20px;
-  --glass-border: rgba(196, 164, 164, 0.2);
+  --glass-border: rgba(158, 128, 128, 0.2);
 }
 
 /* Reset & Base */

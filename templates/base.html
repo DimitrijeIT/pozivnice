@@ -74,7 +74,7 @@
   <section class="countdown-section" id="countdown">
     <div class="container">
       <h2 class="section-title animate-fade-up">До нашег венчања</h2>
-      <div class="countdown-timer animate-stagger" data-wedding-date="{{WEDDING_DATE_ISO}}">
+      <div class="countdown-timer animate-stagger" data-wedding-date="{{WEDDING_DATE_ISO}}" role="timer" aria-label="Одбројавање до венчања">
         <div class="countdown-item">
           <span class="countdown-number" id="countdown-days">--</span>
           <span class="countdown-label">дана</span>
@@ -266,7 +266,7 @@
               <span>Да, долазим</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="attending" value="no">
+              <input type="radio" name="attending" value="no" required>
               <span>Нажалост, не могу да дођем</span>
             </label>
           </div>

@@ -62,7 +62,7 @@
       caption: item.dataset.caption || ''
     }));
 
-    var previousFocus = null;
+    let previousFocus = null;
 
     function openLightbox(index) {
       previousFocus = document.activeElement;
@@ -154,7 +154,7 @@
     const pauseIcon = musicToggle.querySelector('.music-pause');
     let isPlaying = false;
 
-    var isToggling = false;
+    let isToggling = false;
 
     function toggleMusic() {
       if (isToggling) return;
@@ -178,6 +178,9 @@
         }).catch(function(err) {
           console.log('Audio playback failed:', err);
           isToggling = false;
+          musicToggle.setAttribute('aria-label', 'Музика није доступна');
+          musicToggle.classList.add('music-error');
+          setTimeout(function() { musicToggle.classList.remove('music-error'); }, 2000);
         });
       }
     }
@@ -202,6 +205,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
     }, {
@@ -230,7 +234,7 @@
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    var lastValues = {};
+    const lastValues = {};
     function animateNumber(element, newValue) {
       var key = element.id;
       if (lastValues[key] !== newValue) {
@@ -296,7 +300,7 @@
 
     container.innerHTML = '';
     var colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
-    var confettiCount = 100;
+    var confettiCount = 50;
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < confettiCount; i++) {
@@ -354,11 +358,38 @@
       formMessage.textContent = '';
       formMessage.className = 'form-message';
 
+      const emailInput = document.getElementById('guest-email');
+      const phoneInput = document.getElementById('guest-phone');
+      const email = emailInput.value.trim();
+      const phone = phoneInput.value.trim();
+
+      // Validate email if provided
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        formMessage.textContent = 'Молимо унесите исправну е-маил адресу.';
+        formMessage.className = 'form-message error';
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+        emailInput.focus();
+        return;
+      }
+
+      // Validate phone if provided (allow digits, spaces, +, -, (, ))
+      if (phone && !/^[+\d\s()\-]{6,20}$/.test(phone)) {
+        formMessage.textContent = 'Молимо унесите исправан број телефона.';
+        formMessage.className = 'form-message error';
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+        phoneInput.focus();
+        return;
+      }
+
       const formData = {
         slug: CONFIG.WEDDING_SLUG,
         name: document.getElementById('guest-name').value.trim(),
-        email: document.getElementById('guest-email').value.trim(),
-        phone: document.getElementById('guest-phone').value.trim(),
+        email: email,
+        phone: phone,
         attending: document.querySelector('input[name="attending"]:checked').value,
         guests_count: document.getElementById('guests-count') ? document.getElementById('guests-count').value : '1',
         meal_preference: document.getElementById('meal-preference') ? document.getElementById('meal-preference').value : '',
@@ -485,7 +516,8 @@
   // ============================================
 
   function initSectionNavigation() {
-    const sections = document.querySelectorAll('section[id], .cinema-section, .magazine-page');
+    // Only enable section navigation for full-page layouts (cinema, magazine)
+    const sections = document.querySelectorAll('.cinema-section, .magazine-page');
     if (sections.length < 2) return;
 
     let currentSection = 0;
@@ -497,15 +529,14 @@
       }
     }
 
-    // Keyboard navigation
+    // Keyboard navigation — only PageUp/PageDown to avoid hijacking normal scrolling
     document.addEventListener('keydown', (e) => {
-      // Don't hijack keyboard when in form fields
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.isContentEditable) return;
 
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      if (e.key === 'PageDown') {
         e.preventDefault();
         goToSection(currentSection + 1);
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      } else if (e.key === 'PageUp') {
         e.preventDefault();
         goToSection(currentSection - 1);
       }

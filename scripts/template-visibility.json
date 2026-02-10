@@ -187,7 +187,7 @@
       ]
     },
     "oldmoney": {
-      "hidden": false,
+      "hidden": true,
       "order": 13,
       "tags": [
         "luxury",
@@ -214,7 +214,7 @@
       ]
     },
     "storybook": {
-      "hidden": false,
+      "hidden": true,
       "order": 16,
       "tags": [
         "romantic",

@@ -634,12 +634,14 @@
         const timerElement = document.getElementById('expiry-timer');
         const textElement = document.getElementById('expiry-text');
         const expiryDate = new Date(timerElement.dataset.expiry);
+        let timerInterval = null;
 
         function update() {
           const now = new Date();
           const diff = expiryDate - now;
 
           if (diff <= 0) {
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             timerElement.classList.add('expired');
             textElement.textContent = 'Истекло';
             document.getElementById('main-content').style.display = 'none';
@@ -659,7 +661,7 @@
         }
 
         update();
-        setInterval(update, 1000);
+        timerInterval = setInterval(update, 1000);
       }
 
       // Theme Selection
@@ -808,10 +810,25 @@
           }
         });
 
-        // Close modal on Escape key
+        // Close modal on Escape key + focus trap
         document.addEventListener('keydown', function(e) {
+          var overlay = document.getElementById('modal-overlay');
+          if (!overlay.classList.contains('active')) return;
+
           if (e.key === 'Escape') {
             closeModal();
+            return;
+          }
+
+          if (e.key === 'Tab') {
+            var focusable = overlay.querySelectorAll('button:not([disabled])');
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+            if (e.shiftKey) {
+              if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+            } else {
+              if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
           }
         });
 

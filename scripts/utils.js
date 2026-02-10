@@ -787,9 +787,10 @@ function prepareWeddingData(rawData, theme = 'classic') {
     INVITATION_SIGNATURE: data.invitation_signature || 'Са љубављу, младенци',
 
     // Optional sections
+    PULL_QUOTE: data.pull_quote || (data.story_text ? 'Свака љубавна прича је лепа, али наша је омиљена' : ''),
     STORY_TEXT: data.story_text || '',
     STORY_PHOTO_URL: data.story_photo_url || '',
-    DRESS_CODE_TEXT: data.dress_code_text || '',
+    DRESS_CODE_TEXT: data.dress_code_text || 'Елегантна одећа',
     ADDITIONAL_INFO: data.additional_info || '',
     WEDDING_HASHTAG: data.wedding_hashtag || '',
 

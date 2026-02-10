@@ -8,8 +8,8 @@
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #B8956B;
-  --color-primary-dark: #8B6914;
+  --color-primary: #96784A;
+  --color-primary-dark: #7A5F2E;
   --color-primary-light: #D4C4A8;
   --color-secondary: #FAF9F6;
   --color-accent: #2D4739;
@@ -19,7 +19,7 @@
   --color-background: #FFFEF9;
   --color-background-alt: #F8F6F0;
   --color-white: #FFFFFF;
-  --color-border: #B8956B;
+  --color-border: #96784A;
   --color-cream: #FFFDF5;
   --color-champagne: #F5EFE0;
 
@@ -37,7 +37,7 @@
   --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Gold foil gradient */
-  --gold-foil: linear-gradient(135deg, #D4AF37 0%, #B8956B 25%, #E5C77B 50%, #B8956B 75%, #D4AF37 100%);
+  --gold-foil: linear-gradient(135deg, #D4AF37 0%, #96784A 25%, #E5C77B 50%, #96784A 75%, #D4AF37 100%);
   --gold-shimmer: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
 
   /* Embossed texture */
@@ -49,7 +49,7 @@
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 253, 0.92);
   --glass-blur: 16px;
-  --glass-border: rgba(184, 149, 107, 0.25);
+  --glass-border: rgba(150, 120, 74, 0.25);
 }
 
 /* Reset & Base */

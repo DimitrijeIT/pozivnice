@@ -58,11 +58,11 @@
       align-items: center;
       justify-content: center;
       background: var(--envelope-bg, linear-gradient(135deg, #F5EDE3 0%, #E8DFD3 100%));
-      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .envelope-cover.opened {
-      transform: translateY(-100vh);
+      transform: scale(0.9);
       opacity: 0;
       pointer-events: none;
     }
@@ -845,7 +845,13 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .dot-nav {
-        right: 1rem;
+        right: 0.5rem;
+      }
+
+      .dot-nav button {
+        width: 8px;
+        height: 8px;
+        padding: 6px;
       }
 
       .dot-nav button::after {

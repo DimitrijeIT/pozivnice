@@ -79,7 +79,10 @@ function formatDate(dateStr) {
 function processConditionals(html, data) {
   const conditionals = [
     { key: 'STORY', check: data.story_text },
+    { key: 'PULL_QUOTE', check: data.pull_quote || data.story_text },
     { key: 'HASHTAG', check: data.wedding_hashtag },
+    { key: 'DRESS_CODE', check: true },
+    { key: 'ADDITIONAL_INFO', check: data.additional_info },
     { key: 'CEREMONY_MAP', check: data.ceremony_map_url },
     { key: 'RECEPTION_MAP', check: data.reception_map_url },
     { key: 'MEAL_OPTIONS', check: data.meal_options?.length },
@@ -109,6 +112,52 @@ function generateMealOptions(options) {
 }
 
 /**
+ * Generate story cards HTML for envelope template
+ */
+function generateStoryCards(timeline) {
+  if (!timeline?.length) return '';
+  return timeline.map(item =>
+    `<div class="story-card fade-in">
+      <div class="story-card-icon">${utils.escapeHtml(item.icon || '💫')}</div>
+      <p class="story-card-date">${utils.escapeHtml(item.date || '')}</p>
+      <h3 class="story-card-title">${utils.escapeHtml(item.title || '')}</h3>
+      <p class="story-card-text">${utils.escapeHtml(item.description || '')}</p>
+    </div>`
+  ).join('\n');
+}
+
+/**
+ * Generate timeline items HTML for storybook template
+ */
+function generateTimelineItems(timeline) {
+  if (!timeline?.length) return '';
+  return timeline.map(item =>
+    `<div class="timeline-item">
+      <div class="timeline-icon">${utils.escapeHtml(item.icon || '💫')}</div>
+      <div class="timeline-content">
+        <p class="timeline-date">${utils.escapeHtml(item.date || '')}</p>
+        <h3 class="timeline-title">${utils.escapeHtml(item.title || '')}</h3>
+        <p class="timeline-text">${utils.escapeHtml(item.description || '')}</p>
+      </div>
+    </div>`
+  ).join('\n');
+}
+
+function calculateTotalPages(data) {
+  let pages = 4; // intro, countdown, venue, rsvp
+  if (data.timeline?.length) pages++;
+  return String(pages);
+}
+
+function calculateVenuePage(data) {
+  return data.timeline?.length ? '4' : '3';
+}
+
+function calculateRsvpPage(data) {
+  return data.timeline?.length ? '5' : '4';
+}
+
+/**
  * Replace placeholders in template with data
  * @param {string} html - Template HTML
  * @param {object} data - Data object
@@ -119,7 +168,8 @@ function replacePlaceholders(html, data) {
   const rawFields = new Set([
     '_themeCss', '_themeFonts', 'THEME_CSS', 'THEME_FONTS',
     'MEAL_OPTIONS', 'RSVP_SCRIPT_URL', 'CEREMONY_MAP_URL',
-    'RECEPTION_MAP_URL', 'WEDDING_DATE_ISO'
+    'RECEPTION_MAP_URL', 'WEDDING_DATE_ISO',
+    'STORY_CARDS', 'TIMELINE_ITEMS'
   ]);
 
   const replacements = {
@@ -137,15 +187,29 @@ function replacePlaceholders(html, data) {
     'RECEPTION_TIME': data.reception_time || '',
     'RECEPTION_MAP_URL': data.reception_map_url || '',
     'INVITATION_INTRO': data.invitation_intro || 'Са радошћу вас позивамо',
-    'INVITATION_TEXT': data.invitation_text || '',
+    'INVITATION_TEXT': data.invitation_text || 'Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима.',
+    'PULL_QUOTE': data.pull_quote || (data.story_text ? 'Свака љубавна прича је лепа, али наша је омиљена' : ''),
     'STORY_TEXT': data.story_text || '',
+    'DRESS_CODE_TEXT': data.dress_code_text || 'Елегантна одећа',
+    'ADDITIONAL_INFO': data.additional_info || '',
+    'INVITATION_SIGNATURE': data.invitation_signature || `${data.bride_name || ''} & ${data.groom_name || ''}`,
     'WEDDING_SLUG': data.slug || '',
     'WEDDING_HASHTAG': data.wedding_hashtag || '',
     'RSVP_DEADLINE': data.rsvp_deadline ? formatDate(data.rsvp_deadline) : '',
     'MEAL_OPTIONS': generateMealOptions(data.meal_options),
     'RSVP_SCRIPT_URL': config.RSVP_SCRIPT_URL || '',
     'THEME_FONTS': data._themeFonts || '',
-    'THEME_CSS': data._themeCss || ''
+    'THEME_CSS': data._themeCss || '',
+    'BRIDE_NAME_INITIAL': (data.bride_name || '')[0] || '',
+    'GROOM_NAME_INITIAL': (data.groom_name || '')[0] || '',
+    'STORY_CARDS': generateStoryCards(data.timeline),
+    'TIMELINE_ITEMS': generateTimelineItems(data.timeline),
+    'TOTAL_PAGES': calculateTotalPages(data),
+    'VENUE_PAGE': calculateVenuePage(data),
+    'VENUE_PAGE_NUM': calculateVenuePage(data),
+    'VENUE_CHAPTER': data.timeline?.length ? '4' : '3',
+    'RSVP_PAGE': calculateRsvpPage(data),
+    'RSVP_PAGE_NUM': calculateRsvpPage(data)
   };
 
   let result = html;

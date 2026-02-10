@@ -729,6 +729,8 @@
       envelope.addEventListener('click', () => {
         envelope.style.display = 'none';
         letter.classList.add('open');
+        document.body.style.alignItems = 'flex-start';
+        window.scrollTo(0, 0);
       });
 
       envelope.addEventListener('keypress', function(e) {
@@ -742,6 +744,7 @@
         e.preventDefault();
         letter.classList.remove('open');
         envelope.style.display = 'block';
+        document.body.style.alignItems = 'center';
       });
 
       // Countdown
