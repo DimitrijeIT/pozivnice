@@ -381,6 +381,43 @@
       gap: 1rem;
     }
 
+    .time-picker {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .time-select {
+      flex: 1;
+      text-align: center;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+    }
+
+    .time-picker .time-select:first-of-type {
+      border-radius: 8px 0 0 8px;
+      border-right: none;
+    }
+
+    .time-picker .time-select:last-of-type {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .time-sep {
+      background: var(--color-bg-input);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.625rem 0.25rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
     /* NAVIGATION BUTTONS */
     .step-nav {
       display: flex;
@@ -876,8 +913,13 @@
 
           <div class="field-row">
             <div class="field">
-              <label class="field-label" for="ceremony_time">Vreme <span class="required">*</span></label>
-              <input type="time" id="ceremony_time" name="ceremony_time" class="field-input" required step="900">
+              <label class="field-label">Vreme <span class="required">*</span></label>
+              <input type="hidden" id="ceremony_time" name="ceremony_time" required>
+              <div class="time-picker">
+                <select id="ceremony_time_h" class="field-input time-select" aria-label="Sat ceremonije"></select>
+                <span class="time-sep">:</span>
+                <select id="ceremony_time_m" class="field-input time-select" aria-label="Minut ceremonije"></select>
+              </div>
               <div class="field-error" id="ceremony_time_error">Unesite vreme ceremonije</div>
             </div>
             <div class="field">
@@ -910,8 +952,13 @@
 
           <div class="field-row">
             <div class="field">
-              <label class="field-label" for="reception_time">Vreme <span class="required">*</span></label>
-              <input type="time" id="reception_time" name="reception_time" class="field-input" required step="900">
+              <label class="field-label">Vreme <span class="required">*</span></label>
+              <input type="hidden" id="reception_time" name="reception_time" required>
+              <div class="time-picker">
+                <select id="reception_time_h" class="field-input time-select" aria-label="Sat proslave"></select>
+                <span class="time-sep">:</span>
+                <select id="reception_time_m" class="field-input time-select" aria-label="Minut proslave"></select>
+              </div>
               <div class="field-error" id="reception_time_error">Unesite vreme proslave</div>
             </div>
             <div class="field">
@@ -1041,6 +1088,41 @@
           additional_info:  'entry.165586042'
         }
       };
+
+      // ========================================
+      // TIME PICKERS (hour + minute selects → hidden input)
+      // ========================================
+      (function() {
+        var pickers = [
+          { h: 'ceremony_time_h', m: 'ceremony_time_m', hidden: 'ceremony_time' },
+          { h: 'reception_time_h', m: 'reception_time_m', hidden: 'reception_time' }
+        ];
+        pickers.forEach(function(p) {
+          var hSel = document.getElementById(p.h);
+          var mSel = document.getElementById(p.m);
+          var hidden = document.getElementById(p.hidden);
+          // Populate hours 00–23
+          for (var h = 0; h < 24; h++) {
+            var opt = document.createElement('option');
+            opt.value = (h < 10 ? '0' : '') + h;
+            opt.textContent = (h < 10 ? '0' : '') + h;
+            hSel.appendChild(opt);
+          }
+          // Populate minutes 00, 15, 30, 45
+          [0, 15, 30, 45].forEach(function(m) {
+            var opt = document.createElement('option');
+            opt.value = (m < 10 ? '0' : '') + m;
+            opt.textContent = (m < 10 ? '0' : '') + m;
+            mSel.appendChild(opt);
+          });
+          function sync() {
+            hidden.value = hSel.value + ':' + mSel.value;
+          }
+          hSel.addEventListener('change', sync);
+          mSel.addEventListener('change', sync);
+          sync();
+        });
+      })();
 
       // ========================================
       // AUTO-SET RSVP DEADLINE (1 month before wedding)
