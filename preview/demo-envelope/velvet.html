@@ -1442,7 +1442,7 @@ body {
       right: 0;
       height: 50%;
       background: var(--envelope-flap, linear-gradient(180deg, #E8DFD3 0%, #DDD4C7 100%));
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
       transform-origin: bottom center;
       transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 2;
@@ -1450,7 +1450,7 @@ body {
     }
 
     .envelope-cover.opening .envelope-flap {
-      transform: rotateX(-180deg);
+      transform: rotateX(180deg);
     }
 
     .envelope-body {
