@@ -1220,6 +1220,23 @@ section {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .floating-elements,
+  .falling-petals {
+    display: none;
+  }
+}
+
+/* Music player error feedback */
+.music-error {
+  background: #EF4444 !important;
+  animation: music-shake 0.4s ease;
+}
+
+@keyframes music-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 @media (max-width: 768px) {
@@ -1318,6 +1335,7 @@ fieldset.form-group legend {
   align-items: center;
   gap: 12px;
   background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 10px 16px;
   border-radius: 50px;
@@ -1868,6 +1886,13 @@ fieldset.form-group legend {
 /* ============================================
    RESPONSIVE ADJUSTMENTS
    ============================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
 
 @media (max-width: 768px) {
   .gallery-grid {
@@ -3375,7 +3400,7 @@ body {
   <section class="countdown-section" id="countdown">
     <div class="container">
       <h2 class="section-title animate-fade-up">До нашег венчања</h2>
-      <div class="countdown-timer animate-stagger" data-wedding-date="2026-09-12T00:00:00.000Z">
+      <div class="countdown-timer animate-stagger" data-wedding-date="2026-09-12T00:00:00.000Z" role="timer" aria-label="Одбројавање до венчања">
         <div class="countdown-item">
           <span class="countdown-number" id="countdown-days">--</span>
           <span class="countdown-label">дана</span>
@@ -3602,7 +3627,7 @@ body {
 
       
       <div class="additional-info animate-fade-up">
-        <p>true</p>
+        <p>Паркинг је обезбеђен у близини ресторана. За госте који долазе из других градова, препоручујемо хотел &quot;Москва&quot; у центру Београда.</p>
       </div>
       
     </div>
@@ -3665,7 +3690,7 @@ body {
               <span>Да, долазим</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="attending" value="no">
+              <input type="radio" name="attending" value="no" required>
               <span>Нажалост, не могу да дођем</span>
             </label>
           </div>
@@ -3736,12 +3761,12 @@ body {
  */
 
 (function() {
-  &#39;use strict&#39;;
+  'use strict';
 
   // Configuration - will be replaced during build
   const CONFIG = {
-    RSVP_SCRIPT_URL: &#39;https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec&#39;,
-    WEDDING_SLUG: &#39;demo&#39;
+    RSVP_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec',
+    WEDDING_SLUG: 'demo'
   };
 
   // ============================================
@@ -3750,25 +3775,25 @@ body {
 
   function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
-      &#39;.animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale, .animate-stagger&#39;
+      '.animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale, .animate-stagger'
     );
 
     if (!animatedElements.length) return;
 
-    const observer = new IntersectionObserver((entries) =&gt; {
-      entries.forEach(entry =&gt; {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add(&#39;visible&#39;);
+          entry.target.classList.add('visible');
           // Unobserve after animation to save resources
           observer.unobserve(entry.target);
         }
       });
     }, {
       threshold: 0.1,
-      rootMargin: &#39;0px 0px -50px 0px&#39;
+      rootMargin: '0px 0px -50px 0px'
     });
 
-    animatedElements.forEach(el =&gt; observer.observe(el));
+    animatedElements.forEach(el => observer.observe(el));
   }
 
   // ============================================
@@ -3776,40 +3801,40 @@ body {
   // ============================================
 
   function initGallery() {
-    const galleryItems = document.querySelectorAll(&#39;.gallery-item&#39;);
-    const lightbox = document.getElementById(&#39;lightbox&#39;);
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
 
     if (!galleryItems.length || !lightbox) return;
 
-    const lightboxImage = document.getElementById(&#39;lightbox-image&#39;);
-    const lightboxCaption = document.getElementById(&#39;lightbox-caption&#39;);
-    const lightboxCounter = document.getElementById(&#39;lightbox-counter&#39;);
-    const closeBtn = document.getElementById(&#39;lightbox-close&#39;);
-    const prevBtn = document.getElementById(&#39;lightbox-prev&#39;);
-    const nextBtn = document.getElementById(&#39;lightbox-next&#39;);
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
 
     let currentIndex = 0;
-    const images = Array.from(galleryItems).map(item =&gt; ({
-      src: item.dataset.fullSrc || item.querySelector(&#39;img&#39;).src,
-      caption: item.dataset.caption || &#39;&#39;
+    const images = Array.from(galleryItems).map(item => ({
+      src: item.dataset.fullSrc || item.querySelector('img').src,
+      caption: item.dataset.caption || ''
     }));
 
-    var previousFocus = null;
+    let previousFocus = null;
 
     function openLightbox(index) {
       previousFocus = document.activeElement;
       currentIndex = index;
       updateLightbox();
-      lightbox.classList.add(&#39;active&#39;);
-      lightbox.setAttribute(&#39;aria-modal&#39;, &#39;true&#39;);
-      document.body.style.overflow = &#39;hidden&#39;;
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-modal', 'true');
+      document.body.style.overflow = 'hidden';
       if (closeBtn) closeBtn.focus();
     }
 
     function closeLightbox() {
-      lightbox.classList.remove(&#39;active&#39;);
-      lightbox.removeAttribute(&#39;aria-modal&#39;);
-      document.body.style.overflow = &#39;&#39;;
+      lightbox.classList.remove('active');
+      lightbox.removeAttribute('aria-modal');
+      document.body.style.overflow = '';
       if (previousFocus) previousFocus.focus();
     }
 
@@ -3818,7 +3843,7 @@ body {
       lightboxImage.src = image.src;
       lightboxImage.alt = image.caption;
       lightboxCaption.textContent = image.caption;
-      lightboxCounter.textContent = (currentIndex + 1) + &#39; / &#39; + images.length;
+      lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
     }
 
     function nextImage() {
@@ -3832,41 +3857,41 @@ body {
     }
 
     // Event listeners
-    galleryItems.forEach((item, index) =&gt; {
-      if (!item.getAttribute(&#39;tabindex&#39;)) item.setAttribute(&#39;tabindex&#39;, &#39;0&#39;);
-      item.setAttribute(&#39;role&#39;, &#39;button&#39;);
-      item.addEventListener(&#39;click&#39;, () =&gt; openLightbox(index));
-      item.addEventListener(&#39;keydown&#39;, (e) =&gt; {
-        if (e.key === &#39;Enter&#39; || e.key === &#39; &#39;) { e.preventDefault(); openLightbox(index); }
+    galleryItems.forEach((item, index) => {
+      if (!item.getAttribute('tabindex')) item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.addEventListener('click', () => openLightbox(index));
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); }
       });
     });
 
-    closeBtn.addEventListener(&#39;click&#39;, closeLightbox);
-    prevBtn.addEventListener(&#39;click&#39;, prevImage);
-    nextBtn.addEventListener(&#39;click&#39;, nextImage);
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', prevImage);
+    nextBtn.addEventListener('click', nextImage);
 
-    lightbox.addEventListener(&#39;click&#39;, (e) =&gt; {
+    lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
     });
 
-    document.addEventListener(&#39;keydown&#39;, (e) =&gt; {
-      if (!lightbox.classList.contains(&#39;active&#39;)) return;
-      if (e.key === &#39;Escape&#39;) closeLightbox();
-      if (e.key === &#39;ArrowRight&#39;) nextImage();
-      if (e.key === &#39;ArrowLeft&#39;) prevImage();
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
     });
 
     // Touch swipe support
     let touchStartX = 0;
-    lightbox.addEventListener(&#39;touchstart&#39;, (e) =&gt; {
+    lightbox.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
     }, { passive: true });
 
-    lightbox.addEventListener(&#39;touchend&#39;, (e) =&gt; {
+    lightbox.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) &gt; 50) {
-        if (diff &gt; 0) nextImage();
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextImage();
         else prevImage();
       }
     }, { passive: true });
@@ -3877,48 +3902,51 @@ body {
   // ============================================
 
   function initMusicPlayer() {
-    const musicToggle = document.getElementById(&#39;music-toggle&#39;);
-    const audio = document.getElementById(&#39;background-music&#39;);
+    const musicToggle = document.getElementById('music-toggle');
+    const audio = document.getElementById('background-music');
 
     if (!musicToggle || !audio) return;
 
-    const playIcon = musicToggle.querySelector(&#39;.music-play&#39;);
-    const pauseIcon = musicToggle.querySelector(&#39;.music-pause&#39;);
+    const playIcon = musicToggle.querySelector('.music-play');
+    const pauseIcon = musicToggle.querySelector('.music-pause');
     let isPlaying = false;
 
-    var isToggling = false;
+    let isToggling = false;
 
     function toggleMusic() {
       if (isToggling) return;
 
       if (isPlaying) {
         audio.pause();
-        playIcon.style.display = &#39;inline&#39;;
-        pauseIcon.style.display = &#39;none&#39;;
-        musicToggle.classList.remove(&#39;playing&#39;);
-        musicToggle.setAttribute(&#39;aria-label&#39;, &#39;Пусти музику&#39;);
+        playIcon.style.display = 'inline';
+        pauseIcon.style.display = 'none';
+        musicToggle.classList.remove('playing');
+        musicToggle.setAttribute('aria-label', 'Пусти музику');
         isPlaying = false;
       } else {
         isToggling = true;
         audio.play().then(function() {
-          playIcon.style.display = &#39;none&#39;;
-          pauseIcon.style.display = &#39;inline&#39;;
-          musicToggle.classList.add(&#39;playing&#39;);
-          musicToggle.setAttribute(&#39;aria-label&#39;, &#39;Паузирај музику&#39;);
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'inline';
+          musicToggle.classList.add('playing');
+          musicToggle.setAttribute('aria-label', 'Паузирај музику');
           isPlaying = true;
           isToggling = false;
         }).catch(function(err) {
-          console.log(&#39;Audio playback failed:&#39;, err);
+          console.log('Audio playback failed:', err);
           isToggling = false;
+          musicToggle.setAttribute('aria-label', 'Музика није доступна');
+          musicToggle.classList.add('music-error');
+          setTimeout(function() { musicToggle.classList.remove('music-error'); }, 2000);
         });
       }
     }
 
-    musicToggle.addEventListener(&#39;click&#39;, toggleMusic);
+    musicToggle.addEventListener('click', toggleMusic);
 
     // Show music player with subtle animation after page load
-    setTimeout(() =&gt; {
-      document.getElementById(&#39;music-player&#39;).classList.add(&#39;visible&#39;);
+    setTimeout(() => {
+      document.getElementById('music-player').classList.add('visible');
     }, 2000);
   }
 
@@ -3927,21 +3955,22 @@ body {
   // ============================================
 
   function initTimeline() {
-    const timelineItems = document.querySelectorAll(&#39;.timeline-item&#39;);
+    const timelineItems = document.querySelectorAll('.timeline-item');
     if (!timelineItems.length) return;
 
-    const observer = new IntersectionObserver((entries) =&gt; {
-      entries.forEach(entry =&gt; {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add(&#39;visible&#39;);
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
     }, {
       threshold: 0.3,
-      rootMargin: &#39;0px 0px -100px 0px&#39;
+      rootMargin: '0px 0px -100px 0px'
     });
 
-    timelineItems.forEach(item =&gt; observer.observe(item));
+    timelineItems.forEach(item => observer.observe(item));
   }
 
   // ============================================
@@ -3949,27 +3978,27 @@ body {
   // ============================================
 
   function initCountdown() {
-    const countdownElement = document.querySelector(&#39;.countdown-timer&#39;);
+    const countdownElement = document.querySelector('.countdown-timer');
     if (!countdownElement) return;
 
     const weddingDate = new Date(countdownElement.dataset.weddingDate);
     if (isNaN(weddingDate.getTime())) return;
 
-    const daysEl = document.getElementById(&#39;countdown-days&#39;);
-    const hoursEl = document.getElementById(&#39;countdown-hours&#39;);
-    const minutesEl = document.getElementById(&#39;countdown-minutes&#39;);
-    const secondsEl = document.getElementById(&#39;countdown-seconds&#39;);
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    var lastValues = {};
+    const lastValues = {};
     function animateNumber(element, newValue) {
       var key = element.id;
       if (lastValues[key] !== newValue) {
         lastValues[key] = newValue;
-        element.classList.add(&#39;counter-animate&#39;);
+        element.classList.add('counter-animate');
         element.textContent = newValue;
-        setTimeout(function() { element.classList.remove(&#39;counter-animate&#39;); }, 500);
+        setTimeout(function() { element.classList.remove('counter-animate'); }, 500);
       }
     }
 
@@ -3979,11 +4008,11 @@ body {
       var now = new Date();
       var diff = weddingDate - now;
 
-      if (diff &lt;= 0) {
-        animateNumber(daysEl, &#39;00&#39;);
-        animateNumber(hoursEl, &#39;00&#39;);
-        animateNumber(minutesEl, &#39;00&#39;);
-        animateNumber(secondsEl, &#39;00&#39;);
+      if (diff <= 0) {
+        animateNumber(daysEl, '00');
+        animateNumber(hoursEl, '00');
+        animateNumber(minutesEl, '00');
+        animateNumber(secondsEl, '00');
         if (countdownInterval) {
           clearInterval(countdownInterval);
           countdownInterval = null;
@@ -3996,17 +4025,17 @@ body {
       var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      animateNumber(daysEl, String(days).padStart(2, &#39;0&#39;));
-      animateNumber(hoursEl, String(hours).padStart(2, &#39;0&#39;));
-      animateNumber(minutesEl, String(minutes).padStart(2, &#39;0&#39;));
-      animateNumber(secondsEl, String(seconds).padStart(2, &#39;0&#39;));
+      animateNumber(daysEl, String(days).padStart(2, '0'));
+      animateNumber(hoursEl, String(hours).padStart(2, '0'));
+      animateNumber(minutesEl, String(minutes).padStart(2, '0'));
+      animateNumber(secondsEl, String(seconds).padStart(2, '0'));
     }
 
     updateCountdown();
     countdownInterval = setInterval(updateCountdown, 1000);
 
     // Pause when tab hidden, resume when visible
-    document.addEventListener(&#39;visibilitychange&#39;, function() {
+    document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
       } else {
@@ -4020,26 +4049,26 @@ body {
   // ============================================
 
   function createConfetti() {
-    var container = document.getElementById(&#39;confetti-container&#39;);
+    var container = document.getElementById('confetti-container');
     if (!container) return;
 
     // Respect reduced motion preference
-    if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-reduced-motion: reduce)&#39;).matches) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    container.innerHTML = &#39;&#39;;
-    var colors = [&#39;#D4AF37&#39;, &#39;#FFD700&#39;, &#39;#FF69B4&#39;, &#39;#98D8C8&#39;, &#39;#F7DC6F&#39;, &#39;#BB8FCE&#39;];
-    var confettiCount = 100;
+    container.innerHTML = '';
+    var colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+    var confettiCount = 50;
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i &lt; confettiCount; i++) {
-      var confetti = document.createElement(&#39;div&#39;);
-      confetti.className = &#39;confetti&#39;;
-      confetti.style.cssText = &#39;left:&#39; + (Math.random() * 100) + &#39;%;background-color:&#39; + colors[Math.floor(Math.random() * colors.length)] + &#39;;animation-delay:&#39; + (Math.random() * 3) + &#39;s;animation-duration:&#39; + (Math.random() * 2 + 2) + &#39;s&#39;;
+    for (var i = 0; i < confettiCount; i++) {
+      var confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.cssText = 'left:' + (Math.random() * 100) + '%;background-color:' + colors[Math.floor(Math.random() * colors.length)] + ';animation-delay:' + (Math.random() * 3) + 's;animation-duration:' + (Math.random() * 2 + 2) + 's';
       fragment.appendChild(confetti);
     }
     container.appendChild(fragment);
 
-    setTimeout(function() { container.innerHTML = &#39;&#39;; }, 5000);
+    setTimeout(function() { container.innerHTML = ''; }, 5000);
   }
 
   // ============================================
@@ -4047,112 +4076,136 @@ body {
   // ============================================
 
   function initRSVPForm() {
-    const form = document.getElementById(&#39;rsvp-form&#39;);
+    const form = document.getElementById('rsvp-form');
     if (!form) return;
 
-    const guestsCountGroup = document.getElementById(&#39;guests-count-group&#39;);
-    const mealGroup = document.getElementById(&#39;meal-group&#39;);
-    const attendingRadios = document.querySelectorAll(&#39;input[name=&quot;attending&quot;]&#39;);
+    const guestsCountGroup = document.getElementById('guests-count-group');
+    const mealGroup = document.getElementById('meal-group');
+    const attendingRadios = document.querySelectorAll('input[name="attending"]');
 
     function toggleConditionalFields() {
-      const isAttending = document.querySelector(&#39;input[name=&quot;attending&quot;]:checked&#39;);
-      const attending = isAttending &amp;&amp; isAttending.value === &#39;yes&#39;;
+      const isAttending = document.querySelector('input[name="attending"]:checked');
+      const attending = isAttending && isAttending.value === 'yes';
 
       if (guestsCountGroup) {
-        guestsCountGroup.style.display = attending ? &#39;block&#39; : &#39;none&#39;;
+        guestsCountGroup.style.display = attending ? 'block' : 'none';
       }
       if (mealGroup) {
-        mealGroup.style.display = attending ? &#39;block&#39; : &#39;none&#39;;
+        mealGroup.style.display = attending ? 'block' : 'none';
       }
     }
 
-    attendingRadios.forEach(radio =&gt; {
-      radio.addEventListener(&#39;change&#39;, toggleConditionalFields);
+    attendingRadios.forEach(radio => {
+      radio.addEventListener('change', toggleConditionalFields);
     });
 
-    form.addEventListener(&#39;submit&#39;, function(e) {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const submitBtn = document.getElementById(&#39;submit-btn&#39;);
-      const buttonText = submitBtn.querySelector(&#39;.button-text&#39;);
-      const buttonLoading = submitBtn.querySelector(&#39;.button-loading&#39;);
-      const formMessage = document.getElementById(&#39;form-message&#39;);
+      const submitBtn = document.getElementById('submit-btn');
+      const buttonText = submitBtn.querySelector('.button-text');
+      const buttonLoading = submitBtn.querySelector('.button-loading');
+      const formMessage = document.getElementById('form-message');
 
       // Show loading state
-      buttonText.style.display = &#39;none&#39;;
-      buttonLoading.style.display = &#39;inline-flex&#39;;
+      buttonText.style.display = 'none';
+      buttonLoading.style.display = 'inline-flex';
       submitBtn.disabled = true;
-      submitBtn.classList.remove(&#39;pulse&#39;);
-      formMessage.textContent = &#39;&#39;;
-      formMessage.className = &#39;form-message&#39;;
+      submitBtn.classList.remove('pulse');
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+
+      const emailInput = document.getElementById('guest-email');
+      const phoneInput = document.getElementById('guest-phone');
+      const email = emailInput.value.trim();
+      const phone = phoneInput.value.trim();
+
+      // Validate email if provided
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        formMessage.textContent = 'Молимо унесите исправну е-маил адресу.';
+        formMessage.className = 'form-message error';
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+        emailInput.focus();
+        return;
+      }
+
+      // Validate phone if provided (allow digits, spaces, +, -, (, ))
+      if (phone && !/^[+\d\s()\-]{6,20}$/.test(phone)) {
+        formMessage.textContent = 'Молимо унесите исправан број телефона.';
+        formMessage.className = 'form-message error';
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
+        submitBtn.disabled = false;
+        phoneInput.focus();
+        return;
+      }
 
       const formData = {
         slug: CONFIG.WEDDING_SLUG,
-        name: document.getElementById(&#39;guest-name&#39;).value.trim(),
-        email: document.getElementById(&#39;guest-email&#39;).value.trim(),
-        phone: document.getElementById(&#39;guest-phone&#39;).value.trim(),
-        attending: document.querySelector(&#39;input[name=&quot;attending&quot;]:checked&#39;).value,
-        guests_count: document.getElementById(&#39;guests-count&#39;) ? document.getElementById(&#39;guests-count&#39;).value : &#39;1&#39;,
-        meal_preference: document.getElementById(&#39;meal-preference&#39;) ? document.getElementById(&#39;meal-preference&#39;).value : &#39;&#39;,
-        message: document.getElementById(&#39;message&#39;).value.trim(),
+        name: document.getElementById('guest-name').value.trim(),
+        email: email,
+        phone: phone,
+        attending: document.querySelector('input[name="attending"]:checked').value,
+        guests_count: document.getElementById('guests-count') ? document.getElementById('guests-count').value : '1',
+        meal_preference: document.getElementById('meal-preference') ? document.getElementById('meal-preference').value : '',
+        message: document.getElementById('message').value.trim(),
         submitted_at: new Date().toISOString()
       };
 
       // Demo mode
-      if (CONFIG.RSVP_SCRIPT_URL.includes(&#39;https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec&#39;) || CONFIG.RSVP_SCRIPT_URL.includes(&#39;YOUR_&#39;) || CONFIG.RSVP_SCRIPT_URL === &#39;&#39;) {
-        console.log(&#39;RSVP submission (demo mode):&#39;, formData);
-        setTimeout(() =&gt; {
-          buttonText.style.display = &#39;inline&#39;;
-          buttonLoading.style.display = &#39;none&#39;;
+      if (CONFIG.RSVP_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec') || CONFIG.RSVP_SCRIPT_URL.includes('YOUR_') || CONFIG.RSVP_SCRIPT_URL === '') {
+        console.log('RSVP submission (demo mode):', formData);
+        setTimeout(() => {
+          buttonText.style.display = 'inline';
+          buttonLoading.style.display = 'none';
           submitBtn.disabled = false;
 
-          if (formData.attending === &#39;yes&#39;) {
-            formMessage.textContent = &#39;\uD83C\uDF89 Хвала! Радујемо се вашем присуству!&#39;;
+          if (formData.attending === 'yes') {
+            formMessage.textContent = '\uD83C\uDF89 Хвала! Радујемо се вашем присуству!';
             createConfetti();
           } else {
-            formMessage.textContent = &#39;Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.&#39;;
+            formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
           }
-          formMessage.className = &#39;form-message success&#39;;
+          formMessage.className = 'form-message success';
           form.reset();
           toggleConditionalFields();
         }, 1500);
         return;
       }
 
+      // Google Apps Script requires no-cors mode to avoid CORS preflight failures
       fetch(CONFIG.RSVP_SCRIPT_URL, {
-        method: &#39;POST&#39;,
-        headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(formData)
       })
-      .then(response =&gt; {
-        if (!response.ok) throw new Error(&#39;Server error&#39;);
-        return response.json();
-      })
-      .then(result =&gt; {
-        if (!result.success) throw new Error(result.message || &#39;Failed&#39;);
-
-        buttonText.style.display = &#39;inline&#39;;
-        buttonLoading.style.display = &#39;none&#39;;
+      .then(() => {
+        // Response is opaque with no-cors; show success optimistically
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
         submitBtn.disabled = false;
 
-        if (formData.attending === &#39;yes&#39;) {
-          formMessage.textContent = &#39;\uD83C\uDF89 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!&#39;;
+        if (formData.attending === 'yes') {
+          formMessage.textContent = '\uD83C\uDF89 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!';
           createConfetti();
         } else {
-          formMessage.textContent = &#39;Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.&#39;;
+          formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
         }
-        formMessage.className = &#39;form-message success&#39;;
+        formMessage.className = 'form-message success';
         form.reset();
         toggleConditionalFields();
       })
-      .catch(error =&gt; {
-        console.error(&#39;Error submitting RSVP:&#39;, error);
-        buttonText.style.display = &#39;inline&#39;;
-        buttonLoading.style.display = &#39;none&#39;;
+      .catch(error => {
+        console.error('Error submitting RSVP:', error);
+        buttonText.style.display = 'inline';
+        buttonLoading.style.display = 'none';
         submitBtn.disabled = false;
-        submitBtn.classList.add(&#39;pulse&#39;);
-        formMessage.textContent = &#39;Дошло је до грешке. Молимо покушајте поново.&#39;;
-        formMessage.className = &#39;form-message error&#39;;
+        submitBtn.classList.add('pulse');
+        formMessage.textContent = 'Дошло је до грешке. Молимо покушајте поново.';
+        formMessage.className = 'form-message error';
       });
     });
   }
@@ -4163,8 +4216,8 @@ body {
 
   function initSwipeNavigation() {
     // Detect if page has sections that can be swiped
-    const sections = document.querySelectorAll(&#39;section, .page, .gallery-room, .cinema-section, .magazine-page&#39;);
-    if (sections.length &lt; 2) return;
+    const sections = document.querySelectorAll('section, .page, .gallery-room, .cinema-section, .magazine-page');
+    if (sections.length < 2) return;
 
     let touchStartX = 0;
     let touchStartY = 0;
@@ -4172,12 +4225,12 @@ body {
     let touchEndY = 0;
     const threshold = 50; // Minimum swipe distance
 
-    document.addEventListener(&#39;touchstart&#39;, (e) =&gt; {
+    document.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
     }, { passive: true });
 
-    document.addEventListener(&#39;touchend&#39;, (e) =&gt; {
+    document.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].clientX;
       touchEndY = e.changedTouches[0].clientY;
 
@@ -4185,121 +4238,121 @@ body {
       const diffY = touchStartY - touchEndY;
 
       // Check if horizontal swipe is stronger than vertical
-      if (Math.abs(diffX) &gt; Math.abs(diffY) &amp;&amp; Math.abs(diffX) &gt; threshold) {
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
         // Horizontal swipe detected
-        const horizontalContainer = document.querySelector(&#39;.gallery-container, [data-swipe-horizontal]&#39;);
+        const horizontalContainer = document.querySelector('.gallery-container, [data-swipe-horizontal]');
         if (horizontalContainer) {
-          if (diffX &gt; 0) {
+          if (diffX > 0) {
             // Swipe left - scroll right
-            horizontalContainer.scrollBy({ left: window.innerWidth, behavior: &#39;smooth&#39; });
+            horizontalContainer.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
           } else {
             // Swipe right - scroll left
-            horizontalContainer.scrollBy({ left: -window.innerWidth, behavior: &#39;smooth&#39; });
+            horizontalContainer.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
           }
         }
       }
     }, { passive: true });
 
     // Add visual swipe hint for horizontal scrolling layouts
-    const horizontalContainer = document.querySelector(&#39;.gallery-container&#39;);
-    if (horizontalContainer &amp;&amp; window.innerWidth &lt;= 768) {
-      const hint = document.createElement(&#39;div&#39;);
-      hint.className = &#39;swipe-hint&#39;;
-      hint.innerHTML = &#39;&lt;span&gt;👆 Превуците да бисте видели више&lt;/span&gt;&#39;;
-      hint.style.cssText = &#39;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:8px 16px;border-radius:20px;font-size:12px;z-index:1000;opacity:0;transition:opacity 0.3s;&#39;;
+    const horizontalContainer = document.querySelector('.gallery-container');
+    if (horizontalContainer && window.innerWidth <= 768) {
+      const hint = document.createElement('div');
+      hint.className = 'swipe-hint';
+      hint.innerHTML = '<span>👆 Превуците да бисте видели више</span>';
+      hint.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:8px 16px;border-radius:20px;font-size:12px;z-index:1000;opacity:0;transition:opacity 0.3s;';
       document.body.appendChild(hint);
 
-      setTimeout(() =&gt; { hint.style.opacity = &#39;1&#39;; }, 1000);
-      setTimeout(() =&gt; { hint.style.opacity = &#39;0&#39;; }, 4000);
-      setTimeout(() =&gt; { hint.remove(); }, 4500);
+      setTimeout(() => { hint.style.opacity = '1'; }, 1000);
+      setTimeout(() => { hint.style.opacity = '0'; }, 4000);
+      setTimeout(() => { hint.remove(); }, 4500);
     }
   }
 
   // ============================================
-  // Section Navigation with Keyboard &amp; Swipe
+  // Section Navigation with Keyboard & Swipe
   // ============================================
 
   function initSectionNavigation() {
-    const sections = document.querySelectorAll(&#39;section[id], .cinema-section, .magazine-page&#39;);
-    if (sections.length &lt; 2) return;
+    // Only enable section navigation for full-page layouts (cinema, magazine)
+    const sections = document.querySelectorAll('.cinema-section, .magazine-page');
+    if (sections.length < 2) return;
 
     let currentSection = 0;
 
     function goToSection(index) {
-      if (index &gt;= 0 &amp;&amp; index &lt; sections.length) {
+      if (index >= 0 && index < sections.length) {
         currentSection = index;
-        sections[currentSection].scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
+        sections[currentSection].scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
-    // Keyboard navigation
-    document.addEventListener(&#39;keydown&#39;, (e) =&gt; {
-      // Don&#39;t hijack keyboard when in form fields
-      if (e.target.tagName === &#39;INPUT&#39; || e.target.tagName === &#39;TEXTAREA&#39; || e.target.tagName === &#39;SELECT&#39; || e.target.isContentEditable) return;
+    // Keyboard navigation — only PageUp/PageDown to avoid hijacking normal scrolling
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.isContentEditable) return;
 
-      if (e.key === &#39;ArrowDown&#39; || e.key === &#39;PageDown&#39;) {
+      if (e.key === 'PageDown') {
         e.preventDefault();
         goToSection(currentSection + 1);
-      } else if (e.key === &#39;ArrowUp&#39; || e.key === &#39;PageUp&#39;) {
+      } else if (e.key === 'PageUp') {
         e.preventDefault();
         goToSection(currentSection - 1);
       }
     });
 
     // Update current section on scroll
-    const observer = new IntersectionObserver((entries) =&gt; {
-      entries.forEach(entry =&gt; {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           currentSection = Array.from(sections).indexOf(entry.target);
         }
       });
     }, { threshold: 0.5 });
 
-    sections.forEach(section =&gt; observer.observe(section));
+    sections.forEach(section => observer.observe(section));
   }
 
   // ============================================
-  // Smooth Scrolling &amp; Scroll Indicator
+  // Smooth Scrolling & Scroll Indicator
   // ============================================
 
   function initSmoothScroll() {
-    document.querySelectorAll(&#39;a[href^=&quot;#&quot;]&#39;).forEach(anchor =&gt; {
-      anchor.addEventListener(&#39;click&#39;, function(e) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute(&#39;href&#39;));
+        const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
   }
 
   function initScrollIndicator() {
-    var scrollIndicator = document.querySelector(&#39;.scroll-indicator&#39;);
+    var scrollIndicator = document.querySelector('.scroll-indicator');
     if (!scrollIndicator) return;
 
-    scrollIndicator.addEventListener(&#39;click&#39;, function() {
-      var firstSection = document.querySelector(&#39;section&#39;);
+    scrollIndicator.addEventListener('click', function() {
+      var firstSection = document.querySelector('section');
       if (firstSection) {
-        firstSection.scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
+        firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
     function onScroll() {
-      if (window.scrollY &gt; 100) {
-        scrollIndicator.style.opacity = &#39;0&#39;;
-        setTimeout(function() { scrollIndicator.style.display = &#39;none&#39;; }, 300);
-        window.removeEventListener(&#39;scroll&#39;, onScroll);
+      if (window.scrollY > 100) {
+        scrollIndicator.style.opacity = '0';
+        setTimeout(function() { scrollIndicator.style.display = 'none'; }, 300);
+        window.removeEventListener('scroll', onScroll);
       }
     }
-    window.addEventListener(&#39;scroll&#39;, onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   // ============================================
   // Initialize Everything
   // ============================================
 
-  document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+  document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initCountdown();
     initRSVPForm();

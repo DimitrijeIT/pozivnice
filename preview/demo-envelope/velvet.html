@@ -2,13 +2,17 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Венчање - Милица и Стефан">
   <meta name="robots" content="noindex, nofollow">
   <title>Милица & Стефан - Позивница за венчање</title>
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+
+  <!-- Font Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Theme CSS -->
   <style>/**
@@ -483,7 +487,7 @@ body {
   h1, .couple-names, .hero-names, .entrance-names {
     font-size: clamp(2rem, 8vw, 3.5rem) !important;
     line-height: 1.2;
-    word-break: break-word;
+    overflow-wrap: break-word;
     hyphens: auto;
   }
 
@@ -627,7 +631,7 @@ body {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 }
@@ -687,21 +691,24 @@ body {
    ANIMATIONS & PERFORMANCE
    ============================================ */
 
-/* Reduce motion for performance and accessibility */
-@media (max-width: 768px), (prefers-reduced-motion: reduce) {
-  /* Disable complex animations on mobile */
-  .floating-element,
+/* Simplify animations on mobile for performance */
+@media (max-width: 768px) {
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Keep only 3 floating elements on mobile */
+  .floating-element:nth-child(n+4) {
+    display: none;
+  }
+
   .particle {
     animation-duration: 0s !important;
     animation: none !important;
   }
 
-  /* Simplify transitions */
-  * {
-    transition-duration: 0.15s !important;
-  }
-
-  /* Reduce parallax effects */
   [style*="parallax"],
   .parallax {
     transform: none !important;
@@ -782,8 +789,21 @@ body {
     padding: 2rem;
   }
 
+  /* All sections: avoid full-height in landscape */
+  section,
+  .section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
   /* Side-by-side layout for countdown */
-  .countdown-timer {
+  .countdown-timer,
+  .countdown-display,
+  .countdown-grid {
     flex-wrap: nowrap;
     gap: 0.5rem;
   }
@@ -792,8 +812,40 @@ body {
     min-width: 50px;
   }
 
-  .countdown-number {
+  .countdown-number,
+  .countdown-value {
     font-size: 1.5rem !important;
+  }
+
+  /* Forms: reduce padding so keyboard doesn't obscure content */
+  .rsvp-form,
+  .rsvp-container,
+  .ticket-frame {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Radio groups side-by-side in landscape */
+  .radio-group,
+  .attendance-toggle {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  /* Gallery: 2-column in landscape */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Venue cards side-by-side */
+  .venue-grid,
+  .venue-cards,
+  .venue-spread {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
   }
 }
 
@@ -826,7 +878,7 @@ body {
 /* === DIGIPOZ BRANDING BADGE === */
 .digipoz-badge {
   position: fixed;
-  bottom: 12px;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -870,7 +922,7 @@ body {
 
 @media (max-width: 480px) {
   .digipoz-badge {
-    bottom: 8px;
+    bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
     padding: 5px 10px;
     gap: 4px;
   }
@@ -1367,11 +1419,11 @@ body {
       align-items: center;
       justify-content: center;
       background: var(--envelope-bg, linear-gradient(135deg, #F5EDE3 0%, #E8DFD3 100%));
-      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .envelope-cover.opened {
-      transform: translateY(-100vh);
+      transform: scale(0.9);
       opacity: 0;
       pointer-events: none;
     }
@@ -1506,16 +1558,21 @@ body {
       opacity: 1;
     }
 
-    .dot-nav a {
+    .dot-nav button {
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      border: none;
+      cursor: pointer;
       background: var(--color-muted, #ccc);
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
       position: relative;
+      padding: 16px;
+      margin: -16px;
+      box-sizing: content-box;
     }
 
-    .dot-nav a::after {
+    .dot-nav button::after {
       content: attr(data-label);
       position: absolute;
       right: 24px;
@@ -1531,12 +1588,12 @@ body {
       border-radius: 4px;
     }
 
-    .dot-nav a:hover::after {
+    .dot-nav button:hover::after {
       opacity: 1;
     }
 
-    .dot-nav a.active,
-    .dot-nav a:hover {
+    .dot-nav button.active,
+    .dot-nav button:hover {
       background: var(--color-accent, #B8860B);
       transform: scale(1.3);
     }
@@ -1631,6 +1688,7 @@ body {
       font-weight: 300;
       line-height: 1;
       color: var(--color-accent);
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-label {
@@ -1878,7 +1936,7 @@ body {
       border-radius: 50px;
       color: white;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     .venue-map-btn:hover {
@@ -1951,6 +2009,13 @@ body {
       border-color: var(--color-accent);
     }
 
+    .form-group input:focus-visible,
+    .form-group select:focus-visible,
+    .form-group textarea:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
     .attendance-toggle {
       display: flex;
       gap: 1rem;
@@ -1975,7 +2040,7 @@ body {
       border: 2px solid var(--color-border);
       border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: border-color 0.3s ease, background 0.3s ease;
       text-transform: none;
       letter-spacing: normal;
     }
@@ -2002,7 +2067,7 @@ body {
       text-transform: uppercase;
       letter-spacing: 0.15em;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
     .submit-btn:hover {
@@ -2108,7 +2173,7 @@ body {
       font-size: 1.25rem;
       cursor: pointer;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .fab:hover {
@@ -2141,10 +2206,16 @@ body {
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .dot-nav {
-        right: 1rem;
+        right: 0.5rem;
       }
 
-      .dot-nav a::after {
+      .dot-nav button {
+        width: 8px;
+        height: 8px;
+        padding: 6px;
+      }
+
+      .dot-nav button::after {
         display: none;
       }
 
@@ -2212,12 +2283,47 @@ body {
         transform: translateY(100vh) rotate(720deg);
       }
     }
+  
+    /* Skip link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--color-accent, #D4AF37);
+      color: var(--color-bg, #fff);
+      z-index: 10000;
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Mobile: Prevent iOS auto-zoom on input focus */
+    @media (max-width: 768px) {
+      input, select, textarea { font-size: 16px !important; }
+    }
+
   </style>
 
   <!-- Theme-specific fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+  <a href="#rsvp-form" class="skip-link">Прескочи на РСВП</a>
+
   <!-- Envelope Opening Experience -->
   <div class="envelope-cover" id="envelope-cover">
     <div class="envelope-inner">
@@ -2234,14 +2340,14 @@ body {
   <div class="invitation-content" id="invitation-content">
     <!-- Dot Navigation -->
     <nav class="dot-nav" id="dot-nav" aria-label="Навигација секцијама">
-      <a href="#hero" data-label="Почетак" class="active"></a>
-      <a href="#countdown" data-label="Одбројавање"></a>
-      <a href="#message" data-label="Позив"></a>
+      <button type="button" class="dot-nav-item active" data-section="hero" data-label="Почетак" aria-label="Почетак"></button>
+      <button type="button" class="dot-nav-item" data-section="countdown" data-label="Одбројавање" aria-label="Одбројавање"></button>
+      <button type="button" class="dot-nav-item" data-section="message" data-label="Позив" aria-label="Позив"></button>
       
-      <a href="#story" data-label="Наша прича"></a>
+      <button type="button" class="dot-nav-item" data-section="story" data-label="Наша прича" aria-label="Наша прича"></button>
       
-      <a href="#venue" data-label="Локације"></a>
-      <a href="#rsvp" data-label="RSVP"></a>
+      <button type="button" class="dot-nav-item" data-section="venue" data-label="Локације" aria-label="Локације"></button>
+      <button type="button" class="dot-nav-item" data-section="rsvp" data-label="RSVP" aria-label="RSVP"></button>
     </nav>
 
     <!-- Hero Section -->
@@ -2294,7 +2400,7 @@ body {
         <div class="message-card fade-in">
           <p class="message-intro">Са великом радошћу вас позивамо на наше венчање</p>
           <p class="message-text">Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
-          <p class="message-signature">{{INVITATION_SIGNATURE}}</p>
+          <p class="message-signature">Са љубављу, Милица и Стефан</p>
         </div>
       </div>
     </section>
@@ -2305,7 +2411,36 @@ body {
       <div class="section-content">
         <h2 class="story-title fade-in">Наша прича</h2>
         <div class="story-track">
-          {{STORY_CARDS}}
+          <div class="story-card fade-in">
+      <div class="story-card-icon">☕</div>
+      <p class="story-card-date">Јун 2023</p>
+      <h3 class="story-card-title">Први сусрет</h3>
+      <p class="story-card-text">Случајно смо се срели у кафићу и одмах осетили посебну везу.</p>
+    </div>
+<div class="story-card fade-in">
+      <div class="story-card-icon">💕</div>
+      <p class="story-card-date">Август 2023</p>
+      <h3 class="story-card-title">Први пољубац</h3>
+      <p class="story-card-text">На обали Дунава, под звездама, знали смо да је ово нешто посебно.</p>
+    </div>
+<div class="story-card fade-in">
+      <div class="story-card-icon">🏠</div>
+      <p class="story-card-date">Јануар 2024</p>
+      <h3 class="story-card-title">Заједнички дом</h3>
+      <p class="story-card-text">Уселили смо се заједно у наш први стан и почели да градимо заједнички живот.</p>
+    </div>
+<div class="story-card fade-in">
+      <div class="story-card-icon">💍</div>
+      <p class="story-card-date">Децембар 2025</p>
+      <h3 class="story-card-title">Просидба</h3>
+      <p class="story-card-text">На новогодишњој ноћи, Стефан је клекнуо и питао Милицу да буде његова заувек.</p>
+    </div>
+<div class="story-card fade-in">
+      <div class="story-card-icon">💒</div>
+      <p class="story-card-date">Септембар 2026</p>
+      <h3 class="story-card-title">Венчање</h3>
+      <p class="story-card-text">Дан када ћемо рећи &quot;да&quot; пред Богом и нашим најдражим људима.</p>
+    </div>
         </div>
         <p class="story-scroll-hint fade-in">
           <span>←</span> Повуци за више <span>→</span>
@@ -2320,7 +2455,7 @@ body {
         <h2 class="venue-title fade-in">Локације</h2>
         <div class="venue-grid">
           <!-- Ceremony Card -->
-          <div class="venue-card fade-in stagger-1" data-type="ceremony">
+          <div class="venue-card fade-in stagger-1" data-type="ceremony" tabindex="0" role="button" aria-label="Детаљи локације венчања">
             <div class="venue-card-inner">
               <div class="venue-card-front">
                 <div class="venue-card-icon">💒</div>
@@ -2345,7 +2480,7 @@ body {
           </div>
 
           <!-- Reception Card -->
-          <div class="venue-card fade-in stagger-2" data-type="reception">
+          <div class="venue-card fade-in stagger-2" data-type="reception" tabindex="0" role="button" aria-label="Детаљи локације прославе">
             <div class="venue-card-inner">
               <div class="venue-card-front">
                 <div class="venue-card-icon">🎉</div>
@@ -2376,23 +2511,23 @@ body {
     <!-- RSVP Section -->
     <section class="section rsvp-section" id="rsvp">
       <div class="section-content">
-        <h2 class="rsvp-title fade-in">Потврда доласка</h2>
+        <h2 class="rsvp-title fade-in" id="rsvp-title-heading">Потврда доласка</h2>
         <p class="rsvp-deadline fade-in stagger-1">Молимо потврдите до 15. август 2026</p>
 
-        <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="demo">
+        <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="demo" aria-labelledby="rsvp-title-heading">
           <div class="form-group">
             <label for="guest-name">Име и презиме</label>
-            <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име">
+            <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име" autocomplete="name" aria-required="true">
           </div>
 
           <div class="form-group">
             <label for="guest-email">Е-маил</label>
-            <input type="email" id="guest-email" name="email" placeholder="Унесите е-маил">
+            <input type="email" id="guest-email" name="email" placeholder="Унесите е-маил" autocomplete="email">
           </div>
 
-          <div class="form-group">
-            <label>Да ли долазите?</label>
-            <div class="attendance-toggle">
+          <fieldset class="form-group">
+            <legend>Да ли долазите?</legend>
+            <div class="attendance-toggle" role="radiogroup" aria-required="true">
               <div class="attendance-option">
                 <input type="radio" id="attending-yes" name="attending" value="yes" required>
                 <label for="attending-yes">
@@ -2408,7 +2543,7 @@ body {
                 </label>
               </div>
             </div>
-          </div>
+          </fieldset>
 
           <div class="form-group conditional-field" id="guests-count-group">
             <label for="guests-count">Број гостију</label>
@@ -2440,7 +2575,7 @@ body {
             Потврди долазак
           </button>
 
-          <div class="form-message" id="form-message"></div>
+          <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
         </form>
       </div>
     </section>
@@ -2512,10 +2647,10 @@ body {
           const diff = weddingDate - now;
 
           if (diff <= 0) {
-            document.getElementById('countdown-days').textContent = '0';
-            document.getElementById('countdown-hours').textContent = '0';
-            document.getElementById('countdown-minutes').textContent = '0';
-            document.getElementById('countdown-seconds').textContent = '0';
+            document.getElementById('countdown-days').textContent = '00';
+            document.getElementById('countdown-hours').textContent = '00';
+            document.getElementById('countdown-minutes').textContent = '00';
+            document.getElementById('countdown-seconds').textContent = '00';
             return;
           }
 
@@ -2524,10 +2659,10 @@ body {
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-          document.getElementById('countdown-days').textContent = days;
-          document.getElementById('countdown-hours').textContent = hours;
-          document.getElementById('countdown-minutes').textContent = minutes;
-          document.getElementById('countdown-seconds').textContent = seconds;
+          document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+          document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+          document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+          document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
         }
 
         updateCountdown();
@@ -2536,7 +2671,17 @@ body {
 
       // ===== DOT NAVIGATION =====
       const sections = document.querySelectorAll('.section[id]');
-      const navDots = document.querySelectorAll('.dot-nav a');
+      const navDots = document.querySelectorAll('.dot-nav button');
+
+      navDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const sectionId = dot.dataset.section;
+          const target = document.getElementById(sectionId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
 
       function updateActiveSection() {
         let current = '';
@@ -2549,7 +2694,7 @@ body {
 
         navDots.forEach(dot => {
           dot.classList.remove('active');
-          if (dot.getAttribute('href') === '#' + current) {
+          if (dot.dataset.section === current) {
             dot.classList.add('active');
           }
         });
@@ -2572,6 +2717,12 @@ body {
       document.querySelectorAll('.venue-card').forEach(card => {
         card.addEventListener('click', () => {
           card.classList.toggle('flipped');
+        });
+        card.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.classList.toggle('flipped');
+          }
         });
       });
 
@@ -2621,12 +2772,14 @@ body {
             if (data.attending === 'yes') createConfetti();
           } else {
             try {
-              await fetch('https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec', {
+              const response = await fetch('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
               });
+              if (!response.ok) throw new Error('Server error');
+              const result = await response.json();
+              if (!result.success) throw new Error(result.message || 'Failed');
               formMessage.textContent = 'Хвала на потврди!';
               formMessage.className = 'form-message success';
               if (data.attending === 'yes') createConfetti();
@@ -2644,6 +2797,7 @@ body {
       // ===== CONFETTI =====
       function createConfetti() {
         const container = document.getElementById('confetti-container');
+        container.innerHTML = '';
         const colors = ['#B8860B', '#FFD700', '#FFA500', '#FF69B4', '#87CEEB'];
 
         for (let i = 0; i < 100; i++) {
@@ -2668,14 +2822,17 @@ body {
       const calendarFab = document.getElementById('calendar-fab');
       if (calendarFab) {
         calendarFab.addEventListener('click', () => {
-          // Generate Google Calendar link
+          // Generate Google Calendar link using local time (no UTC conversion)
           const weddingDate = countdownGrid?.dataset.weddingDate;
           if (weddingDate) {
             const date = new Date(weddingDate);
-            const dateStr = date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, 15) + 'Z';
+            const pad = (n) => String(n).padStart(2, '0');
+            const dateStr = date.getFullYear() + pad(date.getMonth()+1) + pad(date.getDate()) + 'T' + pad(date.getHours()) + pad(date.getMinutes()) + '00';
+            const endDate = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+            const endStr = endDate.getFullYear() + pad(endDate.getMonth()+1) + pad(endDate.getDate()) + 'T' + pad(endDate.getHours()) + pad(endDate.getMinutes()) + '00';
             const title = encodeURIComponent('Милица & Стефан - Венчање');
             const location = encodeURIComponent('Храм Светог Саве, Крушедолска 2а, Београд');
-            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dateStr}/${dateStr}&location=${location}`;
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dateStr}/${endStr}&location=${location}`;
             window.open(url, '_blank');
           }
         });

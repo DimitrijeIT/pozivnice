@@ -2,10 +2,13 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Венчање - Милица и Стефан">
   <meta name="robots" content="noindex, nofollow">
   <title>Милица & Стефан - Позивница за венчање</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
@@ -483,7 +486,7 @@ body {
   h1, .couple-names, .hero-names, .entrance-names {
     font-size: clamp(2rem, 8vw, 3.5rem) !important;
     line-height: 1.2;
-    word-break: break-word;
+    overflow-wrap: break-word;
     hyphens: auto;
   }
 
@@ -627,7 +630,7 @@ body {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 }
@@ -687,21 +690,24 @@ body {
    ANIMATIONS & PERFORMANCE
    ============================================ */
 
-/* Reduce motion for performance and accessibility */
-@media (max-width: 768px), (prefers-reduced-motion: reduce) {
-  /* Disable complex animations on mobile */
-  .floating-element,
+/* Simplify animations on mobile for performance */
+@media (max-width: 768px) {
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Keep only 3 floating elements on mobile */
+  .floating-element:nth-child(n+4) {
+    display: none;
+  }
+
   .particle {
     animation-duration: 0s !important;
     animation: none !important;
   }
 
-  /* Simplify transitions */
-  * {
-    transition-duration: 0.15s !important;
-  }
-
-  /* Reduce parallax effects */
   [style*="parallax"],
   .parallax {
     transform: none !important;
@@ -782,8 +788,21 @@ body {
     padding: 2rem;
   }
 
+  /* All sections: avoid full-height in landscape */
+  section,
+  .section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
   /* Side-by-side layout for countdown */
-  .countdown-timer {
+  .countdown-timer,
+  .countdown-display,
+  .countdown-grid {
     flex-wrap: nowrap;
     gap: 0.5rem;
   }
@@ -792,8 +811,40 @@ body {
     min-width: 50px;
   }
 
-  .countdown-number {
+  .countdown-number,
+  .countdown-value {
     font-size: 1.5rem !important;
+  }
+
+  /* Forms: reduce padding so keyboard doesn't obscure content */
+  .rsvp-form,
+  .rsvp-container,
+  .ticket-frame {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Radio groups side-by-side in landscape */
+  .radio-group,
+  .attendance-toggle {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  /* Gallery: 2-column in landscape */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Venue cards side-by-side */
+  .venue-grid,
+  .venue-cards,
+  .venue-spread {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
   }
 }
 
@@ -826,7 +877,7 @@ body {
 /* === DIGIPOZ BRANDING BADGE === */
 .digipoz-badge {
   position: fixed;
-  bottom: 12px;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -870,7 +921,7 @@ body {
 
 @media (max-width: 480px) {
   .digipoz-badge {
-    bottom: 8px;
+    bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
     padding: 5px 10px;
     gap: 4px;
   }
@@ -893,9 +944,9 @@ body {
 
 /* CSS Custom Properties */
 :root {
-  --color-primary: #C4A4A4;
-  --color-primary-dark: #9E7B7B;
-  --color-primary-light: #E8D5D5;
+  --color-primary: #9E8080;
+  --color-primary-dark: #7A5C5C;
+  --color-primary-light: #D4BCBC;
   --color-secondary: #FDF9F7;
   --color-accent: #A8B5A0;
   --color-accent-warm: #D4B896;
@@ -923,7 +974,7 @@ body {
   --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Rococo ornate flourish SVG */
-  --flourish-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 35 Q50 0 100 20 T200 35' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M80 20 Q100 5 120 20' fill='none' stroke='%23C4A4A4' stroke-width='1' opacity='0.6'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%23C4A4A4' opacity='0.5'/%3E%3C/svg%3E");
+  --flourish-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 35 Q50 0 100 20 T200 35' fill='none' stroke='%239E8080' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M80 20 Q100 5 120 20' fill='none' stroke='%239E8080' stroke-width='1' opacity='0.6'/%3E%3Ccircle cx='100' cy='15' r='3' fill='%239E8080' opacity='0.5'/%3E%3C/svg%3E");
 
   /* Scalloped edge pattern */
   --scallop-border: radial-gradient(circle at 50% 0%, transparent 12px, var(--color-primary-light) 12px, var(--color-primary-light) 14px, transparent 14px);
@@ -936,7 +987,7 @@ body {
   /* Glassmorphism - soft romantic */
   --glass-bg: rgba(255, 252, 250, 0.85);
   --glass-blur: 20px;
-  --glass-border: rgba(196, 164, 164, 0.2);
+  --glass-border: rgba(158, 128, 128, 0.2);
 }
 
 /* Reset & Base */
@@ -1386,21 +1437,6 @@ h1, h2, h3 {
   background: linear-gradient(180deg, #FFF9F9 0%, #FFF5F5 100%);
 }
 
-.rsvp-counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background: var(--color-white);
-  border-radius: 50px;
-  box-shadow: 0 5px 25px rgba(183, 110, 121, 0.1);
-  max-width: 350px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .counter-item {
   text-align: center;
 }
@@ -1645,12 +1681,6 @@ h1, h2, h3 {
     font-size: 2rem;
   }
 
-  .rsvp-counter {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    border-radius: var(--border-radius);
-  }
-
   .counter-divider {
     width: 40px;
     height: 1px;
@@ -1665,6 +1695,8 @@ h1, h2, h3 {
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+  <a href="#rsvp" class="skip-link">Прескочи на потврду доласка</a>
+
   <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
   <div class="floating-elements" aria-hidden="true">
     <span class="floating-element">{{FLOATING_ICON_1}}</span>
@@ -1699,7 +1731,7 @@ h1, h2, h3 {
   <section class="countdown-section" id="countdown">
     <div class="container">
       <h2 class="section-title animate-fade-up">До нашег венчања</h2>
-      <div class="countdown-timer animate-stagger" data-wedding-date="2026-09-12T00:00:00.000Z">
+      <div class="countdown-timer animate-stagger" data-wedding-date="2026-09-12T00:00:00.000Z" role="timer" aria-label="Одбројавање до венчања">
         <div class="countdown-item">
           <span class="countdown-number" id="countdown-days">--</span>
           <span class="countdown-label">дана</span>
@@ -1728,7 +1760,7 @@ h1, h2, h3 {
         <div class="decorative-divider"></div>
         <p class="invitation-text">Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
         <div class="decorative-divider"></div>
-        <p class="invitation-signature">{{INVITATION_SIGNATURE}}</p>
+        <p class="invitation-signature">Са љубављу, Милица и Стефан</p>
       </div>
     </div>
   </section>
@@ -1739,7 +1771,46 @@ h1, h2, h3 {
     <div class="container">
       <h2 class="section-title animate-fade-up">Наша прича</h2>
       <div class="timeline">
-        {{TIMELINE_ITEMS}}
+        <div class="timeline-item">
+      <div class="timeline-icon">☕</div>
+      <div class="timeline-content">
+        <p class="timeline-date">Јун 2023</p>
+        <h3 class="timeline-title">Први сусрет</h3>
+        <p class="timeline-text">Случајно смо се срели у кафићу и одмах осетили посебну везу.</p>
+      </div>
+    </div>
+<div class="timeline-item">
+      <div class="timeline-icon">💕</div>
+      <div class="timeline-content">
+        <p class="timeline-date">Август 2023</p>
+        <h3 class="timeline-title">Први пољубац</h3>
+        <p class="timeline-text">На обали Дунава, под звездама, знали смо да је ово нешто посебно.</p>
+      </div>
+    </div>
+<div class="timeline-item">
+      <div class="timeline-icon">🏠</div>
+      <div class="timeline-content">
+        <p class="timeline-date">Јануар 2024</p>
+        <h3 class="timeline-title">Заједнички дом</h3>
+        <p class="timeline-text">Уселили смо се заједно у наш први стан и почели да градимо заједнички живот.</p>
+      </div>
+    </div>
+<div class="timeline-item">
+      <div class="timeline-icon">💍</div>
+      <div class="timeline-content">
+        <p class="timeline-date">Децембар 2025</p>
+        <h3 class="timeline-title">Просидба</h3>
+        <p class="timeline-text">На новогодишњој ноћи, Стефан је клекнуо и питао Милицу да буде његова заувек.</p>
+      </div>
+    </div>
+<div class="timeline-item">
+      <div class="timeline-icon">💒</div>
+      <div class="timeline-content">
+        <p class="timeline-date">Септембар 2026</p>
+        <h3 class="timeline-title">Венчање</h3>
+        <p class="timeline-text">Дан када ћемо рећи &quot;да&quot; пред Богом и нашим најдражим људима.</p>
+      </div>
+    </div>
       </div>
     </div>
   </section>
@@ -1829,21 +1900,21 @@ h1, h2, h3 {
         {{CALENDAR_BUTTONS}}
       </div>
 
-      {{#IF_ADDITIONAL_INFO}}
+      
       <div class="additional-info animate-fade-up">
-        <p>{{ADDITIONAL_INFO}}</p>
+        <p>Паркинг је обезбеђен у близини ресторана. За госте који долазе из других градова, препоручујемо хотел &quot;Москва&quot; у центру Београда.</p>
       </div>
-      {{/IF_ADDITIONAL_INFO}}
+      
     </div>
   </section>
 
-  {{#IF_DRESS_CODE}}
+  
   <!-- Dress Code Section -->
   <section class="dresscode-section" id="dresscode">
     <div class="container">
       <h2 class="section-title animate-fade-up">Дрес код</h2>
       <div class="dresscode-content animate-scale">
-        <p class="dresscode-text">{{DRESS_CODE_TEXT}}</p>
+        <p class="dresscode-text">Елегантан формалан dress code. Молимо вас да избегавате белу и црну боју.</p>
         {{#IF_DRESS_CODE_COLORS}}
         <div class="dresscode-colors">
           <p class="dresscode-colors-label">Препоручене боје:</p>
@@ -1855,7 +1926,7 @@ h1, h2, h3 {
       </div>
     </div>
   </section>
-  {{/IF_DRESS_CODE}}
+  
 
   <!-- RSVP Section -->
   <section class="rsvp-section" id="rsvp">
@@ -1891,7 +1962,7 @@ h1, h2, h3 {
               <span>Да, долазим</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="attending" value="no">
+              <input type="radio" name="attending" value="no" required>
               <span>Нажалост, не могу да дођем</span>
             </label>
           </div>
