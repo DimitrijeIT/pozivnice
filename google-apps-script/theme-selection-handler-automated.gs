@@ -138,6 +138,13 @@ function doPost(e) {
 
     Logger.log('Parsed data: ' + JSON.stringify(data));
 
+    // Handle correction requests
+    if (data.action === 'correction') {
+      Logger.log('Correction request for slug: ' + data.slug);
+      handleCorrection(data, CONFIG);
+      return createResponse(true, 'Correction received');
+    }
+
     const slug = data.slug;
     const theme = data.theme;
 
@@ -272,6 +279,56 @@ function triggerFinalSiteGeneration(slug, theme, CONFIG) {
   } catch (error) {
     Logger.log('Error triggering GitHub Action: ' + error.toString());
     return false;
+  }
+}
+
+/**
+ * Handle correction requests from couples
+ * Logs to a "Corrections" tab and emails admin
+ */
+function handleCorrection(data, CONFIG) {
+  try {
+    if (!CONFIG.MASTER_SPREADSHEET_ID) {
+      Logger.log('No master spreadsheet configured for corrections');
+      return;
+    }
+
+    var ss = SpreadsheetApp.openById(CONFIG.MASTER_SPREADSHEET_ID);
+
+    // Get or create Corrections tab
+    var sheet = ss.getSheetByName('Corrections');
+    if (!sheet) {
+      sheet = ss.insertSheet('Corrections');
+      sheet.appendRow(['Timestamp', 'Slug', 'Correction', 'Submitted At']);
+      sheet.getRange(1, 1, 1, 4).setFontWeight('bold');
+    }
+
+    sheet.appendRow([
+      new Date(),
+      data.slug || '',
+      data.correction || '',
+      data.submitted_at || ''
+    ]);
+
+    // Email admin about the correction
+    var contactEmail = lookupContactEmail(data.slug, CONFIG);
+    var adminEmail = Session.getActiveUser().getEmail();
+
+    if (adminEmail) {
+      MailApp.sendEmail({
+        to: adminEmail,
+        subject: 'Ispravka podataka: ' + (data.slug || 'nepoznato'),
+        body: 'Par ' + (data.slug || 'nepoznato') + ' je poslao ispravku:\n\n' +
+              (data.correction || '(prazno)') + '\n\n' +
+              'Kontakt email para: ' + (contactEmail || 'nije pronadjen') + '\n' +
+              'Poslato: ' + (data.submitted_at || 'nepoznato')
+      });
+      Logger.log('Correction email sent to: ' + adminEmail);
+    }
+
+    Logger.log('Correction logged for slug: ' + data.slug);
+  } catch (error) {
+    Logger.log('Error handling correction: ' + error.toString());
   }
 }
 
