@@ -17,6 +17,7 @@
     "images:dry-run": "node scripts/generate-images.js --dry-run",
     "images:chatgpt": "node scripts/generate-images-chatgpt.js",
     "images:chatgpt:list": "node scripts/generate-images-chatgpt.js --list",
+    "campaign:10day": "node scripts/generate-instagram-10day-assets.js",
     "chrome:debug": "open -a 'Google Chrome' --args --remote-debugging-port=9222",
     "screenshots": "node scripts/generate-screenshots.js"
   },
