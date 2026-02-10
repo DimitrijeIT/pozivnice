@@ -1585,6 +1585,14 @@
       var currentStep = 0;
       var totalSteps = 6;
       var form = document.getElementById('intakeForm');
+
+      // Prevent Enter key from submitting the form (allow in textareas)
+      form.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
+          e.preventDefault();
+        }
+      });
+
       var panels = form.querySelectorAll('.step-panel');
       var progressSteps = document.querySelectorAll('.progress-step');
       var progressFill = document.getElementById('progressFill');
@@ -2046,7 +2054,7 @@
           return;
         }
         var script = document.createElement('script');
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&libraries=places&loading=async';
+        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&libraries=places';
         script.async = true;
         script.onload = initVenueAutocomplete;
         script.onerror = function() {
