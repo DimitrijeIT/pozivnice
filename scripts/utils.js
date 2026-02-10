@@ -101,6 +101,7 @@ function replacePlaceholders(template, data, options = {}) {
     'THEME_CSS',
     'THEME_FONTS',
     'ANIMATIONS_CSS',
+    'INLINE_SCRIPT',
     'CALENDAR_BUTTONS',
     'TIMELINE_ITEMS',
     'GALLERY_ITEMS',
@@ -814,7 +815,7 @@ function prepareWeddingData(rawData, theme = 'classic') {
     STORY_PHOTO: data.story_photo_url ? 'true' : '',
     DRESS_CODE: data.dress_code_text ? 'true' : '',
     DRESS_CODE_COLORS: data.dress_code_colors && data.dress_code_colors.length > 0 ? 'true' : '',
-    ADDITIONAL_INFO: data.additional_info ? 'true' : '',
+    // Note: ADDITIONAL_INFO serves as both conditional flag and display text (set above)
     CEREMONY_MAP: data.ceremony_map_url ? 'true' : '',
     RECEPTION_MAP: data.reception_map_url ? 'true' : '',
     HASHTAG: data.wedding_hashtag ? 'true' : '',
