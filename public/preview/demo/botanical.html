@@ -2,10 +2,13 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Венчање - Милица и Стефан">
   <meta name="robots" content="noindex, nofollow">
   <title>Милица & Стефан - Позивница за венчање</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
@@ -444,20 +447,6 @@ h1, h2, h3 {
   background: var(--color-white);
 }
 
-.rsvp-counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background: var(--color-cream);
-  border-radius: 100px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .counter-item {
   text-align: center;
 }
@@ -685,11 +674,6 @@ h1, h2, h3 {
     display: none;
   }
 
-  .rsvp-counter {
-    flex-direction: column;
-    border-radius: 30px;
-  }
-
   .counter-divider {
     width: 50px;
     height: 1px;
@@ -714,11 +698,13 @@ h1, h2, h3 {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* Fade in from left */
@@ -726,11 +712,13 @@ h1, h2, h3 {
   opacity: 0;
   transform: translateX(-40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-fade-left.visible {
   opacity: 1;
   transform: translateX(0);
+  will-change: auto;
 }
 
 /* Fade in from right */
@@ -738,11 +726,13 @@ h1, h2, h3 {
   opacity: 0;
   transform: translateX(40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-fade-right.visible {
   opacity: 1;
   transform: translateX(0);
+  will-change: auto;
 }
 
 /* Scale up */
@@ -750,11 +740,13 @@ h1, h2, h3 {
   opacity: 0;
   transform: scale(0.8);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-scale.visible {
   opacity: 1;
   transform: scale(1);
+  will-change: auto;
 }
 
 /* Staggered children animation */
@@ -800,11 +792,11 @@ h1, h2, h3 {
 
 .floating-element:nth-child(1) { left: 5%; top: 10%; animation-delay: 0s; animation-duration: 22s; }
 .floating-element:nth-child(2) { left: 15%; top: 60%; animation-delay: -3s; animation-duration: 18s; }
-.floating-element:nth-child(3) { left: 25%; top: 30%; animation-delay: -6s; animation-duration: 25s; }
+.floating-element:nth-child(3) { left: 25%; top: 30%; animation-delay: -6s; animation-duration: 25s; animation-name: float-drift-reverse; }
 .floating-element:nth-child(4) { left: 75%; top: 20%; animation-delay: -9s; animation-duration: 20s; }
-.floating-element:nth-child(5) { left: 85%; top: 70%; animation-delay: -12s; animation-duration: 23s; }
-.floating-element:nth-child(6) { left: 90%; top: 40%; animation-delay: -15s; animation-duration: 19s; }
-.floating-element:nth-child(7) { left: 50%; top: 80%; animation-delay: -4s; animation-duration: 21s; }
+.floating-element:nth-child(5) { left: 85%; top: 70%; animation-delay: -12s; animation-duration: 23s; animation-name: float-drift-wide; }
+.floating-element:nth-child(6) { left: 90%; top: 40%; animation-delay: -15s; animation-duration: 19s; animation-name: float-drift-reverse; }
+.floating-element:nth-child(7) { left: 50%; top: 80%; animation-delay: -4s; animation-duration: 21s; animation-name: float-drift-wide; }
 .floating-element:nth-child(8) { left: 35%; top: 15%; animation-delay: -8s; animation-duration: 24s; }
 
 @keyframes float-drift {
@@ -819,6 +811,36 @@ h1, h2, h3 {
   }
   75% {
     transform: translateY(-40px) translateX(20px) rotate(8deg);
+  }
+}
+
+@keyframes float-drift-reverse {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(20px) translateX(-20px) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-25px) translateX(15px) rotate(4deg);
+  }
+  75% {
+    transform: translateY(10px) translateX(-25px) rotate(-5deg);
+  }
+}
+
+@keyframes float-drift-wide {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-50px) translateX(-30px) rotate(10deg);
+  }
+  60% {
+    transform: translateY(20px) translateX(25px) rotate(-7deg);
+  }
+  80% {
+    transform: translateY(-20px) translateX(-15px) rotate(3deg);
   }
 }
 
@@ -838,7 +860,11 @@ h1, h2, h3 {
   position: absolute;
   top: -50px;
   opacity: 0.6;
-  animation: fall linear infinite;
+  animation: fall cubic-bezier(0.2, 0, 0.8, 1) infinite;
+}
+
+.petal:nth-child(odd) {
+  animation-name: fall-sway;
 }
 
 .petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; font-size: 1.2rem; }
@@ -859,11 +885,40 @@ h1, h2, h3 {
   10% {
     opacity: 0.6;
   }
+  30% {
+    transform: translateY(25vh) translateX(40px) rotate(180deg);
+  }
+  60% {
+    transform: translateY(55vh) translateX(-20px) rotate(400deg);
+  }
   90% {
     opacity: 0.6;
   }
   100% {
-    transform: translateY(100vh) translateX(100px) rotate(720deg);
+    transform: translateY(100vh) translateX(60px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fall-sway {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  35% {
+    transform: translateY(30vh) translateX(-35px) rotate(200deg);
+  }
+  65% {
+    transform: translateY(60vh) translateX(30px) rotate(450deg);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-40px) rotate(680deg);
     opacity: 0;
   }
 }
@@ -1116,11 +1171,21 @@ h1, h2, h3 {
 
 @keyframes confetti-fall {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateY(0) translateX(0) rotate(0deg);
     opacity: 1;
   }
+  25% {
+    transform: translateY(25vh) translateX(15px) rotate(180deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-10px) rotate(360deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(75vh) translateX(20px) rotate(540deg);
+  }
   100% {
-    transform: translateY(100vh) rotate(720deg);
+    transform: translateY(100vh) translateX(-5px) rotate(720deg);
     opacity: 0;
   }
 }
@@ -1140,9 +1205,13 @@ section {
   left: 0;
   width: 100%;
   height: 60px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath fill='%23ffffff' d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z'/%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: center;
+  background: var(--color-background, var(--color-bg, #fff));
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath fill='%23fff' d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z'/%3E%3C/svg%3E");
+  -webkit-mask-size: cover;
+  -webkit-mask-position: center;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath fill='%23fff' d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z'/%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-position: center;
 }
 
 /* ============================================
@@ -1156,20 +1225,25 @@ section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 @media (max-width: 768px) {
-  .floating-elements,
-  .falling-petals {
+  /* Show fewer floating elements on mobile for lighter visual effect */
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Hide most elements, keep only 3 */
+  .floating-element:nth-child(n+4) {
     display: none;
   }
 
-  .animate-fade-up,
-  .animate-fade-left,
-  .animate-fade-right {
-    transform: none;
-    opacity: 1;
+  .falling-petals {
+    display: none;
   }
 }
 
@@ -1179,12 +1253,72 @@ section {
  */
 
 /* ============================================
+   ACCESSIBILITY UTILITIES
+   ============================================ */
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden,
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary, #D4AF37);
+  color: white;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus visible styles for better keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary, #D4AF37);
+  outline-offset: 2px;
+}
+
+/* Remove default focus outline when using mouse */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Fieldset reset for form groups */
+fieldset.form-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset.form-group legend {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+  width: 100%;
+}
+
+/* ============================================
    MUSIC PLAYER (Trend #3)
    ============================================ */
 
 .music-player {
   position: fixed;
-  bottom: 20px;
+  bottom: max(20px, calc(env(safe-area-inset-bottom) + 8px));
   right: 20px;
   z-index: 1000;
   display: flex;
@@ -1257,7 +1391,7 @@ section {
 @media (max-width: 480px) {
   .music-player {
     padding: 8px 12px;
-    bottom: 15px;
+    bottom: max(15px, calc(env(safe-area-inset-bottom) + 8px));
     right: 15px;
   }
 
@@ -1398,6 +1532,8 @@ section {
   top: 1rem;
   right: 1rem;
   font-size: 2.5rem;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .lightbox-prev {
@@ -1543,36 +1679,6 @@ section {
   }
 }
 
-/* ============================================
-   ENHANCED RSVP COUNTER (Trend #5)
-   ============================================ */
-
-.counter-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  margin-top: 0.5rem;
-  overflow: hidden;
-}
-
-.counter-bar-fill {
-  height: 100%;
-  background: var(--color-primary, #D4AF37);
-  border-radius: 2px;
-  width: 0;
-  transition: width 1.5s ease-out;
-}
-
-.counter-heart {
-  font-size: 1.5rem;
-}
-
-.rsvp-counter .counter-item {
-  flex: 1;
-  min-width: 100px;
-}
-
 /* Loading animation for submit button */
 .button-loading {
   display: inline-flex;
@@ -1672,16 +1778,7 @@ section {
   height: 6px;
 }
 
-@keyframes confetti-fall {
-  0% {
-    transform: translateY(0) rotate(0deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg) scale(0.5);
-    opacity: 0;
-  }
-}
+/* confetti-fall keyframes defined in animations.css */
 
 /* ============================================
    ADD TO CALENDAR BUTTONS
@@ -1755,7 +1852,7 @@ section {
 
   .calendar-btn {
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     justify-content: center;
   }
 }
@@ -1798,7 +1895,8 @@ section {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
 }
 
@@ -1835,6 +1933,38 @@ section {
   outline: 3px solid var(--color-primary, #D4AF37);
   outline-offset: 2px;
 }
+
+/* ============================================
+   TOUCH FEEDBACK (Mobile)
+   ============================================ */
+
+@media (pointer: coarse) {
+  .glass-card:active,
+  .theme-card:active,
+  .venue-card:active,
+  .story-card:active,
+  .gallery-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .btn:active,
+  .submit-btn:active,
+  .submit-button:active,
+  .calendar-btn:active,
+  .fab:active,
+  .music-toggle:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .venue-map-btn:active,
+  .venue-link:active {
+    opacity: 0.7;
+  }
+}
+
+/* DigiPoz badge styles defined in mobile.css (shared by both original and 2026 systems) */
 
 /* High contrast mode */
 @media (prefers-contrast: high) {
@@ -1975,30 +2105,42 @@ section {
    ============================================ */
 
 .glass-card {
-  background: var(--glass-bg, rgba(255, 255, 255, 0.25));
-  backdrop-filter: blur(var(--glass-blur, 10px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 10px));
+  background: var(--glass-bg, rgba(255, 255, 255, 0.65));
   border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card-strong {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card-dark {
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-card {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.25));
+    backdrop-filter: blur(var(--glass-blur, 10px));
+    -webkit-backdrop-filter: blur(var(--glass-blur, 10px));
+  }
+  .glass-card-strong {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .glass-card-dark {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 /* ============================================
@@ -2579,6 +2721,621 @@ section {
   }
 }
 
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Simplify animations on mobile for performance */
+@media (max-width: 768px) {
+  .floating-element {
+    font-size: 1.25rem;
+    opacity: 0.08;
+    animation-duration: 30s !important;
+  }
+
+  /* Keep only 3 floating elements on mobile */
+  .floating-element:nth-child(n+4) {
+    display: none;
+  }
+
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* All sections: avoid full-height in landscape */
+  section,
+  .section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer,
+  .countdown-display,
+  .countdown-grid {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number,
+  .countdown-value {
+    font-size: 1.5rem !important;
+  }
+
+  /* Forms: reduce padding so keyboard doesn't obscure content */
+  .rsvp-form,
+  .rsvp-container,
+  .ticket-frame {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Radio groups side-by-side in landscape */
+  .radio-group,
+  .attendance-toggle {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  /* Gallery: 2-column in landscape */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Venue cards side-by-side */
+  .venue-grid,
+  .venue-cards,
+  .venue-spread {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/* === DIGIPOZ BRANDING BADGE === */
+.digipoz-badge {
+  position: fixed;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  text-decoration: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.digipoz-badge:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.digipoz-badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.digipoz-badge-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.digipoz-badge-text span {
+  color: #B8860B;
+}
+
+@media (max-width: 480px) {
+  .digipoz-badge {
+    bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
+    padding: 5px 10px;
+    gap: 4px;
+  }
+  .digipoz-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .digipoz-badge-text {
+    font-size: 10px;
+  }
+}
+
 </style>
 
   <!-- Theme-specific fonts -->
@@ -2589,6 +3346,8 @@ section {
     
 </head>
 <body class="theme-botanical">
+  <a href="#rsvp" class="skip-link">Прескочи на потврду доласка</a>
+
   <!-- Floating Decorative Elements (Trend #1: Animated Elements) -->
   <div class="floating-elements" aria-hidden="true">
     <span class="floating-element">🌿</span>
@@ -2700,7 +3459,7 @@ section {
       <div class="timeline-icon">💒</div>
       <div class="timeline-date">Септембар 2026</div>
       <h3 class="timeline-title">Венчање</h3>
-      <p class="timeline-description">Дан када ћемо рећи "да" пред Богом и нашим најдражим људима.</p>
+      <p class="timeline-description">Дан када ћемо рећи &quot;да&quot; пред Богом и нашим најдражим људима.</p>
     </div>
   
       </div>
@@ -2717,11 +3476,11 @@ section {
         <div class="story-text animate-fade-left">
           Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина. Волимо се више него икада и једва чекамо да започнемо нову главу нашег живота као муж и жена.
         </div>
-        {{#IF_STORY_PHOTO}}
+        
         <div class="story-photo animate-fade-right">
           <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800" alt="Милица и Стефан" loading="lazy">
         </div>
-        {{/IF_STORY_PHOTO}}
+        
       </div>
     </div>
   </section>
@@ -2734,53 +3493,47 @@ section {
       <h2 class="section-title animate-fade-up">Наше фотографије</h2>
       <div class="gallery-grid animate-stagger">
         
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800" data-caption="Наш први заједнички одмор">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800" data-caption="Наш први заједнички одмор" aria-label="Отвори фотографију 1">
       <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="Наш први заједнички одмор" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Наш први заједнички одмор</p>
       </div>
-    </div>
-  
+    </button>
 
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800" data-caption="Романтична вечера">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800" data-caption="Романтична вечера" aria-label="Отвори фотографију 2">
       <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=400" alt="Романтична вечера" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Романтична вечера</p>
       </div>
-    </div>
-  
+    </button>
 
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800" data-caption="Дан просидбе">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800" data-caption="Дан просидбе" aria-label="Отвори фотографију 3">
       <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400" alt="Дан просидбе" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Дан просидбе</p>
       </div>
-    </div>
-  
+    </button>
 
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" data-caption="Заједнички тренуци">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" data-caption="Заједнички тренуци" aria-label="Отвори фотографију 4">
       <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" alt="Заједнички тренуци" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Заједнички тренуци</p>
       </div>
-    </div>
-  
+    </button>
 
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800" data-caption="Наша љубав">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800" data-caption="Наша љубав" aria-label="Отвори фотографију 5">
       <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400" alt="Наша љубав" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Наша љубав</p>
       </div>
-    </div>
-  
+    </button>
 
-    <div class="gallery-item" tabindex="0" data-full-src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800" data-caption="Припреме за велики дан">
+    <button type="button" class="gallery-item" data-full-src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800" data-caption="Припреме за велики дан" aria-label="Отвори фотографију 6">
       <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400" alt="Припреме за велики дан" loading="lazy">
       <div class="gallery-item-overlay">
         <p class="gallery-item-caption">Припреме за велики дан</p>
       </div>
-    </div>
-  
+    </button>
       </div>
     </div>
   </section>
@@ -2838,15 +3591,15 @@ section {
         <h3 class="calendar-title">Додај у календар</h3>
         
     <div class="calendar-buttons">
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD&dates=20260912T130000Z/20260912T210000Z&location=%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4&details=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%20%D1%83%2015%3A00%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%20%D0%A4%D1%80%D0%B0%D0%BD%D1%88%2C%20%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80%20%D0%88%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%2042%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%20%D1%83%2018%3A00" target="_blank" rel="noopener" class="calendar-btn calendar-btn-google">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD&dates=20260912T150000/20260912T230000&location=%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4&details=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%20%D1%83%2015%3A00%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%20%D0%A4%D1%80%D0%B0%D0%BD%D1%88%2C%20%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80%20%D0%88%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%2042%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%20%D1%83%2018%3A00" target="_blank" rel="noopener" class="calendar-btn calendar-btn-google">
         <span class="calendar-icon">📅</span>
         <span>Google Calendar</span>
       </a>
-      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD&startdt=2026-09-12T13:00:00.000Z&enddt=2026-09-12T21:00:00.000Z&location=%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4&body=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%20%D1%83%2015%3A00%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%20%D0%A4%D1%80%D0%B0%D0%BD%D1%88%2C%20%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80%20%D0%88%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%2042%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%20%D1%83%2018%3A00" target="_blank" rel="noopener" class="calendar-btn calendar-btn-outlook">
+      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD&startdt=2026-09-12T15:00:00&enddt=2026-09-12T23:00:00&location=%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4&body=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%20%D1%83%2015%3A00%0A%D0%9F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0%3A%20%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%20%D0%A4%D1%80%D0%B0%D0%BD%D1%88%2C%20%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80%20%D0%88%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%2042%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%20%D1%83%2018%3A00" target="_blank" rel="noopener" class="calendar-btn calendar-btn-outlook">
         <span class="calendar-icon">📆</span>
         <span>Outlook</span>
       </a>
-      <a href="data:text/calendar;charset=utf-8,BEGIN%3AVCALENDAR%0AVERSION%3A2.0%0APRODID%3A-%2F%2FWedding%20Invitation%2F%2FSR%0ABEGIN%3AVEVENT%0ADTSTART%3A20260912T130000Z%0ADTEND%3A20260912T210000Z%0ASUMMARY%3A%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD%0ALOCATION%3A%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%0ADESCRIPTION%3A%25D0%2592%25D0%25B5%25D0%25BD%25D1%2587%25D0%25B0%25D1%259A%25D0%25B5%253A%2520%25D0%25A5%25D1%2580%25D0%25B0%25D0%25BC%2520%25D0%25A1%25D0%25B2%25D0%25B5%25D1%2582%25D0%25BE%25D0%25B3%2520%25D0%25A1%25D0%25B0%25D0%25B2%25D0%25B5%2520%25D1%2583%252015%253A00%5Cn%25D0%259F%25D1%2580%25D0%25BE%25D1%2581%25D0%25BB%25D0%25B0%25D0%25B2%25D0%25B0%253A%2520%25D0%25A0%25D0%25B5%25D1%2581%25D1%2582%25D0%25BE%25D1%2580%25D0%25B0%25D0%25BD%2520%25D0%25A4%25D1%2580%25D0%25B0%25D0%25BD%25D1%2588%252C%2520%25D0%2593%25D0%25BE%25D1%2581%25D0%25BF%25D0%25BE%25D0%25B4%25D0%25B0%25D1%2580%2520%25D0%2588%25D0%25BE%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25BE%25D0%25B2%25D0%25B0%252042%252C%2520%25D0%2591%25D0%25B5%25D0%25BE%25D0%25B3%25D1%2580%25D0%25B0%25D0%25B4%2520%25D1%2583%252018%253A00%0AEND%3AVEVENT%0AEND%3AVCALENDAR" download="demo.ics" class="calendar-btn calendar-btn-ics">
+      <a href="data:text/calendar;charset=utf-8,BEGIN%3AVCALENDAR%0AVERSION%3A2.0%0APRODID%3A-%2F%2FWedding%20Invitation%2F%2FSR%0ABEGIN%3AVEVENT%0ADTSTART%3A20260912T150000%0ADTEND%3A20260912T230000%0ASUMMARY%3A%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%3A%20%D0%9C%D0%B8%D0%BB%D0%B8%D1%86%D0%B0%20%26%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD%0ALOCATION%3A%D0%A5%D1%80%D0%B0%D0%BC%20%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B3%20%D0%A1%D0%B0%D0%B2%D0%B5%2C%20%D0%9A%D1%80%D1%83%D1%88%D0%B5%D0%B4%D0%BE%D0%BB%D1%81%D0%BA%D0%B0%202%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%0ADESCRIPTION%3A%25D0%2592%25D0%25B5%25D0%25BD%25D1%2587%25D0%25B0%25D1%259A%25D0%25B5%253A%2520%25D0%25A5%25D1%2580%25D0%25B0%25D0%25BC%2520%25D0%25A1%25D0%25B2%25D0%25B5%25D1%2582%25D0%25BE%25D0%25B3%2520%25D0%25A1%25D0%25B0%25D0%25B2%25D0%25B5%2520%25D1%2583%252015%253A00%5Cn%25D0%259F%25D1%2580%25D0%25BE%25D1%2581%25D0%25BB%25D0%25B0%25D0%25B2%25D0%25B0%253A%2520%25D0%25A0%25D0%25B5%25D1%2581%25D1%2582%25D0%25BE%25D1%2580%25D0%25B0%25D0%25BD%2520%25D0%25A4%25D1%2580%25D0%25B0%25D0%25BD%25D1%2588%252C%2520%25D0%2593%25D0%25BE%25D1%2581%25D0%25BF%25D0%25BE%25D0%25B4%25D0%25B0%25D1%2580%2520%25D0%2588%25D0%25BE%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25BE%25D0%25B2%25D0%25B0%252042%252C%2520%25D0%2591%25D0%25B5%25D0%25BE%25D0%25B3%25D1%2580%25D0%25B0%25D0%25B4%2520%25D1%2583%252018%253A00%0AEND%3AVEVENT%0AEND%3AVCALENDAR" download="demo.ics" class="calendar-btn calendar-btn-ics">
         <span class="calendar-icon">🗓️</span>
         <span>Apple / iCal</span>
       </a>
@@ -2869,7 +3622,7 @@ section {
       <h2 class="section-title animate-fade-up">Дрес код</h2>
       <div class="dresscode-content animate-scale">
         <p class="dresscode-text">Елегантан формалан dress code. Молимо вас да избегавате белу и црну боју.</p>
-        {{#IF_DRESS_CODE_COLORS}}
+        
         <div class="dresscode-colors">
           <p class="dresscode-colors-label">Препоручене боје:</p>
           <div class="color-swatches animate-stagger">
@@ -2879,7 +3632,7 @@ section {
 <div class="color-swatch" style="background-color: #6B5B95;" title="#6B5B95"></div>
           </div>
         </div>
-        {{/IF_DRESS_CODE_COLORS}}
+        
       </div>
     </div>
   </section>
@@ -2893,25 +3646,27 @@ section {
       <p class="rsvp-deadline animate-fade-up">Молимо вас да потврдите долазак до 15. августа 2026.</p>
 
       <!-- RSVP Form -->
-      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="demo">
+      <form class="rsvp-form animate-fade-up" id="rsvp-form" data-wedding-slug="demo" aria-labelledby="rsvp-form-title">
+        <h3 id="rsvp-form-title" class="visually-hidden">Формулар за потврду доласка</h3>
+
         <div class="form-group">
-          <label for="guest-name">Име и презиме *</label>
-          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме">
+          <label for="guest-name">Име и презиме <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></label>
+          <input type="text" id="guest-name" name="name" required placeholder="Унесите ваше име и презиме" autocomplete="name" aria-required="true">
         </div>
 
         <div class="form-group">
           <label for="guest-email">Е-маил адреса</label>
-          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу">
+          <input type="email" id="guest-email" name="email" placeholder="Унесите вашу е-маил адресу" autocomplete="email" inputmode="email">
         </div>
 
         <div class="form-group">
           <label for="guest-phone">Телефон</label>
-          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона">
+          <input type="tel" id="guest-phone" name="phone" placeholder="Унесите ваш број телефона" autocomplete="tel" inputmode="tel">
         </div>
 
-        <div class="form-group">
-          <label>Да ли долазите? *</label>
-          <div class="radio-group">
+        <fieldset class="form-group">
+          <legend>Да ли долазите? <span aria-hidden="true">*</span><span class="visually-hidden">(обавезно)</span></legend>
+          <div class="radio-group" role="radiogroup" aria-required="true">
             <label class="radio-label">
               <input type="radio" name="attending" value="yes" required>
               <span>Да, долазим</span>
@@ -2921,7 +3676,7 @@ section {
               <span>Нажалост, не могу да дођем</span>
             </label>
           </div>
-        </div>
+        </fieldset>
 
         <div class="form-group conditional-field" id="guests-count-group">
           <label for="guests-count">Број гостију (укључујући вас)</label>
@@ -2952,15 +3707,15 @@ section {
           <textarea id="message" name="message" rows="3" placeholder="Оставите поруку или напомену..."></textarea>
         </div>
 
-        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn">
+        <button type="submit" class="submit-button btn-animated pulse" id="submit-btn" aria-describedby="form-message">
           <span class="button-text">Потврди долазак</span>
-          <span class="button-loading" style="display: none;">
+          <span class="button-loading" style="display: none;" aria-hidden="true">
             <span class="loading-rings"><span></span><span></span></span>
-            Шаљем...
+            <span aria-live="polite">Шаљем...</span>
           </span>
         </button>
 
-        <div class="form-message" id="form-message"></div>
+        <div class="form-message" id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
   </section>
@@ -2988,12 +3743,12 @@ section {
  */
 
 (function() {
-  'use strict';
+  &#39;use strict&#39;;
 
   // Configuration - will be replaced during build
   const CONFIG = {
-    RSVP_SCRIPT_URL: '{{RSVP_SCRIPT_URL}}',
-    WEDDING_SLUG: '{{WEDDING_SLUG}}'
+    RSVP_SCRIPT_URL: &#39;https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec&#39;,
+    WEDDING_SLUG: &#39;demo&#39;
   };
 
   // ============================================
@@ -3002,25 +3757,25 @@ section {
 
   function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
-      '.animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale, .animate-stagger'
+      &#39;.animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-scale, .animate-stagger&#39;
     );
 
     if (!animatedElements.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) =&gt; {
+      entries.forEach(entry =&gt; {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add(&#39;visible&#39;);
           // Unobserve after animation to save resources
           observer.unobserve(entry.target);
         }
       });
     }, {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: &#39;0px 0px -50px 0px&#39;
     });
 
-    animatedElements.forEach(el => observer.observe(el));
+    animatedElements.forEach(el =&gt; observer.observe(el));
   }
 
   // ============================================
@@ -3028,34 +3783,41 @@ section {
   // ============================================
 
   function initGallery() {
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lightbox = document.getElementById('lightbox');
+    const galleryItems = document.querySelectorAll(&#39;.gallery-item&#39;);
+    const lightbox = document.getElementById(&#39;lightbox&#39;);
 
     if (!galleryItems.length || !lightbox) return;
 
-    const lightboxImage = document.getElementById('lightbox-image');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxCounter = document.getElementById('lightbox-counter');
-    const closeBtn = document.getElementById('lightbox-close');
-    const prevBtn = document.getElementById('lightbox-prev');
-    const nextBtn = document.getElementById('lightbox-next');
+    const lightboxImage = document.getElementById(&#39;lightbox-image&#39;);
+    const lightboxCaption = document.getElementById(&#39;lightbox-caption&#39;);
+    const lightboxCounter = document.getElementById(&#39;lightbox-counter&#39;);
+    const closeBtn = document.getElementById(&#39;lightbox-close&#39;);
+    const prevBtn = document.getElementById(&#39;lightbox-prev&#39;);
+    const nextBtn = document.getElementById(&#39;lightbox-next&#39;);
 
     let currentIndex = 0;
-    const images = Array.from(galleryItems).map(item => ({
-      src: item.dataset.fullSrc || item.querySelector('img').src,
-      caption: item.dataset.caption || ''
+    const images = Array.from(galleryItems).map(item =&gt; ({
+      src: item.dataset.fullSrc || item.querySelector(&#39;img&#39;).src,
+      caption: item.dataset.caption || &#39;&#39;
     }));
 
+    var previousFocus = null;
+
     function openLightbox(index) {
+      previousFocus = document.activeElement;
       currentIndex = index;
       updateLightbox();
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      lightbox.classList.add(&#39;active&#39;);
+      lightbox.setAttribute(&#39;aria-modal&#39;, &#39;true&#39;);
+      document.body.style.overflow = &#39;hidden&#39;;
+      if (closeBtn) closeBtn.focus();
     }
 
     function closeLightbox() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
+      lightbox.classList.remove(&#39;active&#39;);
+      lightbox.removeAttribute(&#39;aria-modal&#39;);
+      document.body.style.overflow = &#39;&#39;;
+      if (previousFocus) previousFocus.focus();
     }
 
     function updateLightbox() {
@@ -3063,7 +3825,7 @@ section {
       lightboxImage.src = image.src;
       lightboxImage.alt = image.caption;
       lightboxCaption.textContent = image.caption;
-      lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+      lightboxCounter.textContent = (currentIndex + 1) + &#39; / &#39; + images.length;
     }
 
     function nextImage() {
@@ -3077,42 +3839,44 @@ section {
     }
 
     // Event listeners
-    galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => openLightbox(index));
-      item.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') openLightbox(index);
+    galleryItems.forEach((item, index) =&gt; {
+      if (!item.getAttribute(&#39;tabindex&#39;)) item.setAttribute(&#39;tabindex&#39;, &#39;0&#39;);
+      item.setAttribute(&#39;role&#39;, &#39;button&#39;);
+      item.addEventListener(&#39;click&#39;, () =&gt; openLightbox(index));
+      item.addEventListener(&#39;keydown&#39;, (e) =&gt; {
+        if (e.key === &#39;Enter&#39; || e.key === &#39; &#39;) { e.preventDefault(); openLightbox(index); }
       });
     });
 
-    closeBtn.addEventListener('click', closeLightbox);
-    prevBtn.addEventListener('click', prevImage);
-    nextBtn.addEventListener('click', nextImage);
+    closeBtn.addEventListener(&#39;click&#39;, closeLightbox);
+    prevBtn.addEventListener(&#39;click&#39;, prevImage);
+    nextBtn.addEventListener(&#39;click&#39;, nextImage);
 
-    lightbox.addEventListener('click', (e) => {
+    lightbox.addEventListener(&#39;click&#39;, (e) =&gt; {
       if (e.target === lightbox) closeLightbox();
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') nextImage();
-      if (e.key === 'ArrowLeft') prevImage();
+    document.addEventListener(&#39;keydown&#39;, (e) =&gt; {
+      if (!lightbox.classList.contains(&#39;active&#39;)) return;
+      if (e.key === &#39;Escape&#39;) closeLightbox();
+      if (e.key === &#39;ArrowRight&#39;) nextImage();
+      if (e.key === &#39;ArrowLeft&#39;) prevImage();
     });
 
     // Touch swipe support
     let touchStartX = 0;
-    lightbox.addEventListener('touchstart', (e) => {
+    lightbox.addEventListener(&#39;touchstart&#39;, (e) =&gt; {
       touchStartX = e.touches[0].clientX;
-    });
+    }, { passive: true });
 
-    lightbox.addEventListener('touchend', (e) => {
+    lightbox.addEventListener(&#39;touchend&#39;, (e) =&gt; {
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) nextImage();
+      if (Math.abs(diff) &gt; 50) {
+        if (diff &gt; 0) nextImage();
         else prevImage();
       }
-    });
+    }, { passive: true });
   }
 
   // ============================================
@@ -3120,38 +3884,48 @@ section {
   // ============================================
 
   function initMusicPlayer() {
-    const musicToggle = document.getElementById('music-toggle');
-    const audio = document.getElementById('background-music');
+    const musicToggle = document.getElementById(&#39;music-toggle&#39;);
+    const audio = document.getElementById(&#39;background-music&#39;);
 
     if (!musicToggle || !audio) return;
 
-    const playIcon = musicToggle.querySelector('.music-play');
-    const pauseIcon = musicToggle.querySelector('.music-pause');
+    const playIcon = musicToggle.querySelector(&#39;.music-play&#39;);
+    const pauseIcon = musicToggle.querySelector(&#39;.music-pause&#39;);
     let isPlaying = false;
 
+    var isToggling = false;
+
     function toggleMusic() {
+      if (isToggling) return;
+
       if (isPlaying) {
         audio.pause();
-        playIcon.style.display = 'inline';
-        pauseIcon.style.display = 'none';
-        musicToggle.classList.remove('playing');
+        playIcon.style.display = &#39;inline&#39;;
+        pauseIcon.style.display = &#39;none&#39;;
+        musicToggle.classList.remove(&#39;playing&#39;);
+        musicToggle.setAttribute(&#39;aria-label&#39;, &#39;Пусти музику&#39;);
+        isPlaying = false;
       } else {
-        audio.play().then(() => {
-          playIcon.style.display = 'none';
-          pauseIcon.style.display = 'inline';
-          musicToggle.classList.add('playing');
-        }).catch(err => {
-          console.log('Audio playback failed:', err);
+        isToggling = true;
+        audio.play().then(function() {
+          playIcon.style.display = &#39;none&#39;;
+          pauseIcon.style.display = &#39;inline&#39;;
+          musicToggle.classList.add(&#39;playing&#39;);
+          musicToggle.setAttribute(&#39;aria-label&#39;, &#39;Паузирај музику&#39;);
+          isPlaying = true;
+          isToggling = false;
+        }).catch(function(err) {
+          console.log(&#39;Audio playback failed:&#39;, err);
+          isToggling = false;
         });
       }
-      isPlaying = !isPlaying;
     }
 
-    musicToggle.addEventListener('click', toggleMusic);
+    musicToggle.addEventListener(&#39;click&#39;, toggleMusic);
 
     // Show music player with subtle animation after page load
-    setTimeout(() => {
-      document.getElementById('music-player').classList.add('visible');
+    setTimeout(() =&gt; {
+      document.getElementById(&#39;music-player&#39;).classList.add(&#39;visible&#39;);
     }, 2000);
   }
 
@@ -3160,21 +3934,21 @@ section {
   // ============================================
 
   function initTimeline() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineItems = document.querySelectorAll(&#39;.timeline-item&#39;);
     if (!timelineItems.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) =&gt; {
+      entries.forEach(entry =&gt; {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add(&#39;visible&#39;);
         }
       });
     }, {
       threshold: 0.3,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: &#39;0px 0px -100px 0px&#39;
     });
 
-    timelineItems.forEach(item => observer.observe(item));
+    timelineItems.forEach(item =&gt; observer.observe(item));
   }
 
   // ============================================
@@ -3182,49 +3956,70 @@ section {
   // ============================================
 
   function initCountdown() {
-    const countdownElement = document.querySelector('.countdown-timer');
+    const countdownElement = document.querySelector(&#39;.countdown-timer&#39;);
     if (!countdownElement) return;
 
     const weddingDate = new Date(countdownElement.dataset.weddingDate);
-    const daysEl = document.getElementById('countdown-days');
-    const hoursEl = document.getElementById('countdown-hours');
-    const minutesEl = document.getElementById('countdown-minutes');
-    const secondsEl = document.getElementById('countdown-seconds');
+    if (isNaN(weddingDate.getTime())) return;
 
+    const daysEl = document.getElementById(&#39;countdown-days&#39;);
+    const hoursEl = document.getElementById(&#39;countdown-hours&#39;);
+    const minutesEl = document.getElementById(&#39;countdown-minutes&#39;);
+    const secondsEl = document.getElementById(&#39;countdown-seconds&#39;);
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    var lastValues = {};
     function animateNumber(element, newValue) {
-      const currentValue = element.textContent;
-      if (currentValue !== newValue) {
-        element.classList.add('counter-animate');
+      var key = element.id;
+      if (lastValues[key] !== newValue) {
+        lastValues[key] = newValue;
+        element.classList.add(&#39;counter-animate&#39;);
         element.textContent = newValue;
-        setTimeout(() => element.classList.remove('counter-animate'), 500);
+        setTimeout(function() { element.classList.remove(&#39;counter-animate&#39;); }, 500);
       }
     }
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = weddingDate - now;
+    var countdownInterval = null;
 
-      if (diff <= 0) {
-        animateNumber(daysEl, '0');
-        animateNumber(hoursEl, '0');
-        animateNumber(minutesEl, '0');
-        animateNumber(secondsEl, '0');
+    function updateCountdown() {
+      var now = new Date();
+      var diff = weddingDate - now;
+
+      if (diff &lt;= 0) {
+        animateNumber(daysEl, &#39;00&#39;);
+        animateNumber(hoursEl, &#39;00&#39;);
+        animateNumber(minutesEl, &#39;00&#39;);
+        animateNumber(secondsEl, &#39;00&#39;);
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      animateNumber(daysEl, String(days));
-      animateNumber(hoursEl, String(hours));
-      animateNumber(minutesEl, String(minutes));
-      animateNumber(secondsEl, String(seconds));
+      animateNumber(daysEl, String(days).padStart(2, &#39;0&#39;));
+      animateNumber(hoursEl, String(hours).padStart(2, &#39;0&#39;));
+      animateNumber(minutesEl, String(minutes).padStart(2, &#39;0&#39;));
+      animateNumber(secondsEl, String(seconds).padStart(2, &#39;0&#39;));
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 1000);
+    countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Pause when tab hidden, resume when visible
+    document.addEventListener(&#39;visibilitychange&#39;, function() {
+      if (document.hidden) {
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+      } else {
+        if (!countdownInterval) { updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
+      }
+    });
   }
 
   // ============================================
@@ -3232,26 +4027,26 @@ section {
   // ============================================
 
   function createConfetti() {
-    const container = document.getElementById('confetti-container');
+    var container = document.getElementById(&#39;confetti-container&#39;);
     if (!container) return;
 
-    const colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
-    const confettiCount = 100;
+    // Respect reduced motion preference
+    if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-reduced-motion: reduce)&#39;).matches) return;
 
-    for (let i = 0; i < confettiCount; i++) {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti';
-      confetti.style.left = Math.random() * 100 + '%';
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDelay = Math.random() * 3 + 's';
-      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-      container.appendChild(confetti);
+    container.innerHTML = &#39;&#39;;
+    var colors = [&#39;#D4AF37&#39;, &#39;#FFD700&#39;, &#39;#FF69B4&#39;, &#39;#98D8C8&#39;, &#39;#F7DC6F&#39;, &#39;#BB8FCE&#39;];
+    var confettiCount = 100;
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i &lt; confettiCount; i++) {
+      var confetti = document.createElement(&#39;div&#39;);
+      confetti.className = &#39;confetti&#39;;
+      confetti.style.cssText = &#39;left:&#39; + (Math.random() * 100) + &#39;%;background-color:&#39; + colors[Math.floor(Math.random() * colors.length)] + &#39;;animation-delay:&#39; + (Math.random() * 3) + &#39;s;animation-duration:&#39; + (Math.random() * 2 + 2) + &#39;s&#39;;
+      fragment.appendChild(confetti);
     }
+    container.appendChild(fragment);
 
-    // Remove confetti after animation
-    setTimeout(() => {
-      container.innerHTML = '';
-    }, 5000);
+    setTimeout(function() { container.innerHTML = &#39;&#39;; }, 5000);
   }
 
   // ============================================
@@ -3259,72 +4054,72 @@ section {
   // ============================================
 
   function initRSVPForm() {
-    const form = document.getElementById('rsvp-form');
+    const form = document.getElementById(&#39;rsvp-form&#39;);
     if (!form) return;
 
-    const guestsCountGroup = document.getElementById('guests-count-group');
-    const mealGroup = document.getElementById('meal-group');
-    const attendingRadios = document.querySelectorAll('input[name="attending"]');
+    const guestsCountGroup = document.getElementById(&#39;guests-count-group&#39;);
+    const mealGroup = document.getElementById(&#39;meal-group&#39;);
+    const attendingRadios = document.querySelectorAll(&#39;input[name=&quot;attending&quot;]&#39;);
 
     function toggleConditionalFields() {
-      const isAttending = document.querySelector('input[name="attending"]:checked');
-      const attending = isAttending && isAttending.value === 'yes';
+      const isAttending = document.querySelector(&#39;input[name=&quot;attending&quot;]:checked&#39;);
+      const attending = isAttending &amp;&amp; isAttending.value === &#39;yes&#39;;
 
       if (guestsCountGroup) {
-        guestsCountGroup.style.display = attending ? 'block' : 'none';
+        guestsCountGroup.style.display = attending ? &#39;block&#39; : &#39;none&#39;;
       }
       if (mealGroup) {
-        mealGroup.style.display = attending ? 'block' : 'none';
+        mealGroup.style.display = attending ? &#39;block&#39; : &#39;none&#39;;
       }
     }
 
-    attendingRadios.forEach(radio => {
-      radio.addEventListener('change', toggleConditionalFields);
+    attendingRadios.forEach(radio =&gt; {
+      radio.addEventListener(&#39;change&#39;, toggleConditionalFields);
     });
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener(&#39;submit&#39;, function(e) {
       e.preventDefault();
 
-      const submitBtn = document.getElementById('submit-btn');
-      const buttonText = submitBtn.querySelector('.button-text');
-      const buttonLoading = submitBtn.querySelector('.button-loading');
-      const formMessage = document.getElementById('form-message');
+      const submitBtn = document.getElementById(&#39;submit-btn&#39;);
+      const buttonText = submitBtn.querySelector(&#39;.button-text&#39;);
+      const buttonLoading = submitBtn.querySelector(&#39;.button-loading&#39;);
+      const formMessage = document.getElementById(&#39;form-message&#39;);
 
       // Show loading state
-      buttonText.style.display = 'none';
-      buttonLoading.style.display = 'inline-flex';
+      buttonText.style.display = &#39;none&#39;;
+      buttonLoading.style.display = &#39;inline-flex&#39;;
       submitBtn.disabled = true;
-      submitBtn.classList.remove('pulse');
-      formMessage.textContent = '';
-      formMessage.className = 'form-message';
+      submitBtn.classList.remove(&#39;pulse&#39;);
+      formMessage.textContent = &#39;&#39;;
+      formMessage.className = &#39;form-message&#39;;
 
       const formData = {
         slug: CONFIG.WEDDING_SLUG,
-        name: document.getElementById('guest-name').value.trim(),
-        email: document.getElementById('guest-email').value.trim(),
-        phone: document.getElementById('guest-phone').value.trim(),
-        attending: document.querySelector('input[name="attending"]:checked').value,
-        guests_count: document.getElementById('guests-count') ? document.getElementById('guests-count').value : '1',
-        meal_preference: document.getElementById('meal-preference') ? document.getElementById('meal-preference').value : '',
-        message: document.getElementById('message').value.trim(),
+        name: document.getElementById(&#39;guest-name&#39;).value.trim(),
+        email: document.getElementById(&#39;guest-email&#39;).value.trim(),
+        phone: document.getElementById(&#39;guest-phone&#39;).value.trim(),
+        attending: document.querySelector(&#39;input[name=&quot;attending&quot;]:checked&#39;).value,
+        guests_count: document.getElementById(&#39;guests-count&#39;) ? document.getElementById(&#39;guests-count&#39;).value : &#39;1&#39;,
+        meal_preference: document.getElementById(&#39;meal-preference&#39;) ? document.getElementById(&#39;meal-preference&#39;).value : &#39;&#39;,
+        message: document.getElementById(&#39;message&#39;).value.trim(),
         submitted_at: new Date().toISOString()
       };
 
       // Demo mode
-      if (CONFIG.RSVP_SCRIPT_URL.includes('{{') || CONFIG.RSVP_SCRIPT_URL.includes('YOUR_')) {
-        console.log('RSVP submission (demo mode):', formData);
-        setTimeout(() => {
-          buttonText.style.display = 'inline';
-          buttonLoading.style.display = 'none';
+      if (CONFIG.RSVP_SCRIPT_URL.includes(&#39;https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec&#39;) || CONFIG.RSVP_SCRIPT_URL.includes(&#39;YOUR_&#39;) || CONFIG.RSVP_SCRIPT_URL === &#39;&#39;) {
+        console.log(&#39;RSVP submission (demo mode):&#39;, formData);
+        setTimeout(() =&gt; {
+          buttonText.style.display = &#39;inline&#39;;
+          buttonLoading.style.display = &#39;none&#39;;
           submitBtn.disabled = false;
 
-          if (formData.attending === 'yes') {
-            formMessage.innerHTML = '🎉 Хвала! Радујемо се вашем присуству!';
+          if (formData.attending === &#39;yes&#39;) {
+            formMessage.textContent = &#39;\uD83C\uDF89 Хвала! Радујемо се вашем присуству!&#39;;
             createConfetti();
           } else {
-            formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
+            formMessage.textContent = &#39;Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.&#39;;
           }
-          formMessage.className = 'form-message success';
+          formMessage.className = &#39;form-message success&#39;;
           form.reset();
           toggleConditionalFields();
         }, 1500);
@@ -3332,80 +4127,186 @@ section {
       }
 
       fetch(CONFIG.RSVP_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: &#39;POST&#39;,
+        headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
         body: JSON.stringify(formData)
       })
-      .then(() => {
-        buttonText.style.display = 'inline';
-        buttonLoading.style.display = 'none';
+      .then(response =&gt; {
+        if (!response.ok) throw new Error(&#39;Server error&#39;);
+        return response.json();
+      })
+      .then(result =&gt; {
+        if (!result.success) throw new Error(result.message || &#39;Failed&#39;);
+
+        buttonText.style.display = &#39;inline&#39;;
+        buttonLoading.style.display = &#39;none&#39;;
         submitBtn.disabled = false;
 
-        if (formData.attending === 'yes') {
-          formMessage.innerHTML = '🎉 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!';
+        if (formData.attending === &#39;yes&#39;) {
+          formMessage.textContent = &#39;\uD83C\uDF89 Хвала! Ваша потврда доласка је забележена. Радујемо се вашем присуству!&#39;;
           createConfetti();
         } else {
-          formMessage.textContent = 'Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.';
+          formMessage.textContent = &#39;Хвала на обавештењу. Жао нам је што нећете моћи да присуствујете.&#39;;
         }
-        formMessage.className = 'form-message success';
+        formMessage.className = &#39;form-message success&#39;;
         form.reset();
         toggleConditionalFields();
       })
-      .catch(error => {
-        console.error('Error submitting RSVP:', error);
-        buttonText.style.display = 'inline';
-        buttonLoading.style.display = 'none';
+      .catch(error =&gt; {
+        console.error(&#39;Error submitting RSVP:&#39;, error);
+        buttonText.style.display = &#39;inline&#39;;
+        buttonLoading.style.display = &#39;none&#39;;
         submitBtn.disabled = false;
-        submitBtn.classList.add('pulse');
-        formMessage.textContent = 'Дошло је до грешке. Молимо покушајте поново.';
-        formMessage.className = 'form-message error';
+        submitBtn.classList.add(&#39;pulse&#39;);
+        formMessage.textContent = &#39;Дошло је до грешке. Молимо покушајте поново.&#39;;
+        formMessage.className = &#39;form-message error&#39;;
       });
     });
   }
 
   // ============================================
-  // Smooth Scrolling & Scroll Indicator
+  // Universal Swipe Navigation Helper
+  // ============================================
+
+  function initSwipeNavigation() {
+    // Detect if page has sections that can be swiped
+    const sections = document.querySelectorAll(&#39;section, .page, .gallery-room, .cinema-section, .magazine-page&#39;);
+    if (sections.length &lt; 2) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    const threshold = 50; // Minimum swipe distance
+
+    document.addEventListener(&#39;touchstart&#39;, (e) =&gt; {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener(&#39;touchend&#39;, (e) =&gt; {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+
+      // Check if horizontal swipe is stronger than vertical
+      if (Math.abs(diffX) &gt; Math.abs(diffY) &amp;&amp; Math.abs(diffX) &gt; threshold) {
+        // Horizontal swipe detected
+        const horizontalContainer = document.querySelector(&#39;.gallery-container, [data-swipe-horizontal]&#39;);
+        if (horizontalContainer) {
+          if (diffX &gt; 0) {
+            // Swipe left - scroll right
+            horizontalContainer.scrollBy({ left: window.innerWidth, behavior: &#39;smooth&#39; });
+          } else {
+            // Swipe right - scroll left
+            horizontalContainer.scrollBy({ left: -window.innerWidth, behavior: &#39;smooth&#39; });
+          }
+        }
+      }
+    }, { passive: true });
+
+    // Add visual swipe hint for horizontal scrolling layouts
+    const horizontalContainer = document.querySelector(&#39;.gallery-container&#39;);
+    if (horizontalContainer &amp;&amp; window.innerWidth &lt;= 768) {
+      const hint = document.createElement(&#39;div&#39;);
+      hint.className = &#39;swipe-hint&#39;;
+      hint.innerHTML = &#39;&lt;span&gt;👆 Превуците да бисте видели више&lt;/span&gt;&#39;;
+      hint.style.cssText = &#39;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:8px 16px;border-radius:20px;font-size:12px;z-index:1000;opacity:0;transition:opacity 0.3s;&#39;;
+      document.body.appendChild(hint);
+
+      setTimeout(() =&gt; { hint.style.opacity = &#39;1&#39;; }, 1000);
+      setTimeout(() =&gt; { hint.style.opacity = &#39;0&#39;; }, 4000);
+      setTimeout(() =&gt; { hint.remove(); }, 4500);
+    }
+  }
+
+  // ============================================
+  // Section Navigation with Keyboard &amp; Swipe
+  // ============================================
+
+  function initSectionNavigation() {
+    const sections = document.querySelectorAll(&#39;section[id], .cinema-section, .magazine-page&#39;);
+    if (sections.length &lt; 2) return;
+
+    let currentSection = 0;
+
+    function goToSection(index) {
+      if (index &gt;= 0 &amp;&amp; index &lt; sections.length) {
+        currentSection = index;
+        sections[currentSection].scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener(&#39;keydown&#39;, (e) =&gt; {
+      // Don&#39;t hijack keyboard when in form fields
+      if (e.target.tagName === &#39;INPUT&#39; || e.target.tagName === &#39;TEXTAREA&#39; || e.target.tagName === &#39;SELECT&#39; || e.target.isContentEditable) return;
+
+      if (e.key === &#39;ArrowDown&#39; || e.key === &#39;PageDown&#39;) {
+        e.preventDefault();
+        goToSection(currentSection + 1);
+      } else if (e.key === &#39;ArrowUp&#39; || e.key === &#39;PageUp&#39;) {
+        e.preventDefault();
+        goToSection(currentSection - 1);
+      }
+    });
+
+    // Update current section on scroll
+    const observer = new IntersectionObserver((entries) =&gt; {
+      entries.forEach(entry =&gt; {
+        if (entry.isIntersecting) {
+          currentSection = Array.from(sections).indexOf(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section =&gt; observer.observe(section));
+  }
+
+  // ============================================
+  // Smooth Scrolling &amp; Scroll Indicator
   // ============================================
 
   function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+    document.querySelectorAll(&#39;a[href^=&quot;#&quot;]&#39;).forEach(anchor =&gt; {
+      anchor.addEventListener(&#39;click&#39;, function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(this.getAttribute(&#39;href&#39;));
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
         }
       });
     });
   }
 
   function initScrollIndicator() {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
+    var scrollIndicator = document.querySelector(&#39;.scroll-indicator&#39;);
     if (!scrollIndicator) return;
 
-    scrollIndicator.addEventListener('click', () => {
-      const firstSection = document.querySelector('section');
+    scrollIndicator.addEventListener(&#39;click&#39;, function() {
+      var firstSection = document.querySelector(&#39;section&#39;);
       if (firstSection) {
-        firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        firstSection.scrollIntoView({ behavior: &#39;smooth&#39;, block: &#39;start&#39; });
       }
     });
 
-    let hasScrolled = false;
-    window.addEventListener('scroll', () => {
-      if (!hasScrolled && window.scrollY > 100) {
-        hasScrolled = true;
-        scrollIndicator.style.opacity = '0';
-        setTimeout(() => scrollIndicator.style.display = 'none', 300);
+    function onScroll() {
+      if (window.scrollY &gt; 100) {
+        scrollIndicator.style.opacity = &#39;0&#39;;
+        setTimeout(function() { scrollIndicator.style.display = &#39;none&#39;; }, 300);
+        window.removeEventListener(&#39;scroll&#39;, onScroll);
       }
-    });
+    }
+    window.addEventListener(&#39;scroll&#39;, onScroll, { passive: true });
   }
 
   // ============================================
   // Initialize Everything
   // ============================================
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
     initScrollAnimations();
     initCountdown();
     initRSVPForm();
@@ -3414,10 +4315,23 @@ section {
     initGallery();
     initMusicPlayer();
     initTimeline();
+    initSwipeNavigation();
+    initSectionNavigation();
   });
 
 })();
 
   </script>
+
+  <!-- DigiPoz Badge -->
+  <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="digipoz-badge" title="Napravljeno od strane DigiPoz">
+    <svg class="digipoz-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="17.5" cy="6.5" r="1.5" fill="#B8860B"/>
+    </svg>
+    <span class="digipoz-badge-text">Digi<span>Poz</span></span>
+  </a>
+
 </body>
 </html>
