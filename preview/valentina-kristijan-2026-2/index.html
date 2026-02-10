@@ -448,7 +448,7 @@
     <div class="container">
       <div class="header-content">
         <h1 class="header-title">Позивница за <span>Valentina & Kristijan</span></h1>
-        <div class="expiry-timer" id="expiry-timer" data-expiry="2026-02-11T16:17:08.289Z">
+        <div class="expiry-timer" id="expiry-timer" data-expiry="2026-02-11T16:43:42.787Z">
           <span class="expiry-icon">⏱️</span>
           <span id="expiry-text">Преостало време: --:--:--</span>
         </div>
@@ -752,19 +752,15 @@
           return;
         }
 
+        // Google Apps Script requires no-cors mode to avoid CORS preflight failures
         fetch(CONFIG.THEME_SELECTION_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         })
-        .then(function(response) {
-          if (!response.ok) throw new Error('Server error');
-          return response.json();
-        })
-        .then(function(result) {
-          if (!result.success) throw new Error(result.message || 'Failed');
+        .then(function() {
+          // Response is opaque with no-cors; show success optimistically
           closeModal();
           document.getElementById('main-content').style.display = 'none';
           document.getElementById('correction-section').style.display = 'none';
@@ -841,7 +837,7 @@
           fetch(CONFIG.THEME_SELECTION_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(data)
           }).then(showCorrectionSent).catch(showCorrectionSent);
 

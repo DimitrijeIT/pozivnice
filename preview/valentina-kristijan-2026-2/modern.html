@@ -3978,18 +3978,15 @@ body {
         return;
       }
 
+      // Google Apps Script requires no-cors mode to avoid CORS preflight failures
       fetch(CONFIG.RSVP_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(formData)
       })
-      .then(response => {
-        if (!response.ok) throw new Error('Server error');
-        return response.json();
-      })
-      .then(result => {
-        if (!result.success) throw new Error(result.message || 'Failed');
-
+      .then(() => {
+        // Response is opaque with no-cors; show success optimistically
         buttonText.style.display = 'inline';
         buttonLoading.style.display = 'none';
         submitBtn.disabled = false;
