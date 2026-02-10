@@ -781,6 +781,361 @@
       .poll-spinner { animation: none; }
       .success-preview-link.ready { animation: none; }
     }
+
+    /* VENUE AUTOCOMPLETE */
+    .venue-autofill-hint {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .field-input.autofilled {
+      animation: autoFillFlash 0.6s ease;
+    }
+
+    @keyframes autoFillFlash {
+      0% { box-shadow: 0 0 0 3px rgba(39,103,73,0.2); }
+      100% { box-shadow: none; }
+    }
+
+    .autofill-badge {
+      display: none;
+      font-size: 0.6875rem;
+      color: var(--color-success);
+      margin-top: 0.25rem;
+    }
+
+    .autofill-badge.visible {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Google Places dropdown */
+    .pac-container {
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      font-family: var(--font-body);
+      margin-top: 4px;
+    }
+
+    .pac-item {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      color: var(--color-text);
+      border-top: 1px solid var(--color-border-light);
+      cursor: pointer;
+    }
+
+    .pac-item:first-child { border-top: none; }
+
+    .pac-item:hover, .pac-item-selected {
+      background: var(--color-accent-bg);
+    }
+
+    .pac-item-query {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .pac-icon { display: none; }
+    .pac-matched { color: var(--color-accent); }
+
+    /* AI STORY WRITER */
+    .ai-story-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      background: transparent;
+      border: 1.5px solid var(--color-border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .ai-story-btn:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-accent-bg);
+    }
+
+    .ai-story-btn .ai-sparkle { font-size: 1rem; }
+
+    .ai-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(44,36,32,0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .ai-modal-overlay.visible {
+      display: flex;
+      animation: modalFadeIn 0.25s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .ai-modal {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      animation: modalSlideIn 0.3s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ai-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .ai-modal-title {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 400;
+    }
+
+    .ai-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .ai-modal-close:hover {
+      color: var(--color-text);
+      background: var(--color-accent-bg);
+    }
+
+    .ai-modal .field { margin-bottom: 1.25rem; }
+    .ai-modal .field-label { font-size: 0.8125rem; }
+
+    .ai-modal textarea.field-input {
+      min-height: 70px;
+      font-size: 0.9375rem;
+    }
+
+    .ai-tone-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.375rem;
+    }
+
+    .ai-tone-pill { display: none; }
+
+    .ai-tone-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.375rem 0.875rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 20px;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .ai-tone-label:hover {
+      border-color: var(--color-accent-light);
+      color: var(--color-accent);
+    }
+
+    .ai-tone-pill:checked + .ai-tone-label {
+      border-color: var(--color-accent);
+      background: var(--color-accent-bg);
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    .ai-modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .ai-btn-generate {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--color-text);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .ai-btn-generate:hover {
+      background: var(--color-accent);
+      transform: translateY(-1px);
+    }
+
+    .ai-btn-generate:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .ai-loading {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+
+    .ai-loading.visible { display: block; }
+
+    .ai-loading-dots {
+      display: inline-flex;
+      gap: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      animation: aiDotPulse 1.2s ease-in-out infinite;
+    }
+
+    .ai-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .ai-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes aiDotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    .ai-result {
+      display: none;
+      margin-top: 1.25rem;
+    }
+
+    .ai-result.visible { display: block; }
+
+    .ai-result-text {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-text);
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .ai-result-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .ai-btn-accept {
+      flex: 1;
+      padding: 0.625rem 1rem;
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .ai-btn-accept:hover { background: var(--color-accent-light); }
+
+    .ai-btn-regenerate {
+      padding: 0.625rem 1rem;
+      background: transparent;
+      color: var(--color-text-secondary);
+      border: 1.5px solid var(--color-border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .ai-btn-regenerate:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .ai-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--color-error-bg);
+      border: 1px solid rgba(197,48,48,0.15);
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      color: var(--color-error);
+      text-align: center;
+    }
+
+    .ai-error.visible { display: block; }
+
+    @media (max-width: 640px) {
+      .ai-modal { padding: 1.5rem; max-height: 85vh; }
+      .ai-modal-title { font-size: 1.25rem; }
+      .ai-tone-selector { gap: 0.375rem; }
+      .ai-result-actions { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ai-modal-overlay.visible { animation: none; }
+      .ai-modal { animation: none; }
+      .field-input.autofilled { animation: none; }
+      .ai-loading-dots span { animation: none; opacity: 0.6; }
+    }
   </style>
 </head>
 <body>
@@ -902,13 +1257,15 @@
 
           <div class="field">
             <label class="field-label" for="ceremony_venue">Naziv mesta <span class="required">*</span></label>
-            <input type="text" id="ceremony_venue" name="ceremony_venue" class="field-input" placeholder="npr. Hram Svetog Save" required>
+            <input type="text" id="ceremony_venue" name="ceremony_venue" class="field-input" placeholder="npr. Hram Svetog Save" required autocomplete="off">
             <div class="field-error" id="ceremony_venue_error">Unesite naziv mesta ceremonije</div>
+            <span class="venue-autofill-hint" id="ceremony_venue_hint">Pocnite da kucate za predloge mesta</span>
           </div>
 
           <div class="field">
             <label class="field-label" for="ceremony_address">Adresa</label>
             <input type="text" id="ceremony_address" name="ceremony_address" class="field-input" placeholder="npr. Kragujevacka 2, Beograd">
+            <span class="autofill-badge" id="ceremony_address_badge">&#10003; Automatski popunjeno</span>
           </div>
 
           <div class="field-row">
@@ -925,6 +1282,7 @@
             <div class="field">
               <label class="field-label" for="ceremony_map_url">Google Maps link</label>
               <input type="url" id="ceremony_map_url" name="ceremony_map_url" class="field-input" placeholder="https://maps.google.com/...">
+              <span class="autofill-badge" id="ceremony_map_badge">&#10003; Automatski popunjeno</span>
             </div>
           </div>
 
@@ -941,13 +1299,15 @@
 
           <div class="field">
             <label class="field-label" for="reception_venue">Naziv mesta <span class="required">*</span></label>
-            <input type="text" id="reception_venue" name="reception_venue" class="field-input" placeholder="npr. Restoran Kalemegdan" required>
+            <input type="text" id="reception_venue" name="reception_venue" class="field-input" placeholder="npr. Restoran Kalemegdan" required autocomplete="off">
             <div class="field-error" id="reception_venue_error">Unesite naziv mesta proslave</div>
+            <span class="venue-autofill-hint" id="reception_venue_hint">Pocnite da kucate za predloge mesta</span>
           </div>
 
           <div class="field">
             <label class="field-label" for="reception_address">Adresa</label>
             <input type="text" id="reception_address" name="reception_address" class="field-input" placeholder="npr. Mali Kalemegdan 1, Beograd">
+            <span class="autofill-badge" id="reception_address_badge">&#10003; Automatski popunjeno</span>
           </div>
 
           <div class="field-row">
@@ -964,6 +1324,7 @@
             <div class="field">
               <label class="field-label" for="reception_map_url">Google Maps link</label>
               <input type="url" id="reception_map_url" name="reception_map_url" class="field-input" placeholder="https://maps.google.com/...">
+              <span class="autofill-badge" id="reception_map_badge">&#10003; Automatski popunjeno</span>
             </div>
           </div>
 
@@ -982,6 +1343,9 @@
             <label class="field-label" for="story_text">Vasa ljubavna prica</label>
             <textarea id="story_text" name="story_text" class="field-input" placeholder="Kako ste se upoznali, prvi sastanak..."></textarea>
             <span class="field-hint">Krace je lepse — par recenica je sasvim dovoljno</span>
+            <button type="button" class="ai-story-btn" id="aiStoryBtn">
+              <span class="ai-sparkle">&#10024;</span> Pomozi mi da napisem
+            </button>
           </div>
 
           <div class="field">
@@ -1052,6 +1416,66 @@
     <div class="footer-text">&copy; 2026 <a href="/">DigiPoz</a>. Sva prava zadrzana.</div>
   </footer>
 
+  <!-- AI Story Writer Modal -->
+  <div class="ai-modal-overlay" id="aiModalOverlay">
+    <div class="ai-modal" role="dialog" aria-labelledby="aiModalTitle" aria-modal="true">
+      <div class="ai-modal-header">
+        <h3 class="ai-modal-title" id="aiModalTitle">Pomozite nam da napisemo vasu pricu</h3>
+        <button type="button" class="ai-modal-close" id="aiModalClose" aria-label="Zatvorite">&times;</button>
+      </div>
+
+      <div id="aiModalForm">
+        <div class="field">
+          <label class="field-label" for="ai_how_met">Kako ste se upoznali?</label>
+          <textarea id="ai_how_met" class="field-input" placeholder="npr. Upoznali smo se na fakultetu, u istoj grupi za vezbe..."></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="ai_first_date">Kako je izgledao prvi sastanak?</label>
+          <textarea id="ai_first_date" class="field-input" placeholder="npr. Otisli smo na kafu u centru grada, pricali satima..."></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="ai_proposal">Kako je izgledala prosidba?</label>
+          <textarea id="ai_proposal" class="field-input" placeholder="npr. Na putovanju u Grckoj, na zalazak sunca..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Ton price</label>
+          <div class="ai-tone-selector">
+            <input type="radio" name="ai_tone" id="ai_tone_romantic" value="romantican" class="ai-tone-pill" checked>
+            <label for="ai_tone_romantic" class="ai-tone-label">Romantican</label>
+            <input type="radio" name="ai_tone" id="ai_tone_funny" value="duhovit" class="ai-tone-pill">
+            <label for="ai_tone_funny" class="ai-tone-label">Duhovit</label>
+            <input type="radio" name="ai_tone" id="ai_tone_poetic" value="poetican" class="ai-tone-pill">
+            <label for="ai_tone_poetic" class="ai-tone-label">Poetican</label>
+            <input type="radio" name="ai_tone" id="ai_tone_simple" value="jednostavan" class="ai-tone-pill">
+            <label for="ai_tone_simple" class="ai-tone-label">Jednostavan</label>
+          </div>
+        </div>
+
+        <div class="ai-modal-actions">
+          <button type="button" class="ai-btn-generate" id="aiGenerateBtn">Napisi pricu</button>
+        </div>
+      </div>
+
+      <div class="ai-loading" id="aiLoading">
+        <div class="ai-loading-dots"><span></span><span></span><span></span></div>
+        <div>Pisemo vasu pricu...</div>
+      </div>
+
+      <div class="ai-error" id="aiError">
+        Doslo je do greske. Pokusajte ponovo.
+      </div>
+
+      <div class="ai-result" id="aiResult">
+        <div class="ai-result-text" id="aiResultText"></div>
+        <div class="ai-result-actions">
+          <button type="button" class="ai-btn-accept" id="aiAcceptBtn">Prihvati</button>
+          <button type="button" class="ai-btn-regenerate" id="aiRegenerateBtn">Ponovo napisi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function() {
       'use strict';
@@ -1086,8 +1510,17 @@
           dress_code_text:  'entry.136697984',
           wedding_hashtag:  'entry.424011665',
           additional_info:  'entry.165586042'
-        }
+        },
+
+        // Google Apps Script endpoint for AI love story generation
+        // Deploy love-story-handler.gs and paste the web app URL here
+        STORY_HANDLER_URL: ''
       };
+
+      // Google Maps API key for venue autocomplete
+      // Get one at https://console.cloud.google.com/apis/credentials
+      // Enable "Places API" and restrict the key to your domain
+      var GOOGLE_MAPS_API_KEY = '';
 
       // ========================================
       // TIME PICKERS (hour + minute selects → hidden input)
@@ -1601,6 +2034,212 @@
         div.textContent = text;
         return div.innerHTML;
       }
+
+      // ========================================
+      // VENUE AUTOCOMPLETE (Google Places API)
+      // ========================================
+      function loadGoogleMaps() {
+        if (!GOOGLE_MAPS_API_KEY) {
+          // Hide autocomplete hints when not configured
+          var hints = document.querySelectorAll('.venue-autofill-hint');
+          hints.forEach(function(h) { h.style.display = 'none'; });
+          return;
+        }
+        var script = document.createElement('script');
+        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&libraries=places&loading=async';
+        script.async = true;
+        script.onload = initVenueAutocomplete;
+        script.onerror = function() {
+          // Graceful degradation — hide hints, form works as before
+          var hints = document.querySelectorAll('.venue-autofill-hint');
+          hints.forEach(function(h) { h.style.display = 'none'; });
+        };
+        document.head.appendChild(script);
+      }
+
+      function initVenueAutocomplete() {
+        var venues = [
+          { input: 'ceremony_venue', address: 'ceremony_address', mapUrl: 'ceremony_map_url', addressBadge: 'ceremony_address_badge', mapBadge: 'ceremony_map_badge' },
+          { input: 'reception_venue', address: 'reception_address', mapUrl: 'reception_map_url', addressBadge: 'reception_address_badge', mapBadge: 'reception_map_badge' }
+        ];
+
+        venues.forEach(function(v) {
+          var inputEl = document.getElementById(v.input);
+          if (!inputEl) return;
+
+          var autocomplete = new google.maps.places.Autocomplete(inputEl, {
+            componentRestrictions: { country: 'rs' },
+            types: ['establishment'],
+            fields: ['formatted_address', 'geometry', 'name']
+          });
+
+          autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place || !place.geometry) return;
+
+            // Fill address field
+            var addressEl = document.getElementById(v.address);
+            if (addressEl && place.formatted_address) {
+              addressEl.value = place.formatted_address;
+              addressEl.classList.add('autofilled');
+              setTimeout(function() { addressEl.classList.remove('autofilled'); }, 600);
+              var addrBadge = document.getElementById(v.addressBadge);
+              if (addrBadge) addrBadge.classList.add('visible');
+            }
+
+            // Fill map URL field
+            var mapEl = document.getElementById(v.mapUrl);
+            if (mapEl && place.geometry.location) {
+              var lat = place.geometry.location.lat();
+              var lng = place.geometry.location.lng();
+              mapEl.value = 'https://maps.google.com/?q=' + lat + ',' + lng;
+              mapEl.classList.add('autofilled');
+              setTimeout(function() { mapEl.classList.remove('autofilled'); }, 600);
+              var mapBadge = document.getElementById(v.mapBadge);
+              if (mapBadge) mapBadge.classList.add('visible');
+            }
+
+            // Clear validation errors if present
+            inputEl.classList.remove('error');
+            var errorEl = document.getElementById(v.input + '_error');
+            if (errorEl) errorEl.classList.remove('visible');
+          });
+        });
+      }
+
+      // Load Google Maps on page load (non-blocking)
+      loadGoogleMaps();
+
+      // ========================================
+      // AI LOVE STORY WRITER
+      // ========================================
+      var aiModal = document.getElementById('aiModalOverlay');
+      var aiStoryBtn = document.getElementById('aiStoryBtn');
+      var aiCloseBtn = document.getElementById('aiModalClose');
+      var aiGenerateBtn = document.getElementById('aiGenerateBtn');
+      var aiAcceptBtn = document.getElementById('aiAcceptBtn');
+      var aiRegenerateBtn = document.getElementById('aiRegenerateBtn');
+
+      function openStoryModal() {
+        aiModal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+        var firstField = document.getElementById('ai_how_met');
+        if (firstField) setTimeout(function() { firstField.focus(); }, 100);
+      }
+
+      function closeStoryModal() {
+        aiModal.classList.remove('visible');
+        document.body.style.overflow = '';
+      }
+
+      function resetStoryModal() {
+        document.getElementById('aiModalForm').style.display = '';
+        document.getElementById('aiLoading').classList.remove('visible');
+        document.getElementById('aiResult').classList.remove('visible');
+        document.getElementById('aiError').classList.remove('visible');
+        aiGenerateBtn.disabled = false;
+      }
+
+      function generateStory() {
+        var howMet = document.getElementById('ai_how_met').value.trim();
+        var firstDate = document.getElementById('ai_first_date').value.trim();
+        var proposal = document.getElementById('ai_proposal').value.trim();
+        var tone = document.querySelector('input[name="ai_tone"]:checked');
+        var toneValue = tone ? tone.value : 'romantican';
+
+        if (!howMet && !firstDate && !proposal) {
+          document.getElementById('aiError').textContent = 'Unesite bar jedan detalj o vasoj prici.';
+          document.getElementById('aiError').classList.add('visible');
+          return;
+        }
+
+        // Show loading
+        document.getElementById('aiError').classList.remove('visible');
+        document.getElementById('aiResult').classList.remove('visible');
+        document.getElementById('aiModalForm').style.display = 'none';
+        document.getElementById('aiLoading').classList.add('visible');
+        aiGenerateBtn.disabled = true;
+
+        if (!CONFIG.STORY_HANDLER_URL) {
+          document.getElementById('aiLoading').classList.remove('visible');
+          document.getElementById('aiModalForm').style.display = '';
+          document.getElementById('aiError').textContent = 'Servis za generisanje price nije konfigurisan.';
+          document.getElementById('aiError').classList.add('visible');
+          aiGenerateBtn.disabled = false;
+          return;
+        }
+
+        fetch(CONFIG.STORY_HANDLER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            how_met: howMet,
+            first_date: firstDate,
+            proposal: proposal,
+            tone: toneValue
+          })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          document.getElementById('aiLoading').classList.remove('visible');
+          if (data.success && data.story) {
+            document.getElementById('aiResultText').textContent = data.story;
+            document.getElementById('aiResult').classList.add('visible');
+          } else {
+            document.getElementById('aiModalForm').style.display = '';
+            document.getElementById('aiError').textContent = data.error || 'Doslo je do greske. Pokusajte ponovo.';
+            document.getElementById('aiError').classList.add('visible');
+            aiGenerateBtn.disabled = false;
+          }
+        })
+        .catch(function() {
+          document.getElementById('aiLoading').classList.remove('visible');
+          document.getElementById('aiModalForm').style.display = '';
+          document.getElementById('aiError').textContent = 'Greska u komunikaciji. Proverite internet konekciju.';
+          document.getElementById('aiError').classList.add('visible');
+          aiGenerateBtn.disabled = false;
+        });
+      }
+
+      function acceptStory() {
+        var generatedText = document.getElementById('aiResultText').textContent;
+        var storyTextarea = document.getElementById('story_text');
+        if (storyTextarea && generatedText) {
+          storyTextarea.value = generatedText;
+          storyTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        closeStoryModal();
+        resetStoryModal();
+      }
+
+      // Story writer event listeners
+      if (aiStoryBtn) aiStoryBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        resetStoryModal();
+        openStoryModal();
+      });
+
+      if (aiCloseBtn) aiCloseBtn.addEventListener('click', closeStoryModal);
+
+      if (aiModal) aiModal.addEventListener('click', function(e) {
+        if (e.target === aiModal) closeStoryModal();
+      });
+
+      if (aiGenerateBtn) aiGenerateBtn.addEventListener('click', generateStory);
+      if (aiAcceptBtn) aiAcceptBtn.addEventListener('click', acceptStory);
+
+      if (aiRegenerateBtn) aiRegenerateBtn.addEventListener('click', function() {
+        document.getElementById('aiResult').classList.remove('visible');
+        document.getElementById('aiModalForm').style.display = '';
+        aiGenerateBtn.disabled = false;
+      });
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && aiModal && aiModal.classList.contains('visible')) {
+          closeStoryModal();
+        }
+      });
 
     })();
   </script>
