@@ -107,6 +107,7 @@ function replacePlaceholders(template, data, options = {}) {
     'MEAL_OPTIONS',
     'MEAL_OPTIONS_HTML',
     'DRESS_CODE_COLOR_SWATCHES',
+    'THEME_CARDS',
     '_themeCss',
     '_themeFonts'
   ]);

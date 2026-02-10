@@ -91,13 +91,13 @@ jobs:
         with:
           server_address: ${{ secrets.SMTP_SERVER }}
           server_port: 587
+          ignore_cert: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "🎉 Ваша позивница је спремна!"
           to: ${{ steps.extract.outputs.contact_email }}
           from: DigiPoz <${{ secrets.EMAIL_USERNAME }}>
-          content_type: text/html
-          body: |
+          html_body: |
             <!DOCTYPE html>
             <html>
             <head><meta charset="utf-8"></head>
