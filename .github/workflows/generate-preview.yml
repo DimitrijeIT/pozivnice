@@ -35,15 +35,18 @@ jobs:
 
       - name: Extract wedding data
         id: extract
+        env:
+          WEDDING_DATA_DISPATCH: ${{ toJson(github.event.client_payload.wedding_data) }}
+          WEDDING_DATA_MANUAL: ${{ github.event.inputs.wedding_data }}
         run: |
           if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
             echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
             echo "rsvp_sheet_url=${{ github.event.client_payload.rsvp_sheet_url }}" >> $GITHUB_OUTPUT
-            echo '${{ toJson(github.event.client_payload.wedding_data) }}' > data/temp-wedding.json
+            printenv WEDDING_DATA_DISPATCH > data/temp-wedding.json
           else
             echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
             echo "rsvp_sheet_url=" >> $GITHUB_OUTPUT
-            echo '${{ github.event.inputs.wedding_data }}' > data/temp-wedding.json
+            printenv WEDDING_DATA_MANUAL > data/temp-wedding.json
           fi
 
       - name: Save wedding data file

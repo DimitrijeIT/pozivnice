@@ -38,7 +38,7 @@ function escapeAttribute(str) {
  * @param {string} groomName - Groom's name
  * @returns {string} URL-safe slug
  */
-function slugify(brideName, groomName) {
+function slugify(brideName, groomName, weddingDate) {
   const combined = `${brideName}-${groomName}`;
 
   // Transliteration map for Serbian Cyrillic to Latin
@@ -68,6 +68,19 @@ function slugify(brideName, groomName) {
 
   // Remove leading/trailing hyphens
   slug = slug.replace(/^-+|-+$/g, '');
+
+  // Append wedding year
+  let year = '';
+  if (weddingDate) {
+    const parsed = new Date(weddingDate);
+    if (!isNaN(parsed.getTime())) {
+      year = parsed.getFullYear().toString();
+    }
+  }
+  if (!year) {
+    year = new Date().getFullYear().toString();
+  }
+  slug = slug + '-' + year;
 
   return slug;
 }
@@ -591,10 +604,15 @@ function isValidUrl(url) {
 function validateWeddingData(data, options = {}) {
   const { strict = false } = options;
 
+  // Only names and date are truly required — everything else gets defaults
   const required = [
     'bride_name',
     'groom_name',
-    'wedding_date',
+    'wedding_date'
+  ];
+
+  // These fields are recommended but will use defaults if missing
+  const recommended = [
     'ceremony_venue',
     'ceremony_address',
     'ceremony_time',
@@ -606,11 +624,32 @@ function validateWeddingData(data, options = {}) {
   const errors = [];
   const warnings = [];
 
-  // Check required fields
+  // Check required fields (hard fail)
   for (const field of required) {
     const value = data[field];
     if (!value || (typeof value === 'string' && value.trim() === '')) {
       errors.push(`Missing required field: ${field}`);
+    }
+  }
+
+  // Check recommended fields (warn and apply defaults)
+  const defaults = {
+    ceremony_venue: '',
+    ceremony_address: '',
+    ceremony_time: '14:00',
+    reception_venue: '',
+    reception_address: '',
+    reception_time: '18:00'
+  };
+  for (const field of recommended) {
+    const value = data[field];
+    if (!value || (typeof value === 'string' && value.trim() === '')) {
+      if (defaults[field]) {
+        warnings.push(`Missing ${field}, using default: ${defaults[field]}`);
+        data[field] = defaults[field];
+      } else {
+        warnings.push(`Missing recommended field: ${field}`);
+      }
     }
   }
 
@@ -701,7 +740,7 @@ function prepareWeddingData(rawData, theme = 'classic') {
 
   // Generate slug if not provided
   if (!data.slug) {
-    data.slug = slugify(data.bride_name, data.groom_name);
+    data.slug = slugify(data.bride_name, data.groom_name, data.wedding_date);
   }
 
   // Format dates

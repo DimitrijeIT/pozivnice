@@ -34,7 +34,7 @@ function getConfig() {
 /**
  * Generate URL-safe slug from names
  */
-function generateSlug(brideName, groomName) {
+function generateSlug(brideName, groomName, weddingDate) {
   const cyrillicToLatin = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'ђ': 'dj', 'е': 'e',
     'ж': 'z', 'з': 'z', 'и': 'i', 'ј': 'j', 'к': 'k', 'л': 'l', 'љ': 'lj',
@@ -60,7 +60,52 @@ function generateSlug(brideName, groomName) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+  // Append wedding year for uniqueness (e.g., ana-marko-2026)
+  var year = '';
+  if (weddingDate) {
+    var parsed = new Date(weddingDate);
+    if (!isNaN(parsed.getTime())) {
+      year = parsed.getFullYear().toString();
+    }
+  }
+  if (!year) {
+    year = new Date().getFullYear().toString();
+  }
+  slug = slug + '-' + year;
+
   return slug;
+}
+
+/**
+ * Ensure slug is unique by checking existing slugs in the RSVP_Lookup tab.
+ * If collision, appends -2, -3, etc.
+ */
+function getUniqueSlug(baseSlug) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var lookupSheet = ss.getSheetByName('RSVP_Lookup');
+    if (!lookupSheet) return baseSlug;
+
+    var data = lookupSheet.getDataRange().getValues();
+    var existingSlugs = {};
+    for (var i = 1; i < data.length; i++) {
+      existingSlugs[data[i][0]] = true;
+    }
+
+    if (!existingSlugs[baseSlug]) return baseSlug;
+
+    // Collision — append numeric suffix
+    for (var n = 2; n <= 100; n++) {
+      var candidate = baseSlug + '-' + n;
+      if (!existingSlugs[candidate]) return candidate;
+    }
+
+    // Extreme fallback
+    return baseSlug + '-' + Date.now();
+  } catch (error) {
+    Logger.log('Error checking slug uniqueness: ' + error.toString());
+    return baseSlug;
+  }
 }
 
 /**
@@ -214,8 +259,9 @@ function onFormSubmit(e) {
       return;
     }
 
-    // Generate slug
-    weddingData.slug = generateSlug(weddingData.bride_name, weddingData.groom_name);
+    // Generate slug (name-name-year, e.g., ana-marko-2026)
+    var baseSlug = generateSlug(weddingData.bride_name, weddingData.groom_name, weddingData.wedding_date);
+    weddingData.slug = getUniqueSlug(baseSlug);
     Logger.log('Generated slug: ' + weddingData.slug);
 
     // Add metadata
@@ -392,7 +438,8 @@ function processRowManually() {
     return;
   }
 
-  weddingData.slug = generateSlug(weddingData.bride_name, weddingData.groom_name);
+  var baseSlug = generateSlug(weddingData.bride_name, weddingData.groom_name, weddingData.wedding_date);
+  weddingData.slug = getUniqueSlug(baseSlug);
   weddingData.status = 'preview_generating';
   weddingData.submitted_at = new Date().toISOString();
 
