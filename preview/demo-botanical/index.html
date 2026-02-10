@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Изаберите тему - Милица & Стефан</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#2D4A3E;--bg:#F5F0E8;--surface:#FAF7F2;--text:#2D4A3E;--border:#C9B8A6;--muted:#5A7A6E;--timer-bg:rgba(45,74,62,0.1);--btn-text:#F5F0E8;--badge-text:#F5F0E8}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    .container{max-width:900px;margin:0 auto;padding:0 1rem}
+    .header{background:var(--surface);border-bottom:2px solid var(--border);padding:1.5rem 0;position:sticky;top:0;z-index:100}
+    .header-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .header-title{font-size:1.25rem;font-weight:500}
+    .header-title span{color:var(--primary)}
+    .expiry-timer{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--timer-bg);border-radius:8px;font-size:0.875rem;color:var(--primary)}
+    .main{padding:3rem 0}
+    .intro{text-align:center;margin-bottom:3rem}
+    .intro h1{font-size:2rem;font-weight:500;margin-bottom:0.75rem}
+    .intro p{color:var(--muted);max-width:600px;margin:0 auto}
+    .badge{display:inline-block;background:var(--primary);color:var(--badge-text);padding:0.25rem 0.75rem;border-radius:50px;font-size:0.75rem;margin-bottom:1rem}
+    .theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem}
+    .theme-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.3s}
+    .theme-card:hover{transform:translateY(-4px)}
+    .theme-preview{aspect-ratio:3/4;overflow:hidden;background:var(--bg)}
+    .theme-info{padding:1.5rem}
+    .theme-name{font-size:1.25rem;font-weight:500;margin-bottom:0.5rem}
+    .theme-description{color:var(--muted);margin-bottom:1.25rem;font-size:0.9rem}
+    .theme-actions{display:flex;gap:0.75rem}
+    .btn{padding:0.75rem 1.25rem;border-radius:8px;font-size:0.9rem;font-weight:500;cursor:pointer;text-decoration:none;border:none;font-family:inherit;transition:all 0.2s}
+    .btn-primary{background:var(--primary);color:var(--btn-text);flex:1}
+    .btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
+    .btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--primary)}
+    .success-message{display:none;text-align:center;padding:4rem 2rem}
+    .success-message.active{display:block}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center}
+    .modal-overlay.active{display:flex}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;max-width:400px;padding:2rem;text-align:center}
+    .modal h2{margin-bottom:0.75rem}
+    .modal p{color:var(--muted);margin-bottom:1.5rem}
+    .modal-actions{display:flex;gap:1rem}
+    .modal-actions .btn{flex:1}
+  </style>
+</head>
+<body>
+  <header class="header"><div class="container"><div class="header-content">
+    <h1 class="header-title">🌿 <span>Милица & Стефан</span></h1>
+    <div class="expiry-timer" id="expiry-timer" data-expiry="2026-03-05T14:44:25.684Z"><span>⏱️</span><span id="expiry-text">--:--:--</span></div>
+  </div></div></header>
+  <main class="main"><div class="container">
+    <div class="intro">
+      <span class="badge">🌿 Ботаника</span>
+      <h1>Изаберите тему позивнице</h1>
+      <p>Научни хербаријум са пресованим цвећем</p>
+    </div>
+    <div class="theme-grid">
+    <div class="theme-card">
+      <div class="theme-preview">
+        <iframe src="forest.html" style="width:100%;height:100%;border:none;pointer-events:none;transform:scale(0.8);transform-origin:top left;width:125%;height:125%;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Шума</h3>
+        <p class="theme-description">Дубоке шумске зелене боје са старинским папиром</p>
+        <div class="theme-actions">
+          <a href="forest.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="forest">Изабери</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="theme-card">
+      <div class="theme-preview">
+        <iframe src="pressed.html" style="width:100%;height:100%;border:none;pointer-events:none;transform:scale(0.8);transform-origin:top left;width:125%;height:125%;" loading="lazy"></iframe>
+      </div>
+      <div class="theme-info">
+        <h3 class="theme-name">Хербаријум</h3>
+        <p class="theme-description">Топли сепија тонови попут сушеног цвећа</p>
+        <div class="theme-actions">
+          <a href="pressed.html" target="_blank" class="btn btn-secondary">Преглед</a>
+          <button class="btn btn-primary" data-select-theme="pressed">Изабери</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div></main>
+  <div class="success-message" id="success-message"><div class="container"><h2>✅ Тема изабрана!</h2></div></div>
+  <div class="modal-overlay" id="modal-overlay"><div class="modal"><h2>Потврдите избор</h2><p>Да ли желите ову тему?</p><div class="modal-actions"><button class="btn btn-secondary" id="modal-cancel">Откажи</button><button class="btn btn-primary" id="modal-confirm">Потврди</button></div></div></div>
+  <script>
+    (function(){
+      var timerEl=document.getElementById('expiry-timer'),textEl=document.getElementById('expiry-text'),expiry=new Date(timerEl.dataset.expiry);
+      function updateTimer(){var d=expiry-new Date();if(d<=0){textEl.textContent='Истекло';return}var h=Math.floor(d/3600000),m=Math.floor((d%3600000)/60000),s=Math.floor((d%60000)/1000);textEl.textContent=[h,m,s].map(function(n){return String(n).padStart(2,'0')}).join(':')}
+      updateTimer();setInterval(updateTimer,1000);
+      var selectedTheme='';
+      document.querySelectorAll('[data-select-theme]').forEach(function(b){b.addEventListener('click',function(){selectedTheme=this.dataset.selectTheme;document.getElementById('modal-overlay').classList.add('active')})});
+      document.getElementById('modal-cancel').addEventListener('click',function(){document.getElementById('modal-overlay').classList.remove('active')});
+      document.getElementById('modal-confirm').addEventListener('click',function(){document.getElementById('modal-overlay').classList.remove('active');document.querySelector('.main').style.display='none';document.getElementById('success-message').classList.add('active')});
+    })();
+  </script>
+</body>
+</html>

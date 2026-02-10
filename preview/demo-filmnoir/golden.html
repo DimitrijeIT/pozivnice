@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Милица & Стефан - Венчање</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Libre+Franklin:wght@300;400&display=swap" rel="stylesheet">
+  <style>/**
+ * Wedding Invitation - Shared Design Tokens
+ *
+ * This file contains CSS custom properties (design tokens) that are shared
+ * across all themes and layouts. Import this file in theme stylesheets to
+ * ensure consistency and reduce duplication.
+ *
+ * Tokens are organized by category:
+ * - Spacing
+ * - Typography
+ * - Transitions
+ * - Shadows
+ * - Borders
+ * - Z-index
+ */
+
+:root {
+  /* ============================================
+     SPACING SYSTEM
+     Based on 8px grid with flexible rem units
+     ============================================ */
+  --spacing-3xs: 0.125rem;  /* 2px */
+  --spacing-2xs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  --spacing-2xl: 4rem;      /* 64px */
+  --spacing-3xl: 6rem;      /* 96px */
+  --spacing-4xl: 8rem;      /* 128px */
+
+  /* ============================================
+     TYPOGRAPHY
+     Font stacks, sizes, line heights, letter spacing
+     ============================================ */
+
+  /* Font Stacks */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Lato', 'Helvetica Neue', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes - Mobile First */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+  --text-6xl: 5rem;       /* 80px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.8;
+  --leading-prose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --tracking-caps: 0.2em;      /* For uppercase text */
+  --tracking-super-caps: 0.35em; /* For very spaced uppercase */
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Timing functions and durations
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1000ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-smooth: var(--duration-slow) var(--ease-smooth);
+  --transition-color: color var(--duration-fast) var(--ease-out);
+  --transition-bg: background-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ============================================
+     SHADOWS
+     Box shadows for depth and elevation
+     ============================================ */
+
+  /* Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-3xl: 0 32px 64px rgba(0, 0, 0, 0.2);
+
+  /* Soft Shadows (for cards) */
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Inner Shadows */
+  --shadow-inner-sm: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-inner-md: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Emboss Effect */
+  --shadow-emboss: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Glow Effects (use with theme colors) */
+  --shadow-glow-sm: 0 0 10px;
+  --shadow-glow-md: 0 0 20px;
+  --shadow-glow-lg: 0 0 30px;
+
+  /* ============================================
+     BORDERS
+     Border radii and widths
+     ============================================ */
+
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-md: 0.25rem;     /* 4px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Pill/Circle */
+
+  /* Border Widths */
+  --border-none: 0;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+
+  /* ============================================
+     Z-INDEX SCALE
+     Layering system
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 500;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-tooltip: 1200;
+  --z-toast: 1300;
+  --z-max: 9999;
+
+  /* ============================================
+     CONTAINER WIDTHS
+     Max-widths for content containers
+     ============================================ */
+  --container-xs: 320px;
+  --container-sm: 480px;
+  --container-md: 640px;
+  --container-lg: 800px;
+  --container-xl: 1000px;
+  --container-2xl: 1200px;
+
+  /* ============================================
+     ASPECT RATIOS
+     Common aspect ratios for media
+     ============================================ */
+  --aspect-square: 1 / 1;
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 4 / 3;
+  --aspect-wide: 16 / 9;
+  --aspect-ultrawide: 21 / 9;
+  --aspect-golden: 1.618 / 1;
+
+  /* ============================================
+     FORM TOKENS
+     Consistent form styling
+     ============================================ */
+  --input-height-sm: 2rem;      /* 32px */
+  --input-height-md: 2.5rem;    /* 40px */
+  --input-height-lg: 3rem;      /* 48px */
+  --input-padding-x: var(--spacing-sm);
+  --input-padding-y: var(--spacing-xs);
+  --input-border-width: var(--border-thin);
+  --input-border-radius: var(--radius-md);
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Status/feedback colors (themes override primary/accent)
+     ============================================ */
+  --color-success: #22C55E;
+  --color-success-light: #DCFCE7;
+  --color-success-dark: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-error-dark: #B91C1C;
+
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1D4ED8;
+}
+
+/* ============================================
+   RESPONSIVE TOKENS
+   Adjust spacing at different breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+
+    /* Reduce font sizes on mobile */
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3rem;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Respect user preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   Adjustments for accessibility
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-xs: none;
+    --shadow-sm: 0 0 0 1px currentColor;
+    --shadow-md: 0 0 0 2px currentColor;
+    --shadow-lg: 0 0 0 2px currentColor;
+    --border-thin: 2px;
+  }
+}
+
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Reduce motion for performance and accessibility */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  /* Disable complex animations on mobile */
+  .floating-element,
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.15s !important;
+  }
+
+  /* Reduce parallax effects */
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/* === DIGIPOZ BRANDING BADGE === */
+.digipoz-badge {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  text-decoration: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.digipoz-badge:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.digipoz-badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.digipoz-badge-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.digipoz-badge-text span {
+  color: #B8860B;
+}
+
+@media (max-width: 480px) {
+  .digipoz-badge {
+    bottom: 8px;
+    padding: 5px 10px;
+    gap: 4px;
+  }
+  .digipoz-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .digipoz-badge-text {
+    font-size: 10px;
+  }
+}
+
+/* Film Noir - Golden Age Theme
+   Sepia tones with vintage Hollywood glamour */
+
+:root {
+  --color-bg: #0A0806;
+  --color-surface: #1A1510;
+  --color-text: #F5E6D3;
+  --color-text-muted: #A99A87;
+  --color-accent: #D4AF37;
+  --color-gold: #C9A227;
+}
+
+.spotlight {
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    transparent 0%,
+    rgba(10, 8, 6, 0.4) 50%,
+    rgba(10, 8, 6, 0.8) 100%
+  );
+}
+
+.marquee-frame {
+  border-color: var(--color-gold);
+  background: var(--color-surface);
+}
+
+.marquee-light {
+  background: var(--color-gold);
+}
+
+.marquee-now {
+  color: var(--color-gold);
+}
+
+.marquee-ampersand {
+  color: var(--color-gold);
+}
+
+.marquee-date {
+  border-color: var(--color-gold);
+}
+
+.section-title::after {
+  background: var(--color-gold);
+}
+
+.credits-text {
+  color: var(--color-text);
+}
+
+.poster-card {
+  border-color: var(--color-gold);
+}
+
+.playbill {
+  border-color: var(--color-gold);
+}
+
+.playbill-header {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.playbill-row {
+  border-color: rgba(201, 162, 39, 0.3);
+}
+
+.playbill-link {
+  color: var(--color-gold);
+}
+
+.story-screen {
+  border-color: var(--color-gold);
+}
+
+.story-screen::before {
+  color: var(--color-gold);
+}
+
+.ticket-booth {
+  border-color: var(--color-gold);
+}
+
+.ticket-header {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border-color: var(--color-gold);
+  color: var(--color-text);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.radio-label input {
+  border-color: var(--color-gold);
+}
+
+.radio-label input:checked::before {
+  background: var(--color-gold);
+}
+
+.submit-btn {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.submit-btn:hover {
+  background: var(--color-text);
+}
+
+.footer-hashtag {
+  color: var(--color-gold);
+}
+</style>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #000;
+      --color-surface: #111;
+      --color-text: #FFF;
+      --color-text-muted: #999;
+      --color-accent: #C41E3A;
+      --color-gold: #D4AF37;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Libre Franklin', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Film grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      animation: grain 0.5s steps(1) infinite;
+    }
+
+    @keyframes grain {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, 2px); }
+      50% { transform: translate(2px, -2px); }
+      75% { transform: translate(-2px, -2px); }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Marquee opening */
+    .marquee-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .marquee-frame {
+      border: 4px solid var(--color-gold);
+      padding: 3rem 4rem;
+      position: relative;
+      background: var(--color-surface);
+    }
+
+    .marquee-lights {
+      position: absolute;
+      top: -8px;
+      left: 10%;
+      right: 10%;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .marquee-light {
+      width: 12px;
+      height: 12px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    .marquee-light:nth-child(odd) { animation-delay: 0.75s; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .marquee-now {
+      font-size: 0.8rem;
+      letter-spacing: 0.5em;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .marquee-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 12vw, 6rem);
+      letter-spacing: 0.1em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .marquee-title .bride,
+    .marquee-title .groom {
+      display: block;
+    }
+
+    .marquee-ampersand {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.4em;
+      color: var(--color-gold);
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    .marquee-date {
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-gold);
+    }
+
+    /* Sections */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.2em;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: var(--color-gold);
+      margin: 1rem auto 0;
+    }
+
+    /* Title sequence style */
+    .credits-block {
+      text-align: center;
+      padding: 3rem 0;
+      opacity: 0;
+      animation: fadeInCredits 1.5s ease forwards;
+    }
+
+    .credits-block:nth-child(1) { animation-delay: 0.5s; }
+    .credits-block:nth-child(2) { animation-delay: 1.5s; }
+    .credits-block:nth-child(3) { animation-delay: 2.5s; }
+
+    @keyframes fadeInCredits {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .credits-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .credits-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+    }
+
+    /* Film poster style invitation */
+    .poster-card {
+      background: var(--color-surface);
+      border: 2px solid var(--color-gold);
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poster-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, var(--color-bg) 100%);
+      pointer-events: none;
+    }
+
+    .poster-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .poster-intro {
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .poster-text {
+      font-size: 1.2rem;
+      line-height: 2;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Playbill style details */
+    .playbill {
+      background: var(--color-surface);
+      border: 2px solid var(--color-gold);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .playbill-header {
+      background: var(--color-accent);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .playbill-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+    }
+
+    .playbill-body {
+      padding: 2rem;
+    }
+
+    .playbill-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .playbill-row:last-child {
+      border-bottom: none;
+    }
+
+    .playbill-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .playbill-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+
+    .playbill-link {
+      color: var(--color-gold);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+    }
+
+    /* Story section */
+    
+    .story-screen {
+      background: var(--color-surface);
+      border: 2px solid var(--color-gold);
+      padding: 3rem;
+      position: relative;
+    }
+
+    .story-screen::before {
+      content: 'НАША ПРИЧА';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-bg);
+      padding: 0 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--color-gold);
+    }
+
+    .story-text {
+      font-style: italic;
+      line-height: 2;
+      text-align: center;
+      color: var(--color-text-muted);
+    }
+    
+
+    /* Ticket booth RSVP */
+    .ticket-booth {
+      background: var(--color-surface);
+      border: 3px solid var(--color-gold);
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .ticket-header {
+      background: var(--color-gold);
+      color: var(--color-bg);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .ticket-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+    }
+
+    .ticket-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    .ticket-body {
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--color-gold);
+      background: var(--color-bg);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .attendance-options {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .radio-label input {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .radio-label input:checked::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--color-accent);
+      border-radius: 50%;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--color-accent);
+      color: var(--color-text);
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--color-gold);
+      color: var(--color-bg);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    
+    .footer-hashtag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      color: var(--color-gold);
+      margin-bottom: 1rem;
+    }
+    
+
+    .footer-end {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+    }
+
+    /* Spotlight effect */
+    .spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(
+        circle at var(--x, 50%) var(--y, 50%),
+        transparent 0%,
+        rgba(0,0,0,0.3) 50%,
+        rgba(0,0,0,0.7) 100%
+      );
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .marquee-frame {
+        padding: 2rem 1.5rem;
+      }
+
+      .marquee-title {
+        font-size: 2.5rem;
+      }
+
+      .playbill-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .playbill-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="spotlight" id="spotlight"></div>
+
+  <!-- Marquee Opening -->
+  <section class="marquee-section">
+    <div class="marquee-frame">
+      <div class="marquee-lights">
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+        <span class="marquee-light"></span>
+      </div>
+      <div class="marquee-now">★ ПРЕМИЈЕРА ★</div>
+      <h1 class="marquee-title">
+        <span class="bride">Милица</span>
+        <span class="marquee-ampersand">&</span>
+        <span class="groom">Стефан</span>
+      </h1>
+      <div class="marquee-date">12. септембар 2026</div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- Title Credits -->
+    <section class="section">
+      <div class="credits-block">
+        <div class="credits-label">Продуценти</div>
+        <div class="credits-text">Милица & Стефан</div>
+      </div>
+      <div class="credits-block">
+        <div class="credits-label">Премијера</div>
+        <div class="credits-text">12. септембар 2026</div>
+      </div>
+    </section>
+
+    <!-- Invitation -->
+    <section class="section">
+      <h2 class="section-title">Позивница</h2>
+      <div class="poster-card">
+        <div class="poster-content">
+          <p class="poster-intro">Са великом радошћу вас позивамо на наше венчање</p>
+          <p class="poster-text">Молимо вас да нам се придружите у прослави најважнијег дана у нашим животима. Ваше присуство би нам значило више од било каквог поклона. Желимо да поделимо овај посебан тренутак са вама.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    
+    <section class="section">
+      <div class="story-screen">
+        <p class="story-text">Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина. Волимо се више него икада и једва чекамо да започнемо нову главу нашег живота као муж и жена.</p>
+      </div>
+    </section>
+    
+
+    <!-- Playbill Details -->
+    <section class="section">
+      <h2 class="section-title">Програм</h2>
+
+      <div class="playbill">
+        <div class="playbill-header">
+          <h3>Венчање</h3>
+        </div>
+        <div class="playbill-body">
+          <div class="playbill-row">
+            <span class="playbill-label">Локација</span>
+            <span class="playbill-value">
+              Храм Светог Саве
+              
+              <a href="https://maps.google.com/?q=44.7983,20.4694" target="_blank" class="playbill-link">↗</a>
+              
+            </span>
+          </div>
+          <div class="playbill-row">
+            <span class="playbill-label">Адреса</span>
+            <span class="playbill-value">Крушедолска 2а, Београд</span>
+          </div>
+          <div class="playbill-row">
+            <span class="playbill-label">Време</span>
+            <span class="playbill-value">15:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="playbill" style="margin-top: 2rem;">
+        <div class="playbill-header">
+          <h3>Прослава</h3>
+        </div>
+        <div class="playbill-body">
+          <div class="playbill-row">
+            <span class="playbill-label">Локација</span>
+            <span class="playbill-value">
+              Ресторан Франш
+              
+              <a href="https://maps.google.com/?q=44.8186,20.4571" target="_blank" class="playbill-link">↗</a>
+              
+            </span>
+          </div>
+          <div class="playbill-row">
+            <span class="playbill-label">Адреса</span>
+            <span class="playbill-value">Господар Јованова 42, Београд</span>
+          </div>
+          <div class="playbill-row">
+            <span class="playbill-label">Време</span>
+            <span class="playbill-value">18:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticket Booth RSVP -->
+    <section class="section">
+      <div class="ticket-booth">
+        <div class="ticket-header">
+          <h2>Благајна</h2>
+          <p class="ticket-subtitle">Резервишите своје место до 15. август 2026</p>
+        </div>
+        <div class="ticket-body">
+          <form id="rsvp-form">
+            <input type="hidden" name="wedding_slug" value="demo">
+
+            <div class="form-group">
+              <label class="form-label">Име и презиме</label>
+              <input type="text" name="guest_name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Долазак</label>
+              <div class="attendance-options">
+                <label class="radio-label">
+                  <input type="radio" name="attending" value="yes" required>
+                  <span>Долазим</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="attending" value="no">
+                  <span>Не долазим</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Број гостију</label>
+              <input type="number" name="guest_count" class="form-input" min="1" max="10" value="1">
+            </div>
+
+            
+            <div class="form-group">
+              <label class="form-label">Исхрана</label>
+              <select name="meal_preference" class="form-select">
+                <option value="meat">Месо (телетина)</option><option value="fish">Риба (орада)</option><option value="vegetarian">Вегетаријанско</option><option value="vegan">Веганско</option>
+              </select>
+            </div>
+            
+
+            <div class="form-group">
+              <label class="form-label">Порука (опционо)</label>
+              <textarea name="message" class="form-textarea"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">★ РЕЗЕРВИШИ ★</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      
+      <div class="footer-hashtag">##МилицаИСтефан2026</div>
+      
+      <div class="footer-end">— THE END —</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Spotlight effect following mouse
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      spotlight.style.setProperty('--x', x + '%');
+      spotlight.style.setProperty('--y', y + '%');
+    });
+
+    // Form submission
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-family:Bebas Neue,sans-serif;font-size:1.8rem;letter-spacing:0.1em;margin-bottom:1rem;">★ КАРТА РЕЗЕРВИСАНА ★</h3><p style="color:var(--color-text-muted);">Видимо се на премијери!</p></div>';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+
+  <!-- DigiPoz Badge -->
+  <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="digipoz-badge" title="Napravljeno od strane DigiPoz">
+    <svg class="digipoz-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="17.5" cy="6.5" r="1.5" fill="#B8860B"/>
+    </svg>
+    <span class="digipoz-badge-text">Digi<span>Poz</span></span>
+  </a>
+
+</body>
+</html>

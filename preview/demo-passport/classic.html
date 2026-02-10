@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Милица & Стефан - Путовање</title>
+  <meta name="description" content="Позивница за венчање - Милица & Стефан">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #E8E4DC;
+      --color-cover: #1B3A5F;
+      --color-gold: #C9A962;
+      --color-paper: #FFFEF7;
+      --color-text: #1a1a1a;
+      --color-text-muted: #666;
+      --color-stamp: #B22234;
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    /* === PASSPORT BOOKLET === */
+    .passport {
+      width: 100%;
+      max-width: 400px;
+      perspective: 2000px;
+    }
+
+    .passport-book {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    /* Cover */
+    .passport-cover {
+      background: var(--color-cover);
+      color: var(--color-gold);
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passport-cover::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 2px solid var(--color-gold);
+      border-radius: 4px;
+      opacity: 0.5;
+    }
+
+    .passport-cover:hover {
+      transform: scale(1.02);
+    }
+
+    .passport-emblem {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .passport-type {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .passport-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .passport-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .passport-names {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+    }
+
+    .tap-hint {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+
+    /* Pages Container */
+    .passport-pages {
+      display: none;
+      background: var(--color-paper);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .passport-pages.open {
+      display: block;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Page Navigation */
+    .page-nav {
+      display: flex;
+      background: var(--color-cover);
+      padding: 0.5rem;
+      gap: 0.25rem;
+    }
+
+    .page-tab {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      border: none;
+      background: transparent;
+      color: var(--color-gold);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.3s;
+    }
+
+    .page-tab.active {
+      background: rgba(201, 169, 98, 0.2);
+      opacity: 1;
+      border-radius: 4px;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      padding: 2rem;
+      min-height: 500px;
+      position: relative;
+    }
+
+    .page.active { display: block; }
+
+    .page-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* ID Page */
+    .id-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .id-photo {
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #ddd, #eee);
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .id-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .id-field {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+
+    .id-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .id-value {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .id-signature {
+      margin-top: auto;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--color-cover);
+    }
+
+    /* Visa Stamp */
+    .visa-stamp {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--color-stamp);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-stamp);
+      transform: rotate(15deg);
+      opacity: 0.8;
+    }
+
+    .visa-stamp span {
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .visa-stamp strong {
+      font-size: 0.7rem;
+    }
+
+    /* Itinerary Page */
+    .itinerary-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-cover);
+    }
+
+    .flight-card {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .flight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .flight-type {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .flight-time {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .flight-route {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .flight-point {
+      text-align: center;
+      flex: 1;
+    }
+
+    .flight-code {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-cover);
+    }
+
+    .flight-city {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .flight-plane {
+      font-size: 1.5rem;
+    }
+
+    .flight-details {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Story Page */
+    .story-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .story-stamps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .story-stamp {
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--color-cover);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      transform: rotate(-5deg);
+    }
+
+    .story-stamp:nth-child(2) { transform: rotate(8deg); }
+    .story-stamp:nth-child(3) { transform: rotate(-3deg); }
+
+    /* Boarding Pass Page */
+    .boarding-pass {
+      background: var(--color-paper);
+      border: 2px dashed var(--color-cover);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .boarding-header {
+      background: var(--color-cover);
+      color: var(--color-gold);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .boarding-airline {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+    }
+
+    .boarding-title {
+      font-size: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .boarding-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+    }
+
+    .boarding-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .boarding-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .boarding-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .boarding-value {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+    }
+
+    .boarding-stub {
+      border-left: 2px dashed #ddd;
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .boarding-seat {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-cover);
+    }
+
+    .boarding-barcode {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .barcode-lines {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .barcode-lines span {
+      width: 2px;
+      height: 30px;
+      background: var(--color-text);
+    }
+
+    .barcode-lines span:nth-child(odd) { height: 25px; }
+    .barcode-lines span:nth-child(3n) { width: 3px; }
+
+    /* RSVP Page */
+    .rsvp-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .rsvp-subtitle {
+      text-align: center;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-cover);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .radio-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-cover);
+    }
+
+    .submit-btn {
+      padding: 1rem;
+      background: var(--color-cover);
+      color: var(--color-gold);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .rsvp-deadline {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-title { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .success-text { color: var(--color-text-muted); }
+
+    .hidden { display: none !important; }
+
+    /* Back to Cover */
+    .back-to-cover {
+      display: block;
+      text-align: center;
+      padding: 1rem;
+      color: var(--color-cover);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+    }
+
+    .back-to-cover:hover { text-decoration: underline; }
+
+    /* Responsive - Mobile Optimizations */
+    @media (max-width: 768px) {
+      body {
+        display: block;
+        padding: 1rem;
+        min-height: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+      }
+
+      .passport {
+        max-width: 100%;
+        perspective: none;
+      }
+
+      .passport-book {
+        transform-style: flat;
+      }
+
+      .passport-pages {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+        overflow: visible;
+      }
+
+      .passport-page {
+        position: relative;
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .passport-cover {
+        margin-bottom: 1rem;
+      }
+
+      .page-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--color-bg);
+        padding: 0.5rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 0.5rem; }
+      .passport { max-width: 100%; }
+      .id-page { grid-template-columns: 1fr; }
+      .boarding-body { grid-template-columns: 1fr; }
+      .boarding-stub { border-left: none; border-top: 2px dashed #ddd; padding: 1rem 0 0; margin-top: 1rem; }
+      .passport-cover { padding: 2rem 1rem; }
+    }
+  </style>
+  <style>/**
+ * Wedding Invitation - Shared Design Tokens
+ *
+ * This file contains CSS custom properties (design tokens) that are shared
+ * across all themes and layouts. Import this file in theme stylesheets to
+ * ensure consistency and reduce duplication.
+ *
+ * Tokens are organized by category:
+ * - Spacing
+ * - Typography
+ * - Transitions
+ * - Shadows
+ * - Borders
+ * - Z-index
+ */
+
+:root {
+  /* ============================================
+     SPACING SYSTEM
+     Based on 8px grid with flexible rem units
+     ============================================ */
+  --spacing-3xs: 0.125rem;  /* 2px */
+  --spacing-2xs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  --spacing-2xl: 4rem;      /* 64px */
+  --spacing-3xl: 6rem;      /* 96px */
+  --spacing-4xl: 8rem;      /* 128px */
+
+  /* ============================================
+     TYPOGRAPHY
+     Font stacks, sizes, line heights, letter spacing
+     ============================================ */
+
+  /* Font Stacks */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Lato', 'Helvetica Neue', sans-serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes - Mobile First */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+  --text-6xl: 5rem;       /* 80px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.8;
+  --leading-prose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --tracking-caps: 0.2em;      /* For uppercase text */
+  --tracking-super-caps: 0.35em; /* For very spaced uppercase */
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Timing functions and durations
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+  --duration-slowest: 1000ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-smooth: var(--duration-slow) var(--ease-smooth);
+  --transition-color: color var(--duration-fast) var(--ease-out);
+  --transition-bg: background-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ============================================
+     SHADOWS
+     Box shadows for depth and elevation
+     ============================================ */
+
+  /* Elevation Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-3xl: 0 32px 64px rgba(0, 0, 0, 0.2);
+
+  /* Soft Shadows (for cards) */
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Inner Shadows */
+  --shadow-inner-sm: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-inner-md: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Emboss Effect */
+  --shadow-emboss: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Glow Effects (use with theme colors) */
+  --shadow-glow-sm: 0 0 10px;
+  --shadow-glow-md: 0 0 20px;
+  --shadow-glow-lg: 0 0 30px;
+
+  /* ============================================
+     BORDERS
+     Border radii and widths
+     ============================================ */
+
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-md: 0.25rem;     /* 4px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Pill/Circle */
+
+  /* Border Widths */
+  --border-none: 0;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+
+  /* ============================================
+     Z-INDEX SCALE
+     Layering system
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 500;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-tooltip: 1200;
+  --z-toast: 1300;
+  --z-max: 9999;
+
+  /* ============================================
+     CONTAINER WIDTHS
+     Max-widths for content containers
+     ============================================ */
+  --container-xs: 320px;
+  --container-sm: 480px;
+  --container-md: 640px;
+  --container-lg: 800px;
+  --container-xl: 1000px;
+  --container-2xl: 1200px;
+
+  /* ============================================
+     ASPECT RATIOS
+     Common aspect ratios for media
+     ============================================ */
+  --aspect-square: 1 / 1;
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 4 / 3;
+  --aspect-wide: 16 / 9;
+  --aspect-ultrawide: 21 / 9;
+  --aspect-golden: 1.618 / 1;
+
+  /* ============================================
+     FORM TOKENS
+     Consistent form styling
+     ============================================ */
+  --input-height-sm: 2rem;      /* 32px */
+  --input-height-md: 2.5rem;    /* 40px */
+  --input-height-lg: 3rem;      /* 48px */
+  --input-padding-x: var(--spacing-sm);
+  --input-padding-y: var(--spacing-xs);
+  --input-border-width: var(--border-thin);
+  --input-border-radius: var(--radius-md);
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Status/feedback colors (themes override primary/accent)
+     ============================================ */
+  --color-success: #22C55E;
+  --color-success-light: #DCFCE7;
+  --color-success-dark: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-error-dark: #B91C1C;
+
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1D4ED8;
+}
+
+/* ============================================
+   RESPONSIVE TOKENS
+   Adjust spacing at different breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+
+    /* Reduce font sizes on mobile */
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3rem;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Respect user preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   Adjustments for accessibility
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-xs: none;
+    --shadow-sm: 0 0 0 1px currentColor;
+    --shadow-md: 0 0 0 2px currentColor;
+    --shadow-lg: 0 0 0 2px currentColor;
+    --border-thin: 2px;
+  }
+}
+
+/**
+ * Wedding Invitation - Mobile Optimization CSS
+ *
+ * Comprehensive mobile optimizations for all templates.
+ * Import this file or include these styles to ensure
+ * all invitations work well on mobile devices.
+ *
+ * Optimizations include:
+ * - Touch-friendly tap targets (min 44px)
+ * - Readable font sizes (min 16px for inputs)
+ * - Proper spacing and padding
+ * - Viewport handling
+ * - Touch action support
+ * - Safe area insets for notched devices
+ */
+
+/* ============================================
+   BASE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enable smooth scrolling with touch */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Enable touch interactions */
+  touch-action: pan-y pinch-zoom;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================
+   VIEWPORT & SAFE AREAS
+   ============================================ */
+
+/* Support for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+
+  .footer,
+  footer {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY TAP TARGETS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Minimum 44px touch targets (Apple HIG recommendation) */
+  button,
+  .btn,
+  .submit-button,
+  .submit-btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  .calendar-btn,
+  .nav-arrow,
+  .chapter-dot,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next,
+  .music-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Radio and checkbox labels need larger touch area */
+  .radio-label,
+  .checkbox-label,
+  label[for] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  /* Links in text need more spacing */
+  p a,
+  .detail-map-link,
+  .venue-link {
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+/* ============================================
+   FORM OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus (requires 16px min) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"],
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Full-width form elements */
+  .form-group,
+  .rsvp-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Stack form labels above inputs */
+  .form-group label,
+  .form-group legend {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Larger submit buttons */
+  .submit-button,
+  .submit-btn,
+  button[type="submit"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Better radio/checkbox spacing */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.5rem;
+  }
+
+  .radio-label input[type="radio"],
+  .checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Scale down large headings */
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h2, .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+  }
+
+  /* Readable body text */
+  body,
+  p,
+  .invitation-text,
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Countdown numbers */
+  .countdown-number {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .couple-names, .hero-names, .entrance-names {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+  }
+
+  .countdown-number {
+    font-size: clamp(1.75rem, 12vw, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   SPACING & LAYOUT
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce section padding */
+  section,
+  .section,
+  .velvet-section,
+  .cinema-section,
+  .magazine-page {
+    padding: 3rem 1rem;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  /* Stack grids */
+  .details-grid,
+  .venue-grid,
+  .story-content {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Reduce card padding */
+  .detail-card,
+  .venue-card,
+  .glass-card,
+  .invitation-card {
+    padding: 1.5rem;
+  }
+
+  /* Countdown spacing */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  section,
+  .section {
+    padding: 2rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .detail-card,
+  .invitation-card {
+    padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Gallery adjustments */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   NAVIGATION & FIXED ELEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Music player positioning */
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+    max-width: calc(100% - 2rem);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 2rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+
+  .timeline-item::before {
+    left: -38px !important;
+    right: auto !important;
+  }
+
+  /* Chapter navigation (storybook) */
+  .chapter-nav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  /* Page dots/tabs */
+  .page-tabs,
+  .room-indicator {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & PERFORMANCE
+   ============================================ */
+
+/* Reduce motion for performance and accessibility */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  /* Disable complex animations on mobile */
+  .floating-element,
+  .particle {
+    animation-duration: 0s !important;
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.15s !important;
+  }
+
+  /* Reduce parallax effects */
+  [style*="parallax"],
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   SCROLL SNAP MOBILE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile for better UX */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Ensure sections don't require snap */
+  section,
+  .cinema-section,
+  .magazine-page,
+  .gallery-room {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (for save/share)
+   ============================================ */
+
+@media print {
+  /* Hide interactive elements */
+  .music-player,
+  .scroll-indicator,
+  .lightbox,
+  .rsvp-form,
+  .calendar-buttons,
+  .nav-arrows,
+  .chapter-nav,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 1rem 0;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MODE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .header,
+  .hero-section,
+  .poster-section,
+  .entrance-room {
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  /* Side-by-side layout for countdown */
+  .countdown-timer {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  a {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus visible for touch devices */
+@media (pointer: coarse) {
+  :focus {
+    outline: 3px solid var(--color-primary, #D4AF37);
+    outline-offset: 2px;
+  }
+}
+
+/* === DIGIPOZ BRANDING BADGE === */
+.digipoz-badge {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  text-decoration: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.digipoz-badge:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.digipoz-badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.digipoz-badge-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.digipoz-badge-text span {
+  color: #B8860B;
+}
+
+@media (max-width: 480px) {
+  .digipoz-badge {
+    bottom: 8px;
+    padding: 5px 10px;
+    gap: 4px;
+  }
+  .digipoz-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .digipoz-badge-text {
+    font-size: 10px;
+  }
+}
+
+/**
+ * Classic Theme - Passport Layout
+ * Traditional navy blue passport style
+ */
+
+:root {
+  --color-bg: #E8E4DC;
+  --color-cover: #1B3A5F;
+  --color-gold: #C9A962;
+  --color-paper: #FFFEF7;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666;
+  --color-stamp: #B22234;
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+</style>
+</head>
+<body>
+  <div class="passport">
+    <!-- Cover -->
+    <div class="passport-cover" id="passport-cover">
+      <div class="passport-emblem">💒</div>
+      <p class="passport-type">Путна исправа</p>
+      <h1 class="passport-title">ПАСОШ</h1>
+      <p class="passport-subtitle">За путовање у брачне воде</p>
+      <p class="passport-names">Милица & Стефан</p>
+      <p class="tap-hint">Додирни за отварање →</p>
+    </div>
+
+    <!-- Pages -->
+    <div class="passport-pages" id="passport-pages">
+      <nav class="page-nav">
+        <button class="page-tab active" data-page="id">ID</button>
+        <button class="page-tab" data-page="itinerary">План</button>
+        <button class="page-tab" data-page="story">Прича</button>
+        <button class="page-tab" data-page="boarding">Карта</button>
+        <button class="page-tab" data-page="rsvp">РСВП</button>
+      </nav>
+
+      <!-- ID Page -->
+      <div class="page active" id="page-id">
+        <div class="page-watermark">✈</div>
+        <div class="visa-stamp">
+          <span>Одобрено</span>
+          <strong>12. септембар 2026</strong>
+          <span>Љубав</span>
+        </div>
+        <div class="id-page">
+          <div class="id-photo">💑</div>
+          <div class="id-details">
+            <div class="id-field">
+              <p class="id-label">Име / Name</p>
+              <p class="id-value">Милица</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Презиме / Surname</p>
+              <p class="id-value">Стефан</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Датум / Date</p>
+              <p class="id-value">12. септембар 2026</p>
+            </div>
+            <div class="id-field">
+              <p class="id-label">Статус / Status</p>
+              <p class="id-value">ЗАЉУБЉЕНИ</p>
+            </div>
+            <p class="id-signature">Милица ♥ Стефан</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itinerary Page -->
+      <div class="page" id="page-itinerary">
+        <div class="page-watermark">🗺</div>
+        <h2 class="itinerary-title">План путовања</h2>
+
+        <div class="flight-card">
+          <div class="flight-header">
+            <span class="flight-type">Церемонија</span>
+            <span class="flight-time">15:00</span>
+          </div>
+          <div class="flight-route">
+            <div class="flight-point">
+              <p class="flight-code">ЦЕР</p>
+              <p class="flight-city">Полазак</p>
+            </div>
+            <span class="flight-plane">✈️</span>
+            <div class="flight-point">
+              <p class="flight-code">ДА!</p>
+              <p class="flight-city">Долазак</p>
+            </div>
+          </div>
+          <p class="flight-details">
+            📍 Храм Светог Саве<br>
+            Крушедолска 2а, Београд
+          </p>
+          
+          <a href="https://maps.google.com/?q=44.7983,20.4694" target="_blank" style="color:var(--color-cover);font-size:0.85rem;">Прикажи на мапи →</a>
+          
+        </div>
+
+        <div class="flight-card">
+          <div class="flight-header">
+            <span class="flight-type">Прослава</span>
+            <span class="flight-time">18:00</span>
+          </div>
+          <div class="flight-route">
+            <div class="flight-point">
+              <p class="flight-code">ВЕН</p>
+              <p class="flight-city">Полазак</p>
+            </div>
+            <span class="flight-plane">🎉</span>
+            <div class="flight-point">
+              <p class="flight-code">ЗАБ</p>
+              <p class="flight-city">Забава</p>
+            </div>
+          </div>
+          <p class="flight-details">
+            📍 Ресторан Франш<br>
+            Господар Јованова 42, Београд
+          </p>
+          
+          <a href="https://maps.google.com/?q=44.8186,20.4571" target="_blank" style="color:var(--color-cover);font-size:0.85rem;">Прикажи на мапи →</a>
+          
+        </div>
+      </div>
+
+      <!-- Story Page -->
+      
+      <div class="page" id="page-story">
+        <div class="page-watermark">❤</div>
+        <h2 class="story-title">Наша прича</h2>
+        <p class="story-text">Наша љубавна прича почела је случајним сусретом у кафићу у центру Београда. Оно што је почело као кратак разговор претворило се у вечерњи излазак, а потом у бескрајне ноћи разговора. Данас, после три године заједничког живота, можемо рећи да је тај случајни сусрет био судбина. Волимо се више него икада и једва чекамо да започнемо нову главу нашег живота као муж и жена.</p>
+        <div class="story-stamps">
+          <div class="story-stamp">💕</div>
+          <div class="story-stamp">💍</div>
+          <div class="story-stamp">✨</div>
+        </div>
+      </div>
+      
+
+      <!-- Boarding Pass Page -->
+      <div class="page" id="page-boarding">
+        <div class="page-watermark">🎫</div>
+        <div class="boarding-pass">
+          <div class="boarding-header">
+            <p class="boarding-airline">ЉУБАВ АИРЛИНЕС</p>
+            <p class="boarding-title">УКРЦАЈНА КАРТА</p>
+          </div>
+          <div class="boarding-body">
+            <div class="boarding-main">
+              <div class="boarding-field">
+                <span class="boarding-label">Путник / Passenger</span>
+                <span class="boarding-value">ВАШ ГОСТ</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">Од / From</span>
+                <span class="boarding-value">ТРЕНУТНИ ЖИВОТ</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">До / To</span>
+                <span class="boarding-value">Храм Светог Саве</span>
+              </div>
+              <div class="boarding-field">
+                <span class="boarding-label">Датум / Date</span>
+                <span class="boarding-value">12. септембар 2026</span>
+              </div>
+            </div>
+            <div class="boarding-stub">
+              <span class="boarding-label">Седиште</span>
+              <span class="boarding-seat">VIP</span>
+              <span class="boarding-label" style="margin-top:1rem;">Лет</span>
+              <span class="boarding-value">LV2026</span>
+            </div>
+          </div>
+          <div class="boarding-barcode">
+            <div class="barcode-lines">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <small style="color:var(--color-text-muted);">demo</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSVP Page -->
+      <div class="page" id="page-rsvp">
+        <div class="page-watermark">📝</div>
+        <h2 class="rsvp-title">Потврда доласка</h2>
+        <p class="rsvp-subtitle">Резервишите своје место на лету</p>
+
+        <form class="rsvp-form" id="rsvp-form">
+          <input type="hidden" name="wedding" value="demo">
+
+          <div class="form-group">
+            <label for="guest-name">Име путника</label>
+            <input type="text" id="guest-name" name="name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guest-email">Емаил</label>
+            <input type="email" id="guest-email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label>Статус резервације</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="attending" value="yes" required>
+                <span>Потврђујем лет</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="attending" value="no">
+                <span>Отказујем</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="guests-group">
+            <label for="guests-count">Број путника</label>
+            <select id="guests-count" name="guests" class="form-select">
+              <option value="1">1 путник</option>
+              <option value="2">2 путника</option>
+              <option value="3">3 путника</option>
+              <option value="4">4 путника</option>
+            </select>
+          </div>
+
+          
+          <div class="form-group" id="meal-group">
+            <label for="meal-choice">Оброк у лету</label>
+            <select id="meal-choice" name="meal" class="form-select">
+              <option value="">Изаберите...</option>
+              <option value="meat">Месо (телетина)</option><option value="fish">Риба (орада)</option><option value="vegetarian">Вегетаријанско</option><option value="vegan">Веганско</option>
+            </select>
+          </div>
+          
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            ПОТВРДИ РЕЗЕРВАЦИЈУ
+          </button>
+        </form>
+
+        <div class="form-success hidden" id="form-success">
+          <div class="success-icon">✈️</div>
+          <h3 class="success-title">Резервација потврђена!</h3>
+          <p class="success-text">Видимо се на укрцавању!</p>
+        </div>
+
+        <p class="rsvp-deadline">Крајњи рок: 15. август 2026</p>
+      </div>
+
+      <a href="#" class="back-to-cover" id="close-passport">← Затвори пасош</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const cover = document.getElementById('passport-cover');
+      const pages = document.getElementById('passport-pages');
+      const closeBtn = document.getElementById('close-passport');
+      const tabs = document.querySelectorAll('.page-tab');
+      const pageElements = document.querySelectorAll('.page');
+
+      cover.addEventListener('click', () => {
+        cover.style.display = 'none';
+        pages.classList.add('open');
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        pages.classList.remove('open');
+        cover.style.display = 'block';
+      });
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const pageId = tab.dataset.page;
+          pageElements.forEach(p => {
+            p.classList.toggle('active', p.id === `page-${pageId}`);
+          });
+        });
+      });
+
+      // RSVP Form
+      const form = document.getElementById('rsvp-form');
+      const guestsGroup = document.getElementById('guests-group');
+      const mealGroup = document.getElementById('meal-group');
+      const successMsg = document.getElementById('form-success');
+
+      form.querySelectorAll('input[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isAttending = e.target.value === 'yes';
+          if (guestsGroup) guestsGroup.style.display = isAttending ? 'block' : 'none';
+          if (mealGroup) mealGroup.style.display = isAttending ? 'block' : 'none';
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'ШАЉЕМ...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('https://script.google.com/macros/s/AKfycbxKyXmfLk5LdcB3PYy2QVo_SHe31aHaaZRb6Cqoo_mUHKQ3WE7HKkuw_GmP12eo3B0fjg/exec', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (error) {
+          btn.disabled = false;
+          btn.textContent = 'ПОТВРДИ РЕЗЕРВАЦИЈУ';
+          alert('Дошло је до грешке. Молимо покушајте поново.');
+        }
+      });
+    })();
+  </script>
+
+  <!-- DigiPoz Badge -->
+  <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="digipoz-badge" title="Napravljeno od strane DigiPoz">
+    <svg class="digipoz-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="5" stroke="#B8860B" stroke-width="1.5"/>
+      <circle cx="17.5" cy="6.5" r="1.5" fill="#B8860B"/>
+    </svg>
+    <span class="digipoz-badge-text">Digi<span>Poz</span></span>
+  </a>
+
+</body>
+</html>
