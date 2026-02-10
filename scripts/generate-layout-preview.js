@@ -290,6 +290,16 @@ function generateIndexPage(data, layout, layoutConfig) {
     .modal p{color:var(--muted);margin-bottom:1.5rem}
     .modal-actions{display:flex;gap:1rem}
     .modal-actions .btn{flex:1}
+    .correction-section{max-width:600px;margin:3rem auto 0;text-align:center;padding:0 1rem}
+    .correction-toggle{background:none;border:none;color:var(--muted);font-family:inherit;font-size:0.875rem;cursor:pointer;padding:0.5rem 1rem;transition:color 0.2s}
+    .correction-toggle:hover{color:var(--primary)}
+    .correction-form{display:none;margin-top:1rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:left}
+    .correction-form.open{display:block}
+    .correction-form label{display:block;font-size:0.8125rem;font-weight:600;margin-bottom:0.375rem}
+    .correction-form textarea{width:100%;min-height:100px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.9375rem;color:var(--text);background:var(--bg);resize:vertical;margin-bottom:1rem}
+    .correction-form textarea:focus{outline:none;border-color:var(--primary)}
+    .correction-sent{display:none;padding:1rem;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;color:#10B981;font-size:0.875rem;text-align:center;margin-top:1rem}
+    .correction-sent.visible{display:block}
   </style>
 </head>
 <body>
@@ -305,6 +315,15 @@ function generateIndexPage(data, layout, layoutConfig) {
     </div>
     <div class="theme-grid">${themeCards}</div>
   </div></main>
+  <div class="correction-section" id="correction-section">
+    <button class="correction-toggle" id="correction-toggle">Нешто није тачно? Јавите нам →</button>
+    <div class="correction-form" id="correction-form">
+      <label for="correction-text">Опишите шта треба исправити:</label>
+      <textarea id="correction-text" placeholder="нпр. Погрешно сам унео/ла адресу прославе, треба да буде..."></textarea>
+      <button class="btn btn-primary" id="correction-submit" style="width:100%;">Пошаљите исправку</button>
+    </div>
+    <div class="correction-sent" id="correction-sent">&#10003; Хвала! Примили смо вашу поруку и јавићемо вам када исправимо податке.</div>
+  </div>
   <div class="success-message" id="success-message"><div class="container"><h2>✅ Тема изабрана!</h2></div></div>
   <div class="modal-overlay" id="modal-overlay"><div class="modal"><h2>Потврдите избор</h2><p>Да ли желите ову тему?</p><div class="modal-actions"><button class="btn btn-secondary" id="modal-cancel">Откажи</button><button class="btn btn-primary" id="modal-confirm">Потврди</button></div></div></div>
   <script>
@@ -315,7 +334,9 @@ function generateIndexPage(data, layout, layoutConfig) {
       var selectedTheme='';
       document.querySelectorAll('[data-select-theme]').forEach(function(b){b.addEventListener('click',function(){selectedTheme=this.dataset.selectTheme;document.getElementById('modal-overlay').classList.add('active')})});
       document.getElementById('modal-cancel').addEventListener('click',function(){document.getElementById('modal-overlay').classList.remove('active')});
-      document.getElementById('modal-confirm').addEventListener('click',function(){document.getElementById('modal-overlay').classList.remove('active');document.querySelector('.main').style.display='none';document.getElementById('success-message').classList.add('active')});
+      document.getElementById('modal-confirm').addEventListener('click',function(){document.getElementById('modal-overlay').classList.remove('active');document.querySelector('.main').style.display='none';document.getElementById('correction-section').style.display='none';document.getElementById('success-message').classList.add('active')});
+      document.getElementById('correction-toggle').addEventListener('click',function(){document.getElementById('correction-form').classList.toggle('open')});
+      document.getElementById('correction-submit').addEventListener('click',function(){var t=document.getElementById('correction-text').value.trim();if(!t){document.getElementById('correction-text').focus();return}this.disabled=true;this.textContent='Шаљем...';var d={action:'correction',slug:'${utils.escapeAttribute(data.slug || '')}',correction:t,submitted_at:new Date().toISOString()};console.log('Correction:',d);fetch('${config.THEME_SELECTION_URL}',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(done).catch(done);function done(){document.getElementById('correction-form').classList.remove('open');document.getElementById('correction-toggle').style.display='none';document.getElementById('correction-sent').classList.add('visible')}});
     })();
   </script>
 </body>

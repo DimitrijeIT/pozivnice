@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kreirajte pozivnicu — DigiPoz</title>
+  <meta name="description" content="Popunite formular i za 5 minuta dobijte personalizovani pregled svih dizajna pozivnica. Besplatno, bez obaveza.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="digipoz_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #FDFBF7;
+      --color-surface: #FFFFFF;
+      --color-text: #2C2420;
+      --color-text-secondary: #6B5E57;
+      --color-text-muted: #9B8F88;
+      --color-accent: #B8860B;
+      --color-accent-light: #D4A843;
+      --color-accent-bg: #F7F0E3;
+      --color-border: #E8E0D6;
+      --color-border-light: #F0EBE4;
+      --color-error: #C53030;
+      --color-error-bg: #FFF5F5;
+      --color-success: #276749;
+      --color-success-bg: #F0FFF4;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(253, 251, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-light);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 40px; width: auto; }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-left: 0.5rem;
+    }
+
+    .nav-logo-text span { color: var(--color-accent); }
+
+    .nav-back {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--color-accent); }
+
+    /* LIVE PREVIEW RIBBON */
+    .preview-ribbon {
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      z-index: 999;
+      background: var(--color-text);
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      padding: 0.5rem 1.5rem;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: opacity 0.3s;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .preview-ribbon em {
+      color: var(--color-accent-light);
+      font-style: italic;
+    }
+
+    .preview-ribbon .preview-date {
+      margin-left: 0.75rem;
+      opacity: 0.6;
+      font-size: 0.875rem;
+    }
+
+    /* PAGE */
+    .page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 7.5rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header h1 em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* PROGRESS BAR */
+    .progress {
+      margin-bottom: 2.5rem;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background: var(--color-border);
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.4s ease;
+      width: 0;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 2px;
+      font-family: var(--font-body);
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .progress-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      transition: border-color 0.3s, background 0.3s, color 0.3s;
+    }
+
+    .progress-step.active .progress-dot {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    .progress-step.completed .progress-dot {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    .progress-label {
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      margin-top: 0.375rem;
+      transition: color 0.3s;
+      text-align: center;
+      max-width: 64px;
+    }
+
+    .progress-step.active .progress-label,
+    .progress-step.completed .progress-label {
+      color: var(--color-accent);
+    }
+
+    /* FORM CONTAINER */
+    .form-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* STEP PANELS */
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.active {
+      display: block;
+      animation: stepIn 0.35s ease;
+    }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.375rem;
+    }
+
+    .step-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* FORM FIELDS */
+    .field {
+      margin-bottom: 1.5rem;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    .field-label .required {
+      color: var(--color-accent);
+      margin-left: 0.125rem;
+    }
+
+    .field-hint {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field-input::placeholder {
+      color: var(--color-text-muted);
+      opacity: 0.7;
+    }
+
+    .field-input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+      transform: translateY(-1px);
+    }
+
+    .field-input:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    textarea.field-input {
+      min-height: 100px;
+      max-height: 300px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .field-input.error {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(197,48,48,0.1);
+    }
+
+    .field-error {
+      display: none;
+      font-size: 0.75rem;
+      color: var(--color-error);
+      margin-top: 0.375rem;
+    }
+
+    .field-error.visible {
+      display: block;
+      animation: shakeIn 0.3s ease;
+    }
+
+    @keyframes shakeIn {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* NAVIGATION BUTTONS */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn:active { transform: translateY(0) !important; }
+
+    .btn-primary {
+      background: var(--color-text);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.25);
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--color-text-secondary);
+      padding-left: 0.5rem;
+    }
+
+    .btn-back:hover { color: var(--color-accent); }
+
+    .btn-submit {
+      background: var(--color-accent);
+      color: #fff;
+      width: 100%;
+      justify-content: center;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-submit:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.3);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* REVIEW STEP */
+    .review-section {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .review-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .review-section-title {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .review-edit {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 0.5rem 0.75rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .review-edit:hover { color: var(--color-accent); }
+
+    .review-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.375rem 0;
+      font-size: 0.875rem;
+    }
+
+    .review-label {
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      margin-right: 1rem;
+    }
+
+    .review-value {
+      color: var(--color-text);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .review-value.empty {
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* SUCCESS STATE */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .success-state.visible { display: block; }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--color-accent-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes successPop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    .success-state h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-state p {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .success-state .btn {
+      margin: 0 auto;
+    }
+
+    .success-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--color-accent-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      max-width: 440px;
+      margin: 0 auto 1.5rem;
+      text-align: left;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .success-notice-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .success-preview-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--color-accent);
+      color: #fff;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .success-preview-link:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,11,0.3);
+    }
+
+    .success-detail {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+
+    .success-notice.ready {
+      background: var(--color-success-bg);
+      border-color: #C6F6D5;
+    }
+
+    .success-notice.ready strong { color: var(--color-success); }
+
+    .success-preview-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .success-preview-link.ready {
+      animation: readyPulse 0.6s ease;
+    }
+
+    @keyframes readyPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .poll-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--color-border);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.375rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* CONFETTI */
+    .confetti-container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 12px;
+      top: -20px;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg) translateX(var(--drift, 40px));
+        opacity: 0;
+      }
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer-text a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    /* TABLET */
+    @media (max-width: 768px) {
+      .preview-ribbon {
+        position: sticky;
+        top: 64px;
+      }
+      .page { padding: 7rem 1.25rem 3rem; }
+    }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .page { padding: 6rem 1rem 3rem; }
+
+      .form-card { padding: 2rem 1.5rem; }
+
+      .field-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .progress-label { font-size: 0.625rem; max-width: 52px; }
+      .progress-dot { width: 26px; height: 26px; font-size: 0.6875rem; }
+
+      .preview-ribbon { font-size: 0.8125rem; padding: 0.375rem 1rem; }
+
+      .step-nav {
+        flex-direction: column-reverse;
+        gap: 0.75rem;
+      }
+      .step-nav .btn { width: 100%; justify-content: center; }
+      .step-nav .btn-back { padding-left: 1.75rem; }
+    }
+
+    /* VERY SMALL PHONES */
+    @media (max-width: 380px) {
+      .progress-label { display: none; }
+      .form-card { padding: 1.5rem 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .step-panel.active { animation: none; }
+      .field-input:focus { transform: none; }
+      .confetti-piece { animation: none; display: none; }
+      .success-icon { animation: none; }
+      .field-error.visible { animation: none; }
+      .poll-spinner { animation: none; }
+      .success-preview-link.ready { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="digipoz_logo.png" alt="DigiPoz"><span class="nav-logo-text">Digi<span>Poz</span></span></a>
+      <a href="/" class="nav-back">&larr; Nazad na pocetnu</a>
+    </div>
+  </nav>
+
+  <div class="preview-ribbon" id="previewRibbon">
+    <span id="previewNames">Vasa pozivnica</span>
+    <span class="preview-date" id="previewDate"></span>
+  </div>
+
+  <main class="page">
+    <div class="page-header">
+      <h1>Kreirajte vasu <em>pozivnicu</em></h1>
+      <p>Popunite formular i za 5 minuta dobijte pregled svih dizajna sa vasim podacima.</p>
+    </div>
+
+    <div class="progress" id="progress">
+      <div class="progress-steps">
+        <div class="progress-fill" id="progressFill"></div>
+        <button type="button" class="progress-step active" data-step="0">
+          <div class="progress-dot">1</div>
+          <div class="progress-label">O vama</div>
+        </button>
+        <button type="button" class="progress-step" data-step="1">
+          <div class="progress-dot">2</div>
+          <div class="progress-label">Datum</div>
+        </button>
+        <button type="button" class="progress-step" data-step="2">
+          <div class="progress-dot">3</div>
+          <div class="progress-label">Ceremonija</div>
+        </button>
+        <button type="button" class="progress-step" data-step="3">
+          <div class="progress-dot">4</div>
+          <div class="progress-label">Proslava</div>
+        </button>
+        <button type="button" class="progress-step" data-step="4">
+          <div class="progress-dot">5</div>
+          <div class="progress-label">Detalji</div>
+        </button>
+        <button type="button" class="progress-step" data-step="5">
+          <div class="progress-dot">6</div>
+          <div class="progress-label">Pregled</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-card" id="formCard">
+      <form id="intakeForm" novalidate>
+
+        <!-- STEP 1: O vama -->
+        <div class="step-panel active" data-step="0">
+          <div class="step-title">O vama</div>
+          <div class="step-subtitle">Osnovni podaci o mladencima</div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="bride_name">Ime mlade <span class="required">*</span></label>
+              <input type="text" id="bride_name" name="bride_name" class="field-input" placeholder="npr. Ana" required autocomplete="given-name">
+              <div class="field-error" id="bride_name_error">Unesite ime mlade</div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="groom_name">Ime mladozenje <span class="required">*</span></label>
+              <input type="text" id="groom_name" name="groom_name" class="field-input" placeholder="npr. Marko" required autocomplete="given-name">
+              <div class="field-error" id="groom_name_error">Unesite ime mladozenje</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="contact_email">Email adresa <span class="required">*</span></label>
+            <input type="email" id="contact_email" name="contact_email" class="field-input" placeholder="vas@email.com" required autocomplete="email">
+            <div class="field-error" id="contact_email_error">Unesite ispravnu email adresu</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="contact_phone">Broj telefona</label>
+            <input type="tel" id="contact_phone" name="contact_phone" class="field-input" placeholder="+381 6x xxx xxxx" autocomplete="tel">
+            <span class="field-hint">Opciono, za brzu komunikaciju</span>
+          </div>
+
+          <div class="step-nav">
+            <div></div>
+            <button type="button" class="btn btn-primary btn-next">Dalje &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Datum -->
+        <div class="step-panel" data-step="1">
+          <div class="step-title">Datum vencanja</div>
+          <div class="step-subtitle">Kada je veliki dan?</div>
+
+          <div class="field">
+            <label class="field-label" for="wedding_date">Datum vencanja <span class="required">*</span></label>
+            <input type="date" id="wedding_date" name="wedding_date" class="field-input" required>
+            <div class="field-error" id="wedding_date_error">Izaberite datum vencanja</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="rsvp_deadline">Rok za potvrdu dolaska</label>
+            <input type="date" id="rsvp_deadline" name="rsvp_deadline" class="field-input">
+            <span class="field-hint">Do kada gosti treba da potvrde dolazak</span>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-back btn-prev">&larr; Nazad</button>
+            <button type="button" class="btn btn-primary btn-next">Dalje &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Ceremonija -->
+        <div class="step-panel" data-step="2">
+          <div class="step-title">Ceremonija</div>
+          <div class="step-subtitle">Gde ce se odrzati vencanje?</div>
+
+          <div class="field">
+            <label class="field-label" for="ceremony_venue">Naziv mesta <span class="required">*</span></label>
+            <input type="text" id="ceremony_venue" name="ceremony_venue" class="field-input" placeholder="npr. Hram Svetog Save" required>
+            <div class="field-error" id="ceremony_venue_error">Unesite naziv mesta ceremonije</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="ceremony_address">Adresa</label>
+            <input type="text" id="ceremony_address" name="ceremony_address" class="field-input" placeholder="npr. Kragujevacka 2, Beograd">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="ceremony_time">Vreme <span class="required">*</span></label>
+              <input type="time" id="ceremony_time" name="ceremony_time" class="field-input" required step="900">
+              <div class="field-error" id="ceremony_time_error">Unesite vreme ceremonije</div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="ceremony_map_url">Google Maps link</label>
+              <input type="url" id="ceremony_map_url" name="ceremony_map_url" class="field-input" placeholder="https://maps.google.com/...">
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-back btn-prev">&larr; Nazad</button>
+            <button type="button" class="btn btn-primary btn-next">Dalje &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Proslava -->
+        <div class="step-panel" data-step="3">
+          <div class="step-title">Proslava</div>
+          <div class="step-subtitle">Gde ce se slaviti?</div>
+
+          <div class="field">
+            <label class="field-label" for="reception_venue">Naziv mesta <span class="required">*</span></label>
+            <input type="text" id="reception_venue" name="reception_venue" class="field-input" placeholder="npr. Restoran Kalemegdan" required>
+            <div class="field-error" id="reception_venue_error">Unesite naziv mesta proslave</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="reception_address">Adresa</label>
+            <input type="text" id="reception_address" name="reception_address" class="field-input" placeholder="npr. Mali Kalemegdan 1, Beograd">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="reception_time">Vreme <span class="required">*</span></label>
+              <input type="time" id="reception_time" name="reception_time" class="field-input" required step="900">
+              <div class="field-error" id="reception_time_error">Unesite vreme proslave</div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="reception_map_url">Google Maps link</label>
+              <input type="url" id="reception_map_url" name="reception_map_url" class="field-input" placeholder="https://maps.google.com/...">
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-back btn-prev">&larr; Nazad</button>
+            <button type="button" class="btn btn-primary btn-next">Dalje &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Detalji -->
+        <div class="step-panel" data-step="4">
+          <div class="step-title">Dodatni detalji</div>
+          <div class="step-subtitle">Opciono, ali cini pozivnicu posebnom</div>
+
+          <div class="field">
+            <label class="field-label" for="story_text">Vasa ljubavna prica</label>
+            <textarea id="story_text" name="story_text" class="field-input" placeholder="Kako ste se upoznali, prvi sastanak..."></textarea>
+            <span class="field-hint">Krace je lepse — par recenica je sasvim dovoljno</span>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="dress_code_text">Dress code</label>
+            <input type="text" id="dress_code_text" name="dress_code_text" class="field-input" placeholder="npr. Elegantno, bela i zlatna">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="wedding_hashtag">Hashtag</label>
+              <input type="text" id="wedding_hashtag" name="wedding_hashtag" class="field-input" placeholder="npr. #AnaIMarko2026">
+            </div>
+            <div class="field">
+              <label class="field-label" for="additional_info">Dodatne napomene</label>
+              <input type="text" id="additional_info" name="additional_info" class="field-input" placeholder="npr. Parking, smeštaj...">
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-back btn-prev">&larr; Nazad</button>
+            <button type="button" class="btn btn-primary btn-next">Pregled &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 6: Review -->
+        <div class="step-panel" data-step="5">
+          <div class="step-title">Pregled podataka</div>
+          <div class="step-subtitle">Proverite da li je sve tacno pre slanja</div>
+
+          <div id="reviewContent"></div>
+
+          <div style="margin-top: 2rem;">
+            <button type="submit" class="btn btn-submit" id="submitBtn">
+              <span class="btn-text">Posaljite i dobijte pregled za 5 minuta</span>
+              <span class="btn-loading" style="display:none;">Slanje...</span>
+            </button>
+          </div>
+          <div style="margin-top: 1rem; text-align: center;">
+            <button type="button" class="btn btn-back btn-prev" style="margin:0 auto;">&larr; Nazad na detalje</button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">&#10003;</div>
+        <h2>Hvala vam!</h2>
+        <p>Primili smo vase podatke. Vasa pozivnica se upravo kreira sa svim dizajnima prilagodjenim vasim podacima.</p>
+
+        <div class="success-notice" id="statusNotice">
+          <span class="success-notice-icon" id="statusIcon">&#9200;</span>
+          <div id="statusText">
+            <strong><span class="poll-spinner"></span> Pregled se kreira...</strong>
+            Sacekajte par minuta. Stranica ce se automatski aktivirati. Takodje cemo vam poslati email sa linkom.
+          </div>
+        </div>
+
+        <a href="#" class="success-preview-link disabled" id="previewLink" target="_blank">Otvorite pregled pozivnica &rarr;</a>
+        <div class="success-detail">Imate 24 sata da pregledate sve dizajne i izaberete omiljeni.</div>
+
+        <a href="/" class="btn btn-back" style="margin-top: 0.5rem;">&#8592; Nazad na pocetnu</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-text">&copy; 2026 <a href="/">DigiPoz</a>. Sva prava zadrzana.</div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ========================================
+      // CONFIGURATION
+      // Fill in your Google Form URL and entry IDs
+      // ========================================
+      var CONFIG = {
+        // Your Google Form's formResponse URL
+        // Example: 'https://docs.google.com/forms/d/e/FORM_ID/formResponse'
+        GOOGLE_FORM_URL: '',
+
+        // Map each field name to its Google Form entry ID
+        // Example: 'entry.123456789'
+        FIELD_MAP: {
+          bride_name:       '', // e.g. 'entry.1234567890'
+          groom_name:       '',
+          contact_email:    '',
+          contact_phone:    '',
+          wedding_date:     '',
+          rsvp_deadline:    '',
+          ceremony_venue:   '',
+          ceremony_address: '',
+          ceremony_time:    '',
+          ceremony_map_url: '',
+          reception_venue:  '',
+          reception_address:'',
+          reception_time:   '',
+          reception_map_url:'',
+          story_text:       '',
+          dress_code_text:  '',
+          wedding_hashtag:  '',
+          additional_info:  ''
+        }
+      };
+
+      // ========================================
+      // STATE
+      // ========================================
+      var currentStep = 0;
+      var totalSteps = 6;
+      var form = document.getElementById('intakeForm');
+      var panels = form.querySelectorAll('.step-panel');
+      var progressSteps = document.querySelectorAll('.progress-step');
+      var progressFill = document.getElementById('progressFill');
+      var previewRibbon = document.getElementById('previewRibbon');
+      var previewNames = document.getElementById('previewNames');
+      var previewDate = document.getElementById('previewDate');
+
+      // Validation rules per step
+      var stepValidation = {
+        0: ['bride_name', 'groom_name', 'contact_email'],
+        1: ['wedding_date'],
+        2: ['ceremony_venue', 'ceremony_time'],
+        3: ['reception_venue', 'reception_time'],
+        4: [],
+        5: []
+      };
+
+      // Field display names for review
+      var fieldLabels = {
+        bride_name: 'Ime mlade',
+        groom_name: 'Ime mladozenje',
+        contact_email: 'Email',
+        contact_phone: 'Telefon',
+        wedding_date: 'Datum vencanja',
+        rsvp_deadline: 'Rok za RSVP',
+        ceremony_venue: 'Mesto ceremonije',
+        ceremony_address: 'Adresa ceremonije',
+        ceremony_time: 'Vreme ceremonije',
+        ceremony_map_url: 'Mapa ceremonije',
+        reception_venue: 'Mesto proslave',
+        reception_address: 'Adresa proslave',
+        reception_time: 'Vreme proslave',
+        reception_map_url: 'Mapa proslave',
+        story_text: 'Ljubavna prica',
+        dress_code_text: 'Dress code',
+        wedding_hashtag: 'Hashtag',
+        additional_info: 'Napomene'
+      };
+
+      // Review sections
+      var reviewSections = [
+        { title: 'O vama', step: 0, fields: ['bride_name', 'groom_name', 'contact_email', 'contact_phone'] },
+        { title: 'Datum', step: 1, fields: ['wedding_date', 'rsvp_deadline'] },
+        { title: 'Ceremonija', step: 2, fields: ['ceremony_venue', 'ceremony_address', 'ceremony_time', 'ceremony_map_url'] },
+        { title: 'Proslava', step: 3, fields: ['reception_venue', 'reception_address', 'reception_time', 'reception_map_url'] },
+        { title: 'Detalji', step: 4, fields: ['story_text', 'dress_code_text', 'wedding_hashtag', 'additional_info'] }
+      ];
+
+      // ========================================
+      // NAVIGATION
+      // ========================================
+      function goToStep(step) {
+        if (step < 0 || step >= totalSteps) return;
+
+        // Can only go forward if current step is valid
+        if (step > currentStep) {
+          for (var s = currentStep; s < step; s++) {
+            if (!validateStep(s)) {
+              goToStep(s);
+              return;
+            }
+          }
+        }
+
+        currentStep = step;
+
+        // Update panels
+        panels.forEach(function(p) { p.classList.remove('active'); });
+        panels[currentStep].classList.add('active');
+
+        // Update progress
+        progressSteps.forEach(function(ps, i) {
+          ps.classList.remove('active', 'completed');
+          if (i < currentStep) ps.classList.add('completed');
+          if (i === currentStep) ps.classList.add('active');
+        });
+
+        // Progress fill width
+        var fillWidth = currentStep === 0 ? 0 : (currentStep / (totalSteps - 1)) * 100;
+        progressFill.style.width = 'calc(' + fillWidth + '% - ' + (fillWidth < 100 ? '0px' : '0px') + ')';
+
+        // Build review if on last step
+        if (currentStep === 5) buildReview();
+
+        // Scroll to top of form
+        window.scrollTo({ top: document.querySelector('.progress').offsetTop - 80, behavior: 'smooth' });
+      }
+
+      // Next/prev button handlers
+      form.addEventListener('click', function(e) {
+        var btn = e.target.closest('.btn-next');
+        if (btn) {
+          e.preventDefault();
+          if (validateStep(currentStep)) {
+            goToStep(currentStep + 1);
+          }
+          return;
+        }
+
+        btn = e.target.closest('.btn-prev');
+        if (btn) {
+          e.preventDefault();
+          goToStep(currentStep - 1);
+        }
+      });
+
+      // Progress step clicks
+      progressSteps.forEach(function(ps) {
+        ps.addEventListener('click', function() {
+          var step = parseInt(ps.dataset.step);
+          goToStep(step);
+        });
+      });
+
+      // ========================================
+      // VALIDATION
+      // ========================================
+      function validateStep(step) {
+        var fields = stepValidation[step] || [];
+        var valid = true;
+
+        fields.forEach(function(fieldName) {
+          var input = document.getElementById(fieldName);
+          var errorEl = document.getElementById(fieldName + '_error');
+          if (!input) return;
+
+          var value = input.value.trim();
+          var isValid = true;
+
+          if (input.required && !value) {
+            isValid = false;
+          } else if (input.type === 'email' && value) {
+            isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+          }
+
+          if (!isValid) {
+            input.classList.add('error');
+            if (errorEl) errorEl.classList.add('visible');
+            valid = false;
+          } else {
+            input.classList.remove('error');
+            if (errorEl) errorEl.classList.remove('visible');
+          }
+        });
+
+        return valid;
+      }
+
+      // Clear error on input
+      form.addEventListener('input', function(e) {
+        var input = e.target;
+        if (input.classList.contains('error')) {
+          input.classList.remove('error');
+          var errorEl = document.getElementById(input.id + '_error');
+          if (errorEl) errorEl.classList.remove('visible');
+        }
+      });
+
+      // ========================================
+      // LIVE PREVIEW RIBBON
+      // ========================================
+      var brideInput = document.getElementById('bride_name');
+      var groomInput = document.getElementById('groom_name');
+      var dateInput = document.getElementById('wedding_date');
+
+      function updatePreview() {
+        var bride = brideInput.value.trim();
+        var groom = groomInput.value.trim();
+        var date = dateInput.value;
+
+        if (bride && groom) {
+          previewNames.innerHTML = '<em>' + escapeHtml(bride) + '</em> & <em>' + escapeHtml(groom) + '</em>';
+        } else if (bride || groom) {
+          previewNames.innerHTML = '<em>' + escapeHtml(bride || groom) + '</em> & ...';
+        } else {
+          previewNames.textContent = 'Vasa pozivnica';
+        }
+
+        if (date) {
+          var d = new Date(date + 'T00:00:00');
+          var months = ['januar','februar','mart','april','maj','jun','jul','avgust','septembar','oktobar','novembar','decembar'];
+          previewDate.textContent = d.getDate() + '. ' + months[d.getMonth()] + ' ' + d.getFullYear() + '.';
+        } else {
+          previewDate.textContent = '';
+        }
+      }
+
+      brideInput.addEventListener('input', updatePreview);
+      groomInput.addEventListener('input', updatePreview);
+      dateInput.addEventListener('change', updatePreview);
+
+      // Auto-set RSVP deadline to 1 month before wedding (or today if in the past)
+      var rsvpInput = document.getElementById('rsvp_deadline');
+      dateInput.addEventListener('change', function() {
+        var val = dateInput.value;
+        if (!val) return;
+        var wedding = new Date(val + 'T00:00:00');
+        var deadline = new Date(wedding);
+        deadline.setMonth(deadline.getMonth() - 1);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (deadline < today) deadline = today;
+        rsvpInput.value = deadline.toISOString().split('T')[0];
+      });
+
+      // ========================================
+      // REVIEW
+      // ========================================
+      function buildReview() {
+        var html = '';
+
+        reviewSections.forEach(function(section) {
+          html += '<div class="review-section">';
+          html += '<div class="review-section-title">' + section.title;
+          html += ' <button type="button" class="review-edit" data-goto="' + section.step + '">Izmeni</button>';
+          html += '</div>';
+
+          section.fields.forEach(function(fieldName) {
+            var input = document.getElementById(fieldName);
+            var value = input ? input.value.trim() : '';
+            var label = fieldLabels[fieldName] || fieldName;
+
+            html += '<div class="review-row">';
+            html += '<span class="review-label">' + label + '</span>';
+            if (value) {
+              html += '<span class="review-value">' + escapeHtml(value) + '</span>';
+            } else {
+              html += '<span class="review-value empty">—</span>';
+            }
+            html += '</div>';
+          });
+
+          html += '</div>';
+        });
+
+        document.getElementById('reviewContent').innerHTML = html;
+
+        // Edit buttons
+        document.querySelectorAll('.review-edit').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            goToStep(parseInt(btn.dataset.goto));
+          });
+        });
+      }
+
+      // ========================================
+      // SUBMISSION
+      // ========================================
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.querySelector('.btn-text').style.display = 'none';
+        submitBtn.querySelector('.btn-loading').style.display = 'inline';
+
+        // Build form data for Google Form
+        var formData = new FormData();
+        var hasConfig = CONFIG.GOOGLE_FORM_URL && CONFIG.GOOGLE_FORM_URL.length > 0;
+
+        if (hasConfig) {
+          Object.keys(CONFIG.FIELD_MAP).forEach(function(field) {
+            var entryId = CONFIG.FIELD_MAP[field];
+            if (entryId) {
+              var input = document.getElementById(field);
+              if (input) {
+                formData.append(entryId, input.value.trim());
+              }
+            }
+          });
+
+          // Submit to Google Form
+          fetch(CONFIG.GOOGLE_FORM_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+          }).then(function() {
+            showSuccess();
+          }).catch(function() {
+            // no-cors always gives opaque response, show success optimistically
+            showSuccess();
+          });
+        } else {
+          // Demo mode: no Google Form configured
+          setTimeout(function() {
+            showSuccess();
+          }, 1200);
+        }
+      });
+
+      function showSuccess() {
+        // Generate preview link from names
+        var bride = brideInput.value.trim();
+        var groom = groomInput.value.trim();
+        var slug = slugify(bride) + '-' + slugify(groom);
+        var previewUrl = '/preview/' + slug + '/';
+        var link = document.getElementById('previewLink');
+        link.href = previewUrl;
+
+        form.style.display = 'none';
+        document.querySelector('.progress').style.display = 'none';
+        document.getElementById('successState').classList.add('visible');
+        previewRibbon.style.display = 'none';
+        launchConfetti();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Start polling for preview availability
+        pollPreview(previewUrl);
+      }
+
+      // ========================================
+      // POLL FOR PREVIEW READINESS
+      // ========================================
+      function pollPreview(url) {
+        var notice = document.getElementById('statusNotice');
+        var icon = document.getElementById('statusIcon');
+        var text = document.getElementById('statusText');
+        var link = document.getElementById('previewLink');
+        var attempts = 0;
+        var maxAttempts = 40; // 40 x 15s = 10 minutes
+        var interval = 15000;
+
+        function check() {
+          attempts++;
+          fetch(url, { method: 'HEAD', cache: 'no-store' }).then(function(res) {
+            if (res.ok) {
+              onReady();
+            } else if (attempts < maxAttempts) {
+              setTimeout(check, interval);
+            } else {
+              onTimeout();
+            }
+          }).catch(function() {
+            if (attempts < maxAttempts) {
+              setTimeout(check, interval);
+            } else {
+              onTimeout();
+            }
+          });
+        }
+
+        function onReady() {
+          notice.classList.add('ready');
+          icon.innerHTML = '&#10003;';
+          text.innerHTML = '<strong>Pregled je spreman!</strong> Kliknite ispod da vidite vasu pozivnicu u svim dizajnima.';
+          link.classList.remove('disabled');
+          link.classList.add('ready');
+        }
+
+        function onTimeout() {
+          icon.innerHTML = '&#9993;';
+          text.innerHTML = '<strong>Pregled jos nije spreman.</strong> Ne brinite — poslaćemo vam email sa linkom cim bude gotov.';
+          link.classList.remove('disabled');
+        }
+
+        // First check after 30s (GitHub Actions needs time to start)
+        setTimeout(check, 30000);
+      }
+
+      // Simple Cyrillic-to-Latin slugify (matches server-side logic)
+      function slugify(text) {
+        var map = {
+          '\u0430':'a','\u0431':'b','\u0432':'v','\u0433':'g','\u0434':'d',
+          '\u0435':'e','\u0436':'z','\u0437':'z','\u0438':'i','\u0439':'j',
+          '\u043a':'k','\u043b':'l','\u043c':'m','\u043d':'n','\u043e':'o',
+          '\u043f':'p','\u0440':'r','\u0441':'s','\u0442':'t','\u0443':'u',
+          '\u0444':'f','\u0445':'h','\u0446':'c','\u0447':'c','\u0448':'s',
+          '\u0449':'sc','\u044a':'','\u044b':'y','\u044c':'','\u044d':'e',
+          '\u044e':'yu','\u044f':'ya',
+          '\u0452':'dj','\u0458':'j','\u0459':'lj','\u045a':'nj',
+          '\u045b':'c','\u045c':'k','\u045e':'u','\u045f':'dz',
+          '\u0410':'a','\u0411':'b','\u0412':'v','\u0413':'g','\u0414':'d',
+          '\u0415':'e','\u0416':'z','\u0417':'z','\u0418':'i','\u0419':'j',
+          '\u041a':'k','\u041b':'l','\u041c':'m','\u041d':'n','\u041e':'o',
+          '\u041f':'p','\u0420':'r','\u0421':'s','\u0422':'t','\u0423':'u',
+          '\u0424':'f','\u0425':'h','\u0426':'c','\u0427':'c','\u0428':'s',
+          '\u0429':'sc','\u042a':'','\u042b':'y','\u042c':'','\u042d':'e',
+          '\u042e':'yu','\u042f':'ya',
+          '\u0402':'dj','\u0408':'j','\u0409':'lj','\u040a':'nj',
+          '\u040b':'c','\u040c':'k','\u040e':'u','\u040f':'dz'
+        };
+        return text.toLowerCase().split('').map(function(ch) {
+          return map[ch] || ch;
+        }).join('').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      }
+
+      // ========================================
+      // CONFETTI
+      // ========================================
+      function launchConfetti() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        var container = document.createElement('div');
+        container.className = 'confetti-container';
+        document.body.appendChild(container);
+
+        var colors = ['#B8860B', '#D4A843', '#E8D5A8', '#2C2420', '#F7F0E3', '#C5A55A'];
+
+        for (var i = 0; i < 60; i++) {
+          var piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.left = Math.random() * 100 + '%';
+          piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.animationDelay = Math.random() * 1.5 + 's';
+          piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+          piece.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+          piece.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+          piece.style.width = (5 + Math.random() * 6) + 'px';
+          piece.style.height = (8 + Math.random() * 8) + 'px';
+          piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          container.appendChild(piece);
+        }
+
+        setTimeout(function() {
+          container.remove();
+        }, 5000);
+      }
+
+      // ========================================
+      // UTILS
+      // ========================================
+      function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
