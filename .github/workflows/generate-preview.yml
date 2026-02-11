@@ -36,36 +36,50 @@ jobs:
       - name: Extract wedding data
         id: extract
         env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_SLUG: ${{ github.event.client_payload.slug }}
+          DISPATCH_RSVP_URL: ${{ github.event.client_payload.rsvp_sheet_url }}
+          MANUAL_SLUG: ${{ github.event.inputs.slug }}
           WEDDING_DATA_DISPATCH: ${{ toJson(github.event.client_payload.wedding_data) }}
           WEDDING_DATA_MANUAL: ${{ github.event.inputs.wedding_data }}
         run: |
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
-            echo "rsvp_sheet_url=${{ github.event.client_payload.rsvp_sheet_url }}" >> $GITHUB_OUTPUT
+          if [ "$EVENT_NAME" == "repository_dispatch" ]; then
+            SLUG="$DISPATCH_SLUG"
+            echo "rsvp_sheet_url=$DISPATCH_RSVP_URL" >> $GITHUB_OUTPUT
             printenv WEDDING_DATA_DISPATCH > data/temp-wedding.json
           else
-            echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
+            SLUG="$MANUAL_SLUG"
             echo "rsvp_sheet_url=" >> $GITHUB_OUTPUT
             printenv WEDDING_DATA_MANUAL > data/temp-wedding.json
           fi
+          # Validate slug format (lowercase alphanumeric and hyphens only)
+          if [[ ! "$SLUG" =~ ^[a-z0-9-]+$ ]]; then
+            echo "::error::Invalid slug format: $SLUG"
+            exit 1
+          fi
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
 
       - name: Save wedding data file
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
         run: |
-          SLUG="${{ steps.extract.outputs.slug }}"
           mv data/temp-wedding.json "data/${SLUG}.json"
           cat "data/${SLUG}.json"
 
       - name: Generate preview
-        run: node scripts/generate-preview.js ${{ steps.extract.outputs.slug }}
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
+        run: node scripts/generate-preview.js "$SLUG"
 
       - name: Persist wedding data for final generation
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
         run: |
-          SLUG="${{ steps.extract.outputs.slug }}"
           mkdir -p public/data
           cp "data/${SLUG}.json" "public/data/${SLUG}.json"
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public

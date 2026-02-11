@@ -20,6 +20,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const config = require('./config');
 const utils = require('./utils');
+const layoutPreview = require('./generate-layout-preview');
 
 // Paths
 const ROOT_DIR = path.join(__dirname, '..');
@@ -152,17 +153,52 @@ function generateFinalPage(rawData, theme) {
 }
 
 /**
+ * Parse theme identifier into layout and theme parts.
+ * Original themes: "classic" → { layout: null, theme: "classic", isLayout: false }
+ * 2026 layouts:    "envelope/velvet" → { layout: "envelope", theme: "velvet", isLayout: true }
+ */
+function parseThemeIdentifier(themeStr) {
+  if (themeStr.includes('/')) {
+    const [layout, theme] = themeStr.split('/', 2);
+    return { layout, theme, isLayout: true };
+  }
+  // Check if it's a 2026 layout key with a single default theme
+  const layoutConfig = config.LAYOUT_REGISTRY[themeStr];
+  if (layoutConfig && !layoutConfig.isOriginal) {
+    return { layout: themeStr, theme: layoutConfig.themes[0], isLayout: true };
+  }
+  return { layout: null, theme: themeStr, isLayout: false };
+}
+
+/**
  * Main generation function
  */
-async function generateFinal(slug, theme, options = {}) {
+async function generateFinal(slug, themeStr, options = {}) {
   console.log(`\n💒 Generating final site for: ${slug}`);
-  console.log(`🎨 Theme: ${theme}\n`);
+  console.log(`🎨 Theme: ${themeStr}\n`);
+
+  const { layout, theme, isLayout } = parseThemeIdentifier(themeStr);
 
   // Validate theme
-  if (!config.THEMES.includes(theme)) {
-    console.error(`Invalid theme: ${theme}`);
-    console.error(`Available themes: ${config.THEMES.join(', ')}`);
-    process.exit(1);
+  if (isLayout) {
+    const layoutConfig = config.LAYOUT_REGISTRY[layout];
+    if (!layoutConfig) {
+      console.error(`Invalid layout: ${layout}`);
+      console.error(`Available layouts: ${Object.keys(config.LAYOUT_REGISTRY).filter(k => !config.LAYOUT_REGISTRY[k].isOriginal).join(', ')}`);
+      process.exit(1);
+    }
+    if (!layoutConfig.themes.includes(theme)) {
+      console.error(`Invalid theme "${theme}" for layout "${layout}"`);
+      console.error(`Available themes: ${layoutConfig.themes.join(', ')}`);
+      process.exit(1);
+    }
+  } else {
+    if (!config.THEMES.includes(theme)) {
+      console.error(`Invalid theme: ${theme}`);
+      console.error(`Available themes: ${config.THEMES.join(', ')}`);
+      console.error(`\nFor 2026 layouts, use: layout/theme (e.g., envelope/velvet)`);
+      process.exit(1);
+    }
   }
 
   // Load wedding data
@@ -185,7 +221,13 @@ async function generateFinal(slug, theme, options = {}) {
 
   // Generate the final page
   console.log(`  📄 Generating final invitation...`);
-  const html = generateFinalPage(rawData, theme);
+  let html;
+  if (isLayout) {
+    const layoutConfig = config.LAYOUT_REGISTRY[layout];
+    html = layoutPreview.generateThemedPage(rawData, layout, theme, layoutConfig);
+  } else {
+    html = generateFinalPage(rawData, theme);
+  }
   await fs.writeFile(path.join(outputDir, 'index.html'), html, 'utf8');
 
   // Create site metadata
@@ -193,7 +235,8 @@ async function generateFinal(slug, theme, options = {}) {
     slug,
     bride_name: rawData.bride_name,
     groom_name: rawData.groom_name,
-    theme,
+    theme: themeStr,
+    layout: layout || null,
     generated_at: new Date().toISOString(),
     wedding_date: rawData.wedding_date
   };
@@ -205,23 +248,29 @@ async function generateFinal(slug, theme, options = {}) {
 
   // Cleanup preview folder if requested
   if (options.cleanup) {
-    const previewDir = path.join(PREVIEW_DIR, slug);
-    if (fs.existsSync(previewDir)) {
-      console.log(`  🗑️  Cleaning up preview folder...`);
-      await fs.remove(previewDir);
+    // Clean up both possible preview directory patterns
+    const previewDirs = [
+      path.join(PREVIEW_DIR, slug),
+      path.join(PREVIEW_DIR, `${slug}-${layout}`)
+    ].filter(Boolean);
+    for (const previewDir of previewDirs) {
+      if (fs.existsSync(previewDir)) {
+        console.log(`  🗑️  Cleaning up preview folder: ${path.basename(previewDir)}`);
+        await fs.remove(previewDir);
+      }
     }
   }
 
   console.log(`\n✅ Final site generated successfully!`);
-  console.log(`\n📍 Site URL: https://${config.DOMAIN}/${slug}/`);
+  console.log(`\n📍 Site URL: https://${config.DOMAIN}/site/${slug}/`);
   console.log(`📍 Local: http://localhost:${config.DEV_SERVER_PORT}/site/${slug}/\n`);
 
   return {
     success: true,
     outputDir,
     slug,
-    theme,
-    url: `https://${config.DOMAIN}/${slug}/`
+    theme: themeStr,
+    url: `https://${config.DOMAIN}/site/${slug}/`
   };
 }
 
@@ -231,13 +280,20 @@ if (require.main === module) {
 
   if (args.length < 2) {
     console.log('Usage: node scripts/generate-final.js <wedding-slug> <theme> [--cleanup]\n');
-    console.log('Available themes:');
+    console.log('Original themes:');
     config.THEMES.forEach(theme => {
       console.log(`  - ${theme}: ${config.THEME_NAMES[theme]}`);
     });
+    console.log('\n2026 layouts (use layout/theme format):');
+    Object.entries(config.LAYOUT_REGISTRY).forEach(([key, cfg]) => {
+      if (!cfg.isOriginal) {
+        console.log(`  - ${key}: ${cfg.name} (themes: ${cfg.themes.join(', ')})`);
+      }
+    });
     console.log('\nExamples:');
     console.log('  node scripts/generate-final.js marko-ana classic');
-    console.log('  node scripts/generate-final.js test-wedding modern --cleanup');
+    console.log('  node scripts/generate-final.js marko-ana envelope/velvet');
+    console.log('  node scripts/generate-final.js test-wedding aurora/northern --cleanup');
     process.exit(1);
   }
 

@@ -9,20 +9,9 @@ on:
         description: 'Wedding slug (e.g., ana-marko)'
         required: true
       theme:
-        description: 'Selected theme'
+        description: 'Selected theme (original: classic, modern, etc. | 2026: layout/theme e.g. envelope/velvet)'
         required: true
-        type: choice
-        options:
-          - classic
-          - modern
-          - romantic
-          - minimal
-          - rustic
-          - botanical
-          - moody
-          - gatsby
-          - editorial
-          - whimsical
+        type: string
 
 permissions:
   contents: write
@@ -46,20 +35,41 @@ jobs:
 
       - name: Extract parameters
         id: extract
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_SLUG: ${{ github.event.client_payload.slug }}
+          DISPATCH_THEME: ${{ github.event.client_payload.theme }}
+          DISPATCH_EMAIL: ${{ github.event.client_payload.contact_email }}
+          DISPATCH_RSVP_URL: ${{ github.event.client_payload.rsvp_sheet_url }}
+          MANUAL_SLUG: ${{ github.event.inputs.slug }}
+          MANUAL_THEME: ${{ github.event.inputs.theme }}
         run: |
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
-            echo "theme=${{ github.event.client_payload.theme }}" >> $GITHUB_OUTPUT
-            echo "contact_email=${{ github.event.client_payload.contact_email }}" >> $GITHUB_OUTPUT
-            echo "rsvp_sheet_url=${{ github.event.client_payload.rsvp_sheet_url }}" >> $GITHUB_OUTPUT
+          if [ "$EVENT_NAME" == "repository_dispatch" ]; then
+            SLUG="$DISPATCH_SLUG"
+            THEME="$DISPATCH_THEME"
+            echo "contact_email=$DISPATCH_EMAIL" >> $GITHUB_OUTPUT
+            echo "rsvp_sheet_url=$DISPATCH_RSVP_URL" >> $GITHUB_OUTPUT
           else
-            echo "slug=${{ github.event.inputs.slug }}" >> $GITHUB_OUTPUT
-            echo "theme=${{ github.event.inputs.theme }}" >> $GITHUB_OUTPUT
+            SLUG="$MANUAL_SLUG"
+            THEME="$MANUAL_THEME"
           fi
+          # Validate slug format (lowercase alphanumeric and hyphens only)
+          if [[ ! "$SLUG" =~ ^[a-z0-9-]+$ ]]; then
+            echo "::error::Invalid slug format: $SLUG"
+            exit 1
+          fi
+          # Validate theme format (lowercase alphanumeric, hyphens, and optional / for layout/theme)
+          if [[ ! "$THEME" =~ ^[a-z0-9-]+(/[a-z0-9-]+)?$ ]]; then
+            echo "::error::Invalid theme format: $THEME"
+            exit 1
+          fi
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
+          echo "theme=$THEME" >> $GITHUB_OUTPUT
 
       - name: Download existing data
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
         run: |
-          SLUG="${{ steps.extract.outputs.slug }}"
           # Try to get wedding data from gh-pages branch
           git fetch origin gh-pages:gh-pages || true
           # Data is stored in public/data/ during preview generation
@@ -72,11 +82,14 @@ jobs:
           fi
 
       - name: Generate final site
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
+          THEME: ${{ steps.extract.outputs.theme }}
         run: |
-          node scripts/generate-final.js ${{ steps.extract.outputs.slug }} ${{ steps.extract.outputs.theme }} --cleanup
+          node scripts/generate-final.js "$SLUG" "$THEME" --cleanup
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
@@ -85,11 +98,14 @@ jobs:
 
       - name: Clean up preview from GitHub Pages
         continue-on-error: true
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          SLUG="${{ steps.extract.outputs.slug }}"
           cd "$(mktemp -d)"
           git clone --branch gh-pages --single-branch --depth 1 \
-            "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" .
+            "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" .
           if [ -d "preview/${SLUG}" ] || [ -f "data/${SLUG}.json" ]; then
             rm -rf "preview/${SLUG}" "data/${SLUG}.json"
             git config user.name "github-actions[bot]"

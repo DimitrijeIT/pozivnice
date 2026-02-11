@@ -867,17 +867,16 @@
 
         try {
           const formData = new FormData(form);
-          const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+          // Google Apps Script requires no-cors to avoid CORS preflight failures
+          await fetch('{{RSVP_SCRIPT_URL}}', {
             method: 'POST',
-            body: formData
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(Object.fromEntries(formData.entries()))
           });
-
-          if (response.ok) {
-            form.classList.add('hidden');
-            successMsg.classList.remove('hidden');
-          } else {
-            throw new Error('Submit failed');
-          }
+          // Response is opaque with no-cors; show success optimistically
+          form.classList.add('hidden');
+          successMsg.classList.remove('hidden');
         } catch (error) {
           btn.disabled = false;
           btn.textContent = 'Потврди';

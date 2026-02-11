@@ -697,13 +697,15 @@
       const data = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+        // Google Apps Script requires no-cors to avoid CORS preflight failures
+        await fetch('{{RSVP_SCRIPT_URL}}', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
-
-        if (response.ok) {
+        // Response is opaque with no-cors; show success optimistically
+        {
           e.target.innerHTML = '<div style="text-align:center;padding:3rem 0;"><h3 style="font-family:Cormorant Garamond,serif;font-size:1.5rem;margin-bottom:1rem;">Хвала! 🍃</h3><p style="color:var(--color-text-muted);">Ваша потврда је забележена.</p></div>';
         }
       } catch (error) {

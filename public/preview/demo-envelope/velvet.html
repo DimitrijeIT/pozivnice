@@ -2353,7 +2353,7 @@ body {
     <!-- Hero Section -->
     <section class="section hero-section" id="hero">
       <div class="section-content">
-        <p class="hero-date fade-in">12. септембар 2026</p>
+        <p class="hero-date fade-in">12. септембра 2026</p>
         <h1 class="hero-names fade-in stagger-1">
           Милица
           <span class="hero-ampersand">&</span>
@@ -2512,7 +2512,7 @@ body {
     <section class="section rsvp-section" id="rsvp">
       <div class="section-content">
         <h2 class="rsvp-title fade-in" id="rsvp-title-heading">Потврда доласка</h2>
-        <p class="rsvp-deadline fade-in stagger-1">Молимо потврдите до 15. август 2026</p>
+        <p class="rsvp-deadline fade-in stagger-1">Молимо потврдите до 15. августа 2026</p>
 
         <form class="rsvp-form fade-in stagger-2" id="rsvp-form" data-wedding-slug="demo" aria-labelledby="rsvp-title-heading">
           <div class="form-group">
@@ -2584,7 +2584,7 @@ body {
     <footer class="section footer-section" id="footer">
       <div class="section-content">
         <p class="footer-names">Милица & Стефан</p>
-        <p class="footer-date">12. септембар 2026</p>
+        <p class="footer-date">12. септембра 2026</p>
         
         <p class="footer-hashtag">#МилицаИСтефан2026</p>
         
@@ -2772,14 +2772,14 @@ body {
             if (data.attending === 'yes') createConfetti();
           } else {
             try {
-              const response = await fetch('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec', {
+              // Google Apps Script requires no-cors to avoid CORS preflight failures
+              await fetch('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(data)
               });
-              if (!response.ok) throw new Error('Server error');
-              const result = await response.json();
-              if (!result.success) throw new Error(result.message || 'Failed');
+              // Response is opaque with no-cors; show success optimistically
               formMessage.textContent = 'Хвала на потврди!';
               formMessage.className = 'form-message success';
               if (data.attending === 'yes') createConfetti();

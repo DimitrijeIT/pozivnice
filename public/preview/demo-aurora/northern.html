@@ -1660,7 +1660,7 @@ body {
         <span class="ampersand">&</span>
         Стефан
       </h1>
-      <p class="hero-date">12. септембар 2026</p>
+      <p class="hero-date">12. септембра 2026</p>
     </div>
     <div class="scroll-indicator">
       <span></span>
@@ -1721,7 +1721,7 @@ body {
       <div class="constellation-card">
         <div class="rsvp-container">
           <h2 class="rsvp-title" id="rsvp-title-aurora">Пожели жељу</h2>
-          <p class="rsvp-subtitle">Молимо вас да потврдите до 15. август 2026</p>
+          <p class="rsvp-subtitle">Молимо вас да потврдите до 15. августа 2026</p>
 
           <form id="rsvp-form" aria-labelledby="rsvp-title-aurora">
             <input type="hidden" name="wedding_slug" value="demo">
@@ -1816,13 +1816,15 @@ body {
       }
 
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec', {
+        // Google Apps Script requires no-cors to avoid CORS preflight failures
+        await fetch('https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
-
-        if (response.ok) {
+        // Response is opaque with no-cors; show success optimistically
+        {
           e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-size:1.5rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--color-aurora-1),var(--color-aurora-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">✨ Жеља послата! ✨</h3><p style="color:var(--color-text-muted);">Видимо се под звездама.</p></div>';
         }
       } catch (error) {

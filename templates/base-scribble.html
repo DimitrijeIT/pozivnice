@@ -715,13 +715,15 @@
       const data = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+        // Google Apps Script requires no-cors to avoid CORS preflight failures
+        await fetch('{{RSVP_SCRIPT_URL}}', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
-
-        if (response.ok) {
+        // Response is opaque with no-cors; show success optimistically
+        {
           // Create confetti
           for (let i = 0; i < 50; i++) {
             createConfetti();

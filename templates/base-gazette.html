@@ -679,14 +679,14 @@
             msg.className = 'form-message success';
           } else {
             try {
-              const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+              // Google Apps Script requires no-cors to avoid CORS preflight failures
+              await fetch('{{RSVP_SCRIPT_URL}}', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(data)
               });
-              if (!response.ok) throw new Error('Server error');
-              const result = await response.json();
-              if (!result.success) throw new Error(result.message || 'Failed');
+              // Response is opaque with no-cors; show success optimistically
               msg.textContent = 'Хвала!';
               msg.className = 'form-message success';
             } catch {

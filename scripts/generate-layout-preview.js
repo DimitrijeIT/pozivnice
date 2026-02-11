@@ -64,8 +64,8 @@ function loadWeddingData(slug) {
 function formatDate(dateStr) {
   const date = new Date(dateStr);
   const months = [
-    'јануар', 'фебруар', 'март', 'април', 'мај', 'јун',
-    'јул', 'август', 'септембар', 'октобар', 'новембар', 'децембар'
+    'јануара', 'фебруара', 'марта', 'априла', 'маја', 'јуна',
+    'јула', 'августа', 'септембра', 'октобра', 'новембра', 'децембра'
   ];
   return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
@@ -81,7 +81,7 @@ function processConditionals(html, data) {
     { key: 'STORY', check: data.story_text },
     { key: 'PULL_QUOTE', check: data.pull_quote || data.story_text },
     { key: 'HASHTAG', check: data.wedding_hashtag },
-    { key: 'DRESS_CODE', check: true },
+    { key: 'DRESS_CODE', check: data.dress_code_text },
     { key: 'ADDITIONAL_INFO', check: data.additional_info },
     { key: 'CEREMONY_MAP', check: data.ceremony_map_url },
     { key: 'RECEPTION_MAP', check: data.reception_map_url },
@@ -169,7 +169,7 @@ function replacePlaceholders(html, data) {
     '_themeCss', '_themeFonts', 'THEME_CSS', 'THEME_FONTS',
     'MEAL_OPTIONS', 'RSVP_SCRIPT_URL', 'CEREMONY_MAP_URL',
     'RECEPTION_MAP_URL', 'WEDDING_DATE_ISO',
-    'STORY_CARDS', 'TIMELINE_ITEMS'
+    'STORY_CARDS', 'TIMELINE_ITEMS', 'CALENDAR_BUTTONS'
   ]);
 
   const replacements = {
@@ -209,7 +209,11 @@ function replacePlaceholders(html, data) {
     'VENUE_PAGE_NUM': calculateVenuePage(data),
     'VENUE_CHAPTER': data.timeline?.length ? '4' : '3',
     'RSVP_PAGE': calculateRsvpPage(data),
-    'RSVP_PAGE_NUM': calculateRsvpPage(data)
+    'RSVP_PAGE_NUM': calculateRsvpPage(data),
+    'CALENDAR_BUTTONS': (() => {
+      const calendarLinks = utils.generateCalendarLinks(data);
+      return utils.generateCalendarButtons(calendarLinks);
+    })()
   };
 
   let result = html;
@@ -694,6 +698,17 @@ async function generatePreview(layout, slug) {
       throw new Error(`Failed to generate index page: ${error.message}`);
     }
   }
+
+  // Create metadata file for cleanup-expired.js compatibility
+  const metadata = {
+    slug,
+    layout,
+    bride_name: data.bride_name,
+    groom_name: data.groom_name,
+    created_at: new Date().toISOString(),
+    expires_at: new Date(Date.now() + (config.PREVIEW_EXPIRY_DAYS || 30) * 24 * 60 * 60 * 1000).toISOString()
+  };
+  await fs.writeJson(path.join(outputDir, 'metadata.json'), metadata, { spaces: 2 });
 
   console.log(`\n✅ Done! URL: http://localhost:${config.DEV_SERVER_PORT}/preview/${slug}-${layout}/\n`);
 }

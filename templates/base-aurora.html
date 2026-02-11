@@ -775,13 +775,15 @@
       }
 
       try {
-        const response = await fetch('{{RSVP_SCRIPT_URL}}', {
+        // Google Apps Script requires no-cors to avoid CORS preflight failures
+        await fetch('{{RSVP_SCRIPT_URL}}', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
-
-        if (response.ok) {
+        // Response is opaque with no-cors; show success optimistically
+        {
           e.target.innerHTML = '<div style="text-align:center;padding:2rem;"><h3 style="font-size:1.5rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--color-aurora-1),var(--color-aurora-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">✨ Жеља послата! ✨</h3><p style="color:var(--color-text-muted);">Видимо се под звездама.</p></div>';
         }
       } catch (error) {
