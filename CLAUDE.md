@@ -5,3 +5,26 @@
 
 *No recent activity*
 </claude-mem-context>
+
+# public/
+
+GitHub Pages root. All content in this directory is served at pozivnice.rs.
+
+## Structure
+
+| Path | Purpose |
+|------|---------|
+| `index.html` | Landing page |
+| `form.html` | Intake form (6-step wizard). Submits to Google Form via `formResponse` endpoint using `no-cors`. |
+| `showcase.html` | Theme showcase gallery |
+| `CNAME` | Custom domain: pozivnice.rs |
+| `preview/` | Temporary preview sites (`preview/{slug}/` for original, `preview/{slug}-{layout}/` for 2026) |
+| `site/` | Final published invitation sites (`site/{slug}/index.html`) |
+| `screenshots/` | Theme thumbnail images |
+
+## Notes
+
+- Preview sites are temporary and cleaned up after final generation or expiry
+- Final sites are permanent
+- `form.html` maps 18 fields to Google Form entry IDs via a centralized `FIELD_MAP` object
+- All content is Serbian Cyrillic
