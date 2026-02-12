@@ -476,6 +476,14 @@
       color: var(--color-accent);
     }
 
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2rem 1rem; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-accent); margin-bottom: 1rem; }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 6px; text-decoration: none; font-size: 0.875rem; color: var(--color-text); border: 1px solid var(--color-accent); opacity: 0.85; transition: opacity 0.2s, transform 0.2s; }
+    .calendar-btn:hover { opacity: 1; transform: translateY(-1px); }
+    .calendar-icon { font-size: 1.1rem; }
+
     /* Close button */
     .close-letter {
       display: block;
@@ -637,6 +645,14 @@
         </div>
       </div>
 
+      <!-- Calendar -->
+      {{#IF_WEDDING_DATE}}
+      <div class="calendar-section">
+        <h3>Додај у календар</h3>
+        {{CALENDAR_BUTTONS}}
+      </div>
+      {{/IF_WEDDING_DATE}}
+
       <div class="divider">
         <span class="divider-line"></span>
         <span class="divider-icon">✉</span>
@@ -649,7 +665,7 @@
         <p class="rsvp-subtitle">Волели бисмо да знамо да ли можете доћи</p>
 
         <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title">
-          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+          <input type="hidden" name="slug" value="{{WEDDING_SLUG}}">
 
           <div class="form-group">
             <label for="guest-name">Ваше име</label>
@@ -677,7 +693,7 @@
 
           <div class="form-group" id="guests-group">
             <label for="guests-count">Број гостију</label>
-            <select id="guests-count" name="guests" class="form-select">
+            <select id="guests-count" name="guests_count" class="form-select">
               <option value="1">1 особа</option>
               <option value="2">2 особе</option>
               <option value="3">3 особе</option>
@@ -688,12 +704,17 @@
           {{#IF_MEAL_OPTIONS}}
           <div class="form-group" id="meal-group">
             <label for="meal-choice">Избор јела</label>
-            <select id="meal-choice" name="meal" class="form-select">
+            <select id="meal-choice" name="meal_preference" class="form-select">
               <option value="">Изаберите...</option>
               {{MEAL_OPTIONS}}
             </select>
           </div>
           {{/IF_MEAL_OPTIONS}}
+
+          <div class="form-group">
+            <label for="guest-message">Порука (опционално)</label>
+            <textarea id="guest-message" name="message" class="form-input" rows="3" placeholder="Оставите поруку..."></textarea>
+          </div>
 
           <button type="submit" class="submit-btn" id="submit-btn">
             Пошаљи одговор

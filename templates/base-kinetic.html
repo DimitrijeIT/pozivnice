@@ -297,6 +297,46 @@
       color: var(--color-text-muted);
     }
 
+    /* === COUNTDOWN SECTION === */
+    .countdown-section {
+      text-align: center;
+      width: 100%;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 400;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .countdown-unit {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
     /* === RSVP SECTION === */
     .rsvp-section {
       text-align: center;
@@ -477,6 +517,14 @@
       .radio-group { flex-direction: column; gap: 1rem; }
     }
 
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2rem 1rem; width: 100%; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; color: var(--color-accent); }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 6px; text-decoration: none; font-size: 0.875rem; color: var(--color-text); border: 1px solid var(--color-text); opacity: 0.85; transition: opacity 0.2s, transform 0.2s; }
+    .calendar-btn:hover { opacity: 1; transform: translateY(-1px); border-color: var(--color-accent); }
+    .calendar-icon { font-size: 1.1rem; }
+
     /* === SCROLL ANIMATIONS === */
     .reveal {
       opacity: 0;
@@ -599,12 +647,39 @@
   </section>
   {{/IF_STORY}}
 
+  <!-- COUNTDOWN SECTION -->
+  <section class="kinetic-section countdown-section reveal">
+    <p class="countdown-label">До нашег великог дана...</p>
+    <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">--</div>
+        <div class="countdown-unit">дана</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">--</div>
+        <div class="countdown-unit">сати</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">--</div>
+        <div class="countdown-unit">минута</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR SECTION -->
+  {{#IF_WEDDING_DATE}}
+  <section class="kinetic-section calendar-section reveal">
+    <h3>Додај у календар</h3>
+    {{CALENDAR_BUTTONS}}
+  </section>
+  {{/IF_WEDDING_DATE}}
+
   <!-- RSVP SECTION -->
   <section class="kinetic-section rsvp-section reveal">
     <h2 class="rsvp-question" id="rsvp-question-heading">Долазите?</h2>
 
     <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-question-heading">
-      <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+      <input type="hidden" name="slug" value="{{WEDDING_SLUG}}">
 
       <div class="form-group">
         <label class="form-label" for="guest-name">Име и презиме</label>
@@ -632,7 +707,7 @@
 
       <div class="form-group" id="guests-group">
         <label class="form-label" for="guests-count">Број гостију</label>
-        <select id="guests-count" name="guests" class="form-select">
+        <select id="guests-count" name="guests_count" class="form-select">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -643,12 +718,17 @@
       {{#IF_MEAL_OPTIONS}}
       <div class="form-group" id="meal-group">
         <label class="form-label" for="meal-choice">Избор јела</label>
-        <select id="meal-choice" name="meal" class="form-select">
+        <select id="meal-choice" name="meal_preference" class="form-select">
           <option value="">Изаберите...</option>
           {{MEAL_OPTIONS}}
         </select>
       </div>
       {{/IF_MEAL_OPTIONS}}
+
+      <div class="form-group">
+        <label class="form-label" for="guest-message">Порука (опционално)</label>
+        <textarea id="guest-message" name="message" class="form-input" rows="3" style="resize:vertical;min-height:80px;" placeholder="Оставите поруку..."></textarea>
+      </div>
 
       <button type="submit" class="submit-btn" id="submit-btn">ДА</button>
     </form>
@@ -707,6 +787,22 @@
 
       if (document.querySelector('.announcement-section')) {
         wordObserver.observe(document.querySelector('.announcement-section'));
+      }
+
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      if (countdownEl) {
+        const weddingDate = new Date(countdownEl.dataset.date);
+        function updateCountdown() {
+          const now = new Date();
+          const diff = weddingDate - now;
+          if (diff <= 0) return;
+          document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+          document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+          document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
       }
 
       // RSVP Form

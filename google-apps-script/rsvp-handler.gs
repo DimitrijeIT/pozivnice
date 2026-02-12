@@ -24,6 +24,21 @@ const CONFIG = {
 };
 
 /**
+ * Rate limiting - max 10 requests per minute per slug
+ * Uses CacheService with a 60-second TTL
+ */
+function checkRateLimit(slug) {
+  var cache = CacheService.getScriptCache();
+  var key = 'ratelimit_' + slug;
+  var count = parseInt(cache.get(key) || '0');
+  if (count >= 10) {
+    return false; // Rate limited
+  }
+  cache.put(key, String(count + 1), 60); // 60 second TTL
+  return true;
+}
+
+/**
  * Look up per-couple spreadsheet ID from the RSVP_Lookup tab
  */
 function lookupSpreadsheetId(slug) {
@@ -70,6 +85,12 @@ function doPost(e) {
 
     if (!slug) {
       return createResponse(false, 'Missing wedding slug');
+    }
+
+    // Rate limit check
+    if (!checkRateLimit(slug)) {
+      Logger.log('Rate limited: ' + slug);
+      return createResponse(false, 'Too many requests. Please try again in a minute.');
     }
 
     if (!name || name.trim() === '') {
@@ -161,14 +182,31 @@ function saveRSVP(slug, rsvpData) {
 
   var sheet = ss.getSheets()[0];
 
-  // Check for duplicate submission (same name)
+  // Check for duplicate submission (name + email for accuracy)
+  // If the new RSVP includes an email, match on both name AND email.
+  // If the new RSVP has no email, fall back to name-only matching (original behavior).
+  // This prevents two guests with the same name but different emails from overwriting each other.
   const existingData = sheet.getDataRange().getValues();
   let existingRow = -1;
+  const newNameLower = rsvpData.name.toLowerCase();
+  const newEmailLower = rsvpData.email.toLowerCase();
 
   for (let i = 1; i < existingData.length; i++) {
-    if (existingData[i][0].toLowerCase() === rsvpData.name.toLowerCase()) {
-      existingRow = i + 1;
-      break;
+    const existingName = (existingData[i][0] || '').toString().toLowerCase();
+    const existingEmail = (existingData[i][1] || '').toString().toLowerCase();
+
+    if (existingName === newNameLower) {
+      if (newEmailLower) {
+        // New RSVP has email: match only if emails also match, or existing has no email
+        if (existingEmail === newEmailLower || !existingEmail) {
+          existingRow = i + 1;
+          break;
+        }
+      } else {
+        // New RSVP has no email: fall back to name-only matching
+        existingRow = i + 1;
+        break;
+      }
     }
   }
 

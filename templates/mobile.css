@@ -437,8 +437,19 @@ body {
   .calendar-buttons,
   .nav-arrows,
   .chapter-nav,
+  .confetti-container,
+  .floating-elements,
+  .skip-link,
   button {
     display: none !important;
+  }
+
+  .animate-fade-up,
+  .animate-fade-left,
+  .animate-fade-right,
+  .animate-scale {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* Reset backgrounds for printing */

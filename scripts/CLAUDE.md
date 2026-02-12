@@ -5,3 +5,29 @@
 
 *No recent activity*
 </claude-mem-context>
+
+# scripts/
+
+Node.js build scripts for generating wedding invitation sites.
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `config.js` | Theme/layout registry (`LAYOUT_REGISTRY`), Google Script URLs, domain config. Imported by all generators. |
+| `utils.js` | Template processing (`replacePlaceholders`, `processConditionals`), Cyrillic `slugify`, Serbian date formatting (genitive months), calendar links, data validation. Used by original theme generators. |
+| `generate-preview.js` | Builds 10 original theme previews + theme selector page. Triggered by GitHub Actions or CLI. |
+| `generate-layout-preview.js` | Builds 2026 layout previews (19 layouts). Has its own `replacePlaceholders`/`processConditionals` (duplicated from utils.js). |
+| `generate-final.js` | Builds final published site. Supports both original themes (`classic`) and 2026 layouts (`envelope/velvet`). Uses `parseThemeIdentifier()` to route. |
+| `cleanup-expired.js` | Removes expired previews. Reads `metadata.json` from each preview folder; treats missing metadata as expired. |
+| `serve.js` | Dev server on port 3000, serves `public/`. |
+| `generate-screenshots.js` | Playwright-based screenshot generator for theme thumbnails. |
+| `generate-images.js` | AI image generation via Pollinations/Together APIs. |
+| `generate-images-chatgpt.js` | AI image generation via ChatGPT/DALL-E. |
+
+## Important Patterns
+
+- **Two template systems:** Original themes use `utils.js` for processing. 2026 layouts use `generate-layout-preview.js`'s own implementation.
+- **Theme identifier format:** Original = `classic`, 2026 = `envelope/velvet` (layout/theme). `parseThemeIdentifier()` in generate-final.js handles routing.
+- **Date formatting:** Uses Serbian genitive months ("јануара", not "јануар").
+- **Metadata.json:** Created by both preview generators for cleanup compatibility. Contains slug, layout, names, created/expires timestamps.

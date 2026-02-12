@@ -879,6 +879,14 @@
       input, select, textarea { font-size: 16px !important; }
     }
 
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2.5rem 2rem; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--color-text-secondary); margin-bottom: 1rem; }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 6px; text-decoration: none; font-size: 0.875rem; color: var(--color-text); border: 1px solid var(--color-border); transition: opacity 0.2s, transform 0.2s; }
+    .calendar-btn:hover { opacity: 0.8; transform: translateY(-1px); }
+    .calendar-icon { font-size: 1.1rem; }
+
   </style>
 
   <!-- Theme-specific fonts -->
@@ -1058,6 +1066,14 @@
           </div>
         </div>
 
+        <!-- Calendar -->
+        {{#IF_WEDDING_DATE}}
+        <div class="calendar-section">
+          <h3>Додај у календар</h3>
+          {{CALENDAR_BUTTONS}}
+        </div>
+        {{/IF_WEDDING_DATE}}
+
         <!-- Page 6: RSVP -->
         <div class="page" data-page="{{RSVP_PAGE}}">
           <div class="page-visual">
@@ -1075,6 +1091,11 @@
                 <div class="form-group">
                   <label for="guest-name">Име и презиме</label>
                   <input type="text" id="guest-name" name="name" required placeholder="Ваше име" autocomplete="name" aria-required="true">
+                </div>
+
+                <div class="form-group">
+                  <label for="guest-email">Е-маил</label>
+                  <input type="email" id="guest-email" name="email" placeholder="Ваш е-маил" autocomplete="email">
                 </div>
 
                 <fieldset class="form-group">
@@ -1258,6 +1279,7 @@
           const data = {
             slug: form.dataset.weddingSlug,
             name: formData.get('name'),
+            email: formData.get('email'),
             attending: formData.get('attending'),
             guests_count: formData.get('guests_count'),
             meal_preference: formData.get('meal_preference'),

@@ -61,3 +61,8 @@ temp/
 # Lock files (optional - uncomment if you want to ignore)
 # package-lock.json
 # yarn.lock
+
+
+marketing/*
+digipoz_diagram.drawio
+*.bkp

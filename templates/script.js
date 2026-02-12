@@ -85,6 +85,11 @@
       const image = images[currentIndex];
       lightboxImage.src = image.src;
       lightboxImage.alt = image.caption;
+      lightboxImage.setAttribute('aria-describedby', 'lightbox-caption');
+      lightboxImage.onerror = function() {
+        this.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" fill="%23ccc"><rect width="400" height="300" fill="%23f5f5f5"/><text x="200" y="150" text-anchor="middle" font-size="16" fill="%23999">Слика није доступна</text></svg>');
+        this.onerror = null;
+      };
       lightboxCaption.textContent = image.caption;
       lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
     }
@@ -122,6 +127,25 @@
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') prevImage();
+
+      // Focus trap
+      if (e.key === 'Tab') {
+        const focusableElements = lightbox.querySelectorAll('button:not([disabled])');
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      }
     });
 
     // Touch swipe support
@@ -236,7 +260,7 @@
 
     const lastValues = {};
     function animateNumber(element, newValue) {
-      var key = element.id;
+      const key = element.id;
       if (lastValues[key] !== newValue) {
         lastValues[key] = newValue;
         element.classList.add('counter-animate');
@@ -245,11 +269,11 @@
       }
     }
 
-    var countdownInterval = null;
+    let countdownInterval = null;
 
     function updateCountdown() {
-      var now = new Date();
-      var diff = weddingDate - now;
+      const now = new Date();
+      const diff = weddingDate - now;
 
       if (diff <= 0) {
         animateNumber(daysEl, '00');
@@ -263,10 +287,10 @@
         return;
       }
 
-      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       animateNumber(daysEl, String(days).padStart(2, '0'));
       animateNumber(hoursEl, String(hours).padStart(2, '0'));
@@ -292,19 +316,19 @@
   // ============================================
 
   function createConfetti() {
-    var container = document.getElementById('confetti-container');
+    const container = document.getElementById('confetti-container');
     if (!container) return;
 
     // Respect reduced motion preference
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     container.innerHTML = '';
-    var colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
-    var confettiCount = 50;
-    var fragment = document.createDocumentFragment();
+    const colors = ['#D4AF37', '#FFD700', '#FF69B4', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+    const confettiCount = 50;
+    const fragment = document.createDocumentFragment();
 
     for (var i = 0; i < confettiCount; i++) {
-      var confetti = document.createElement('div');
+      const confetti = document.createElement('div');
       confetti.className = 'confetti';
       confetti.style.cssText = 'left:' + (Math.random() * 100) + '%;background-color:' + colors[Math.floor(Math.random() * colors.length)] + ';animation-delay:' + (Math.random() * 3) + 's;animation-duration:' + (Math.random() * 2 + 2) + 's';
       fragment.appendChild(confetti);
@@ -419,13 +443,24 @@
       }
 
       // Google Apps Script requires no-cors mode to avoid CORS preflight failures
-      fetch(CONFIG.RSVP_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(formData)
-      })
+      const timeoutDuration = 15000; // 15 seconds
+      let timeoutId;
+
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Request timeout')), timeoutDuration);
+      });
+
+      Promise.race([
+        fetch(CONFIG.RSVP_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(formData)
+        }),
+        timeoutPromise
+      ])
       .then(() => {
+        clearTimeout(timeoutId);
         // Response is opaque with no-cors; show success optimistically
         buttonText.style.display = 'inline';
         buttonLoading.style.display = 'none';
@@ -442,6 +477,7 @@
         toggleConditionalFields();
       })
       .catch(error => {
+        clearTimeout(timeoutId);
         console.error('Error submitting RSVP:', error);
         buttonText.style.display = 'inline';
         buttonLoading.style.display = 'none';
@@ -571,11 +607,11 @@
   }
 
   function initScrollIndicator() {
-    var scrollIndicator = document.querySelector('.scroll-indicator');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     if (!scrollIndicator) return;
 
     scrollIndicator.addEventListener('click', function() {
-      var firstSection = document.querySelector('section');
+      const firstSection = document.querySelector('section');
       if (firstSection) {
         firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }

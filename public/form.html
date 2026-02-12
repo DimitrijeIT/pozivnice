@@ -217,6 +217,8 @@
       font-weight: 600;
       color: var(--color-text-muted);
       transition: border-color 0.3s, background 0.3s, color 0.3s;
+      min-width: 44px;
+      min-height: 44px;
     }
 
     .progress-step.active .progress-dot {
@@ -243,6 +245,11 @@
     .progress-step.active .progress-label,
     .progress-step.completed .progress-label {
       color: var(--color-accent);
+    }
+
+    .progress-step:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
     }
 
     /* FORM CONTAINER */
@@ -1193,25 +1200,25 @@
 
         <!-- STEP 1: О вама -->
         <div class="step-panel active" data-step="0">
-          <div class="step-title">О вама</div>
+          <h2 class="step-title">О вама</h2>
           <div class="step-subtitle">Основни подаци о младенцима</div>
 
           <div class="field-row">
             <div class="field">
               <label class="field-label" for="bride_name">Име младе <span class="required">*</span></label>
-              <input type="text" id="bride_name" name="bride_name" class="field-input" placeholder="нпр. Ана" required autocomplete="given-name">
+              <input type="text" id="bride_name" name="bride_name" class="field-input" placeholder="нпр. Ана" required autocomplete="given-name" aria-describedby="bride_name_error">
               <div class="field-error" id="bride_name_error">Унесите име младе</div>
             </div>
             <div class="field">
               <label class="field-label" for="groom_name">Име младожење <span class="required">*</span></label>
-              <input type="text" id="groom_name" name="groom_name" class="field-input" placeholder="нпр. Марко" required autocomplete="given-name">
+              <input type="text" id="groom_name" name="groom_name" class="field-input" placeholder="нпр. Марко" required autocomplete="given-name" aria-describedby="groom_name_error">
               <div class="field-error" id="groom_name_error">Унесите име младожење</div>
             </div>
           </div>
 
           <div class="field">
             <label class="field-label" for="contact_email">Имејл адреса <span class="required">*</span></label>
-            <input type="email" id="contact_email" name="contact_email" class="field-input" placeholder="ваш@имејл.com" required autocomplete="email">
+            <input type="email" id="contact_email" name="contact_email" class="field-input" placeholder="ваш@имејл.com" required autocomplete="email" aria-describedby="contact_email_error">
             <div class="field-error" id="contact_email_error">Унесите исправну имејл адресу</div>
           </div>
 
@@ -1229,12 +1236,12 @@
 
         <!-- STEP 2: Датум -->
         <div class="step-panel" data-step="1">
-          <div class="step-title">Датум венчања</div>
+          <h2 class="step-title">Датум венчања</h2>
           <div class="step-subtitle">Када је велики дан?</div>
 
           <div class="field">
             <label class="field-label" for="wedding_date">Датум венчања <span class="required">*</span></label>
-            <input type="date" id="wedding_date" name="wedding_date" class="field-input" required>
+            <input type="date" id="wedding_date" name="wedding_date" class="field-input" required aria-describedby="wedding_date_error">
             <div class="field-error" id="wedding_date_error">Изаберите датум венчања</div>
           </div>
 
@@ -1252,12 +1259,12 @@
 
         <!-- STEP 3: Церемонија -->
         <div class="step-panel" data-step="2">
-          <div class="step-title">Церемонија</div>
+          <h2 class="step-title">Церемонија</h2>
           <div class="step-subtitle">Где ће се одржати венчање?</div>
 
           <div class="field">
             <label class="field-label" for="ceremony_venue">Назив места <span class="required">*</span></label>
-            <input type="text" id="ceremony_venue" name="ceremony_venue" class="field-input" placeholder="нпр. Храм Светог Саве" required autocomplete="off">
+            <input type="text" id="ceremony_venue" name="ceremony_venue" class="field-input" placeholder="нпр. Храм Светог Саве" required autocomplete="off" aria-describedby="ceremony_venue_error ceremony_venue_hint">
             <div class="field-error" id="ceremony_venue_error">Унесите назив места церемоније</div>
             <span class="venue-autofill-hint" id="ceremony_venue_hint">Почните да куцате за предлоге места</span>
           </div>
@@ -1294,12 +1301,12 @@
 
         <!-- STEP 4: Прослава -->
         <div class="step-panel" data-step="3">
-          <div class="step-title">Прослава</div>
+          <h2 class="step-title">Прослава</h2>
           <div class="step-subtitle">Где ће се славити?</div>
 
           <div class="field">
             <label class="field-label" for="reception_venue">Назив места <span class="required">*</span></label>
-            <input type="text" id="reception_venue" name="reception_venue" class="field-input" placeholder="нпр. Ресторан Калемегдан" required autocomplete="off">
+            <input type="text" id="reception_venue" name="reception_venue" class="field-input" placeholder="нпр. Ресторан Калемегдан" required autocomplete="off" aria-describedby="reception_venue_error reception_venue_hint">
             <div class="field-error" id="reception_venue_error">Унесите назив места прославе</div>
             <span class="venue-autofill-hint" id="reception_venue_hint">Почните да куцате за предлоге места</span>
           </div>
@@ -1336,7 +1343,7 @@
 
         <!-- STEP 5: Детаљи -->
         <div class="step-panel" data-step="4">
-          <div class="step-title">Додатни детаљи</div>
+          <h2 class="step-title">Додатни детаљи</h2>
           <div class="step-subtitle">Опционо, али чини позивницу посебном</div>
 
           <div class="field">
@@ -1372,7 +1379,7 @@
 
         <!-- STEP 6: Преглед -->
         <div class="step-panel" data-step="5">
-          <div class="step-title">Преглед података</div>
+          <h2 class="step-title">Преглед података</h2>
           <div class="step-subtitle">Проверите да ли је све тачно пре слања</div>
 
           <div id="reviewContent"></div>
@@ -1773,7 +1780,7 @@
 
         if (date) {
           var d = new Date(date + 'T00:00:00');
-          var months = ['јануар','фебруар','март','април','мај','јун','јул','август','септембар','октобар','новембар','децембар'];
+          var months = ['јануара','фебруара','марта','априла','маја','јуна','јула','августа','септембра','октобра','новембра','децембра'];
           previewDate.textContent = d.getDate() + '. ' + months[d.getMonth()] + ' ' + d.getFullYear() + '.';
         } else {
           previewDate.textContent = '';

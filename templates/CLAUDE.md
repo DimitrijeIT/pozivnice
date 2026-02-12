@@ -5,3 +5,37 @@
 
 *No recent activity*
 </claude-mem-context>
+
+# templates/
+
+HTML, CSS, and JS templates for wedding invitations. Two separate systems coexist.
+
+## Original System (2025) — 10 Themes
+
+- `base.html` — Shared template (all 10 themes use this HTML)
+- `script.js` — Client-side JS inlined into invitations (IIFE, strict mode)
+- `themes/{theme}/style.css` — Theme-specific CSS (classic, modern, romantic, minimal, rustic, botanical, moody, gatsby, editorial, whimsical)
+- Shared CSS: `animations.css`, `components.css`, `backgrounds.css`, `decorations.css`, `mobile.css`
+- Additional CSS (not in `{{ANIMATIONS_CSS}}`): `tokens.css`, `shared-forms.css`, `shared-sections.css`
+
+## 2026 Layouts — 19 Standalone Templates
+
+- `base-{layout}.html` — Self-contained templates with inline `<style>` and `<script>` blocks
+- `themes-{layout}/{theme}/style.css` — Layout-specific theme CSS
+- Each layout has completely different HTML structure (not shared)
+
+**Layouts:** aurora, botanical, cinema, concert, envelope, filmnoir, gazette, glass, kinetic, letter, magazine, mediterranean, oldmoney, passport, scribble, storybook, telegram, velvet, wabisabi
+
+## Template Variables
+
+- `{{VARIABLE}}` — HTML-escaped. `_URL` and `_ISO` fields are not escaped.
+- `{{#IF_CONDITION}}...{{/IF_CONDITION}}` — Conditional blocks (truthy check)
+- Raw HTML fields: `THEME_CSS`, `ANIMATIONS_CSS`, `THEME_FONTS`, `CALENDAR_BUTTONS`, `TIMELINE_ITEMS`, `GALLERY_ITEMS`, `MEAL_OPTIONS`, `DRESS_CODE_COLOR_SWATCHES`, `STORY_CARDS`
+
+## Important Notes
+
+- All user-facing text is Serbian Cyrillic
+- All templates include `<meta name="robots" content="noindex, nofollow">`
+- RSVP forms in 2026 templates use `mode: 'no-cors'` + `Content-Type: text/plain;charset=utf-8`
+- Calendar links only in `base.html` and `base-envelope.html`; other 2026 templates lack the HTML section
+- Output is fully self-contained single-file HTML (no external deps except Google Fonts)

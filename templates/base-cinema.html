@@ -669,7 +669,15 @@
     }
 
     .hidden { display: none !important; }
-  
+
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2rem 1rem; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem; }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 6px; text-decoration: none; font-size: 0.875rem; color: var(--color-text); border: 1px solid rgba(212, 175, 55, 0.3); opacity: 0.85; transition: opacity 0.2s, transform 0.2s; }
+    .calendar-btn:hover { opacity: 1; transform: translateY(-1px); }
+    .calendar-icon { font-size: 1.1rem; }
+
     /* Skip link for keyboard navigation */
     .skip-link {
       position: absolute;
@@ -758,19 +766,19 @@
     <div class="countdown-display" id="countdown-display" data-date="{{WEDDING_DATE_ISO}}">
       <div class="countdown-item">
         <div class="countdown-value" id="days">--</div>
-        <div class="countdown-label">Дана</div>
+        <div class="countdown-label">дана</div>
       </div>
       <div class="countdown-item">
         <div class="countdown-value" id="hours">--</div>
-        <div class="countdown-label">Сати</div>
+        <div class="countdown-label">сати</div>
       </div>
       <div class="countdown-item">
         <div class="countdown-value" id="minutes">--</div>
-        <div class="countdown-label">Минута</div>
+        <div class="countdown-label">минута</div>
       </div>
       <div class="countdown-item">
         <div class="countdown-value" id="seconds">--</div>
-        <div class="countdown-label">Секунди</div>
+        <div class="countdown-label">секунди</div>
       </div>
     </div>
   </section>
@@ -842,6 +850,14 @@
     </div>
   </section>
 
+  <!-- CALENDAR SECTION -->
+  {{#IF_WEDDING_DATE}}
+  <section class="cinema-section calendar-section" id="calendar">
+    <h3>Додај у календар</h3>
+    {{CALENDAR_BUTTONS}}
+  </section>
+  {{/IF_WEDDING_DATE}}
+
   <!-- RSVP SECTION -->
   <section class="cinema-section rsvp-section" id="rsvp">
     <div class="rsvp-container">
@@ -851,7 +867,7 @@
         <p class="ticket-subtitle">Молимо потврдите ваш долазак</p>
 
         <form class="rsvp-form" id="rsvp-form" aria-labelledby="ticket-title">
-          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+          <input type="hidden" name="slug" value="{{WEDDING_SLUG}}">
 
           <div class="form-group">
             <label class="form-label" for="guest-name">Име и презиме</label>
@@ -879,7 +895,7 @@
 
           <div class="form-group" id="guests-group">
             <label class="form-label" for="guests-count">Број гостију</label>
-            <select id="guests-count" name="guests" class="form-select">
+            <select id="guests-count" name="guests_count" class="form-select">
               <option value="1">1 особа</option>
               <option value="2">2 особе</option>
               <option value="3">3 особе</option>
@@ -890,12 +906,17 @@
           {{#IF_MEAL_OPTIONS}}
           <div class="form-group" id="meal-group">
             <label class="form-label" for="meal-choice">Избор јела</label>
-            <select id="meal-choice" name="meal" class="form-select">
+            <select id="meal-choice" name="meal_preference" class="form-select">
               <option value="">Изаберите...</option>
               {{MEAL_OPTIONS}}
             </select>
           </div>
           {{/IF_MEAL_OPTIONS}}
+
+          <div class="form-group">
+            <label class="form-label" for="guest-message">Порука (опционално)</label>
+            <textarea id="guest-message" name="message" class="form-input" rows="3" style="resize:vertical;min-height:80px;" placeholder="Оставите поруку..."></textarea>
+          </div>
 
           <button type="submit" class="submit-btn" id="submit-btn">
             Потврди резервацију

@@ -7,5 +7,43 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #430 | 6:32 PM | 🔵 | Google Apps Script RSVP Handler Architecture Identified | ~531 |
+| #498 | 10:18 PM | 🔴 | Syntax error in Google Apps Script Code.gs at line 149 unexpected closing brace | ~376 |
+| #463 | 7:03 PM | 🟣 | Google Apps Script Love Story Handler Implementation | ~441 |
+
+### Feb 11, 2026
+
+| ID | Time | T | Title | Read |
+|----|------|---|-------|------|
+| #877 | 10:05 AM | 🔵 | Empty CLAUDE.md documentation file in google-apps-script | ~276 |
+| #797 | 12:55 AM | 🔵 | AI love story generation implementation using Gemini 2.5 Flash | ~436 |
 </claude-mem-context>
+
+# google-apps-script/
+
+Google Apps Script files that bridge Google services to GitHub. Deployed manually (copy-paste into Apps Script editor, Deploy > New deployment).
+
+## Files
+
+| File | Deployment | Purpose |
+|------|-----------|---------|
+| `intake-form-handler-automated.gs` | Web app | Form submit → reads sheet data → generates slug → creates per-couple RSVP spreadsheet → registers in RSVP_Lookup → sends `repository_dispatch` to GitHub |
+| `theme-selection-handler-automated.gs` | Web app | Theme selection POST → validates slug+theme → sends `repository_dispatch` to GitHub |
+| `rsvp-handler.gs` | Web app | Guest RSVP POST → parses JSON → looks up per-couple spreadsheet via RSVP_Lookup tab → writes/deduplicates row |
+| `love-story-handler.gs` | Web app | AI story generation proxy → calls Gemini 2.5 Flash API |
+| `intake-form-handler.gs` | Manual/legacy | Non-automated form handler |
+| `theme-selection-handler.gs` | Manual/legacy | Non-automated theme handler |
+
+## Required Script Properties
+
+- `GITHUB_TOKEN` — Personal access token for `repository_dispatch` webhooks
+- `GITHUB_REPO` — Repository identifier (`owner/repo`)
+- `MASTER_SPREADSHEET_ID` — Master spreadsheet with RSVP_Lookup tab
+- `GEMINI_API_KEY` — For love-story-handler (Gemini 2.5 Flash)
+
+## Important Patterns
+
+- All handlers use `doPost(e)` / `doGet(e)` entry points
+- RSVP handler deduplicates by guest name (case-insensitive update)
+- RSVP routing: single global endpoint, `slug` in POST body → RSVP_Lookup tab → per-couple spreadsheet
+- CORS: clients use `no-cors` mode; GAS doesn't handle preflight
+- No clasp CLI configured — deployment is manual copy-paste

@@ -307,6 +307,43 @@
     }
     {{/IF_STORY}}
 
+    /* Countdown */
+    .countdown-section {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .countdown-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--color-accent);
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--color-highlight);
+      margin-top: 0.25rem;
+    }
+
     /* RSVP Form */
     .rsvp-section {
       background: var(--color-surface);
@@ -545,6 +582,14 @@
       input, select, textarea { font-size: 16px !important; }
     }
 
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2rem 1rem; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 200; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 1rem; }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 2px; text-decoration: none; font-size: 0.8rem; color: var(--color-text); border: 1px solid var(--color-border); transition: opacity 0.2s; }
+    .calendar-btn:hover { opacity: 0.6; }
+    .calendar-icon { font-size: 1rem; }
+
   </style>
 </head>
 <body>
@@ -616,17 +661,53 @@
       </div>
     </section>
 
+    <!-- Countdown -->
+    <section class="section">
+      <div class="content-block content-block--center">
+        <div class="countdown-section">
+          <p class="countdown-label">До нашег великог дана...</p>
+          <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+            <div class="countdown-item">
+              <div class="countdown-value" id="days">--</div>
+              <div class="countdown-unit">дана</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="hours">--</div>
+              <div class="countdown-unit">сати</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="minutes">--</div>
+              <div class="countdown-unit">минута</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    {{#IF_WEDDING_DATE}}
+    <section class="calendar-section">
+      <h3>Додај у календар</h3>
+      {{CALENDAR_BUTTONS}}
+    </section>
+    {{/IF_WEDDING_DATE}}
+
     <!-- RSVP -->
     <section class="rsvp-section">
       <h2 class="rsvp-title" id="rsvp-title">Потврда доласка</h2>
       <p class="rsvp-subtitle">Молимо вас да потврдите до {{RSVP_DEADLINE}}</p>
 
       <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title" aria-live="polite" aria-atomic="true">
-        <input type="hidden" name="wedding_slug" value="{{WEDDING_SLUG}}">
+        <input type="hidden" name="slug" value="{{WEDDING_SLUG}}">
 
         <div class="form-group">
           <label class="form-label" for="guest-name">Име и презиме</label>
-          <input type="text" id="guest-name" name="guest_name" class="form-input" required autocomplete="name" aria-required="true">
+          <input type="text" id="guest-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="guest-email">Е-маил</label>
+          <input type="email" id="guest-email" name="email" class="form-input" autocomplete="email">
         </div>
 
         <fieldset class="form-group">
@@ -645,7 +726,7 @@
 
         <div class="form-group">
           <label class="form-label" for="guest-count">Број гостију</label>
-          <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="10" value="1">
+          <input type="number" id="guest-count" name="guests_count" class="form-input" min="1" max="10" value="1">
         </div>
 
         {{#IF_MEAL_OPTIONS}}
@@ -689,6 +770,22 @@
     document.querySelectorAll('.content-block').forEach(block => {
       observer.observe(block);
     });
+
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    if (countdownEl) {
+      const weddingDate = new Date(countdownEl.dataset.date);
+      function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+        if (diff <= 0) return;
+        document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
 
     // Form submission
     document.getElementById('rsvp-form').addEventListener('submit', async (e) => {

@@ -20,6 +20,21 @@
  */
 
 /**
+ * Rate limiting - max 10 requests per minute per slug
+ * Uses CacheService with a 60-second TTL
+ */
+function checkRateLimit(slug) {
+  var cache = CacheService.getScriptCache();
+  var key = 'ratelimit_' + slug;
+  var count = parseInt(cache.get(key) || '0');
+  if (count >= 10) {
+    return false; // Rate limited
+  }
+  cache.put(key, String(count + 1), 60); // 60 second TTL
+  return true;
+}
+
+/**
  * Get configuration from Script Properties
  */
 function getConfig() {
@@ -134,19 +149,26 @@ function doPost(e) {
       return createResponse(false, 'Missing wedding slug');
     }
 
+    // Rate limit check
+    if (!checkRateLimit(slug)) {
+      Logger.log('Rate limited: ' + slug);
+      return createResponse(false, 'Too many requests. Please try again in a minute.');
+    }
+
     if (!theme) {
       Logger.log('Missing theme');
       return createResponse(false, 'Missing theme selection');
     }
 
-    // Valid themes
-    const validThemes = [
-      'classic', 'modern', 'romantic', 'minimal', 'rustic',
-      'botanical', 'moody', 'gatsby', 'editorial', 'whimsical'
-    ];
+    // Validate slug format (lowercase alphanumeric and hyphens only)
+    if (!/^[a-z0-9-]+$/.test(slug)) {
+      Logger.log('Invalid slug format: ' + slug);
+      return createResponse(false, 'Invalid slug format');
+    }
 
-    if (!validThemes.includes(theme)) {
-      Logger.log('Invalid theme: ' + theme);
+    // Validate theme format: original themes (e.g., "botanical") or 2026 layout/theme (e.g., "envelope/velvet")
+    if (!/^[a-z0-9-]+(\/[a-z0-9-]+)?$/.test(theme)) {
+      Logger.log('Invalid theme format: ' + theme);
       return createResponse(false, 'Invalid theme: ' + theme);
     }
 
@@ -203,7 +225,7 @@ function doGet(e) {
   "theme": "botanical"
 }
     </pre>
-    <p>Valid themes: classic, modern, romantic, minimal, rustic, botanical, moody, gatsby, editorial, whimsical</p>
+    <p>Theme format: original (e.g., "botanical") or 2026 layout/theme (e.g., "envelope/velvet")</p>
   `);
 }
 
@@ -265,7 +287,14 @@ function triggerFinalSiteGeneration(slug, theme, CONFIG) {
 
 /**
  * Handle correction requests from couples
- * Logs to a "Corrections" tab and emails admin
+ * Logs to a "Corrections" tab and emails admin for manual review.
+ *
+ * TODO: Automatic re-generation is not yet implemented. Currently, corrections
+ * are logged and emailed to the admin who must manually update the wedding data
+ * JSON and re-trigger the preview/final generation workflow. To automate this,
+ * the handler would need to: (1) parse structured correction fields,
+ * (2) fetch and update the wedding data JSON in the gh-pages branch,
+ * (3) trigger a repository_dispatch to re-generate the preview/final site.
  */
 function handleCorrection(data, CONFIG) {
   try {

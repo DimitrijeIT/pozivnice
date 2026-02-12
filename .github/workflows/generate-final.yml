@@ -81,6 +81,27 @@ jobs:
             echo "WARNING: No wedding data found for ${SLUG}, will use defaults"
           fi
 
+      - name: Validate wedding data exists
+        env:
+          SLUG: ${{ steps.extract.outputs.slug }}
+        run: |
+          if [ ! -f "data/${SLUG}.json" ]; then
+            echo "::error::Wedding data file not found for slug: ${SLUG}"
+            echo "This likely means the preview generation failed to deploy data to gh-pages."
+            echo "Please re-run the preview generation workflow first."
+            exit 1
+          fi
+          # Validate the JSON file is not empty and is valid JSON
+          if [ ! -s "data/${SLUG}.json" ]; then
+            echo "::error::Wedding data file is empty for slug: ${SLUG}"
+            exit 1
+          fi
+          if ! python3 -c "import json; json.load(open('data/${SLUG}.json'))" 2>/dev/null; then
+            echo "::error::Wedding data file contains invalid JSON for slug: ${SLUG}"
+            exit 1
+          fi
+          echo "Wedding data validated successfully for ${SLUG}"
+
       - name: Generate final site
         env:
           SLUG: ${{ steps.extract.outputs.slug }}
@@ -97,6 +118,7 @@ jobs:
           keep_files: true
 
       - name: Clean up preview from GitHub Pages
+        if: success()
         continue-on-error: true
         env:
           SLUG: ${{ steps.extract.outputs.slug }}

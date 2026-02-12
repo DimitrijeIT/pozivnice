@@ -12,15 +12,14 @@ const config = {
 
   // Google Apps Script Web App URLs
   // These URLs are obtained after deploying each Apps Script as a web app
-  THEME_SELECTION_URL: process.env.THEME_SELECTION_URL || 'https://script.google.com/macros/s/AKfycbxSyr989LbPiQ3LYSk2bjzlYt9PXjpY5wWcJmi-xLroGK8Exzw3ygGbEnQqdf5hajKSrA/exec',
-  RSVP_SCRIPT_URL: process.env.RSVP_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxGcRI_2JTotM_OaYXs1ecj-0OzH-TH6oG6cRpR5pAq8UwOUZQnTzL68-zHWLbgCxg7/exec',
+  THEME_SELECTION_URL: process.env.THEME_SELECTION_URL || '',
+  RSVP_SCRIPT_URL: process.env.RSVP_SCRIPT_URL || '',
 
   // Domain Configuration
   DOMAIN: process.env.DOMAIN || 'pozivnice.rs',
 
   // Preview Settings
   PREVIEW_EXPIRY_HOURS: parseInt(process.env.PREVIEW_EXPIRY_HOURS) || 24,
-  PREVIEW_EXPIRY_DAYS: parseInt(process.env.PREVIEW_EXPIRY_DAYS) || 30,
 
   // Available Themes (original set)
   THEMES: ['classic', 'modern', 'romantic', 'minimal', 'rustic', 'botanical', 'moody', 'gatsby', 'editorial', 'whimsical'],

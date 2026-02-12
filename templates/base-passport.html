@@ -475,6 +475,51 @@
     .barcode-lines span:nth-child(odd) { height: 25px; }
     .barcode-lines span:nth-child(3n) { width: 3px; }
 
+    /* Countdown */
+    .countdown-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .countdown-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+    }
+
+    .countdown-value {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-cover);
+    }
+
+    .countdown-unit {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
     /* RSVP Page */
     .rsvp-title {
       font-family: var(--font-display);
@@ -577,6 +622,14 @@
     .success-icon { font-size: 3rem; margin-bottom: 1rem; }
     .success-title { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
     .success-text { color: var(--color-text-muted); }
+
+    /* Calendar */
+    .calendar-section { text-align: center; padding: 2rem 1.5rem; }
+    .calendar-section h3 { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem; }
+    .calendar-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .calendar-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 4px; text-decoration: none; font-size: 0.8rem; color: var(--color-text); border: 1px solid var(--color-gold); opacity: 0.85; transition: opacity 0.2s, transform 0.2s; }
+    .calendar-btn:hover { opacity: 1; transform: translateY(-1px); }
+    .calendar-icon { font-size: 1.1rem; }
 
     .hidden { display: none !important; }
 
@@ -875,14 +928,42 @@
         </div>
       </div>
 
+      <!-- CALENDAR -->
+      {{#IF_WEDDING_DATE}}
+      <section class="calendar-section">
+        <h3>Додај у календар</h3>
+        {{CALENDAR_BUTTONS}}
+      </section>
+      {{/IF_WEDDING_DATE}}
+
       <!-- RSVP Page -->
       <div class="page" id="page-rsvp">
         <div class="page-watermark">📝</div>
+
+        <!-- Countdown -->
+        <div class="countdown-section">
+          <p class="countdown-label">До нашег великог дана...</p>
+          <div class="countdown-display" id="countdown" data-date="{{WEDDING_DATE_ISO}}">
+            <div class="countdown-item">
+              <div class="countdown-value" id="days">--</div>
+              <div class="countdown-unit">дана</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="hours">--</div>
+              <div class="countdown-unit">сати</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="minutes">--</div>
+              <div class="countdown-unit">минута</div>
+            </div>
+          </div>
+        </div>
+
         <h2 class="rsvp-title" id="rsvp-title">Потврда доласка</h2>
         <p class="rsvp-subtitle">Резервишите своје место на лету</p>
 
         <form class="rsvp-form" id="rsvp-form" aria-labelledby="rsvp-title">
-          <input type="hidden" name="wedding" value="{{WEDDING_SLUG}}">
+          <input type="hidden" name="slug" value="{{WEDDING_SLUG}}">
 
           <div class="form-group">
             <label for="guest-name">Име путника</label>
@@ -910,7 +991,7 @@
 
           <div class="form-group" id="guests-group">
             <label for="guests-count">Број путника</label>
-            <select id="guests-count" name="guests" class="form-select">
+            <select id="guests-count" name="guests_count" class="form-select">
               <option value="1">1 путник</option>
               <option value="2">2 путника</option>
               <option value="3">3 путника</option>
@@ -921,12 +1002,17 @@
           {{#IF_MEAL_OPTIONS}}
           <div class="form-group" id="meal-group">
             <label for="meal-choice">Оброк у лету</label>
-            <select id="meal-choice" name="meal" class="form-select">
+            <select id="meal-choice" name="meal_preference" class="form-select">
               <option value="">Изаберите...</option>
               {{MEAL_OPTIONS}}
             </select>
           </div>
           {{/IF_MEAL_OPTIONS}}
+
+          <div class="form-group">
+            <label for="guest-message">Порука (опционално)</label>
+            <textarea id="guest-message" name="message" class="form-input" rows="3" placeholder="Оставите поруку..."></textarea>
+          </div>
 
           <button type="submit" class="submit-btn" id="submit-btn">
             ПОТВРДИ РЕЗЕРВАЦИЈУ
@@ -983,6 +1069,22 @@
           });
         });
       });
+
+      // Countdown
+      const countdownEl = document.getElementById('countdown');
+      if (countdownEl) {
+        const weddingDate = new Date(countdownEl.dataset.date);
+        function updateCountdown() {
+          const now = new Date();
+          const diff = weddingDate - now;
+          if (diff <= 0) return;
+          document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+          document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+          document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
 
       // RSVP Form
       const form = document.getElementById('rsvp-form');

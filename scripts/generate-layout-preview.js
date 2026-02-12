@@ -57,46 +57,43 @@ function loadWeddingData(slug) {
 }
 
 /**
- * Format date in Serbian
+ * Format date in Serbian (without trailing period)
+ * Delegates to utils.formatDate with 'short' format and strips the trailing period.
  * @param {string} dateStr - ISO date string
  * @returns {string} Formatted date
  */
 function formatDate(dateStr) {
-  const date = new Date(dateStr);
-  const months = [
-    'јануара', 'фебруара', 'марта', 'априла', 'маја', 'јуна',
-    'јула', 'августа', 'септембра', 'октобра', 'новембра', 'децембра'
-  ];
-  return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
+  // utils.formatDate('short') returns "15. јануара 2026." — strip trailing period
+  return utils.formatDate(dateStr, 'short').replace(/\.$/, '');
 }
 
 /**
- * Process conditional blocks in template
+ * Process conditional blocks in template.
+ * Maps layout-specific conditional keys to data values, then delegates to utils.processConditionals.
  * @param {string} html - Template HTML
  * @param {object} data - Data object
  * @returns {string} Processed HTML
  */
 function processConditionals(html, data) {
-  const conditionals = [
-    { key: 'STORY', check: data.story_text },
-    { key: 'PULL_QUOTE', check: data.pull_quote || data.story_text },
-    { key: 'HASHTAG', check: data.wedding_hashtag },
-    { key: 'DRESS_CODE', check: data.dress_code_text },
-    { key: 'ADDITIONAL_INFO', check: data.additional_info },
-    { key: 'CEREMONY_MAP', check: data.ceremony_map_url },
-    { key: 'RECEPTION_MAP', check: data.reception_map_url },
-    { key: 'MEAL_OPTIONS', check: data.meal_options?.length },
-    { key: 'MUSIC', check: data.music_url },
-    { key: 'TIMELINE', check: data.timeline?.length },
-    { key: 'GALLERY', check: data.gallery?.length }
-  ];
+  // Build a data object with conditional flags that utils.processConditionals expects.
+  // utils.processConditionals matches {{#IF_KEY}} against data[KEY], so we set
+  // the flag keys to truthy/falsy values matching the original logic.
+  const conditionalData = {
+    ...data,
+    STORY: data.story_text || '',
+    PULL_QUOTE: data.pull_quote || data.story_text || '',
+    HASHTAG: data.wedding_hashtag || '',
+    DRESS_CODE: data.dress_code_text || '',
+    ADDITIONAL_INFO: data.additional_info || '',
+    CEREMONY_MAP: data.ceremony_map_url || '',
+    RECEPTION_MAP: data.reception_map_url || '',
+    MEAL_OPTIONS: data.meal_options?.length ? 'true' : '',
+    MUSIC: data.music_url || '',
+    TIMELINE: data.timeline?.length ? 'true' : '',
+    GALLERY: data.gallery?.length ? 'true' : ''
+  };
 
-  conditionals.forEach(({ key, check }) => {
-    const regex = new RegExp(`\\{\\{#IF_${key}\\}\\}([\\s\\S]*?)\\{\\{\\/IF_${key}\\}\\}`, 'g');
-    html = check ? html.replace(regex, '$1') : html.replace(regex, '');
-  });
-
-  return html;
+  return utils.processConditionals(html, conditionalData);
 }
 
 /**
@@ -158,19 +155,19 @@ function calculateRsvpPage(data) {
 }
 
 /**
- * Replace placeholders in template with data
+ * Replace placeholders in template with data.
+ * Builds a layout-specific replacements map, then delegates to utils.replacePlaceholders.
  * @param {string} html - Template HTML
  * @param {object} data - Data object
  * @returns {string} Processed HTML
  */
 function replacePlaceholders(html, data) {
-  // Fields that should not be HTML escaped (contain trusted HTML/URLs)
-  const rawFields = new Set([
+  // Layout-specific raw fields (HTML content that must not be escaped).
+  // Note: fields ending in _URL or _ISO are automatically skipped by utils.replacePlaceholders.
+  const rawFields = [
     '_themeCss', '_themeFonts', 'THEME_CSS', 'THEME_FONTS',
-    'MEAL_OPTIONS', 'RSVP_SCRIPT_URL', 'CEREMONY_MAP_URL',
-    'RECEPTION_MAP_URL', 'WEDDING_DATE_ISO',
-    'STORY_CARDS', 'TIMELINE_ITEMS', 'CALENDAR_BUTTONS'
-  ]);
+    'MEAL_OPTIONS', 'STORY_CARDS', 'TIMELINE_ITEMS', 'CALENDAR_BUTTONS'
+  ];
 
   const replacements = {
     'BRIDE_NAME': data.bride_name || '',
@@ -216,12 +213,7 @@ function replacePlaceholders(html, data) {
     })()
   };
 
-  let result = html;
-  for (const [key, value] of Object.entries(replacements)) {
-    const safeValue = rawFields.has(key) ? String(value) : utils.escapeHtml(String(value));
-    result = result.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), safeValue);
-  }
-  return result;
+  return utils.replacePlaceholders(html, replacements, { rawFields });
 }
 
 /**
@@ -292,7 +284,7 @@ function generateThemedPage(data, layout, theme, layoutConfig) {
  */
 function generateIndexPage(data, layout, layoutConfig) {
   const expiryDate = new Date();
-  expiryDate.setDate(expiryDate.getDate() + config.PREVIEW_EXPIRY_DAYS);
+  expiryDate.setTime(expiryDate.getTime() + config.PREVIEW_EXPIRY_HOURS * 60 * 60 * 1000);
 
   // Get layout-specific styling
   const layoutStyles = getLayoutStyles(layout);
@@ -706,7 +698,7 @@ async function generatePreview(layout, slug) {
     bride_name: data.bride_name,
     groom_name: data.groom_name,
     created_at: new Date().toISOString(),
-    expires_at: new Date(Date.now() + (config.PREVIEW_EXPIRY_DAYS || 30) * 24 * 60 * 60 * 1000).toISOString()
+    expires_at: new Date(Date.now() + config.PREVIEW_EXPIRY_HOURS * 60 * 60 * 1000).toISOString()
   };
   await fs.writeJson(path.join(outputDir, 'metadata.json'), metadata, { spaces: 2 });
 
