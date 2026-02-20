@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="sr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Јелена и Димитрије - Венчање</title>
+    <meta name="description" content="Позивница за венчање Јелене и Димитрија - 10. мај 2026.">
+    <meta name="theme-color" content="#2c2c2c">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+/* ========================================
+   Wedding Invitation - Јелена & Димитрије
+   Minimal Clean Design
+   ======================================== */
+
+/* ----------------------------------------
+   CSS Variables - Minimal Theme Only
+   ---------------------------------------- */
+
+:root {
+    /* Elegant Beige Theme */
+    --color-primary: #3d3632;
+    --color-primary-dark: #2a2420;
+    --color-primary-light: #5c554f;
+    --color-secondary: #2a2420;
+    --color-accent: #7a7067;
+    --color-text: #3d3632;
+    --color-text-light: #5c554f;
+    --color-text-muted: #9a9088;
+    --color-background: #f8f5f0;
+    --color-background-alt: #f3ede5;
+    --color-card: #fdfcfa;
+    --color-border: rgba(61, 54, 50, 0.15);
+    --color-border-light: rgba(61, 54, 50, 0.08);
+
+    /* Envelope Colors - Beige */
+    --envelope-outer: #ebe6dd;
+    --envelope-inner: #fdfcfa;
+    --envelope-flap: #e3dcd2;
+    --envelope-liner: linear-gradient(135deg, #fdfcfa 0%, #ebe6dd 100%);
+    --seal-color: #3d3632;
+    --seal-text: #fdfcfa;
+
+    /* Typography */
+    --font-serif: 'Cormorant Infant', Georgia, serif;
+    --font-sans: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+    --font-script: 'Cormorant Infant', serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+}
+
+/* ----------------------------------------
+   Base Styles
+   ---------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ----------------------------------------
+   Envelope Section
+   ---------------------------------------- */
+.envelope-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background-alt);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: min-height 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.8s ease,
+                padding 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-section.hidden {
+    display: none !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+}
+
+
+.envelope-wrapper {
+    perspective: 1400px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: transform 1s ease, opacity 0.8s ease;
+}
+
+.envelope-section.hidden .envelope-wrapper {
+    transform: scale(0.9) translateY(-30px);
+    opacity: 0;
+}
+
+/* Envelope */
+.envelope {
+    position: relative;
+    width: 340px;
+    height: 245px;
+    margin: 0 auto;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope:hover {
+    transform: translateY(-8px) rotateX(2deg);
+}
+
+@media (min-width: 480px) {
+    .envelope {
+        width: 440px;
+        height: 315px;
+    }
+}
+
+/* Envelope Back */
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, var(--envelope-outer) 0%, var(--envelope-flap) 100%);
+    border-radius: 6px;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.1),
+        0 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Envelope Liner */
+.envelope-liner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 62%;
+    background: var(--envelope-liner);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.4s;
+}
+
+.envelope.open .envelope-liner {
+    opacity: 1;
+}
+
+/* Envelope Front */
+.envelope-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 74%;
+    background: linear-gradient(180deg, var(--envelope-outer) 0%, var(--envelope-flap) 100%);
+    border-radius: 0 0 6px 6px;
+    z-index: 3;
+}
+
+/* Envelope Flap */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64%;
+    background: linear-gradient(180deg, var(--envelope-flap) 0%, var(--envelope-outer) 100%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.4s;
+    z-index: 4;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    backface-visibility: hidden;
+}
+
+.flap-inner {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    height: 100%;
+    background: var(--envelope-inner);
+    clip-path: polygon(0 0, 50% 94%, 100% 0);
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* Letter Inside */
+.letter {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86%;
+    height: 82%;
+    background: var(--color-card);
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+    transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+}
+
+.envelope.open .letter {
+    transform: translateX(-50%) translateY(-145%) scale(1.02);
+}
+
+.letter-content {
+    text-align: center;
+    z-index: 1;
+    padding: 0 1rem;
+}
+
+.letter-script {
+    display: block;
+    font-family: var(--font-script);
+    font-size: 1.9rem;
+    font-style: italic;
+    color: var(--color-primary);
+    margin-bottom: 0.6rem;
+}
+
+@media (min-width: 480px) {
+    .letter-script {
+        font-size: 2.4rem;
+    }
+}
+
+.letter-date {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: var(--color-text-light);
+}
+
+/* Wax Seal */
+.seal {
+    position: absolute;
+    bottom: 26%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: sealPulse 3s ease-in-out infinite;
+}
+
+.seal-inner {
+    width: 100%;
+    height: 100%;
+    background: var(--seal-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 3px 6px rgba(255, 255, 255, 0.2),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.seal-inner::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.seal-initials {
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--seal-text);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.envelope.open .seal {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.2) rotate(-30deg);
+}
+
+@keyframes sealPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(44, 44, 44, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(44, 44, 44, 0);
+    }
+}
+
+/* Open Hint */
+.open-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 3rem;
+    transition: all 0.5s ease;
+}
+
+.hint-line {
+    width: 50px;
+    height: 1px;
+    background: var(--color-border);
+}
+
+.hint-text {
+    font-family: var(--font-serif);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.envelope.open ~ .open-hint {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* ----------------------------------------
+   Invitation Section
+   ---------------------------------------- */
+.invitation-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: var(--color-background);
+    padding: 40px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease 0.5s;
+    overflow: hidden;
+}
+
+.invitation-section.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Invitation Card */
+.invitation-card {
+    max-width: 540px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Card Frame */
+.card-frame {
+    background: var(--color-card);
+    padding: 3.5rem 2rem;
+    position: relative;
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.05),
+        0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Double Border */
+.card-frame::before {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid var(--color-border);
+    pointer-events: none;
+}
+
+.card-frame::after {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 1px solid var(--color-border-light);
+    pointer-events: none;
+}
+
+/* Corner Ornaments */
+.corner-ornament {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-primary);
+    opacity: 0.3;
+}
+
+.corner-ornament-tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
+.corner-ornament-tr { top: 22px; right: 22px; border-left: none; border-bottom: none; }
+.corner-ornament-bl { bottom: 22px; left: 22px; border-right: none; border-top: none; }
+.corner-ornament-br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+
+@media (min-width: 480px) {
+    .card-frame {
+        padding: 4.5rem 3.5rem;
+    }
+
+    .card-frame::before {
+        inset: 18px;
+    }
+
+    .card-frame::after {
+        inset: 23px;
+    }
+
+    .corner-ornament { width: 40px; height: 40px; }
+    .corner-ornament-tl { top: 28px; left: 28px; }
+    .corner-ornament-tr { top: 28px; right: 28px; }
+    .corner-ornament-bl { bottom: 28px; left: 28px; }
+    .corner-ornament-br { bottom: 28px; right: 28px; }
+}
+
+/* Card Header */
+.card-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.card-subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: var(--spacing-md);
+    white-space: nowrap;
+    text-align: center;
+}
+
+.card-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bride-name,
+.groom-name {
+    font-family: var(--font-script);
+    font-size: 3.2rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-primary);
+    line-height: 1.15;
+}
+
+@media (min-width: 480px) {
+    .bride-name,
+    .groom-name {
+        font-size: 4rem;
+    }
+}
+
+.names-and {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-accent);
+    margin: 0.4rem 0;
+}
+
+/* Ornaments */
+.ornament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--spacing-lg) 0;
+    color: var(--color-primary);
+}
+
+.ornament-svg {
+    width: 160px;
+    height: 20px;
+    opacity: 0.5;
+}
+
+.ornament-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: var(--spacing-md) 0;
+}
+
+.ornament-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.ornament-line {
+    width: 70px;
+    height: 1px;
+    background: var(--color-border);
+}
+
+/* Card Sections */
+.card-section {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xs);
+}
+
+.section-date {
+    font-family: var(--font-serif);
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.date-day {
+    font-weight: 500;
+}
+
+.date-divider {
+    margin: 0 0.5rem;
+    color: var(--color-primary);
+}
+
+.section-time {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+}
+
+.section-time:last-of-type {
+    margin-bottom: var(--spacing-md);
+}
+
+/* Countdown Timer */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-sm) 0;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.countdown-value {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    line-height: 1.2;
+}
+
+.countdown-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    margin-top: 0.2rem;
+}
+
+/* Map Container */
+.map-container {
+    margin: var(--spacing-md) 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+}
+
+.venue-name {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.venue-address {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 32px;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.btn svg {
+    width: 17px;
+    height: 17px;
+    transition: transform 0.4s ease;
+}
+
+.btn-outline {
+    color: var(--color-primary);
+    background: transparent;
+    border: 1px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline:hover svg {
+    transform: scale(1.15);
+}
+
+/* Card Footer */
+.card-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.footer-ornament {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-ornament span {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    transform: rotate(45deg);
+    opacity: 0.4;
+}
+
+.footer-ornament span:nth-child(2) {
+    opacity: 0.25;
+}
+
+.footer-message {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-signature {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-primary);
+    line-height: 1.6;
+}
+
+/* RSVP Section */
+.rsvp-section {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+}
+
+.rsvp-section .ornament-small {
+    margin-bottom: var(--spacing-md);
+}
+
+.rsvp-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xs);
+}
+
+.rsvp-text {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text);
+    margin: var(--spacing-sm) 0 var(--spacing-md);
+    line-height: 1.7;
+}
+
+.rsvp-date {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.btn-viber {
+    margin-top: var(--spacing-xs);
+    background: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-viber:hover {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.btn-viber svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* RSVP Form */
+.rsvp-form {
+    max-width: 360px;
+    margin: var(--spacing-md) auto 0;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.form-optional {
+    text-transform: none;
+    letter-spacing: 0.05em;
+    font-style: italic;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-input::placeholder {
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.form-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(61, 54, 50, 0.08);
+}
+
+.form-input.error {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+}
+
+.form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239a9088' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+}
+
+/* Radio Buttons */
+.form-radio-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.form-radio:hover {
+    border-color: var(--color-accent);
+}
+
+.form-radio input[type="radio"] {
+    display: none;
+}
+
+.radio-custom {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.3s ease;
+}
+
+.radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+}
+
+.form-radio input[type="radio"]:checked ~ .radio-custom {
+    border-color: var(--color-primary);
+}
+
+.form-radio input[type="radio"]:checked ~ .radio-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.form-radio input[type="radio"]:checked ~ .radio-text {
+    color: var(--color-primary);
+}
+
+.radio-text {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    transition: color 0.3s ease;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--spacing-xs);
+}
+
+.btn-submit.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Form Status Messages */
+.form-status {
+    text-align: center;
+    margin-top: var(--spacing-sm);
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.5;
+    min-height: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+}
+
+.form-status.success {
+    color: #27ae60;
+}
+
+.form-status.error {
+    color: #c0392b;
+}
+
+/* Guests group hide/show */
+#guests-group {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    max-height: 200px;
+    opacity: 1;
+}
+
+#guests-group.hidden-field {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* RSVP Divider */
+.rsvp-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: var(--spacing-md) 0;
+}
+
+.rsvp-divider-line {
+    width: 50px;
+    height: 1px;
+    background: var(--color-border);
+}
+
+.rsvp-divider-text {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+}
+
+/* ----------------------------------------
+   Animations
+   ---------------------------------------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.invitation-section.visible .card-header {
+    animation: fadeInUp 0.9s ease 0.2s both;
+}
+
+.invitation-section.visible .ornament:first-of-type {
+    animation: fadeIn 0.8s ease 0.35s both;
+}
+
+.invitation-section.visible .date-section {
+    animation: fadeInUp 0.9s ease 0.45s both;
+}
+
+.invitation-section.visible .ornament-small {
+    animation: fadeIn 0.8s ease 0.6s both;
+}
+
+.invitation-section.visible .venue-section {
+    animation: fadeInUp 0.9s ease 0.7s both;
+}
+
+.invitation-section.visible .card-footer {
+    animation: fadeInUp 0.9s ease 0.85s both;
+}
+
+.invitation-section.visible .rsvp-section {
+    animation: fadeInUp 0.9s ease 1s both;
+}
+
+/* ----------------------------------------
+   Responsive
+   ---------------------------------------- */
+@media (max-width: 380px) {
+    .envelope {
+        width: 295px;
+        height: 210px;
+    }
+
+    .bride-name,
+    .groom-name {
+        font-size: 2.5rem;
+    }
+
+    .card-frame {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .section-date {
+        font-size: 1.5rem;
+    }
+
+    .venue-name {
+        font-size: 1.3rem;
+    }
+}
+
+/* ----------------------------------------
+   DigiPoz Badge
+   ---------------------------------------- */
+.digipoz-badge {
+    position: fixed;
+    bottom: max(12px, calc(env(safe-area-inset-bottom) + 4px));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.digipoz-badge:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.digipoz-badge-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.digipoz-badge-text {
+    font-size: 11px;
+    font-weight: 500;
+    color: #2C2420;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.digipoz-badge-text span {
+    color: #B8860B;
+}
+
+@media (max-width: 480px) {
+    .digipoz-badge {
+        bottom: max(8px, calc(env(safe-area-inset-bottom) + 4px));
+        padding: 5px 10px;
+        gap: 4px;
+    }
+    .digipoz-badge-icon {
+        width: 14px;
+        height: 14px;
+    }
+    .digipoz-badge-text {
+        font-size: 10px;
+    }
+}
+
+/* ----------------------------------------
+   Print Styles
+   ---------------------------------------- */
+@media print {
+    .envelope-section {
+        display: none !important;
+    }
+
+    .invitation-section {
+        opacity: 1 !important;
+        position: static !important;
+        padding: 0;
+        background: white;
+    }
+
+    .card-frame {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <!-- Envelope Section -->
+    <section class="envelope-section" id="envelope-section">
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <!-- Envelope liner pattern -->
+                <div class="envelope-liner"></div>
+
+                <!-- Back of envelope -->
+                <div class="envelope-back"></div>
+
+                <!-- Letter inside -->
+                <div class="letter" id="letter">
+                    <div class="letter-content">
+                        <span class="letter-script">Јелена & Димитрије</span>
+                        <span class="letter-date">10 · 05 · 2026</span>
+                    </div>
+                </div>
+
+                <!-- Front flap (triangle) -->
+                <div class="envelope-flap">
+                    <div class="flap-inner"></div>
+                </div>
+
+                <!-- Envelope front -->
+                <div class="envelope-front"></div>
+
+                <!-- Wax seal -->
+                <div class="seal">
+                    <div class="seal-inner">
+                        <span class="seal-initials">Ј&Д</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="open-hint">
+                <span class="hint-line"></span>
+                <span class="hint-text">додирните за отварање</span>
+                <span class="hint-line"></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Invitation Section -->
+    <section class="invitation-section" id="invitation-section">
+        <div class="invitation-card">
+            <!-- Elegant frame -->
+            <div class="card-frame">
+                <!-- Corner Ornaments -->
+                <div class="corner-ornament corner-ornament-tl"></div>
+                <div class="corner-ornament corner-ornament-tr"></div>
+                <div class="corner-ornament corner-ornament-bl"></div>
+                <div class="corner-ornament corner-ornament-br"></div>
+
+                <!-- Header -->
+                <header class="card-header">
+                    <p class="card-subtitle">Са великом радошћу позивамо Вас на венчање</p>
+
+                    <div class="card-names">
+                        <h1 class="bride-name">Јелена</h1>
+                        <span class="names-and">&</span>
+                        <h1 class="groom-name">Димитрије</h1>
+                    </div>
+                </header>
+
+                <!-- Ornamental divider -->
+                <div class="ornament">
+                    <svg viewBox="0 0 200 20" class="ornament-svg">
+                        <path d="M0,10 C30,10 30,3 50,3 C70,3 70,10 100,10 C130,10 130,17 150,17 C170,17 170,10 200,10"
+                            fill="none" stroke="currentColor" stroke-width="1" />
+                        <circle cx="100" cy="10" r="3" fill="currentColor" />
+                    </svg>
+                </div>
+
+                <!-- Date & Time Section -->
+                <div class="card-section date-section">
+                    <p class="section-label">Недеља</p>
+                    <p class="section-date">
+                        <span class="date-day">10</span>
+                        <span class="date-divider">·</span>
+                        <span class="date-month">мај</span>
+                        <span class="date-divider">·</span>
+                        <span class="date-year">2026</span>
+                    </p>
+                    <p class="section-time">Почетак у 16:00</p>
+                    <p class="section-time">Грађанско венчање у 17:00</p>
+
+                    <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=%D0%92%D0%B5%D0%BD%D1%87%D0%B0%D1%9A%D0%B5%20%D0%88%D0%B5%D0%BB%D0%B5%D0%BD%D0%B5%20%D0%B8%20%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D1%98%D0%B0&dates=20260510T140000Z/20260510T220000Z&location=%D0%A1%D0%B2%D0%B5%D1%87%D0%B0%D0%BD%D0%B0%20%D0%A1%D0%B0%D0%BB%D0%B0%20%D0%9A%D0%B5%D1%81%D1%82%D0%B5%D0%BD%2C%20%D0%9D%D0%BE%D0%B2%D0%B8%20%D0%A1%D0%B0%D0%B4%2C%20%D0%A1%D1%80%D0%B1%D0%B8%D1%98%D0%B0&details=%D0%A0%D0%B0%D0%B4%D1%83%D1%98%D0%B5%D0%BC%D0%BE%20%D1%81%D0%B5%20%D0%B2%D0%B0%D1%88%D0%B5%D0%BC%20%D0%B4%D0%BE%D0%BB%D0%B0%D1%81%D0%BA%D1%83%21"
+                        class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Додај у календар
+                    </a>
+                </div>
+
+                <!-- Small ornament -->
+                <div class="ornament ornament-small">
+                    <span class="ornament-dot"></span>
+                    <span class="ornament-line"></span>
+                    <span class="ornament-dot"></span>
+                </div>
+
+                <!-- Venue Section -->
+                <div class="card-section venue-section">
+                    <p class="section-label">Место одржавања</p>
+                    <h2 class="venue-name">Ресторан Кестен</h2>
+                    <p class="venue-address">Нови Сад, Србија</p>
+
+                    <!-- Map -->
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.3470148210286!2d19.7264995!3d45.238115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475b0decf358d603%3A0x7dc1a1a875a5154d!2sRestoran%20Kesten!5e1!3m2!1sen!2srs!4v1768167771463!5m2!1sen!2srs"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=Restoran+Kesten+Futog+Novi+Sad+Serbia"
+                        class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Отвори у Google Maps
+                    </a>
+                </div>
+
+                <!-- Footer -->
+                <footer class="card-footer">
+                    <div class="footer-ornament">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p class="footer-message">Радујемо се Вашем присуству!</p>
+                    <p class="footer-signature">С љубављу,<br>породице Стојановић и Бороја</p>
+                </footer>
+
+                <!-- RSVP Section -->
+                <div class="rsvp-section">
+                    <div class="ornament ornament-small">
+                        <span class="ornament-dot"></span>
+                        <span class="ornament-line"></span>
+                        <span class="ornament-dot"></span>
+                    </div>
+                    <p class="rsvp-label">Потврда доласка</p>
+                    <p class="rsvp-text">Молимо Вас потврдите Ваш долазак<br>до <span class="rsvp-date">15. априла
+                            2026.</span></p>
+
+                    <!-- RSVP Form -->
+                    <form id="rsvp-form" class="rsvp-form" novalidate>
+                        <div class="form-group">
+                            <label for="rsvp-name" class="form-label">Име и презиме</label>
+                            <input type="text" id="rsvp-name" name="name" class="form-input" required
+                                placeholder="Ваше име и презиме">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Да ли долазите?</label>
+                            <div class="form-radio-group">
+                                <label class="form-radio">
+                                    <input type="radio" name="attending" value="Да" required>
+                                    <span class="radio-custom"></span>
+                                    <span class="radio-text">Да, долазим</span>
+                                </label>
+                                <label class="form-radio">
+                                    <input type="radio" name="attending" value="Не">
+                                    <span class="radio-custom"></span>
+                                    <span class="radio-text">Нажалост, не могу</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="guests-group">
+                            <label for="rsvp-guests" class="form-label">Број гостију</label>
+                            <select id="rsvp-guests" name="guests" class="form-input form-select">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rsvp-message" class="form-label">Порука <span class="form-optional">(опционо)</span></label>
+                            <textarea id="rsvp-message" name="message" class="form-input form-textarea"
+                                placeholder="Напомена, алергије на храну, итд." rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline btn-submit" id="rsvp-submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 2L11 13"></path>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                            </svg>
+                            Пошаљи потврду
+                        </button>
+
+                        <div class="form-status" id="form-status"></div>
+                    </form>
+
+                    <div class="rsvp-divider">
+                        <span class="rsvp-divider-line"></span>
+                        <span class="rsvp-divider-text">или</span>
+                        <span class="rsvp-divider-line"></span>
+                    </div>
+
+                    <a href="viber://chat?number=%2B381621252102" class="btn btn-outline btn-viber">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M11.398 0C9.654.013 5.952.206 3.867 2.12 2.287 3.7 1.727 5.98 1.661 8.8c-.066 2.82-.148 8.107 4.963 9.632h.004l-.003 2.206s-.035.893.555 1.073c.713.22 1.13-.46 1.812-1.19.374-.403.89-.994 1.28-1.447 3.527.297 6.238-.38 6.545-.48.71-.23 4.725-.745 5.378-6.074.673-5.5-.317-8.985-2.094-10.545C18.267.908 13.145-.014 11.398 0zm.132 1.81c1.578-.014 5.956.096 7.592 1.49 1.322 1.17 1.932 3.883 1.418 8.24-.488 3.98-3.407 4.5-4.003 4.69-.256.083-2.537.643-5.39.464 0 0-2.132 2.573-2.8 3.24-.104.105-.23.148-.313.128-.12-.028-.153-.147-.152-.326l.02-3.515c-4.008-1.17-3.77-5.233-3.72-7.508.052-2.275.468-4.093 1.678-5.292 1.576-1.522 4.592-1.598 5.67-1.61zm.03 2.02c-.087.005-.157.082-.148.17.012.09.086.153.176.146 2.04-.095 3.878.56 5.063 1.81 1.09 1.143 1.628 2.626 1.604 4.418-.002.087.07.16.158.165.004 0 .007 0 .01 0 .086 0 .156-.066.16-.152.025-1.9-.553-3.497-1.724-4.727-1.274-1.337-3.232-2.033-5.38-1.93-.01 0-.02 0-.03.002l.11-.002zm-1.665.938c-.264-.005-.526.13-.697.378l-.57.768c-.156.21-.197.46-.114.69.12.326.39.626.658.9.094.095.195.185.295.27.1.086.2.167.293.237.312.238.67.41 1.05.523.09.03.183.054.275.074.07.015.14.028.21.037.093.01.185.016.278.016.16 0 .317-.02.47-.058.09-.022.177-.05.26-.086.205-.085.387-.21.537-.378.06-.066.112-.14.157-.217.08-.137.133-.287.156-.445.015-.1-.02-.2-.094-.263-.235-.2-.506-.366-.803-.49-.124-.05-.254-.09-.388-.115-.143-.027-.232.047-.294.128l-.308.4c-.086.11-.233.148-.36.096-.405-.17-.738-.4-1-.683-.26-.283-.45-.602-.574-.957-.047-.135.004-.284.126-.36l.424-.274c.09-.058.13-.16.114-.262-.044-.272-.165-.535-.357-.77-.094-.116-.216-.197-.36-.227-.04-.01-.08-.014-.12-.014l-.144-.007zm3.446.323c-.08 0-.155.058-.166.14-.012.087.048.168.136.18 1.074.158 1.996.617 2.67 1.328.666.704 1.058 1.63 1.137 2.68.007.09.085.156.175.15.09-.005.157-.083.15-.172-.086-1.14-.517-2.152-1.25-2.928-.74-.78-1.75-1.28-2.922-1.45-.01-.002-.02-.002-.03-.002l.1.074zm.48 1.49c-.078 0-.15.055-.164.134-.017.088.04.172.127.19.69.13 1.227.683 1.41 1.324.028.098.13.154.228.126.097-.03.153-.13.126-.227-.228-.79-.88-1.473-1.73-1.632-.01-.002-.02-.003-.03-.003l.032.088zm-1.315 1.598c.158 0 .314.047.447.14l.015.013c.14.107.236.253.282.42.046.167.038.346-.024.51l-.006.018c-.1.25-.316.433-.582.498-.026.008-.053.012-.08.018-.09.016-.18.017-.27.003-.106-.015-.21-.048-.308-.098-.008-.004-.015-.008-.022-.012-.506-.25-.96-.582-1.345-.986-.388-.406-.706-.88-.94-1.404-.003-.006-.006-.013-.008-.02-.043-.094-.07-.195-.082-.298-.01-.088-.004-.177.015-.265.007-.028.016-.056.026-.083.08-.26.277-.466.536-.554.02-.006.04-.01.06-.014.16-.032.327-.018.48.04.154.06.286.165.38.302l.01.015c.06.093.16.308.26.533.1.23.188.468.188.548v.016c-.003.15-.062.295-.167.404l-.182.2c-.08.088-.09.22-.02.32.248.353.568.656.94.89.107.066.242.052.332-.034l.2-.188c.098-.094.227-.15.363-.16h.02z" />
+                        </svg>
+                        Пишите нам на Viber
+                    </a>
+
+                    <!-- Countdown Timer -->
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-days">0</span>
+                            <span class="countdown-label">дана</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-hours">0</span>
+                            <span class="countdown-label">сати</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-minutes">0</span>
+                            <span class="countdown-label">минута</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-seconds">0</span>
+                            <span class="countdown-label">секунди</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DigiPoz Badge -->
+    <a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener" class="digipoz-badge" title="Napravljeno od strane DigiPoz">
+        <svg class="digipoz-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="#B8860B" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="5" stroke="#B8860B" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="#B8860B"/>
+        </svg>
+        <span class="digipoz-badge-text">Digi<span>Poz</span></span>
+    </a>
+
+    <script>
+/**
+ * Wedding Invitation - Јелена & Димитрије
+ * Minimal Design
+ */
+
+(function() {
+    'use strict';
+
+    // DOM Elements
+    const envelope = document.getElementById('envelope');
+    const envelopeSection = document.getElementById('envelope-section');
+    const invitationSection = document.getElementById('invitation-section');
+
+    // State
+    let isOpened = false;
+
+    // RSVP date: April 15, 2026 at 16:00 (Serbia time, UTC+2)
+    const rsvpDate = new Date('2026-04-15T16:00:00+02:00');
+
+    /**
+     * Initialize the application
+     */
+    function init() {
+        // Set up event listeners
+        setupEventListeners();
+
+        // Start countdown timer
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Check for direct invitation link
+        if (window.location.hash === '#invitation') {
+            setTimeout(skipToInvitation, 100);
+        }
+    }
+
+    /**
+     * Update countdown timer
+     */
+    function updateCountdown() {
+        const now = new Date();
+        const diff = rsvpDate - now;
+
+        if (diff <= 0) {
+            // Wedding day has arrived
+            document.getElementById('countdown-days').textContent = '0';
+            document.getElementById('countdown-hours').textContent = '0';
+            document.getElementById('countdown-minutes').textContent = '0';
+            document.getElementById('countdown-seconds').textContent = '0';
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-days').textContent = days;
+        document.getElementById('countdown-hours').textContent = hours;
+        document.getElementById('countdown-minutes').textContent = minutes;
+        document.getElementById('countdown-seconds').textContent = seconds;
+    }
+
+    // =====================
+    // RSVP Form
+    // =====================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMQzI1RBnxSR1jCS9l7VoRNhwNRbkTlisiVT8fNH8lWu2qClyq-pTLNtyqMvUJ2NHX/exec';
+
+    const rsvpForm = document.getElementById('rsvp-form');
+    const formStatus = document.getElementById('form-status');
+    const guestsGroup = document.getElementById('guests-group');
+    const submitBtn = document.getElementById('rsvp-submit');
+
+    if (rsvpForm) {
+        // Toggle guests field based on attendance
+        rsvpForm.addEventListener('change', function(e) {
+            if (e.target.name === 'attending') {
+                if (e.target.value === 'Не') {
+                    guestsGroup.classList.add('hidden-field');
+                } else {
+                    guestsGroup.classList.remove('hidden-field');
+                }
+            }
+        });
+
+        rsvpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+
+            // Validate
+            var name = rsvpForm.querySelector('[name="name"]').value.trim();
+            var attending = rsvpForm.querySelector('[name="attending"]:checked');
+
+            if (!name) {
+                showFormError('Молимо унесите Ваше име.');
+                rsvpForm.querySelector('[name="name"]').classList.add('error');
+                return;
+            }
+            rsvpForm.querySelector('[name="name"]').classList.remove('error');
+
+            if (!attending) {
+                showFormError('Молимо означите да ли долазите.');
+                return;
+            }
+
+            var guests = attending.value === 'Да' ? rsvpForm.querySelector('[name="guests"]').value : '0';
+            var message = rsvpForm.querySelector('[name="message"]').value.trim();
+
+            // Disable button
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Шаљем...';
+
+            var data = {
+                name: name,
+                attending: attending.value,
+                guests: guests,
+                message: message
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(function() {
+                formStatus.textContent = 'Хвала Вам! Ваша потврда је примљена.';
+                formStatus.className = 'form-status success';
+                rsvpForm.reset();
+                guestsGroup.classList.remove('hidden-field');
+            })
+            .catch(function() {
+                showFormError('Дошло је до грешке. Покушајте поново или нас контактирајте на Viber.');
+            })
+            .finally(function() {
+                submitBtn.classList.remove('loading');
+                submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"></path><path d="M22 2L15 22L11 13L2 9L22 2Z"></path></svg> Пошаљи потврду';
+            });
+        });
+    }
+
+    function showFormError(msg) {
+        formStatus.textContent = msg;
+        formStatus.className = 'form-status error';
+        submitBtn.classList.remove('loading');
+        submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"></path><path d="M22 2L15 22L11 13L2 9L22 2Z"></path></svg> Пошаљи потврду';
+    }
+
+    /**
+     * Set up all event listeners
+     */
+    function setupEventListeners() {
+        // Envelope click handler
+        if (envelope) {
+            envelope.addEventListener('click', handleEnvelopeClick);
+            envelope.addEventListener('touchend', handleEnvelopeClick);
+
+            // Keyboard accessibility
+            envelope.setAttribute('tabindex', '0');
+            envelope.setAttribute('role', 'button');
+            envelope.setAttribute('aria-label', 'Отворите позивницу');
+
+            envelope.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleEnvelopeClick();
+                }
+            });
+        }
+    }
+
+    /**
+     * Handle envelope click/tap
+     */
+    function handleEnvelopeClick(e) {
+        if (e) e.preventDefault();
+        if (isOpened) return;
+        isOpened = true;
+
+        // Add open class to trigger CSS animations
+        envelope.classList.add('open');
+
+        // After envelope flap opens, start the smooth transition
+        setTimeout(() => {
+            showInvitation();
+        }, 1200);
+    }
+
+    /**
+     * Show the invitation section
+     */
+    function showInvitation() {
+        // Hide envelope section
+        envelopeSection.classList.add('hidden');
+
+        // Show invitation section
+        invitationSection.classList.add('visible');
+
+        // Scroll to top after envelope collapse transition completes (1.2s)
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 1300);
+    }
+
+    /**
+     * Reset to envelope view (for testing/debugging)
+     */
+    function reset() {
+        isOpened = false;
+        envelope.classList.remove('open');
+        envelopeSection.classList.remove('hidden');
+        invitationSection.classList.remove('visible');
+    }
+
+    /**
+     * Skip envelope animation and go directly to invitation
+     */
+    function skipToInvitation() {
+        isOpened = true;
+        envelopeSection.classList.add('hidden');
+        invitationSection.classList.add('visible');
+    }
+
+    // Expose functions for debugging
+    window.resetInvitation = reset;
+    window.skipToInvitation = skipToInvitation;
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
+    </script>
+</body>
+
+</html>
