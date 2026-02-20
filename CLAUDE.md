@@ -8,7 +8,7 @@
 
 # public/
 
-GitHub Pages root. All content in this directory is served at pozivnice.rs.
+GitHub Pages root. All content in this directory is served at digipoz.rs.
 
 ## Structure
 
@@ -17,7 +17,7 @@ GitHub Pages root. All content in this directory is served at pozivnice.rs.
 | `index.html` | Landing page |
 | `form.html` | Intake form (6-step wizard). Submits to Google Form via `formResponse` endpoint using `no-cors`. |
 | `showcase.html` | Theme showcase gallery |
-| `CNAME` | Custom domain: pozivnice.rs |
+| `CNAME` | Custom domain: digipoz.rs |
 | `preview/` | Temporary preview sites (`preview/{slug}/` for original, `preview/{slug}-{layout}/` for 2026) |
 | `site/` | Final published invitation sites (`site/{slug}/index.html`) |
 | `screenshots/` | Theme thumbnail images |
