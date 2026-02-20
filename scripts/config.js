@@ -16,7 +16,7 @@ const config = {
   RSVP_SCRIPT_URL: process.env.RSVP_SCRIPT_URL || '',
 
   // Domain Configuration
-  DOMAIN: process.env.DOMAIN || 'pozivnice.rs',
+  DOMAIN: process.env.DOMAIN || 'digipoz.rs',
 
   // Preview Settings
   PREVIEW_EXPIRY_HOURS: parseInt(process.env.PREVIEW_EXPIRY_HOURS) || 24,

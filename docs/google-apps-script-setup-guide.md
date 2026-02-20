@@ -229,7 +229,7 @@ To send automatic emails to couples when their preview/final site is ready:
 
 | Secret | Value |
 |--------|-------|
-| `EMAIL_USERNAME` | Your Gmail address (e.g., `pozivnice.rs@gmail.com`) |
+| `EMAIL_USERNAME` | Your Gmail address (e.g., `digipoz.rs@gmail.com`) |
 | `EMAIL_PASSWORD` | A Gmail **App Password** (not your regular password) |
 
 To create a Gmail App Password:
@@ -285,9 +285,9 @@ git push
 1. Submit the form at `form.html` (or the Google Form directly)
 2. Check the Master Sheet — new row should appear in "Form Responses"
 3. Check GitHub Actions — `generate-preview.yml` should be running
-4. After ~2-3 min, preview should be live at `https://pozivnice.rs/preview/{slug}/`
+4. After ~2-3 min, preview should be live at `https://digipoz.rs/preview/{slug}/`
 5. On the preview page, select a theme → `generate-final.yml` triggers
-6. After ~2 min, final site is at `https://pozivnice.rs/site/{slug}/`
+6. After ~2 min, final site is at `https://digipoz.rs/site/{slug}/`
 7. Submit a test RSVP on the final site → check the per-couple RSVP spreadsheet
 
 ---

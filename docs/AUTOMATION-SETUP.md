@@ -62,7 +62,7 @@ git push -u origin main
 
 1. Иди на Settings > Secrets and variables > Actions
 2. Додај ове секрете:
-   - `EMAIL_USERNAME`: твој Gmail (нпр. `pozivnice.rs@gmail.com`)
+   - `EMAIL_USERNAME`: твој Gmail (нпр. `digipoz.rs@gmail.com`)
    - `EMAIL_PASSWORD`: App Password (не обична лозинка!)
 
 **За App Password:**

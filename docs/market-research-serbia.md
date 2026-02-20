@@ -25,7 +25,7 @@
 | Provider | Basic | Standard | Premium | Key Features |
 |----------|-------|----------|---------|--------------|
 | **sajtzavencanje.rs** | €59 | €79 | €109 | RSVP, map, countdown, 6-12mo hosting |
-| **digitalnepozivnice.rs** | Unknown | Unknown | Unknown | 1000+ designs, "cheapest in Balkans", hours delivery |
+| **digitalnedigipoz.rs** | Unknown | Unknown | Unknown | 1000+ designs, "cheapest in Balkans", hours delivery |
 | **svetpozivnica.rs** | Unknown | Unknown | Unknown | Smart + Classic, QR album, 1-3 days |
 | **digitalnasvadba.rs** | Unknown | Unknown | Unknown | RSVP, map, gallery |
 | **e-pozivnica.rs** | Unknown | Unknown | Unknown | 3-6 months active |
@@ -140,7 +140,7 @@ You already have what NO Serbian competitor offers:
 ## SOURCES
 
 - [sajtzavencanje.rs](https://sajtzavencanje.rs/)
-- [digitalnepozivnice.rs](https://digitalnepozivnice.rs/)
+- [digitalnedigipoz.rs](https://digitalnedigipoz.rs/)
 - [svetpozivnica.rs](https://svetpozivnica.rs/)
 - [digitalnasvadba.rs](https://digitalnasvadba.rs/)
 - [@pozivnice_comlab](https://www.instagram.com/pozivnice_comlab/)

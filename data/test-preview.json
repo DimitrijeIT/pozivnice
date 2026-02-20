@@ -1,0 +1,23 @@
+{
+  "bride_name": "Nikolina",
+  "groom_name": "Milomir",
+  "wedding_date": "2026-10-06",
+  "ceremony_venue": "Hram Svetog Save",
+  "ceremony_address": "Krusedolska 2a, Beograd",
+  "ceremony_time": "15:30",
+  "ceremony_map_url": "https://maps.app.goo.gl/ycjsGVejMEb8cXc17",
+  "reception_venue": "Restoran Kalemegdan",
+  "reception_address": "Mali Kalemegdan 1, Beograd",
+  "reception_time": "20:30",
+  "reception_map_url": "",
+  "contact_email": "test@test.com",
+  "story_text": "Mnogo se volimo",
+  "dress_code_text": "Elegantno",
+  "wedding_hashtag": "#IDEMOOOO",
+  "additional_info": "Ima Parking, bice lepo",
+  "rsvp_deadline": "",
+  "invitation_intro": "Са великом радошћу вас позивамо",
+  "invitation_text": "да присуствујете нашем венчању и прослави љубави.",
+  "invitation_signature": "Са љубављу, младенци",
+  "slug": "test-preview"
+}

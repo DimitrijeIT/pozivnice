@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DigiPoz is a Serbian wedding invitation platform with 29 unique designs (10 original 2025 themes + 19 standalone 2026 layouts). Couples fill an intake form (`public/form.html`), which triggers automated preview generation, theme selection, final site publishing, and guest RSVP tracking — all via Google Apps Script webhooks, GitHub Actions, and GitHub Pages.
 
-**Domain:** pozivnice.rs | **Language:** Serbian Cyrillic | **Hosting:** GitHub Pages
+**Domain:** digipoz.rs | **Language:** Serbian Cyrillic | **Hosting:** GitHub Pages
 
 ## Commands
 
