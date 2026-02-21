@@ -12,8 +12,172 @@
   <meta property="og:url" content="https://digipoz.rs">
   <meta property="og:image" content="https://digipoz.rs/digipoz_logo.png">
   <meta property="og:locale" content="sr_RS">
+  <meta property="og:site_name" content="DigiPoz">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DigiPoz — Дигиталне позивнице за венчање">
+  <meta name="twitter:description" content="20+ јединствених интерактивних дизајна. Позивница какву Србија још није видела.">
+  <meta name="twitter:image" content="https://digipoz.rs/digipoz_logo.png">
   <link rel="icon" type="image/png" href="digipoz_logo.png">
   <link rel="canonical" href="https://digipoz.rs">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://digipoz.rs/#website",
+        "url": "https://digipoz.rs",
+        "name": "DigiPoz",
+        "description": "Дигиталне позивнице за венчање са 20+ интерактивних дизајна",
+        "inLanguage": "sr",
+        "publisher": { "@id": "https://digipoz.rs/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://digipoz.rs/#organization",
+        "name": "DigiPoz",
+        "url": "https://digipoz.rs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://digipoz.rs/digipoz_logo.png"
+        },
+        "sameAs": [
+          "https://www.instagram.com/digipoz_/"
+        ],
+        "description": "DigiPoz је српска платформа за дигиталне позивнице за венчање са преко 20 јединствених интерактивних дизајна. Свака позивница укључује RSVP, одбројавање, Google Maps и музику.",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Serbia"
+        },
+        "knowsLanguage": "sr"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://digipoz.rs/#service",
+        "name": "Дигиталне позивнице за венчање",
+        "description": "Интерактивне дигиталне позивнице за венчање са RSVP системом, одбројавањем, Google Maps интеграцијом, фото галеријом и музичким плејером. Спремне за 5 минута, неограничен број гостију.",
+        "provider": { "@id": "https://digipoz.rs/#organization" },
+        "serviceType": "Дигиталне позивнице за венчање",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Serbia"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Пакети позивница",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Основни пакет",
+              "description": "1 дизајн по избору, RSVP образац, Google Maps, одбројавање, неограничен број гостију",
+              "price": "4500",
+              "priceCurrency": "RSD",
+              "url": "https://digipoz.rs/#pricing"
+            },
+            {
+              "@type": "Offer",
+              "name": "Премиум пакет",
+              "description": "Све из Основног + фото галерија, музички плејер, љубавна прича, избор оброка",
+              "price": "8000",
+              "priceCurrency": "RSD",
+              "url": "https://digipoz.rs/#pricing",
+              "availability": "https://schema.org/PreOrder"
+            },
+            {
+              "@type": "Offer",
+              "name": "Ексклузивни пакет",
+              "description": "Све из Премиум + 20 слика, прилагођене боје и фонтови, dress code секција, неограничене измене",
+              "price": "13000",
+              "priceCurrency": "RSD",
+              "url": "https://digipoz.rs/#pricing",
+              "availability": "https://schema.org/PreOrder"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://digipoz.rs/#webpage",
+        "url": "https://digipoz.rs",
+        "name": "DigiPoz — Дигиталне позивнице за венчање | 20+ интерактивних дизајна",
+        "description": "Јединствене дигиталне позивнице за венчање са 20+ интерактивних дизајна. Cinema, Passport, Magazine и још много тога. RSVP, одбројавање, Google Maps — све у једној позивници.",
+        "isPartOf": { "@id": "https://digipoz.rs/#website" },
+        "about": { "@id": "https://digipoz.rs/#service" },
+        "inLanguage": "sr"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://digipoz.rs/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Како гости отварају позивницу?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Гости добијају линк који отварају у било ком прегледачу на телефону или рачунару. Није потребна инсталација апликације — позивница ради на свим уређајима."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Колико гостију могу да позовем?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Неограничен број! За разлику од штампаних позивница, једном креирана дигитална позивница се шаље свим гостима путем једног линка. Без додатних трошкова."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Како функционише RSVP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Свака позивница садржи образац за потврду доласка. Када гост попуни образац, одговор се аутоматски бележи у вашу Google Sheets табелу коју можете пратити у реалном времену."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Могу ли да мењам позивницу након израде?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да! Премиум пакет укључује 1 бесплатну измену, а Ексклузивни пакет неограничене измене. Основни пакет може да се надогради у било ком тренутку."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Како се шаље линк гостима?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Можете поделити линк путем Вибера, WhatsApp-а, SMS-а, имејла или друштвених мрежа. Ми вам дајемо кратак, елегантан линк који је лако поделити."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Колико дуго позивница остаје активна?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Позивница остаје активна минимум 6 месеци од датума венчања. Након тога је можемо продужити на ваш захтев, бесплатно."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Да ли могу да додам сопствене фотографије?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Апсолутно! Премиум и Ексклузивни пакети подржавају фото галерију. Пошаљите нам фотографије и ми их уклапамо у дизајн ваше позивнице."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Колико брзо могу добити готову позивницу?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ваша позивница је спремна за само 5 минута од тренутка када попуните формулар. Наш систем аутоматски генерише све дизајне са вашим подацима."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -823,6 +987,39 @@
 
     .pricing-card .btn { width: 100%; justify-content: center; }
 
+    /* --- TESTIMONIALS --- */
+    .testimonials { background: var(--color-surface); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--color-border-light);
+      background: var(--color-bg);
+    }
+
+    .testimonial-text {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-accent);
+    }
+
     /* --- FAQ --- */
     .faq-list {
       max-width: 700px;
@@ -1051,7 +1248,7 @@
     <div class="hero-content">
       <div class="hero-badge reveal">Ново у Србији</div>
       <h1 class="reveal">Позивница какву ваши гости <em>још нису видели</em></h1>
-      <p class="hero-sub reveal">Интерактивне дигиталне позивнице за венчање са 20+ јединствених дизајна. RSVP, одбројавање, мапа, музика — све на једном месту.</p>
+      <p class="hero-sub reveal">Интерактивне дигиталне позивнице за венчање са 20+ јединствених дизајна. RSVP, одбројавање, мапа, музика — све на једном месту. До 70% јефтиније од штампаних позивница, а спремне за 5 минута.</p>
       <p class="hero-sub reveal" style="font-style: italic; text-align: center; color: var(--color-accent); font-weight: 400;">Позивнице спремне за 5 минута, а наш AI ће вам помоћи да испричате вашу причу.</p>
       <div class="hero-actions reveal">
         <a href="showcase.html" class="btn btn-primary">Погледајте дизајне</a>
@@ -1330,6 +1527,7 @@
       <div class="section-header reveal">
         <div class="section-label">Поређење</div>
         <h2 class="section-title">Штампане vs дигиталне позивнице</h2>
+        <p class="section-desc">Просечна свадба у Србији има 150-300 гостију. Штампане позивнице за 200 гостију коштају 15.000-30.000 динара. DigiPoz позивница покрива неограничен број гостију од 4.500 динара — уштеда од 70% и више.</p>
       </div>
       <div class="comparison-table reveal">
         <div class="comparison-row header">
@@ -1438,6 +1636,30 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Утисци парова</div>
+        <h2 class="section-title">Шта кажу наши парови</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-text">"Гости су били одушевљени! Сви су коментарисали да никад нису видели овакву позивницу. А ми смо уштедели преко 20.000 динара у односу на штампане."</div>
+          <div class="testimonial-author">Јелена и Димитрије, мај 2026</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-text">"За 5 минута смо попунили формулар и добили преглед свих дизајна. Cinema дизајн је изгледао као филмски постер са нашим именима. Генијално!"</div>
+          <div class="testimonial-author">Ана и Марко, јун 2026</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-text">"RSVP систем нам је уштедео сате телефонирања. У реалном времену смо пратили ко долази — нема више Excel табела и бележница."</div>
+          <div class="testimonial-author">Милица и Стефан, април 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="section-inner">
@@ -1497,7 +1719,7 @@
     <div class="footer-text">Дигиталне позивнице за венчање</div>
     <ul class="footer-links">
       <li><a href="showcase.html">Сви дизајни</a></li>
-      <li><a href="#pricing">Цене</a></li>
+      <li><a href="cene.html">Цене</a></li>
       <li><a href="#faq">Питања</a></li>
       <li><a href="https://www.instagram.com/digipoz_/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>

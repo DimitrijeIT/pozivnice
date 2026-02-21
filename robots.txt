@@ -1,0 +1,41 @@
+# DigiPoz - digipoz.rs
+# Allow all search engines and AI bots
+
+User-agent: *
+Allow: /
+Disallow: /preview/
+Disallow: /site/
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing / Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+User-agent: msnbot
+Allow: /
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Common crawlers
+User-agent: Applebot
+Allow: /
+User-agent: DuckDuckBot
+Allow: /
+
+Sitemap: https://digipoz.rs/sitemap.xml
