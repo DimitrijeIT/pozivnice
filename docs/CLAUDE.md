@@ -10,9 +10,10 @@
 
 Project documentation.
 
-## Key Document
+## Key Documents
 
 - `architecture.md` — Complete technical reference for the entire system (pipelines, data schema, scripts, GAS, workflows, security)
+- `adding-templates.md` — How to add new 2026 layout templates and themes (template spec, file checklist, placeholder reference, testing)
 
 ## Setup Guides
 
