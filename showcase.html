@@ -142,6 +142,20 @@
 
     .nav-back:hover { color: var(--color-accent); }
 
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 400; color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s; letter-spacing: 0.01em; }
+    .nav-links a:hover { color: var(--color-accent); }
+    .nav-cta { display: inline-flex; align-items: center; padding: 0.5rem 1.25rem; background: var(--color-text); color: var(--color-bg) !important; border-radius: 6px; font-weight: 500; font-size: 0.8125rem !important; letter-spacing: 0.02em; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--color-accent) !important; color: #fff !important; }
+    .nav-mobile-toggle { display: none; background: none; border: none; width: 32px; height: 32px; cursor: pointer; position: relative; }
+    .nav-mobile-toggle span { display: block; width: 20px; height: 2px; background: var(--color-text); position: absolute; left: 6px; transition: top 0.3s, transform 0.3s, opacity 0.3s; }
+    .nav-mobile-toggle span:nth-child(1) { top: 10px; }
+    .nav-mobile-toggle span:nth-child(2) { top: 16px; }
+    .nav-mobile-toggle span:nth-child(3) { top: 22px; }
+    .nav-mobile-toggle.open span:nth-child(1) { top: 16px; transform: rotate(45deg); }
+    .nav-mobile-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-mobile-toggle.open span:nth-child(3) { top: 16px; transform: rotate(-45deg); }
+
     /* HEADER */
     .page-header {
       padding: 7rem 1.5rem 2.5rem;
@@ -403,6 +417,10 @@
 
     /* MOBILE */
     @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--color-bg); border-bottom: 1px solid var(--color-border); padding: 1rem 1.5rem 1.5rem; gap: 0.5rem; }
+      .nav-links.open a { padding: 0.625rem 0; display: block; }
+      .nav-mobile-toggle { display: block; }
       .page-header { padding: 6rem 1.25rem 2rem; }
       .page-header-stats { gap: 1.5rem; font-size: 0.8125rem; }
       .gallery-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
@@ -422,7 +440,14 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-logo"><img src="digipoz_logo.png" alt="DigiPoz — дигиталне позивнице за венчање"><span class="nav-logo-text">Digi<span>Poz</span></span></a>
-      <a href="/" class="nav-back">&larr; Назад на почетну</a>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Мени"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Почетна</a></li>
+        <li><a href="cene.html">Цене</a></li>
+        <li><a href="saveti/">Савети</a></li>
+        <li><a href="/#features">Могућности</a></li>
+        <li><a href="form.html" class="nav-cta">Креирајте позивницу</a></li>
+      </ul>
     </div>
   </nav>
 
@@ -729,7 +754,7 @@
   </section>
 
   <footer class="footer">
-    <div class="footer-text">&copy; 2026 <a href="/">DigiPoz</a>. Сва права задржана.</div>
+    <div class="footer-text">&copy; 2026 <a href="/">DigiPoz</a>. Сва права задржана. | <a href="saveti/" style="color: var(--color-accent); text-decoration: none;">Савети</a></div>
   </footer>
 
   <script>
@@ -742,6 +767,24 @@
         });
       }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
       els.forEach(function(el) { obs.observe(el); });
+    })();
+
+    // Mobile nav
+    (function() {
+      var toggle = document.getElementById('nav-toggle');
+      var links = document.getElementById('nav-links');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          toggle.classList.toggle('open');
+          links.classList.toggle('open');
+        });
+        links.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', function() {
+            toggle.classList.remove('open');
+            links.classList.remove('open');
+          });
+        });
+      }
     })();
 
     // Filter
