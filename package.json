@@ -18,6 +18,10 @@
     "images:chatgpt": "node scripts/generate-images-chatgpt.js",
     "images:chatgpt:list": "node scripts/generate-images-chatgpt.js --list",
     "campaign:10day": "node scripts/generate-instagram-10day-assets.js",
+    "campaign:scroll-live": "node scripts/generate-instagram-scroll-videos.js",
+    "reel:audio:pack": "node scripts/reel-audio-tool.js synth-pack",
+    "reel:audio:best7": "node scripts/reel-audio-tool.js best7",
+    "reel:audio:attach": "node scripts/reel-audio-tool.js attach",
     "chrome:debug": "open -a 'Google Chrome' --args --remote-debugging-port=9222",
     "screenshots": "node scripts/generate-screenshots.js"
   },
